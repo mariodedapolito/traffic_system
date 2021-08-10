@@ -14,11 +14,19 @@ public class Street : MonoBehaviour
     public bool isCurve;
     public int numberLanes;
 
+    //Intersection data structures
     private CarAI[] intersectionQueue1Lane;
     private CarAI[,] intersectionQueue2Lane;
     private int[,] intersectionBusyMarker;
     private int numberCarsInsideIntersection;
     private int numberCarsWaiting;
+
+    //Semaphore data structures
+    public Semaphore[] intersectionSemaphores;
+    public int semaphoreTimerMainLane;
+    public int semaphoreTimerLeftLane;
+    private float semaphoreTime;
+    private int semaphoreTurn;
 
     private const int LEFT = 0;
     private const int STRAIGHT = 1;
@@ -78,14 +86,22 @@ public class Street : MonoBehaviour
                 Debug.Log("Initialized intersection data structures for: 2 lane intersection");
             }
         }
+
+            if (isSemaphoreIntersection)
+            {
+                intersectionSemaphores[0].greenLights[0].enabled = true;
+                intersectionSemaphores[2].greenLights[0].enabled = true;
+                intersectionSemaphores[1].redLights[0].enabled = true;
+                intersectionSemaphores[3].redLights[0].enabled = true;
+            }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (numberCarsWaiting > 0)
+        if (isSimpleIntersection)
         {
-            if (isSimpleIntersection)
+            if (numberCarsWaiting > 0)
             {
                 for (int i = 0; i < 4; i++)
                 {
@@ -107,23 +123,84 @@ public class Street : MonoBehaviour
                     {
                         for (int j = 0; j < 2; j++)
                         {
-                            if (intersectionQueue2Lane[i,j] != null)
+                            if (intersectionQueue2Lane[i, j] != null)
                             {
-                                CarAI car = intersectionQueue2Lane[i,j];
+                                CarAI car = intersectionQueue2Lane[i, j];
                                 if (intersectionBusyMarker[i, car.intersectionDirection] == 0)
                                 {
                                     intersectionPriorityCleaner(car, car.intersectionEnterId);
                                     intersectionManager(car, i);
-                                    intersectionQueue2Lane[i,j] = null;
+                                    intersectionQueue2Lane[i, j] = null;
                                     numberCarsWaiting--;
                                 }
                             }
                         }
                     }
+
+                }
+            }
+            
+        }
+            else if (isSemaphoreIntersection)
+            {
+                if (numberLanes == 1)
+                {
+                    semaphoreTime += Time.deltaTime;
+                    Debug.Log(semaphoreTime);
+                    if (semaphoreTime > semaphoreTimerMainLane)
+                    {
+                        semaphoreTurn++;
+                        semaphoreTime = 0;
+                        if (semaphoreTurn % 2 == 0)
+                        {
+                            intersectionSemaphores[1].yellowLights[0].enabled = false;
+                            intersectionSemaphores[3].yellowLights[0].enabled = false;
+                            intersectionSemaphores[1].redLights[0].enabled = true;
+                            intersectionSemaphores[3].redLights[0].enabled = true;
+
+                            intersectionSemaphores[0].redLights[0].enabled = false;
+                            intersectionSemaphores[2].redLights[0].enabled = false;
+                            intersectionSemaphores[0].greenLights[0].enabled = true;
+                            intersectionSemaphores[2].greenLights[0].enabled = true;
+                        }
+                        else
+                        {
+                            intersectionSemaphores[1].redLights[0].enabled = false;
+                            intersectionSemaphores[3].redLights[0].enabled = false;
+                            intersectionSemaphores[1].greenLights[0].enabled = true;
+                            intersectionSemaphores[3].greenLights[0].enabled = true;
+
+
+                            intersectionSemaphores[0].yellowLights[0].enabled = false;
+                            intersectionSemaphores[2].yellowLights[0].enabled = false;
+                            intersectionSemaphores[0].redLights[0].enabled = true;
+                            intersectionSemaphores[2].redLights[0].enabled = true;
+                        }
+                    }
+                    else if (semaphoreTime > semaphoreTimerMainLane - 2)
+                    {
+                        if (semaphoreTurn % 2 == 0)
+                        {
+                            intersectionSemaphores[0].greenLights[0].enabled = false;
+                            intersectionSemaphores[2].greenLights[0].enabled = false;
+                            intersectionSemaphores[0].yellowLights[0].enabled = true;
+                            intersectionSemaphores[2].yellowLights[0].enabled = true;
+                        }
+                        else
+                        {
+                            intersectionSemaphores[1].greenLights[0].enabled = false;
+                            intersectionSemaphores[3].greenLights[0].enabled = false;
+                            intersectionSemaphores[1].yellowLights[0].enabled = true;
+                            intersectionSemaphores[3].yellowLights[0].enabled = true;
+                        }
+                    }
+                }
+                else if (numberLanes == 2)
+                {
+
                 }
             }
         }
-    }
 
     private void intersectionPriorityCleaner(CarAI car, int intersectionEnterId)
     {
@@ -143,7 +220,7 @@ public class Street : MonoBehaviour
                     intersectionBusyMarker[calculateRoad(car.intersectionEnterId - 1) % 4, RIGHT]--;
 
                     //Block traffic from STRAIGHT that will turn left (everyone in front of me that will turn left has to give me precedence as I will be on their right during the turn)
-                    intersectionBusyMarker[calculateRoad(car.intersectionEnterId + 2) % 4, LEFT]--;
+                    //intersectionBusyMarker[calculateRoad(car.intersectionEnterId + 2) % 4, LEFT]--;
                 }
                 else if (car.intersectionDirection == LEFT)
                 {
@@ -151,6 +228,9 @@ public class Street : MonoBehaviour
                     intersectionBusyMarker[calculateRoad(car.intersectionEnterId - 1) % 4, LEFT]--;
                     intersectionBusyMarker[calculateRoad(car.intersectionEnterId - 1) % 4, STRAIGHT]--;
                 }
+                /*intersectionBusyMarker[calculateRoad(car.intersectionEnterId - 1) % 4, LEFT]--;
+                intersectionBusyMarker[calculateRoad(car.intersectionEnterId - 1) % 4, STRAIGHT]--;
+                intersectionBusyMarker[calculateRoad(car.intersectionEnterId - 1) % 4, RIGHT]--;*/
             }
             else if (numberLanes == 2)
             {
@@ -174,6 +254,9 @@ public class Street : MonoBehaviour
                     intersectionBusyMarker[calculateRoad(car.intersectionEnterId - 1) % 4, LEFT]--;
                     intersectionBusyMarker[calculateRoad(car.intersectionEnterId - 1) % 4, STRAIGHT]--;
                 }
+                /*intersectionBusyMarker[calculateRoad(car.intersectionEnterId - 1) % 4, LEFT]--;
+                intersectionBusyMarker[calculateRoad(car.intersectionEnterId - 1) % 4, STRAIGHT]--;
+                intersectionBusyMarker[calculateRoad(car.intersectionEnterId - 1) % 4, RIGHT]--;*/
             }
         }
         else if (isSemaphoreIntersection)
@@ -302,7 +385,7 @@ public class Street : MonoBehaviour
                 intersectionBusyMarker[calculateRoad(intersectionRoadId - 1) % 4, RIGHT]++;
 
                 //Block traffic from STRAIGHT that will turn left (everyone in front of me that will turn left has to give me precedence as I will be on their right during the turn)
-                intersectionBusyMarker[calculateRoad(intersectionRoadId + 2) % 4, LEFT]++;
+                //intersectionBusyMarker[calculateRoad(intersectionRoadId + 2) % 4, LEFT]++;
             }
             else if (car.intersectionDirection == LEFT)
             {
@@ -310,6 +393,9 @@ public class Street : MonoBehaviour
                 intersectionBusyMarker[calculateRoad(intersectionRoadId - 1) % 4, LEFT]++;
                 intersectionBusyMarker[calculateRoad(intersectionRoadId - 1) % 4, STRAIGHT]++;
             }
+            /*intersectionBusyMarker[calculateRoad(intersectionRoadId - 1) % 4, LEFT]++;
+            intersectionBusyMarker[calculateRoad(intersectionRoadId - 1) % 4, STRAIGHT]++;
+            intersectionBusyMarker[calculateRoad(intersectionRoadId - 1) % 4, RIGHT]++;*/
             numberCarsWaiting++;    //Put here so not to confuse 
         }
     }
@@ -354,7 +440,11 @@ public class Street : MonoBehaviour
                 intersectionBusyMarker[calculateRoad(intersectionRoadId + 2) % 4, STRAIGHT]++;
                 intersectionBusyMarker[calculateRoad(intersectionRoadId + 2) % 4, RIGHT]++;
             }
-
+            Debug.Log("CROSSING on road " + intersectionRoadId + " direction " + car.intersectionDirection);
+            for (int i = 0; i < 4; i++)
+            {
+                Debug.Log("Direction " + i + ": " + intersectionBusyMarker[i, 0] + "," + intersectionBusyMarker[i, 1] + "," + intersectionBusyMarker[i, 2]);
+            }
         }
         else
         {
@@ -381,7 +471,7 @@ public class Street : MonoBehaviour
                 intersectionBusyMarker[calculateRoad(intersectionRoadId - 1) % 4, RIGHT]++;
 
                 //Block traffic from STRAIGHT that will turn left (everyone in front of me that will turn left has to give me precedence as I will be on their right during the turn)
-                intersectionBusyMarker[calculateRoad(intersectionRoadId + 2) % 4, LEFT]++;
+                //intersectionBusyMarker[calculateRoad(intersectionRoadId + 2) % 4, LEFT]++;
             }
             else if (car.intersectionDirection == LEFT)
             {
@@ -389,7 +479,15 @@ public class Street : MonoBehaviour
                 intersectionBusyMarker[calculateRoad(intersectionRoadId - 1) % 4, LEFT]++;
                 intersectionBusyMarker[calculateRoad(intersectionRoadId - 1) % 4, STRAIGHT]++;
             }
-            numberCarsWaiting++;    //Put here so not to confuse 
+            /*intersectionBusyMarker[calculateRoad(intersectionRoadId - 1) % 4, LEFT]++;
+            intersectionBusyMarker[calculateRoad(intersectionRoadId - 1) % 4, STRAIGHT]++;
+            intersectionBusyMarker[calculateRoad(intersectionRoadId - 1) % 4, RIGHT]++;*/
+            numberCarsWaiting++;    //Put here so not to confuse Update 
+            Debug.Log("QUEUE on road " + intersectionRoadId + " direction " + car.intersectionDirection);
+            for (int i = 0; i < 4; i++)
+            {
+                Debug.Log("Direction " + i + ": " + intersectionBusyMarker[i, 0] + "," + intersectionBusyMarker[i, 1] + "," + intersectionBusyMarker[i, 2]);
+            }
         }
     }
 
@@ -479,6 +577,11 @@ public class Street : MonoBehaviour
             intersectionBusyMarker[calculateRoad(intersectionRoadId + 2) % 4, STRAIGHT]--;
             intersectionBusyMarker[calculateRoad(intersectionRoadId + 2) % 4, RIGHT]--;
         }
+        Debug.Log("LEAVING on road " + intersectionRoadId + " direction " + car.intersectionDirection);
+        for (int i = 0; i < 4; i++)
+        {
+            Debug.Log("Direction " + i + ": " + intersectionBusyMarker[i, 0] + "," + intersectionBusyMarker[i, 1] + "," + intersectionBusyMarker[i, 2]);
+        }
     }
 
     private void restoreSemaphoreIntersectionPriority1Lane(CarAI car, int intersectionRoadId)
@@ -495,7 +598,7 @@ public class Street : MonoBehaviour
     {
         if (number == -1)
         {
-            return numberLanes * 4 - 1;
+            return 3;
         }
         return number;
     }
