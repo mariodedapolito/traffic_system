@@ -177,7 +177,7 @@ public class Street : MonoBehaviour
                             intersectionSemaphores[2].redLights[0].enabled = true;
                         }
                     }
-                    else if (semaphoreTime > semaphoreTimerMainLane - 2)
+                    else if (semaphoreTime > semaphoreTimerMainLane - 3)
                     {
                         if (semaphoreTurn % 2 == 0)
                         {
