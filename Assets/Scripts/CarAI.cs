@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class CarAI : MonoBehaviour
 {
+    public Node startWaypoint;
+    public Node endWaypoint;
+
     public List<Node> carPath;
+
     //public Transform path;
     public float maxSteerAngle = 90f;
     public float turnSpeed = 5f;
@@ -54,18 +58,16 @@ public class CarAI : MonoBehaviour
 
         nodes = new List<Transform>();
 
-        for(int i = 0; i < carPath.Count; i++)
+        Path path = new Path();
+
+        carPath = path.findShortestPath(startWaypoint.transform, endWaypoint.transform);
+
+        
+        for (int i = 0; i < carPath.Count; i++)
         {
             nodes.Add(carPath[i].transform);
         }
 
-        /*for (int i = 0; i < pathTransforms.Length; i++)
-        {
-            if (pathTransforms[i] != path.transform)
-            {
-                nodes.Add(pathTransforms[i]);
-            }
-        }*/
     }
 
     private void FixedUpdate()
