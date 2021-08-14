@@ -9,6 +9,7 @@ public class Street : MonoBehaviour
     public List<Node> carWaypoints;
     public bool isSimpleIntersection;
     public bool isSemaphoreIntersection;
+    public bool isTBoneIntersection;
     public bool hasBusStop;
     public bool isLaneAdapter;
     public bool isCurve;
@@ -102,17 +103,32 @@ public class Street : MonoBehaviour
             }
             else if (numberLanes == 2)
             {
-                semaphoreTurn = 0;
-                intersectionQueue2Lane = new CarAI[4, 2] { { null, null }, { null, null }, { null, null }, { null, null } };
-                intersectionSemaphores[0].greenLights[0].enabled = true;
-                intersectionSemaphores[0].redLights[1].enabled = true;
-                intersectionSemaphores[2].greenLights[0].enabled = true;
-                intersectionSemaphores[2].redLights[1].enabled = true;
-                intersectionSemaphores[1].redLights[0].enabled = true;
-                intersectionSemaphores[1].redLights[1].enabled = true;
-                intersectionSemaphores[3].redLights[0].enabled = true;
-                intersectionSemaphores[3].redLights[1].enabled = true;
-                yellowLightOn = false;
+                if (isTBoneIntersection)
+                {
+                    semaphoreTurn = 0;
+                    intersectionQueue2Lane = new CarAI[4, 2] { { null, null }, { null, null }, { null, null }, { null, null } };
+                    intersectionSemaphores[0].greenLights[0].enabled = true;
+                    intersectionSemaphores[0].greenLights[1].enabled = true;
+                    intersectionSemaphores[1].redLights[0].enabled = true;
+                    intersectionSemaphores[1].redLights[1].enabled = true;
+                    intersectionSemaphores[3].redLights[0].enabled = true;
+                    intersectionSemaphores[3].redLights[1].enabled = true;
+                    yellowLightOn = false;
+                }
+                else
+                {
+                    semaphoreTurn = 0;
+                    intersectionQueue2Lane = new CarAI[4, 2] { { null, null }, { null, null }, { null, null }, { null, null } };
+                    intersectionSemaphores[0].greenLights[0].enabled = true;
+                    intersectionSemaphores[0].redLights[1].enabled = true;
+                    intersectionSemaphores[2].greenLights[0].enabled = true;
+                    intersectionSemaphores[2].redLights[1].enabled = true;
+                    intersectionSemaphores[1].redLights[0].enabled = true;
+                    intersectionSemaphores[1].redLights[1].enabled = true;
+                    intersectionSemaphores[3].redLights[0].enabled = true;
+                    intersectionSemaphores[3].redLights[1].enabled = true;
+                    yellowLightOn = false;
+                }
             }
         }
     }
@@ -257,211 +273,376 @@ public class Street : MonoBehaviour
             }
             else if (numberLanes == 2)
             {
-                CarAI car;
-                semaphoreTime += Time.deltaTime;
-                if (semaphoreTime >= semaphoreTimerMainLane - 3 && semaphoreTime <= semaphoreTimerMainLane)
+                if (isTBoneIntersection)
                 {
-                    semaphoreTurn = 0;
-                    yellowLightOn = true;
-                    intersectionSemaphores[0].greenLights[0].enabled = false;
-                    intersectionSemaphores[2].greenLights[0].enabled = false;
-                    intersectionSemaphores[0].yellowLights[0].enabled = true;
-                    intersectionSemaphores[2].yellowLights[0].enabled = true;
-                }
-                else if (semaphoreTime <= semaphoreTimerMainLane)
-                {
-                    semaphoreTurn = 0;
-                    yellowLightOn = false;
-                    intersectionSemaphores[1].yellowLights[1].enabled = false;
-                    intersectionSemaphores[3].yellowLights[1].enabled = false;
-                    intersectionSemaphores[1].redLights[1].enabled = true;
-                    intersectionSemaphores[3].redLights[1].enabled = true;
-                    intersectionSemaphores[0].redLights[0].enabled = false;
-                    intersectionSemaphores[2].redLights[0].enabled = false;
-                    intersectionSemaphores[0].greenLights[0].enabled = true;
-                    intersectionSemaphores[2].greenLights[0].enabled = true;
-                    if (intersectionQueue2Lane[0, 0] != null && intersectionQueue2Lane[0, 0].intersectionDirection!=LEFT)
+                    CarAI car;
+                    semaphoreTime += Time.deltaTime;
+                    if (semaphoreTime >= semaphoreTimerMainLane - 3 && semaphoreTime <= semaphoreTimerMainLane)
                     {
-                        car = intersectionQueue2Lane[0, 0];
-                        intersectionManager(car, car.intersectionEnterId);
-                        intersectionQueue2Lane[0, 0] = null;
-                        numberCarsWaiting--;
+                        semaphoreTurn = 0;
+                        yellowLightOn = true;
+                        intersectionSemaphores[0].greenLights[0].enabled = false;
+                        intersectionSemaphores[0].yellowLights[0].enabled = true;
+                        intersectionSemaphores[0].greenLights[1].enabled = false;
+                        intersectionSemaphores[0].yellowLights[1].enabled = true;
                     }
-                    if (intersectionQueue2Lane[0, 1] != null && intersectionQueue2Lane[0, 1].intersectionDirection != LEFT)
+                    else if (semaphoreTime <= semaphoreTimerMainLane)
                     {
-                        car = intersectionQueue2Lane[0, 1];
-                        intersectionManager(car, car.intersectionEnterId);
-                        intersectionQueue2Lane[0, 1] = null;
-                        numberCarsWaiting--;
+                        semaphoreTurn = 0;
+                        yellowLightOn = false;
+                        intersectionSemaphores[1].yellowLights[1].enabled = false;
+                        intersectionSemaphores[1].redLights[1].enabled = true;
+
+                        intersectionSemaphores[0].redLights[0].enabled = false;
+                        intersectionSemaphores[0].greenLights[0].enabled = true;
+                        intersectionSemaphores[0].redLights[1].enabled = false;
+                        intersectionSemaphores[0].greenLights[1].enabled = true;
+
+                        if (numberCarsWaiting > 0)
+                        {
+                            if (intersectionQueue2Lane[0, 0] != null)
+                            {
+                                car = intersectionQueue2Lane[0, 0];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[0, 0] = null;
+                                numberCarsWaiting--;
+                            }
+                            if (intersectionQueue2Lane[0, 1] != null)
+                            {
+                                car = intersectionQueue2Lane[0, 1];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[0, 1] = null;
+                                numberCarsWaiting--;
+                            }
+                        }
                     }
-                    if (intersectionQueue2Lane[2, 0] != null && intersectionQueue2Lane[2, 0].intersectionDirection != LEFT)
+                    else if (semaphoreTime >= 2*semaphoreTimerMainLane - 3 && semaphoreTime <= 2*semaphoreTimerMainLane)
                     {
-                        car = intersectionQueue2Lane[2, 0];
-                        intersectionManager(car, car.intersectionEnterId);
-                        intersectionQueue2Lane[2, 0] = null;
-                        numberCarsWaiting--;
+                        semaphoreTurn = 1;
+                        yellowLightOn = true;
+                        intersectionSemaphores[1].greenLights[0].enabled = false;
+                        intersectionSemaphores[3].greenLights[0].enabled = false;
+                        intersectionSemaphores[3].greenLights[1].enabled = false;
+                        intersectionSemaphores[1].yellowLights[0].enabled = true;
+                        intersectionSemaphores[3].yellowLights[0].enabled = true;
+                        intersectionSemaphores[3].yellowLights[1].enabled = true;
                     }
-                    if (intersectionQueue2Lane[2, 1] != null && intersectionQueue2Lane[2, 1].intersectionDirection != LEFT)
+                    else if (semaphoreTime <= 2*semaphoreTimerMainLane)
                     {
-                        car = intersectionQueue2Lane[2, 1];
-                        intersectionManager(car, car.intersectionEnterId);
-                        intersectionQueue2Lane[2, 1] = null;
-                        numberCarsWaiting--;
+                        semaphoreTurn = 1;
+                        yellowLightOn = false;
+                        intersectionSemaphores[0].yellowLights[0].enabled = false;
+                        intersectionSemaphores[0].redLights[0].enabled = true;
+                        intersectionSemaphores[0].yellowLights[1].enabled = false;
+                        intersectionSemaphores[0].redLights[1].enabled = true;
+                        
+                        intersectionSemaphores[1].redLights[0].enabled = false;
+                        intersectionSemaphores[3].redLights[0].enabled = false;
+                        intersectionSemaphores[3].redLights[1].enabled = false;
+                        intersectionSemaphores[1].greenLights[0].enabled = true;
+                        intersectionSemaphores[3].greenLights[0].enabled = true;
+                        intersectionSemaphores[3].greenLights[1].enabled = true;
+
+                        if (numberCarsWaiting > 0)
+                        {
+                            if (intersectionQueue2Lane[1, 0] != null && intersectionQueue2Lane[0, 0].intersectionDirection != LEFT)
+                            {
+                                car = intersectionQueue2Lane[1, 0];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[1, 0] = null;
+                                numberCarsWaiting--;
+                            }
+                            if (intersectionQueue2Lane[1, 1] != null && intersectionQueue2Lane[0, 1].intersectionDirection != LEFT)
+                            {
+                                car = intersectionQueue2Lane[1, 1];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[1, 1] = null;
+                                numberCarsWaiting--;
+                            }
+                            if (intersectionQueue2Lane[3, 0] != null)
+                            {
+                                car = intersectionQueue2Lane[3, 0];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[3, 0] = null;
+                                numberCarsWaiting--;
+                            }
+                            if (intersectionQueue2Lane[3, 1] != null)
+                            {
+                                car = intersectionQueue2Lane[3, 1];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[3, 1] = null;
+                                numberCarsWaiting--;
+                            }
+                        }
                     }
-                }
-                else if (semaphoreTime >= semaphoreTimerMainLane + semaphoreTimerLeftLane - 3 && semaphoreTime <= semaphoreTimerMainLane + semaphoreTimerLeftLane)
-                {
-                    semaphoreTurn = 1;
-                    yellowLightOn = true;
-                    intersectionSemaphores[0].greenLights[1].enabled = false;
-                    intersectionSemaphores[2].greenLights[1].enabled = false;
-                    intersectionSemaphores[0].yellowLights[1].enabled = true;
-                    intersectionSemaphores[2].yellowLights[1].enabled = true;
-                }
-                else if (semaphoreTime <= semaphoreTimerMainLane + semaphoreTimerLeftLane)
-                {
-                    semaphoreTurn = 1;
-                    yellowLightOn = false;
-                    intersectionSemaphores[0].yellowLights[0].enabled = false;
-                    intersectionSemaphores[2].yellowLights[0].enabled = false;
-                    intersectionSemaphores[0].redLights[0].enabled = true;
-                    intersectionSemaphores[2].redLights[0].enabled = true;
-                    intersectionSemaphores[0].redLights[1].enabled = false;
-                    intersectionSemaphores[2].redLights[1].enabled = false;
-                    intersectionSemaphores[0].greenLights[1].enabled = true;
-                    intersectionSemaphores[2].greenLights[1].enabled = true;
-                    if (intersectionQueue2Lane[0, 0] != null && intersectionQueue2Lane[0, 0].intersectionDirection == LEFT)
+                    else if (semaphoreTime >= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane - 3 && semaphoreTime <= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane)
                     {
-                        car = intersectionQueue2Lane[0, 0];
-                        intersectionManager(car, car.intersectionEnterId);
-                        intersectionQueue2Lane[0, 0] = null;
-                        numberCarsWaiting--;
+                        semaphoreTurn = 2;
+                        yellowLightOn = true;
+                        intersectionSemaphores[1].greenLights[1].enabled = false;
+                        intersectionSemaphores[1].yellowLights[1].enabled = true;
                     }
-                    if (intersectionQueue2Lane[0, 1] != null && intersectionQueue2Lane[0, 1].intersectionDirection == LEFT)
+                    else if (semaphoreTime <= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane)
                     {
-                        car = intersectionQueue2Lane[0, 1];
-                        intersectionManager(car, car.intersectionEnterId);
-                        intersectionQueue2Lane[0, 1] = null;
-                        numberCarsWaiting--;
+                        semaphoreTurn = 2;
+                        yellowLightOn = false;
+                        intersectionSemaphores[1].yellowLights[0].enabled = false;
+                        intersectionSemaphores[3].yellowLights[0].enabled = false;
+                        intersectionSemaphores[3].yellowLights[1].enabled = false;
+                        intersectionSemaphores[1].redLights[0].enabled = true;
+                        intersectionSemaphores[3].redLights[0].enabled = true;
+                        intersectionSemaphores[3].redLights[1].enabled = true;
+
+                        intersectionSemaphores[1].redLights[1].enabled = false;
+                        intersectionSemaphores[1].greenLights[1].enabled = true;
+
+                        if (numberCarsWaiting > 0)
+                        {
+                            if (intersectionQueue2Lane[1, 0] != null && intersectionQueue2Lane[1, 0].intersectionDirection == LEFT)
+                            {
+                                car = intersectionQueue2Lane[1, 0];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[1, 0] = null;
+                                numberCarsWaiting--;
+                            }
+                            if (intersectionQueue2Lane[1, 1] != null && intersectionQueue2Lane[1, 1].intersectionDirection == LEFT)
+                            {
+                                car = intersectionQueue2Lane[1, 1];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[1, 1] = null;
+                                numberCarsWaiting--;
+                            }
+                        }
                     }
-                    if (intersectionQueue2Lane[2, 0] != null && intersectionQueue2Lane[2, 0].intersectionDirection == LEFT)
+                    else
                     {
-                        car = intersectionQueue2Lane[2, 0];
-                        intersectionManager(car, car.intersectionEnterId);
-                        intersectionQueue2Lane[2, 0] = null;
-                        numberCarsWaiting--;
-                    }
-                    if (intersectionQueue2Lane[2, 1] != null && intersectionQueue2Lane[2, 1].intersectionDirection == LEFT)
-                    {
-                        car = intersectionQueue2Lane[2, 1];
-                        intersectionManager(car, car.intersectionEnterId);
-                        intersectionQueue2Lane[2, 1] = null;
-                        numberCarsWaiting--;
-                    }
-                }
-                else if (semaphoreTime >= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane - 3 && semaphoreTime <= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane)
-                {
-                    semaphoreTurn = 2;
-                    yellowLightOn = true;
-                    intersectionSemaphores[1].greenLights[0].enabled = false;
-                    intersectionSemaphores[3].greenLights[0].enabled = false;
-                    intersectionSemaphores[1].yellowLights[0].enabled = true;
-                    intersectionSemaphores[3].yellowLights[0].enabled = true;
-                }
-                else if (semaphoreTime <= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane)
-                {
-                    semaphoreTurn = 2;
-                    yellowLightOn = false;
-                    intersectionSemaphores[0].yellowLights[1].enabled = false;
-                    intersectionSemaphores[2].yellowLights[1].enabled = false;
-                    intersectionSemaphores[0].redLights[1].enabled = true;
-                    intersectionSemaphores[2].redLights[1].enabled = true;
-                    intersectionSemaphores[1].redLights[0].enabled = false;
-                    intersectionSemaphores[3].redLights[0].enabled = false;
-                    intersectionSemaphores[1].greenLights[0].enabled = true;
-                    intersectionSemaphores[3].greenLights[0].enabled = true;
-                    if (intersectionQueue2Lane[1, 0] != null && intersectionQueue2Lane[1, 0].intersectionDirection != LEFT)
-                    {
-                        car = intersectionQueue2Lane[1, 0];
-                        intersectionManager(car, car.intersectionEnterId);
-                        intersectionQueue2Lane[1, 0] = null;
-                        numberCarsWaiting--;
-                    }
-                    if (intersectionQueue2Lane[1, 1] != null && intersectionQueue2Lane[1, 1].intersectionDirection != LEFT)
-                    {
-                        car = intersectionQueue2Lane[1, 1];
-                        intersectionManager(car, car.intersectionEnterId);
-                        intersectionQueue2Lane[1, 1] = null;
-                        numberCarsWaiting--;
-                    }
-                    if (intersectionQueue2Lane[3, 0] != null && intersectionQueue2Lane[3, 0].intersectionDirection != LEFT)
-                    {
-                        car = intersectionQueue2Lane[3, 0];
-                        intersectionManager(car, car.intersectionEnterId);
-                        intersectionQueue2Lane[3, 0] = null;
-                        numberCarsWaiting--;
-                    }
-                    if (intersectionQueue2Lane[3, 1] != null && intersectionQueue2Lane[3, 1].intersectionDirection != LEFT)
-                    {
-                        car = intersectionQueue2Lane[3, 1];
-                        intersectionManager(car, car.intersectionEnterId);
-                        intersectionQueue2Lane[3, 1] = null;
-                        numberCarsWaiting--;
-                    }
-                }
-                else if (semaphoreTime >= 2 * semaphoreTimerMainLane + 2 * semaphoreTimerLeftLane - 3 && semaphoreTime <= 2 * semaphoreTimerMainLane + 2 * semaphoreTimerLeftLane)
-                {
-                    semaphoreTurn = 3;
-                    yellowLightOn = true;
-                    intersectionSemaphores[1].greenLights[1].enabled = false;
-                    intersectionSemaphores[3].greenLights[1].enabled = false;
-                    intersectionSemaphores[1].yellowLights[1].enabled = true;
-                    intersectionSemaphores[3].yellowLights[1].enabled = true;
-                }
-                else if (semaphoreTime <= 2 * semaphoreTimerMainLane + 2 * semaphoreTimerLeftLane)
-                {
-                    semaphoreTurn = 3;
-                    yellowLightOn = false;
-                    intersectionSemaphores[1].yellowLights[0].enabled = false;
-                    intersectionSemaphores[3].yellowLights[0].enabled = false;
-                    intersectionSemaphores[1].redLights[0].enabled = true;
-                    intersectionSemaphores[3].redLights[0].enabled = true;
-                    intersectionSemaphores[1].redLights[1].enabled = false;
-                    intersectionSemaphores[3].redLights[1].enabled = false;
-                    intersectionSemaphores[1].greenLights[1].enabled = true;
-                    intersectionSemaphores[3].greenLights[1].enabled = true;
-                    if (intersectionQueue2Lane[1, 0] != null && intersectionQueue2Lane[1, 0].intersectionDirection == LEFT)
-                    {
-                        car = intersectionQueue2Lane[1, 0];
-                        intersectionManager(car, car.intersectionEnterId);
-                        intersectionQueue2Lane[1, 0] = null;
-                        numberCarsWaiting--;
-                    }
-                    if (intersectionQueue2Lane[1, 1] != null && intersectionQueue2Lane[1, 1].intersectionDirection == LEFT)
-                    {
-                        car = intersectionQueue2Lane[1, 1];
-                        intersectionManager(car, car.intersectionEnterId);
-                        intersectionQueue2Lane[1, 1] = null;
-                        numberCarsWaiting--;
-                    }
-                    if (intersectionQueue2Lane[3, 0] != null && intersectionQueue2Lane[3, 0].intersectionDirection == LEFT)
-                    {
-                        car = intersectionQueue2Lane[3, 0];
-                        intersectionManager(car, car.intersectionEnterId);
-                        intersectionQueue2Lane[3, 0] = null;
-                        numberCarsWaiting--;
-                    }
-                    if (intersectionQueue2Lane[3, 1] != null && intersectionQueue2Lane[3, 1].intersectionDirection == LEFT)
-                    {
-                        car = intersectionQueue2Lane[3, 1];
-                        intersectionManager(car, car.intersectionEnterId);
-                        intersectionQueue2Lane[3, 1] = null;
-                        numberCarsWaiting--;
+                        semaphoreTime = 0;
                     }
                 }
                 else
                 {
-                    semaphoreTime = 0;
+                    CarAI car;
+                    semaphoreTime += Time.deltaTime;
+                    if (semaphoreTime >= semaphoreTimerMainLane - 3 && semaphoreTime <= semaphoreTimerMainLane)
+                    {
+                        semaphoreTurn = 0;
+                        yellowLightOn = true;
+                        intersectionSemaphores[0].greenLights[0].enabled = false;
+                        intersectionSemaphores[2].greenLights[0].enabled = false;
+                        intersectionSemaphores[0].yellowLights[0].enabled = true;
+                        intersectionSemaphores[2].yellowLights[0].enabled = true;
+                    }
+                    else if (semaphoreTime <= semaphoreTimerMainLane)
+                    {
+                        semaphoreTurn = 0;
+                        yellowLightOn = false;
+                        intersectionSemaphores[1].yellowLights[1].enabled = false;
+                        intersectionSemaphores[3].yellowLights[1].enabled = false;
+                        intersectionSemaphores[1].redLights[1].enabled = true;
+                        intersectionSemaphores[3].redLights[1].enabled = true;
+                        intersectionSemaphores[0].redLights[0].enabled = false;
+                        intersectionSemaphores[2].redLights[0].enabled = false;
+                        intersectionSemaphores[0].greenLights[0].enabled = true;
+                        intersectionSemaphores[2].greenLights[0].enabled = true;
+                        
+                        if (numberCarsWaiting > 0)
+                        {
+                            if (intersectionQueue2Lane[0, 0] != null && intersectionQueue2Lane[0, 0].intersectionDirection != LEFT)
+                            {
+                                car = intersectionQueue2Lane[0, 0];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[0, 0] = null;
+                                numberCarsWaiting--;
+                            }
+                            if (intersectionQueue2Lane[0, 1] != null && intersectionQueue2Lane[0, 1].intersectionDirection != LEFT)
+                            {
+                                car = intersectionQueue2Lane[0, 1];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[0, 1] = null;
+                                numberCarsWaiting--;
+                            }
+                            if (intersectionQueue2Lane[2, 0] != null && intersectionQueue2Lane[2, 0].intersectionDirection != LEFT)
+                            {
+                                car = intersectionQueue2Lane[2, 0];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[2, 0] = null;
+                                numberCarsWaiting--;
+                            }
+                            if (intersectionQueue2Lane[2, 1] != null && intersectionQueue2Lane[2, 1].intersectionDirection != LEFT)
+                            {
+                                car = intersectionQueue2Lane[2, 1];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[2, 1] = null;
+                                numberCarsWaiting--;
+                            }
+                        }
+                    }
+                    else if (semaphoreTime >= semaphoreTimerMainLane + semaphoreTimerLeftLane - 3 && semaphoreTime <= semaphoreTimerMainLane + semaphoreTimerLeftLane)
+                    {
+                        semaphoreTurn = 1;
+                        yellowLightOn = true;
+                        intersectionSemaphores[0].greenLights[1].enabled = false;
+                        intersectionSemaphores[2].greenLights[1].enabled = false;
+                        intersectionSemaphores[0].yellowLights[1].enabled = true;
+                        intersectionSemaphores[2].yellowLights[1].enabled = true;
+                    }
+                    else if (semaphoreTime <= semaphoreTimerMainLane + semaphoreTimerLeftLane)
+                    {
+                        semaphoreTurn = 1;
+                        yellowLightOn = false;
+                        intersectionSemaphores[0].yellowLights[0].enabled = false;
+                        intersectionSemaphores[2].yellowLights[0].enabled = false;
+                        intersectionSemaphores[0].redLights[0].enabled = true;
+                        intersectionSemaphores[2].redLights[0].enabled = true;
+                        intersectionSemaphores[0].redLights[1].enabled = false;
+                        intersectionSemaphores[2].redLights[1].enabled = false;
+                        intersectionSemaphores[0].greenLights[1].enabled = true;
+                        intersectionSemaphores[2].greenLights[1].enabled = true;
+                        
+                        if (numberCarsWaiting > 0)
+                        {
+                            if (intersectionQueue2Lane[0, 0] != null && intersectionQueue2Lane[0, 0].intersectionDirection == LEFT)
+                            {
+                                car = intersectionQueue2Lane[0, 0];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[0, 0] = null;
+                                numberCarsWaiting--;
+                            }
+                            if (intersectionQueue2Lane[0, 1] != null && intersectionQueue2Lane[0, 1].intersectionDirection == LEFT)
+                            {
+                                car = intersectionQueue2Lane[0, 1];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[0, 1] = null;
+                                numberCarsWaiting--;
+                            }
+                            if (intersectionQueue2Lane[2, 0] != null && intersectionQueue2Lane[2, 0].intersectionDirection == LEFT)
+                            {
+                                car = intersectionQueue2Lane[2, 0];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[2, 0] = null;
+                                numberCarsWaiting--;
+                            }
+                            if (intersectionQueue2Lane[2, 1] != null && intersectionQueue2Lane[2, 1].intersectionDirection == LEFT)
+                            {
+                                car = intersectionQueue2Lane[2, 1];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[2, 1] = null;
+                                numberCarsWaiting--;
+                            }
+                        }
+                    }
+                    else if (semaphoreTime >= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane - 3 && semaphoreTime <= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane)
+                    {
+                        semaphoreTurn = 2;
+                        yellowLightOn = true;
+                        intersectionSemaphores[1].greenLights[0].enabled = false;
+                        intersectionSemaphores[3].greenLights[0].enabled = false;
+                        intersectionSemaphores[1].yellowLights[0].enabled = true;
+                        intersectionSemaphores[3].yellowLights[0].enabled = true;
+                    }
+                    else if (semaphoreTime <= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane)
+                    {
+                        semaphoreTurn = 2;
+                        yellowLightOn = false;
+                        intersectionSemaphores[0].yellowLights[1].enabled = false;
+                        intersectionSemaphores[2].yellowLights[1].enabled = false;
+                        intersectionSemaphores[0].redLights[1].enabled = true;
+                        intersectionSemaphores[2].redLights[1].enabled = true;
+                        intersectionSemaphores[1].redLights[0].enabled = false;
+                        intersectionSemaphores[3].redLights[0].enabled = false;
+                        intersectionSemaphores[1].greenLights[0].enabled = true;
+                        intersectionSemaphores[3].greenLights[0].enabled = true;
+
+                        if (numberCarsWaiting > 0)
+                        {
+                            if (intersectionQueue2Lane[1, 0] != null && intersectionQueue2Lane[1, 0].intersectionDirection != LEFT)
+                            {
+                                car = intersectionQueue2Lane[1, 0];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[1, 0] = null;
+                                numberCarsWaiting--;
+                            }
+                            if (intersectionQueue2Lane[1, 1] != null && intersectionQueue2Lane[1, 1].intersectionDirection != LEFT)
+                            {
+                                car = intersectionQueue2Lane[1, 1];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[1, 1] = null;
+                                numberCarsWaiting--;
+                            }
+                            if (intersectionQueue2Lane[3, 0] != null && intersectionQueue2Lane[3, 0].intersectionDirection != LEFT)
+                            {
+                                car = intersectionQueue2Lane[3, 0];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[3, 0] = null;
+                                numberCarsWaiting--;
+                            }
+                            if (intersectionQueue2Lane[3, 1] != null && intersectionQueue2Lane[3, 1].intersectionDirection != LEFT)
+                            {
+                                car = intersectionQueue2Lane[3, 1];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[3, 1] = null;
+                                numberCarsWaiting--;
+                            }
+                        }
+                    }
+                    else if (semaphoreTime >= 2 * semaphoreTimerMainLane + 2 * semaphoreTimerLeftLane - 3 && semaphoreTime <= 2 * semaphoreTimerMainLane + 2 * semaphoreTimerLeftLane)
+                    {
+                        semaphoreTurn = 3;
+                        yellowLightOn = true;
+                        intersectionSemaphores[1].greenLights[1].enabled = false;
+                        intersectionSemaphores[3].greenLights[1].enabled = false;
+                        intersectionSemaphores[1].yellowLights[1].enabled = true;
+                        intersectionSemaphores[3].yellowLights[1].enabled = true;
+                    }
+                    else if (semaphoreTime <= 2 * semaphoreTimerMainLane + 2 * semaphoreTimerLeftLane)
+                    {
+                        semaphoreTurn = 3;
+                        yellowLightOn = false;
+                        intersectionSemaphores[1].yellowLights[0].enabled = false;
+                        intersectionSemaphores[3].yellowLights[0].enabled = false;
+                        intersectionSemaphores[1].redLights[0].enabled = true;
+                        intersectionSemaphores[3].redLights[0].enabled = true;
+                        intersectionSemaphores[1].redLights[1].enabled = false;
+                        intersectionSemaphores[3].redLights[1].enabled = false;
+                        intersectionSemaphores[1].greenLights[1].enabled = true;
+                        intersectionSemaphores[3].greenLights[1].enabled = true;
+                        
+                        if (numberCarsWaiting > 0)
+                        {
+                            if (intersectionQueue2Lane[1, 0] != null && intersectionQueue2Lane[1, 0].intersectionDirection == LEFT)
+                            {
+                                car = intersectionQueue2Lane[1, 0];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[1, 0] = null;
+                                numberCarsWaiting--;
+                            }
+                            if (intersectionQueue2Lane[1, 1] != null && intersectionQueue2Lane[1, 1].intersectionDirection == LEFT)
+                            {
+                                car = intersectionQueue2Lane[1, 1];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[1, 1] = null;
+                                numberCarsWaiting--;
+                            }
+                            if (intersectionQueue2Lane[3, 0] != null && intersectionQueue2Lane[3, 0].intersectionDirection == LEFT)
+                            {
+                                car = intersectionQueue2Lane[3, 0];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[3, 0] = null;
+                                numberCarsWaiting--;
+                            }
+                            if (intersectionQueue2Lane[3, 1] != null && intersectionQueue2Lane[3, 1].intersectionDirection == LEFT)
+                            {
+                                car = intersectionQueue2Lane[3, 1];
+                                intersectionManager(car, car.intersectionEnterId);
+                                intersectionQueue2Lane[3, 1] = null;
+                                numberCarsWaiting--;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        semaphoreTime = 0;
+                    }
                 }
             }
         }
@@ -560,7 +741,14 @@ public class Street : MonoBehaviour
                 }
                 else if (numberLanes == 2)
                 {
-                    semaphoreIntersectionPriority2Lane(car, intersectionRoadId);
+                    if (isTBoneIntersection)
+                    {
+                        semaphoreIntersectionPriority2LaneTBone(car, intersectionRoadId);
+                    }
+                    else
+                    {
+                        semaphoreIntersectionPriority2Lane(car, intersectionRoadId);
+                    }
                 }
             }
         }
@@ -805,6 +993,50 @@ public class Street : MonoBehaviour
             numberCarsInsideIntersection++;
         }
         else if ((intersectionRoadId == 1 || intersectionRoadId == 3) && car.intersectionDirection == LEFT && semaphoreTurn == 3 && !yellowLightOn)
+        {
+            car.intersectionStop = false;
+            car.isInsideIntersection = true;
+            numberCarsInsideIntersection++;
+        }
+        else
+        {
+            if (!car.intersectionStop)      //only cars that are just entering the intersection must be inserted in the queue
+            {
+                numberCarsWaiting++;
+                car.intersectionStop = true;
+                if (intersectionQueue2Lane[intersectionRoadId, 0] == null)
+                {
+                    intersectionQueue2Lane[intersectionRoadId, 0] = car;
+                }
+                else
+                {
+                    intersectionQueue2Lane[intersectionRoadId, 1] = car;
+                }
+            }
+        }
+    }
+    
+    private void semaphoreIntersectionPriority2LaneTBone(CarAI car, int intersectionRoadId)
+    {
+        if (intersectionRoadId == 0 && semaphoreTurn == 0 && !yellowLightOn)
+        {
+            car.intersectionStop = false;
+            car.isInsideIntersection = true;
+            numberCarsInsideIntersection++;
+        }
+        else if (intersectionRoadId == 1 && car.intersectionDirection != LEFT && semaphoreTurn == 1 && !yellowLightOn)
+        {
+            car.intersectionStop = false;
+            car.isInsideIntersection = true;
+            numberCarsInsideIntersection++;
+        }
+        else if (intersectionRoadId == 3 && semaphoreTurn == 1 && !yellowLightOn)
+        {
+            car.intersectionStop = false;
+            car.isInsideIntersection = true;
+            numberCarsInsideIntersection++;
+        }
+        else if (intersectionRoadId == 1 && car.intersectionDirection == LEFT && semaphoreTurn == 2 && !yellowLightOn)
         {
             car.intersectionStop = false;
             car.isInsideIntersection = true;
