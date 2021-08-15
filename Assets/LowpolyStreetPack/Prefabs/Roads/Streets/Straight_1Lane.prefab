@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6400000}
   - component: {fileID: 3878598614229352107}
   m_Layer: 0
-  m_Name: Road_Streight
+  m_Name: Straight_1Lane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.2}
   m_Children:
   - {fileID: 2178283622934622194}
   - {fileID: 8331970879258924639}
@@ -121,9 +121,11 @@ MonoBehaviour:
   - {fileID: 6993491111371469546}
   isSimpleIntersection: 0
   isSemaphoreIntersection: 0
+  isTBoneIntersection: 0
   hasBusStop: 0
   isLaneAdapter: 0
   isCurve: 0
+  isDeadend: 0
   numberLanes: 1
   intersectionSemaphores: []
   semaphoreTimerMainLane: 0
@@ -180,6 +182,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 0
   trafficDirection: 0
 --- !u!135 &1645023159867161161
@@ -246,6 +250,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 0
   trafficDirection: 1
 --- !u!135 &4541591272850067044
@@ -405,6 +411,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 0
   trafficDirection: 0
 --- !u!135 &2816477961519363657
@@ -472,6 +480,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 0
   trafficDirection: 1
 --- !u!135 &5527552698935676318

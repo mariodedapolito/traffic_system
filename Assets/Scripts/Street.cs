@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Street : MonoBehaviour
 {
-
+    [Header("Street data")]
     public List<Node> carWaypoints;
     public bool isSimpleIntersection;
     public bool isSemaphoreIntersection;
@@ -13,6 +13,7 @@ public class Street : MonoBehaviour
     public bool hasBusStop;
     public bool isLaneAdapter;
     public bool isCurve;
+    public bool isDeadend;
     public int numberLanes;
 
     //Intersection data structures
@@ -23,12 +24,13 @@ public class Street : MonoBehaviour
     private int numberCarsWaiting;
 
     //Semaphore data structures
+    [Header("Semaphore data")]
     public Semaphore[] intersectionSemaphores;
     public int semaphoreTimerMainLane;
     public int semaphoreTimerLeftLane;
-    public bool yellowLightOn;
+    private bool yellowLightOn;
     private float semaphoreTime;
-    public int semaphoreTurn;
+    private int semaphoreTurn;
 
     private const int LEFT = 0;
     private const int STRAIGHT = 1;
@@ -79,13 +81,13 @@ public class Street : MonoBehaviour
             {
                 intersectionQueue1Lane = new CarAI[4] { null, null, null, null };
                 intersectionBusyMarker = new int[4, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
-                Debug.Log("Initialized intersection data structures for: 1 lane intersection");
+                //Debug.Log("Initialized intersection data structures for: 1 lane intersection");
             }
             else if (numberLanes == 2)
             {
                 intersectionQueue2Lane = new CarAI[4, 2] { { null, null }, { null, null }, { null, null }, { null, null } };
                 intersectionBusyMarker = new int[4, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
-                Debug.Log("Initialized intersection data structures for: 2 lane intersection");
+                //Debug.Log("Initialized intersection data structures for: 2 lane intersection");
             }
         }
 

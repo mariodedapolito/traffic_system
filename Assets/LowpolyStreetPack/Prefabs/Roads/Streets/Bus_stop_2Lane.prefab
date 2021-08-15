@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6400000}
   - component: {fileID: 5550248545795202847}
   m_Layer: 0
-  m_Name: Road_BusStop_Double
+  m_Name: Bus_stop_2Lane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.2}
   m_Children:
   - {fileID: 5810989986716679431}
   - {fileID: 8134874682515261452}
@@ -149,12 +149,11 @@ MonoBehaviour:
   hasBusStop: 1
   isLaneAdapter: 0
   isCurve: 0
+  isDeadend: 0
   numberLanes: 2
   intersectionSemaphores: []
   semaphoreTimerMainLane: 0
   semaphoreTimerLeftLane: 0
-  yellowLightOn: 0
-  semaphoreTurn: 0
 --- !u!1 &686291884510690214
 GameObject:
   m_ObjectHideFlags: 0

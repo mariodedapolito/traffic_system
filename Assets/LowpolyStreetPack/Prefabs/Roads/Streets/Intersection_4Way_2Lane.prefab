@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6400000}
   - component: {fileID: 7332150883611290669}
   m_Layer: 0
-  m_Name: Road_Cross_C_A
+  m_Name: Intersection_4Way_2Lane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.2}
   m_Children:
   - {fileID: 4013929878410263816}
   - {fileID: 4525150654613706303}
@@ -183,9 +183,11 @@ MonoBehaviour:
   - {fileID: 7369642881409322872}
   isSimpleIntersection: 1
   isSemaphoreIntersection: 0
+  isTBoneIntersection: 0
   hasBusStop: 0
   isLaneAdapter: 0
   isCurve: 0
+  isDeadend: 0
   numberLanes: 2
   intersectionSemaphores: []
   semaphoreTimerMainLane: 0
@@ -300,6 +302,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 0
   trafficDirection: 0
 --- !u!135 &4924566613856756192
@@ -424,6 +428,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 0
   trafficDirection: 1
 --- !u!135 &826769136637033340
@@ -583,6 +589,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 1
   trafficDirection: 1
 --- !u!135 &5054092262539504696
@@ -650,6 +658,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 1
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 0
   trafficDirection: 0
 --- !u!1 &1291587357800745411
@@ -854,6 +864,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 1
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 0
   trafficDirection: 0
 --- !u!1 &1886627026987091241
@@ -907,6 +919,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 1
   trafficDirection: 0
 --- !u!135 &5426680255023153848
@@ -1066,6 +1080,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 1
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 0
   trafficDirection: 1
 --- !u!1 &2657776383021456942
@@ -1177,6 +1193,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 0
   trafficDirection: 0
 --- !u!135 &7071079238299791184
@@ -1302,6 +1320,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 0
   trafficDirection: 0
 --- !u!1 &3557098301269561910
@@ -1356,6 +1376,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 0
   trafficDirection: 1
 --- !u!135 &3655815411459814930
@@ -1422,6 +1444,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 1
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 0
   trafficDirection: 1
 --- !u!1 &3849493878093930256
@@ -1848,6 +1872,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 0
   trafficDirection: 1
 --- !u!135 &414029682284782080
@@ -1914,6 +1940,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 1
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 0
   trafficDirection: 0
 --- !u!1 &5140418742662149162
@@ -2060,6 +2088,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 0
   trafficDirection: 1
 --- !u!135 &1240300567190621130
@@ -2221,6 +2251,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 1
   trafficDirection: 0
 --- !u!135 &4035122199759642570
@@ -2288,6 +2320,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 1
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 0
   trafficDirection: 1
 --- !u!1 &5816405563956461787
@@ -2342,6 +2376,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 1
   trafficDirection: 1
 --- !u!135 &7342006777290630729
@@ -2525,6 +2561,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 1
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 0
   trafficDirection: 0
 --- !u!1 &6221866888338074224
@@ -2671,6 +2709,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 0
   trafficDirection: 1
 --- !u!135 &6381848741239778377
@@ -2796,6 +2836,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 1
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 0
   trafficDirection: 1
 --- !u!1 &7044998388837120426
@@ -2851,6 +2893,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 1
   trafficDirection: 1
 --- !u!135 &5357154576544224117
@@ -2918,6 +2962,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 0
   trafficDirection: 1
 --- !u!135 &5660758972894975531
@@ -2985,6 +3031,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 1
   trafficDirection: 1
 --- !u!135 &1031190628131348569
@@ -3051,6 +3099,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 1
   trafficDirection: 1
 --- !u!135 &7302709422194889622
@@ -3304,6 +3354,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 0
   trafficDirection: 1
 --- !u!1 &8812477465666586220
@@ -3450,6 +3502,8 @@ MonoBehaviour:
   isLaneChange: 0
   isTurnLeft: 0
   isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
   laneNumber: 1
   trafficDirection: 1
 --- !u!135 &8533710274397661109
