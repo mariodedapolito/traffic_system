@@ -72,7 +72,7 @@ public class IntersectionTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        intersection = this.transform.parent.GetComponent<Street>();
+        intersection = this.transform.parent.transform.parent.GetComponent<Street>();
         intersectionNodes = intersection.carWaypoints;
         collisionRegistered = new List<CarAI>();
     }

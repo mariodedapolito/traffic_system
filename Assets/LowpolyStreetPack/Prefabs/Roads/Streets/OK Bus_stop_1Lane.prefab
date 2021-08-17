@@ -40,6 +40,8 @@ Transform:
   - {fileID: 1915566821863706473}
   - {fileID: 5558670498472600538}
   - {fileID: 163197393118350120}
+  - {fileID: 1426773120484355116}
+  - {fileID: 4185305155034329894}
   - {fileID: 2971701145149030680}
   - {fileID: 137823077881272512}
   - {fileID: 7241744702322930291}
@@ -47,8 +49,6 @@ Transform:
   - {fileID: 5229993681314460329}
   - {fileID: 4073640105883601276}
   - {fileID: 4115256765185521409}
-  - {fileID: 1426773120484355116}
-  - {fileID: 4185305155034329894}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 90}
@@ -135,6 +135,8 @@ MonoBehaviour:
   - {fileID: 5966485130906819796}
   - {fileID: 8037878191698135830}
   - {fileID: 4253468648270138871}
+  - {fileID: 5227499902622385440}
+  - {fileID: 5164968396410659833}
   isSimpleIntersection: 0
   isSemaphoreIntersection: 0
   isTBoneIntersection: 0
@@ -177,7 +179,7 @@ Transform:
   m_LocalScale: {x: 30, y: 5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 400000}
-  m_RootOrder: 9
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: -90.00001}
 --- !u!33 &7547844406598520479
 MeshFilter:
@@ -418,7 +420,7 @@ Transform:
   m_LocalScale: {x: 17, y: 5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 400000}
-  m_RootOrder: 10
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: -90.00001}
 --- !u!33 &5767904722578364288
 MeshFilter:
@@ -579,7 +581,7 @@ Transform:
   m_LocalScale: {x: 30, y: 5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 400000}
-  m_RootOrder: 13
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: -90.00001}
 --- !u!33 &5785893915048946089
 MeshFilter:
@@ -722,7 +724,6 @@ GameObject:
   - component: {fileID: 4073640105880734044}
   - component: {fileID: 4073640105881832348}
   - component: {fileID: 4073640105877552124}
-  - component: {fileID: 962634473450138967}
   m_Layer: 0
   m_Name: Straight_1Lane
   m_TagString: Untagged
@@ -745,7 +746,7 @@ Transform:
   - {fileID: 5299012107344016176}
   - {fileID: 7447278004316314734}
   m_Father: {fileID: 400000}
-  m_RootOrder: 14
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 90}
 --- !u!33 &4073640105880734044
 MeshFilter:
@@ -808,34 +809,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300022, guid: bca5c93adbc71744ca9ea932c796e900, type: 3}
---- !u!114 &962634473450138967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4073640105883833692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6cf3fab3c7adf84a9a8bd5bc01b3df5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  carWaypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  isSimpleIntersection: 0
-  isSemaphoreIntersection: 0
-  isTBoneIntersection: 0
-  hasBusStop: 0
-  isLaneAdapter: 0
-  isCurve: 0
-  isDeadend: 0
-  numberLanes: 1
-  intersectionSemaphores: []
-  semaphoreTimerMainLane: 0
-  semaphoreTimerLeftLane: 0
 --- !u!1 &4085094203855878902
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,7 +895,7 @@ Transform:
   m_LocalScale: {x: 8, y: 5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 400000}
-  m_RootOrder: 12
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 32, y: -90.00001, z: -90.00001}
 --- !u!33 &2694949937802120313
 MeshFilter:
@@ -1015,7 +988,7 @@ Transform:
   m_LocalScale: {x: 8, y: 5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 400000}
-  m_RootOrder: 11
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: -32, y: -90.00001, z: -90.00001}
 --- !u!33 &2117381318395630887
 MeshFilter:
@@ -1490,8 +1463,6 @@ GameObject:
   - component: {fileID: 4115256765185521409}
   - component: {fileID: 770072924231979207}
   - component: {fileID: 4654578091833182960}
-  - component: {fileID: 8906435639353478106}
-  - component: {fileID: 1261037704289881110}
   m_Layer: 0
   m_Name: Straight_1Lane (1)
   m_TagString: Untagged
@@ -1514,7 +1485,7 @@ Transform:
   - {fileID: 7498930659547504775}
   - {fileID: 6074548490157935146}
   m_Father: {fileID: 400000}
-  m_RootOrder: 15
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 90}
 --- !u!33 &770072924231979207
 MeshFilter:
@@ -1563,48 +1534,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &8906435639353478106
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7125567764642887796}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300022, guid: bca5c93adbc71744ca9ea932c796e900, type: 3}
---- !u!114 &1261037704289881110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7125567764642887796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6cf3fab3c7adf84a9a8bd5bc01b3df5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  carWaypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  isSimpleIntersection: 0
-  isSemaphoreIntersection: 0
-  isTBoneIntersection: 0
-  hasBusStop: 0
-  isLaneAdapter: 0
-  isCurve: 0
-  isDeadend: 0
-  numberLanes: 1
-  intersectionSemaphores: []
-  semaphoreTimerMainLane: 0
-  semaphoreTimerLeftLane: 0
 --- !u!1 &7490023631267629641
 GameObject:
   m_ObjectHideFlags: 0
@@ -1944,7 +1873,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
-  m_RootOrder: 16
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5227499902622385440
 MonoBehaviour:
@@ -2055,7 +1984,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
-  m_RootOrder: 17
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5164968396410659833
 MonoBehaviour:

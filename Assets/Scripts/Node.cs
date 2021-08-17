@@ -25,7 +25,16 @@ public class Node : MonoBehaviour
         {
             Gizmos.DrawLine(transform.position, nextNodes[i].transform.position);
         }
-
+        if (isTurnLeft)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawCube(transform.position, new Vector3(0.25f, 0.25f, 1f));
+        }
+        if (isTurnRight)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawCube(transform.position, new Vector3(0.25f, 0.25f, 1f));
+        }
         if (trafficDirection == 0)
         {
             Gizmos.color = Color.red;

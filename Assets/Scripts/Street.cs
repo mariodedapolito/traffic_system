@@ -55,7 +55,8 @@ public class Street : MonoBehaviour
                     if (nearbyWaypoint.transform.parent.position != this.transform.position &&
                         //node.trafficDirection == nearbyWaypoint.GetComponent<Node>().trafficDirection &&
                         node.laneNumber == nearbyWaypoint.GetComponent<Node>().laneNumber &&
-                        nearbyWaypoint.GetComponent<Node>().needIncomingConnection)
+                        nearbyWaypoint.GetComponent<Node>().needIncomingConnection &&
+                        !carWaypoints.Contains(nearbyWaypoint.GetComponent<Node>()))
                     {
                         float distance = Vector3.Distance(node.transform.position, nearbyWaypoint.transform.position);
                         if (distance < shortestDistance)
