@@ -91,6 +91,11 @@ public class CityGenerator : MonoBehaviour
     private const int HORIZONTAL_STREET = 0;
     private const int VERTICAL_STREET = 1;
 
+    private const int HORIZONTAL_BUS_STOP_UP = 0;
+    private const int HORIZONTAL_BUS_STOP_DOWN = 1;
+    private const int VERTICAL_BUS_STOP_LEFT = 2;
+    private const int VERTICAL_BUS_STOP_RIGHT = 3;
+
     private const int TOP_STREET = 0;
     private const int BOTTOM_STREET = 1;
     private const int MIDDLE_STREET = 2;
@@ -112,6 +117,10 @@ public class CityGenerator : MonoBehaviour
     private const int CURVE_ROTATION_BOTTOM_LEFT = 270;
     private const int LANE_ADAPTOR_ROTATION_2LANE_UP = 90;
     private const int LANE_ADAPTOR_ROTATION_2LANE_DOWN = 270;
+    private const int BUS_STOP_ROTATION_UP = 0;
+    private const int BUS_STOP_ROTATION_DOWN = 180;
+    private const int BUS_STOP_ROTATION_LEFT = 270;
+    private const int BUS_STOP_ROTATION_RIGHT = 90;
 
 
     private int[] horizontalSpaces;
@@ -140,20 +149,6 @@ public class CityGenerator : MonoBehaviour
 
         //Generate random number of vertical streets for each section (1 section = space between 2 horizontal streets)
         numberVerticalStreets = generateVerticalStreetsNumber();
-
-
-        //
-        //DEBUGGING
-        //
-        string str = "";
-        for (int i = 0; i < numberHorizontalStreets - 1; i++)
-        {
-            str += numberVerticalStreets[i];
-        }
-        Debug.Log(str);
-        //
-        //DEBUGGING END
-        //
 
 
         //Generate the number of lanes for each horizontal street
@@ -264,7 +259,7 @@ public class CityGenerator : MonoBehaviour
                     {
                         cityMap[i, j] = generateStraightStreetType(currentHorizontalStreet, currentVerticalStreet, HORIZONTAL_STREET);
                     }
-                    else if (j == (int)intersectionPositionsUpperSection && j == (int)intersectionPositionsLowerSection )    //VERTICAL ROAD + match 4way intersection vertical number of lanes (place lane adapters)
+                    else if (j == (int)intersectionPositionsUpperSection && j == (int)intersectionPositionsLowerSection)    //VERTICAL ROAD + match 4way intersection vertical number of lanes (place lane adapters)
                     {
                         for (int k = i + 1; k < i + distanceBetweenHorizontalStreets && k < cityLength - 1; k++)
                         {
@@ -299,6 +294,62 @@ public class CityGenerator : MonoBehaviour
             }
 
             currentHorizontalStreet++;
+        }
+
+        //Generate bus stops (in between two intersections for each street)
+        for (int i = 0; i < cityLength; i += distanceBetweenHorizontalStreets)
+        {
+            for (int j = 0; j < cityWidth; j++)
+            {
+                if (cityMap[i, j].prefabType == 0)
+                {
+                    //Find next vertical intersection (if any)
+                    //Dont consider the bottom horizontal street which has no vertical intersections
+                    if (i / distanceBetweenHorizontalStreets < numberHorizontalStreets - 1)
+                    {
+                        Debug.Log("Inside "+ cityMap[i + 1, j].prefabType);
+                        if (cityMap[i + 1, j].prefabType != 0)
+                        {
+                            int nextVerticalIntersection = (i / distanceBetweenHorizontalStreets + 1) * distanceBetweenHorizontalStreets;
+                            Debug.Log(nextVerticalIntersection);
+                            if (nextVerticalIntersection - i > 2)
+                            {
+                                int middlePosition = (i + nextVerticalIntersection) / 2;
+                                if (cityMap[middlePosition, j].prefabType != LANE_ADAPTOR)
+                                {
+                                    cityMap[middlePosition, j] = generateBusStopType(middlePosition, j, VERTICAL_BUS_STOP_LEFT);
+                                }
+                                else
+                                {
+                                    cityMap[middlePosition - 1, j] = generateBusStopType(middlePosition - 1, j, VERTICAL_BUS_STOP_LEFT);
+                                }
+                                cityMap[middlePosition + 1, j] = generateBusStopType(middlePosition + 1, j, VERTICAL_BUS_STOP_RIGHT);
+                            }
+                        }
+                    }
+
+
+                    //Find next horizontal intersection
+                    int nextHorizontalIntersection = -1;
+                    for (int k = j + 1; k < cityWidth; k++)
+                    {
+                        if (cityMap[i, k].prefabType == 0)
+                        {
+                            nextHorizontalIntersection = k;
+                            break;
+                        }
+                    }
+                    //only generate bus stop if not at horizontal street extremes
+                    if (nextHorizontalIntersection - j > 2 && nextHorizontalIntersection != -1)
+                    {
+                        int middlePosition = (j + nextHorizontalIntersection) / 2;
+                        cityMap[i, middlePosition] = generateBusStopType(i, middlePosition, HORIZONTAL_BUS_STOP_UP);
+                        cityMap[i, middlePosition + 1] = generateBusStopType(i, middlePosition + 1, HORIZONTAL_BUS_STOP_DOWN);
+                        j = nextHorizontalIntersection - 1;
+                    }
+                }
+            }
+
         }
 
         //Generate curves (only on 4 city extremities)
@@ -343,9 +394,11 @@ public class CityGenerator : MonoBehaviour
             }
         }
 
+
         //
         //DEBUGGING
         //
+        string str = "";
         for (int i = 0; i < cityLength; i++)
         {
             if (i % distanceBetweenHorizontalStreets == 0)
@@ -483,7 +536,7 @@ public class CityGenerator : MonoBehaviour
             //extreme LEFT & RIGHT vertical roads
             else if (numberVerticalStreet == 0 || numberVerticalStreet == numberVerticalStreets[numberHorizontalStreet] + 1)
             {
-               //Horizontal streets (that are in parallel) having the same number of lanes
+                //Horizontal streets (that are in parallel) having the same number of lanes
                 if (lanesHorizontalStreets[numberHorizontalStreet] == lanesHorizontalStreets[numberHorizontalStreet + 1])
                 {
                     if (lanesHorizontalStreets[numberHorizontalStreet] == 1)
@@ -612,7 +665,7 @@ public class CityGenerator : MonoBehaviour
                 }
                 else if (cityMap[row - 1, col].prefabType == 2)
                 {
-                    return new MapTile(generateRandomIntersectionType(INTERSECTION_3WAY_1LANE_2LANE), INTERSECTION_ROTATION_TOP);
+                    return new MapTile(generateRandomIntersectionType(INTERSECTION_3WAY_2LANE), INTERSECTION_ROTATION_TOP);
                 }
                 else
                 {
@@ -677,7 +730,7 @@ public class CityGenerator : MonoBehaviour
                     }
                     else
                     {
-                        throw new Exception("Bad vertical number of lanes on right border @ street " + lanesHorizontalStreets[row / distanceBetweenHorizontalStreets] + ":" + cityMap[row - 1, col].prefabType + "," + cityMap[row + 1, col].prefabType);
+                        throw new Exception("Bad vertical number of lanes on right border");
                     }
                 }
                 else if (lanesHorizontalStreets[row / distanceBetweenHorizontalStreets] == 2)   //Horizontal street with 2 lanes
@@ -692,7 +745,7 @@ public class CityGenerator : MonoBehaviour
                     }
                     else
                     {
-                        throw new Exception("Bad vertical number of lanes on right border @ street " + lanesHorizontalStreets[row / distanceBetweenHorizontalStreets] + ":" + cityMap[row - 1, col].prefabType + "," + cityMap[row + 1, col].prefabType);
+                        throw new Exception("Bad vertical number of lanes on right border");
                     }
                 }
                 else
@@ -890,9 +943,53 @@ public class CityGenerator : MonoBehaviour
         }
     }
 
-    private MapTile generateBusStopType()
+    private MapTile generateBusStopType(int row, int col, int busStopType)
     {
-        return new MapTile(BUS_STOP_1LANE, STRAIGHT_STREET_ROTATION_VERTICAL);
+        if (busStopType == HORIZONTAL_BUS_STOP_DOWN)
+        {
+            if (lanesHorizontalStreets[row / distanceBetweenHorizontalStreets] == 1)
+            {
+                return new MapTile(BUS_STOP_1LANE, BUS_STOP_ROTATION_DOWN);
+            }
+            else
+            {
+                return new MapTile(BUS_STOP_2LANE, BUS_STOP_ROTATION_DOWN);
+            }
+        }
+        else if (busStopType == HORIZONTAL_BUS_STOP_UP)
+        {
+            if (lanesHorizontalStreets[row / distanceBetweenHorizontalStreets] == 1)
+            {
+                return new MapTile(BUS_STOP_1LANE, BUS_STOP_ROTATION_UP);
+            }
+            else
+            {
+                return new MapTile(BUS_STOP_2LANE, BUS_STOP_ROTATION_UP);
+            }
+        }
+        else if (busStopType == VERTICAL_BUS_STOP_LEFT)
+        {
+            Debug.Log(row + "," + col);
+            if (cityMap[row - 1, col].prefabType == STRAIGHT_1LANE || cityMap[row + 1, col].prefabType == STRAIGHT_1LANE)
+            {
+                return new MapTile(BUS_STOP_1LANE, BUS_STOP_ROTATION_LEFT);
+            }
+            else
+            {
+                return new MapTile(BUS_STOP_2LANE, BUS_STOP_ROTATION_LEFT);
+            }
+        }
+        else
+        {
+            if (cityMap[row - 1, col].prefabType == STRAIGHT_1LANE || cityMap[row + 1, col].prefabType == STRAIGHT_1LANE)
+            {
+                return new MapTile(BUS_STOP_1LANE, BUS_STOP_ROTATION_RIGHT);
+            }
+            else
+            {
+                return new MapTile(BUS_STOP_2LANE, BUS_STOP_ROTATION_RIGHT);
+            }
+        }
     }
 
     private void instantiateTerrain(int cityWidth, int cityLength)
@@ -934,7 +1031,14 @@ public class CityGenerator : MonoBehaviour
         }
         else if (tile.prefabType == BUS_STOP_1LANE || tile.prefabType == BUS_STOP_2LANE)
         {
-
+            if (tile.prefabType == BUS_STOP_1LANE)
+            {
+                Instantiate(busStop1Lane, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
+            }
+            else if (tile.prefabType == BUS_STOP_2LANE)
+            {
+                Instantiate(busStop2Lane, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
+            }
         }
         //INTERSECTIONS
         else

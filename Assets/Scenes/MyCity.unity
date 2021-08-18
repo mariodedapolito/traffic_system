@@ -211,7 +211,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1653372351
 GameObject:
@@ -242,15 +242,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe8dd4106f61824a8bcfcb47a8702a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberHorizontalStreets: 5
-  minNumberVerticalStreets: 3
+  numberHorizontalStreets: 4
+  minNumberVerticalStreets: 2
   maxNumberVerticalStreets: 3
   minDistanceBetweenHorizontalStreets: 5
   maxDistanceBetweenHorizontalStreets: 10
   onlySimpleIntersections: 0
-  onlySemaphoreIntersections: 0
+  onlySemaphoreIntersections: 1
   only1LaneStreets: 0
   only2LaneStreets: 0
+  cityPlane: {fileID: 8875702055242613236, guid: 4ff6c5b2d5701604f9a6a55a3726dc9f,
+    type: 3}
   straightStreet1Lane: {fileID: 8875702055242613236, guid: 57504f73fb74faa40a50afb1d62704c0,
     type: 3}
   straightStreet2Lane: {fileID: 8875702055242613236, guid: 2bcde946bce84384f9714657145951f9,
@@ -265,8 +267,10 @@ MonoBehaviour:
     type: 3}
   deadend2Lane: {fileID: 8875702055242613236, guid: ff4a696a3d557324aa42aabda473ee1b,
     type: 3}
-  curve1Lane: {fileID: 0}
-  curve2Lane: {fileID: 0}
+  curve1Lane: {fileID: 8875702055242613236, guid: 1bad8f9967e2bc949aeaac97292aca9f,
+    type: 3}
+  curve2Lane: {fileID: 8875702055242613236, guid: 6bd6a234aa0a7e1499253445322fb357,
+    type: 3}
   intersection4Way1Lane: {fileID: 8875702055242613236, guid: 2225f700d88ba4c46b7749a43d080e74,
     type: 3}
   intersection4Way1LaneSemaphore: {fileID: 8875702055242613236, guid: 24a61a99631c1bc4f8792ef1023b9b5f,
@@ -287,7 +291,7 @@ MonoBehaviour:
     type: 3}
   intersection3Way2LaneSemaphore: {fileID: 8875702055242613236, guid: 39f003cf8ca9dfd4194fecbf09a94e9f,
     type: 3}
-  intersection3Way1Lane2Lane: {fileID: 8875702055242613236, guid: f04eed4c0a827bf41832137d4daf5d3a,
+  intersection3Way1Lane2Lane: {fileID: 8875702055242613236, guid: 17f83e8779604434b9b39733c86598ac,
     type: 3}
   intersection3Way1Lane2LaneSemaphore: {fileID: 8875702055242613236, guid: f04eed4c0a827bf41832137d4daf5d3a,
     type: 3}
@@ -307,7 +311,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1677110519
 GameObject:
@@ -390,5 +394,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
