@@ -65,7 +65,6 @@ public class IntersectionTrigger : MonoBehaviour
                 return;
             }
         }
-
         car.intersectionDirection=STRAIGHT;
     }
 

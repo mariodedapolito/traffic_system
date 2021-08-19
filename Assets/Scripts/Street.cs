@@ -41,38 +41,6 @@ public class Street : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //CONNECT NEIGHBORING STREET PREFABS (IN ORDER TO GENERATE A GRAPH FOR THE WHOLE CITY)
-        foreach (var node in carWaypoints)
-        {
-            if (node.needOutgoingConnection)
-            {
-                Collider[] nearbyWaypoints = Physics.OverlapSphere(node.transform.position, 5f, 1 << 8);
-                //Debug.Log("# of nearby waypoints:" + nearbyWaypoints.Length);
-                Node targetWaypoint = null;
-                float shortestDistance = 999999999;
-                foreach (var nearbyWaypoint in nearbyWaypoints)
-                {
-                    if (nearbyWaypoint.transform.parent.position != this.transform.position &&
-                        //node.trafficDirection == nearbyWaypoint.GetComponent<Node>().trafficDirection &&
-                        node.laneNumber == nearbyWaypoint.GetComponent<Node>().laneNumber &&
-                        nearbyWaypoint.GetComponent<Node>().needIncomingConnection &&
-                        !carWaypoints.Contains(nearbyWaypoint.GetComponent<Node>()))
-                    {
-                        float distance = Vector3.Distance(node.transform.position, nearbyWaypoint.transform.position);
-                        if (distance < shortestDistance)
-                        {
-                            targetWaypoint = nearbyWaypoint.GetComponent<Node>();
-                        }
-                    }
-                }
-                if (targetWaypoint != null)
-                {
-                    node.nextNodes.Add(targetWaypoint);
-                    //Debug.Log("Added connection");
-                }
-            }
-        }
-
         //INITIALIZE SIMPLE INTERSECTION DATA STRUCTURES (FOR INTERSECTION PRECEDENCE)
         if ((isSimpleIntersection || isSemaphoreIntersection))
         {

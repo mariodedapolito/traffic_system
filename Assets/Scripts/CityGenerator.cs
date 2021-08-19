@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class MapTile
 {
+    public GameObject prefabStreet;
+    public GameObject instantiatedStreet;
     public int prefabType;
     public int rotation;
 
@@ -12,6 +14,7 @@ public class MapTile
     {
         this.prefabType = prefabType;
         this.rotation = rotation;
+        this.prefabStreet = null;
     }
 }
 
@@ -29,11 +32,12 @@ public class CityGenerator : MonoBehaviour
     public bool only2LaneStreets;
 
     public GameObject cityPlane;
+    public GameObject carPrefab;
 
     public GameObject straightStreet1Lane;
-    //public GameObject straightStreet1LaneShort;
+    //public GameObject straightGameObject1LaneShort;
     public GameObject straightStreet2Lane;
-    //public GameObject straightStreet2LaneShort;
+    //public GameObject straightGameObject2LaneShort;
     public GameObject busStop1Lane;
     public GameObject busStop2Lane;
     public GameObject laneAdaptor;
@@ -60,9 +64,9 @@ public class CityGenerator : MonoBehaviour
     private const int distanceBetweenVerticalStreets = 5;   //2 prefabs for bus stops + 1 prefab (optional) for lane adapter + 2 reserved prefabs
     private const int distanceBetweenHorizontalStreets = 6;
 
-    private MapTile[,] cityMap;
-    private int cityWidth;
-    private int cityLength;
+    public MapTile[,] cityMap;
+    public int cityWidth;
+    public int cityLength;
 
     private const int STRAIGHT_1LANE = 1;
     private const int STRAIGHT_2LANE = 2;
@@ -307,11 +311,9 @@ public class CityGenerator : MonoBehaviour
                     //Dont consider the bottom horizontal street which has no vertical intersections
                     if (i / distanceBetweenHorizontalStreets < numberHorizontalStreets - 1)
                     {
-                        Debug.Log("Inside "+ cityMap[i + 1, j].prefabType);
                         if (cityMap[i + 1, j].prefabType != 0)
                         {
                             int nextVerticalIntersection = (i / distanceBetweenHorizontalStreets + 1) * distanceBetweenHorizontalStreets;
-                            Debug.Log(nextVerticalIntersection);
                             if (nextVerticalIntersection - i > 2)
                             {
                                 int middlePosition = (i + nextVerticalIntersection) / 2;
@@ -437,9 +439,51 @@ public class CityGenerator : MonoBehaviour
         {
             for (int j = 0; j < cityWidth; j++)
             {
-                instantiatePrefab(cityMap[i, j], i, j);
+                if (cityMap[i, j].prefabType != 0)
+                {
+                    generatePrefab(cityMap[i, j], i, j);
+                    instantiatePrefab(cityMap[i, j], i, j);
+                }
             }
         }
+
+        //Connect all prefabs together
+        cityStreetConnector();
+
+        /*SimpleCarSpawner carSpawner = new SimpleCarSpawner(carPrefab, this);
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();*/
 
     }
 
@@ -582,7 +626,6 @@ public class CityGenerator : MonoBehaviour
             }
             else
             {
-                //Debug.Log(numberHorizontalStreet + "," + numberVerticalStreet);
                 if (lanesVerticalStreets[numberHorizontalStreet, numberVerticalStreet] == 1)
                 {
                     return new MapTile(STRAIGHT_1LANE, STRAIGHT_STREET_ROTATION_VERTICAL);
@@ -969,7 +1012,6 @@ public class CityGenerator : MonoBehaviour
         }
         else if (busStopType == VERTICAL_BUS_STOP_LEFT)
         {
-            Debug.Log(row + "," + col);
             if (cityMap[row - 1, col].prefabType == STRAIGHT_1LANE || cityMap[row + 1, col].prefabType == STRAIGHT_1LANE)
             {
                 return new MapTile(BUS_STOP_1LANE, BUS_STOP_ROTATION_LEFT);
@@ -992,6 +1034,152 @@ public class CityGenerator : MonoBehaviour
         }
     }
 
+    private void cityStreetConnector()
+    {
+        for(int i = 0; i < cityLength; i++)
+        {
+            for(int j = 0; j < cityWidth; j++)
+            {
+                if (cityMap[i, j].prefabType != 0)
+                {
+                    //CONNECT NEIGHBORING STREET PREFABS (IN ORDER TO GENERATE A GRAPH FOR THE WHOLE CITY)
+                    List<Node> carWaypoints = cityMap[i, j].instantiatedStreet.GetComponent<Street>().carWaypoints;
+                    foreach (var node in carWaypoints)
+                    {
+                        if (node.needOutgoingConnection)
+                        {
+                            Collider[] nearbyWaypoints = Physics.OverlapSphere(node.transform.position, 8f, 1 << 8);
+                            //Debug.Log("# of nearby waypoints:" + nearbyWaypoints.Length);
+                            Node targetWaypoint = null;
+                            float shortestDistance = 999999999;
+                            foreach (var nearbyWaypoint in nearbyWaypoints)
+                            {
+                                if (nearbyWaypoint.transform.parent.position != this.transform.position &&
+                                    //node.trafficDirection == nearbyWaypoint.GetComponent<Node>().trafficDirection &&
+                                    node.laneNumber == nearbyWaypoint.GetComponent<Node>().laneNumber &&
+                                    nearbyWaypoint.GetComponent<Node>().needIncomingConnection &&
+                                    !carWaypoints.Contains(nearbyWaypoint.GetComponent<Node>()))
+                                {
+                                    float distance = Vector3.Distance(node.transform.position, nearbyWaypoint.transform.position);
+                                    if (distance < shortestDistance)
+                                    {
+                                        targetWaypoint = nearbyWaypoint.GetComponent<Node>();
+                                    }
+                                }
+                            }
+                            if (targetWaypoint != null)
+                            {
+                                node.nextNodes.Add(targetWaypoint);
+                                //Debug.Log("Added connection");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void generatePrefab(MapTile tile, int row, int col)
+    {
+        if (tile.prefabType == STRAIGHT_1LANE || tile.prefabType == STRAIGHT_2LANE)
+        {
+            if (tile.prefabType == STRAIGHT_1LANE)
+            {
+                cityMap[row, col].prefabStreet = straightStreet1Lane;
+            }
+            else
+            {
+                cityMap[row, col].prefabStreet = straightStreet2Lane;
+            }
+        }
+        else if (tile.prefabType == CURVE_1LANE || tile.prefabType == CURVE_2LANE)
+        {
+            if (tile.prefabType == CURVE_1LANE)
+            {
+                cityMap[row, col].prefabStreet = curve1Lane;
+            }
+            else
+            {
+                cityMap[row, col].prefabStreet = curve2Lane;
+            }
+        }
+        else if (tile.prefabType == LANE_ADAPTOR)
+        {
+            cityMap[row, col].prefabStreet = laneAdaptor;
+        }
+        else if (tile.prefabType == BUS_STOP_1LANE || tile.prefabType == BUS_STOP_2LANE)
+        {
+            if (tile.prefabType == BUS_STOP_1LANE)
+            {
+                cityMap[row, col].prefabStreet = busStop1Lane;
+            }
+            else if (tile.prefabType == BUS_STOP_2LANE)
+            {
+                cityMap[row, col].prefabStreet = busStop2Lane;
+            }
+        }
+        //INTERSECTIONS
+        else
+        {
+            if (tile.prefabType == INTERSECTION_4WAY_1LANE)
+            {
+                cityMap[row, col].prefabStreet = intersection4Way1Lane;
+            }
+            else if (tile.prefabType == INTERSECTION_4WAY_1LANE_SEMAPHORE)
+            {
+                cityMap[row, col].prefabStreet = intersection4Way1LaneSemaphore;
+            }
+            else if (tile.prefabType == INTERSECTION_4WAY_2LANE)
+            {
+                cityMap[row, col].prefabStreet = intersection4Way2Lane;
+            }
+            else if (tile.prefabType == INTERSECTION_4WAY_2LANE_SEMAPHORE)
+            {
+                cityMap[row, col].prefabStreet = intersection4Way2LaneSemaphore;
+            }
+            else if (tile.prefabType == INTERSECTION_3WAY_1LANE)
+            {
+                cityMap[row, col].prefabStreet = intersection3Way1Lane;
+            }
+            else if (tile.prefabType == INTERSECTION_3WAY_1LANE_SEMAPHORE)
+            {
+                cityMap[row, col].prefabStreet = intersection3Way1LaneSemaphore;
+            }
+            else if (tile.prefabType == INTERSECTION_3WAY_2LANE)
+            {
+                cityMap[row, col].prefabStreet = intersection3Way2Lane;
+            }
+            else if (tile.prefabType == INTERSECTION_3WAY_2LANE_SEMAPHORE)
+            {
+                cityMap[row, col].prefabStreet = intersection3Way2LaneSemaphore;
+            }
+            else if (tile.prefabType == INTERSECTION_4WAY_1LANE_2LANE)
+            {
+                cityMap[row, col].prefabStreet = intersection4Way1Lane2Lane;
+            }
+            else if (tile.prefabType == INTERSECTION_4WAY_1LANE_2LANE_SEMAPHORE)
+            {
+                cityMap[row, col].prefabStreet = intersection4Way1Lane2LaneSemaphore;
+            }
+            else if (tile.prefabType == INTERSECTION_3WAY_1LANE_2LANE)
+            {
+                cityMap[row, col].prefabStreet = intersection3Way1Lane2Lane;
+            }
+            else if (tile.prefabType == INTERSECTION_3WAY_1LANE_2LANE_SEMAPHORE)
+            {
+                cityMap[row, col].prefabStreet = intersection3Way1Lane2LaneSemaphore;
+            }
+            else if (tile.prefabType == INTERSECTION_3WAY_2LANE_1LANE)
+            {
+                cityMap[row, col].prefabStreet = intersection3Way2Lane1Lane;
+            }
+            else if (tile.prefabType == INTERSECTION_3WAY_2LANE_1LANE_SEMAPHORE)
+            {
+                cityMap[row, col].prefabStreet = intersection3Way2Lane1LaneSemaphore;
+            }
+        }
+    }
+
     private void instantiateTerrain(int cityWidth, int cityLength)
     {
         GameObject terrain = Instantiate(cityPlane, new Vector3(0f, 0f, 0f), Quaternion.identity);
@@ -1000,106 +1188,9 @@ public class CityGenerator : MonoBehaviour
 
     private void instantiatePrefab(MapTile tile, int row, int col)
     {
-        row = (row - (cityLength / 2));
-        col = -(col - (cityLength / 2));
-
-        if (tile.prefabType == STRAIGHT_1LANE || tile.prefabType == STRAIGHT_2LANE)
-        {
-            if (tile.prefabType == STRAIGHT_1LANE)
-            {
-                Instantiate(straightStreet1Lane, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
-            }
-            else
-            {
-                Instantiate(straightStreet2Lane, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
-            }
-        }
-        else if (tile.prefabType == CURVE_1LANE || tile.prefabType == CURVE_2LANE)
-        {
-            if (tile.prefabType == CURVE_1LANE)
-            {
-                Instantiate(curve1Lane, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
-            }
-            else
-            {
-                Instantiate(curve2Lane, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
-            }
-        }
-        else if (tile.prefabType == LANE_ADAPTOR)
-        {
-            Instantiate(laneAdaptor, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
-        }
-        else if (tile.prefabType == BUS_STOP_1LANE || tile.prefabType == BUS_STOP_2LANE)
-        {
-            if (tile.prefabType == BUS_STOP_1LANE)
-            {
-                Instantiate(busStop1Lane, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
-            }
-            else if (tile.prefabType == BUS_STOP_2LANE)
-            {
-                Instantiate(busStop2Lane, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
-            }
-        }
-        //INTERSECTIONS
-        else
-        {
-            if (tile.prefabType == INTERSECTION_4WAY_1LANE)
-            {
-                Instantiate(intersection4Way1Lane, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
-            }
-            else if (tile.prefabType == INTERSECTION_4WAY_1LANE_SEMAPHORE)
-            {
-                Instantiate(intersection4Way1LaneSemaphore, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
-            }
-            else if (tile.prefabType == INTERSECTION_4WAY_2LANE)
-            {
-                Instantiate(intersection4Way2Lane, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
-            }
-            else if (tile.prefabType == INTERSECTION_4WAY_2LANE_SEMAPHORE)
-            {
-                Instantiate(intersection4Way2LaneSemaphore, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
-            }
-            else if (tile.prefabType == INTERSECTION_3WAY_1LANE)
-            {
-                Instantiate(intersection3Way1Lane, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
-            }
-            else if (tile.prefabType == INTERSECTION_3WAY_1LANE_SEMAPHORE)
-            {
-                Instantiate(intersection3Way1LaneSemaphore, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
-            }
-            else if (tile.prefabType == INTERSECTION_3WAY_2LANE)
-            {
-                Instantiate(intersection3Way2Lane, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
-            }
-            else if (tile.prefabType == INTERSECTION_3WAY_2LANE_SEMAPHORE)
-            {
-                Instantiate(intersection3Way2LaneSemaphore, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
-            }
-            else if (tile.prefabType == INTERSECTION_4WAY_1LANE_2LANE)
-            {
-                Instantiate(intersection4Way1Lane2Lane, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
-            }
-            else if (tile.prefabType == INTERSECTION_4WAY_1LANE_2LANE_SEMAPHORE)
-            {
-                Instantiate(intersection4Way1Lane2LaneSemaphore, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
-            }
-            else if (tile.prefabType == INTERSECTION_3WAY_1LANE_2LANE)
-            {
-                Instantiate(intersection3Way1Lane2Lane, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
-            }
-            else if (tile.prefabType == INTERSECTION_3WAY_1LANE_2LANE_SEMAPHORE)
-            {
-                Instantiate(intersection3Way1Lane2LaneSemaphore, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
-            }
-            else if (tile.prefabType == INTERSECTION_3WAY_2LANE_1LANE)
-            {
-                Instantiate(intersection3Way2Lane1Lane, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
-            }
-            else if (tile.prefabType == INTERSECTION_3WAY_2LANE_1LANE_SEMAPHORE)
-            {
-                Instantiate(intersection3Way2Lane1LaneSemaphore, new Vector3(col * (-20), 0, row * (-20)), Quaternion.Euler(0, tile.rotation, 0));
-            }
-        }
+        int SceneRow = (row - (cityLength / 2));
+        int SceneCol = -(col - (cityLength / 2));
+        cityMap[row,col].instantiatedStreet = Instantiate(tile.prefabStreet, new Vector3(SceneCol * (-20), 0, SceneRow * (-20)), Quaternion.Euler(0, tile.rotation, 0));
     }
 
 
