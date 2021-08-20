@@ -450,7 +450,7 @@ public class CityGenerator : MonoBehaviour
         //Connect all prefabs together
         cityStreetConnector();
 
-        /*SimpleCarSpawner carSpawner = new SimpleCarSpawner(carPrefab, this);
+        SimpleCarSpawner carSpawner = new SimpleCarSpawner(carPrefab, this);
         carSpawner.spawnCar();
         carSpawner.spawnCar();
         carSpawner.spawnCar();
@@ -483,7 +483,72 @@ public class CityGenerator : MonoBehaviour
         carSpawner.spawnCar();
         carSpawner.spawnCar();
         carSpawner.spawnCar();
-        carSpawner.spawnCar();*/
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar(); carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
+        carSpawner.spawnCar();
 
     }
 

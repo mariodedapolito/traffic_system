@@ -34,11 +34,6 @@ public class BusAI : MonoBehaviour
     public float frontSideSensorPosition = 0.2f;
     public float frontSensorAngle = 60f;
 
-    public bool intersectionStop;
-    public bool isInsideIntersection;
-    public int intersectionDirection;
-    public int intersectionEnterId;
-
     private List<Transform> nodes;
     public int currectNode = 0;
     private bool avoiding = false;
@@ -51,12 +46,15 @@ public class BusAI : MonoBehaviour
 
     public bool stopBuses;
 
+    public IntersectionVehicle intersectionData;
+
     private void Start()
     {
-        intersectionStop = false;
-        isInsideIntersection = false;
-        intersectionEnterId = -1;
-        intersectionDirection = 1;      //init to straight (see IntersectionTrigger.cs for turning direction definitions
+        intersectionData = this.GetComponentInParent<IntersectionVehicle>();
+        intersectionData.intersectionStop = false;
+        intersectionData.isInsideIntersection = false;
+        intersectionData.intersectionEnterId = -1;
+        intersectionData.intersectionDirection = 1;      //init to straight (see IntersectionTrigger.cs for turning direction definitions
 
         GetComponent<Rigidbody>().centerOfMass = centerOfMass;
 
@@ -179,7 +177,7 @@ public class BusAI : MonoBehaviour
         }
                 
 
-        if (avoidingI || intersectionStop)
+        if (avoidingI || intersectionData.intersectionStop)
         {
             Stop = true;
             isBraking = true;
@@ -210,7 +208,7 @@ public class BusAI : MonoBehaviour
 
     private void ApplySteer()
     {
-        if (avoiding || Stop || intersectionStop) return;
+        if (avoiding || Stop || intersectionData.intersectionStop) return;
         Vector3 relativeVector = transform.InverseTransformPoint(nodes[currectNode].position);
         float newSteer = (relativeVector.x / relativeVector.magnitude) * maxSteerAngle;
         targetSteerAngle = newSteer;
@@ -218,7 +216,7 @@ public class BusAI : MonoBehaviour
 
     private void Drive()
     {
-        if (Stop || intersectionStop) return;
+        if (Stop || intersectionData.intersectionStop) return;
         currentSpeed = 2 * Mathf.PI * wheelFL.radius * wheelFL.rpm * 60 / 1000;
         currentSpeed = currentSpeed * 2;
         if (currentSpeed < maxSpeed && !isBraking)
@@ -300,14 +298,14 @@ public class BusAI : MonoBehaviour
         currentSpeed = 0f;
         Stop = true;
         isBraking = true;
-        intersectionStop = true;
+        intersectionData.intersectionStop = true;
     }
 
     private void StartObject()
     {
         Stop = false;
         isBraking = false;
-        intersectionStop = false;
+        intersectionData.intersectionStop = false;
         maxSpeed = 10f;
         wheelFL.radius = 0.12f;
         wheelFR.radius = 0.12f;

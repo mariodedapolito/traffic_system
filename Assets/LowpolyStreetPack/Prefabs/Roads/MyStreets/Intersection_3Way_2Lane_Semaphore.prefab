@@ -281,7 +281,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 295657928712032479}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -6.5, y: 4.78, z: 0.5}
+  m_LocalPosition: {x: -5, y: 4.78, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2131705730195665957}
@@ -305,8 +305,8 @@ MonoBehaviour:
   needOutgoingConnection: 0
   isIntersection: 1
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 1
+  isTurnLeft: 1
+  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   laneNumber: 0
@@ -647,7 +647,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1417671118250291208}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -6.5, y: -4.78, z: 0.5}
+  m_LocalPosition: {x: -5, y: -4.78, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2131705730195665957}
@@ -666,14 +666,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextNodes:
-  - {fileID: 241078536928598239}
   - {fileID: 1739700518000446629}
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 1
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 1
+  isTurnLeft: 1
+  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   laneNumber: 0
@@ -2211,12 +2210,12 @@ MonoBehaviour:
   needOutgoingConnection: 0
   isIntersection: 1
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 1
+  isTurnLeft: 1
+  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   laneNumber: 0
-  trafficDirection: 0
+  trafficDirection: 1
 --- !u!1 &3205083666748301281
 GameObject:
   m_ObjectHideFlags: 0
@@ -4858,6 +4857,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 5504323044670334836}
+  - {fileID: 7976577160494422059}
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
@@ -6101,7 +6101,7 @@ MonoBehaviour:
   isBusLane: 0
   isBusStop: 0
   laneNumber: 0
-  trafficDirection: 1
+  trafficDirection: 0
 --- !u!1 &6766888926628447010
 GameObject:
   m_ObjectHideFlags: 0
@@ -6511,8 +6511,8 @@ MonoBehaviour:
   needOutgoingConnection: 0
   isIntersection: 1
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 1
+  isTurnLeft: 1
+  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   laneNumber: 0
@@ -7054,7 +7054,7 @@ MonoBehaviour:
   isBusLane: 0
   isBusStop: 0
   laneNumber: 1
-  trafficDirection: 0
+  trafficDirection: 1
 --- !u!1 &9064860701564429091
 GameObject:
   m_ObjectHideFlags: 0

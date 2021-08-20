@@ -12,60 +12,95 @@ public class IntersectionTrigger : MonoBehaviour
 
     private Street intersection;
     private List<Node> intersectionNodes;
-    private List<CarAI> collisionRegistered;
+    private List<IntersectionVehicle> collisionRegistered;
 
     private void OnTriggerEnter(Collider other)
     {
-        CarAI car = other.GetComponent<CarAI>();
-        if (other.gameObject.layer==9 && !collisionRegistered.Contains(car))
+        IntersectionVehicle collider = other.GetComponent<IntersectionVehicle>();
+        if (other.gameObject.layer == 9 && !collisionRegistered.Contains(collider))
         {
-            collisionRegistered.Add(car);
-            if (!car.isInsideIntersection)
+            collisionRegistered.Add(collider);
+            IntersectionVehicle vehicle = collider.GetComponent<IntersectionVehicle>();
+            if (!vehicle.isInsideIntersection)
             {
-                identifyCarDirection(car);
-                car.intersectionEnterId = id;
-                intersection.intersectionManager(car, id);
+                vehicle.intersectionEnterId = id;
+                if (vehicle.GetComponentInParent<CarAI>() != null)
+                {
+                    identifyCarDirection(vehicle.GetComponentInParent<CarAI>());
+                }
+                else
+                {
+                    identifyBusDirection(vehicle.GetComponentInParent<BusAI>());
+                }
+                intersection.intersectionManager(vehicle, id);
             }
             else
             {
-                intersection.intersectionManager(car, car.intersectionEnterId);
+                intersection.intersectionManager(vehicle, vehicle.intersectionEnterId);
             }
-            
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        CarAI car = other.GetComponent<CarAI>();
-        collisionRegistered.Remove(car);
+        IntersectionVehicle vehicle = other.GetComponent<IntersectionVehicle>();
+        collisionRegistered.Remove(vehicle);
     }
 
     private void identifyCarDirection(CarAI car)
     {
         List<Node> intersectionCarPathNodes = new List<Node>();
         List<Node> carPathNodes = car.carPath;
-        foreach(var pathNode in carPathNodes)
+        foreach (var pathNode in carPathNodes)
         {
-            if (intersectionNodes.IndexOf(pathNode)!=-1)
+            if (intersectionNodes.IndexOf(pathNode) != -1)
             {
                 intersectionCarPathNodes.Add(pathNode);
             }
         }
 
-        foreach(var node in intersectionCarPathNodes)
+        foreach (var node in intersectionCarPathNodes)
         {
             if (node.isTurnLeft)
             {
-                car.intersectionDirection=LEFT;
+                car.intersectionData.intersectionDirection = LEFT;
                 return;
             }
             else if (node.isTurnRight)
             {
-                car.intersectionDirection=RIGHT;
+                car.intersectionData.intersectionDirection = RIGHT;
                 return;
             }
         }
-        car.intersectionDirection=STRAIGHT;
+        car.intersectionData.intersectionDirection = STRAIGHT;
+    }
+
+    private void identifyBusDirection(BusAI bus)
+    {
+        List<Node> intersectionBusPathNodes = new List<Node>();
+        List<Node> busPathNodes = bus.carPath;
+        foreach (var pathNode in busPathNodes)
+        {
+            if (intersectionNodes.IndexOf(pathNode) != -1)
+            {
+                intersectionBusPathNodes.Add(pathNode);
+            }
+        }
+
+        foreach (var node in intersectionBusPathNodes)
+        {
+            if (node.isTurnLeft)
+            {
+                bus.intersectionData.intersectionDirection = LEFT;
+                return;
+            }
+            else if (node.isTurnRight)
+            {
+                bus.intersectionData.intersectionDirection = RIGHT;
+                return;
+            }
+        }
+        bus.intersectionData.intersectionDirection = STRAIGHT;
     }
 
     // Start is called before the first frame update
@@ -73,12 +108,12 @@ public class IntersectionTrigger : MonoBehaviour
     {
         intersection = this.transform.parent.transform.parent.GetComponent<Street>();
         intersectionNodes = intersection.carWaypoints;
-        collisionRegistered = new List<CarAI>();
+        collisionRegistered = new List<IntersectionVehicle>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

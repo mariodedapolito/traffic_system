@@ -17,8 +17,8 @@ public class Street : MonoBehaviour
     public int numberLanes;
 
     //Intersection data structures
-    private CarAI[] intersectionQueue1Lane;
-    private CarAI[,] intersectionQueue2Lane;
+    private IntersectionVehicle[] intersectionQueue1Lane;
+    private IntersectionVehicle[,] intersectionQueue2Lane;
     private int[,] intersectionBusyMarker;
     private int numberCarsInsideIntersection;
     private int numberCarsWaiting;
@@ -51,13 +51,13 @@ public class Street : MonoBehaviour
 
             if (numberLanes == 1 && !isLaneAdapter)
             {
-                intersectionQueue1Lane = new CarAI[4] { null, null, null, null };
+                intersectionQueue1Lane = new IntersectionVehicle[4] { null, null, null, null };
                 intersectionBusyMarker = new int[4, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
                 //Debug.Log("Initialized intersection data structures for: 1 lane intersection");
             }
             else if (numberLanes == 2)
             {
-                intersectionQueue2Lane = new CarAI[4, 2] { { null, null }, { null, null }, { null, null }, { null, null } };
+                intersectionQueue2Lane = new IntersectionVehicle[4, 2] { { null, null }, { null, null }, { null, null }, { null, null } };
                 intersectionBusyMarker = new int[4, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
                 //Debug.Log("Initialized intersection data structures for: 2 lane intersection");
             }
@@ -68,7 +68,7 @@ public class Street : MonoBehaviour
             if (numberLanes == 1 && !isLaneAdapter)
             {
                 semaphoreTurn = 0;
-                intersectionQueue1Lane = new CarAI[4] { null, null, null, null };
+                intersectionQueue1Lane = new IntersectionVehicle[4] { null, null, null, null };
                 intersectionSemaphores[0].greenLights[0].enabled = true;
                 intersectionSemaphores[2].greenLights[0].enabled = true;
                 intersectionSemaphores[1].redLights[0].enabled = true;
@@ -78,7 +78,7 @@ public class Street : MonoBehaviour
             else
             {
                 semaphoreTurn = 0;
-                intersectionQueue2Lane = new CarAI[4, 2] { { null, null }, { null, null }, { null, null }, { null, null } };
+                intersectionQueue2Lane = new IntersectionVehicle[4, 2] { { null, null }, { null, null }, { null, null }, { null, null } };
                 //3Way intersection init traffic lights
                 if (isTBoneIntersection)
                 {
@@ -200,7 +200,7 @@ public class Street : MonoBehaviour
         }
     }
 
-    private void intersectionPriorityCleaner(CarAI car, int intersectionEnterId)
+    private void intersectionPriorityCleaner(IntersectionVehicle car, int intersectionEnterId)
     {
         if (isSimpleIntersection)       //Identify intersection type to handle the priority correctly
         {
@@ -270,7 +270,7 @@ public class Street : MonoBehaviour
         }
     }
 
-    public void intersectionManager(CarAI car, int intersectionRoadId)
+    public void intersectionManager(IntersectionVehicle car, int intersectionRoadId)
     {
         if (!car.isInsideIntersection)
         {
@@ -322,7 +322,7 @@ public class Street : MonoBehaviour
                         //4Way intersection with both street with 2 lanes
                         else
                         {
-                            semaphoreIntersectionPriority4Way2Lane(car,intersectionRoadId);
+                            semaphoreIntersectionPriority4Way2Lane(car, intersectionRoadId);
                         }
                     }
                 }
@@ -350,7 +350,7 @@ public class Street : MonoBehaviour
 
 
     //CAR ENTERING INTERSECTION MANAGEMENT
-    private void simpleIntersectionPriority1Lane(CarAI car, int intersectionRoadId)
+    private void simpleIntersectionPriority1Lane(IntersectionVehicle car, int intersectionRoadId)
     {
         if (intersectionBusyMarker[intersectionRoadId, car.intersectionDirection] == 0)
         {
@@ -424,7 +424,7 @@ public class Street : MonoBehaviour
         }
     }
 
-    private void simpleIntersectionPriority2Lane(CarAI car, int intersectionRoadId)
+    private void simpleIntersectionPriority2Lane(IntersectionVehicle car, int intersectionRoadId)
     {
         if (intersectionBusyMarker[intersectionRoadId, car.intersectionDirection] == 0)
         {
@@ -515,7 +515,7 @@ public class Street : MonoBehaviour
         }
     }
 
-    private void semaphoreIntersectionPriority3Way4Way1Lane(CarAI car, int intersectionRoadId)
+    private void semaphoreIntersectionPriority3Way4Way1Lane(IntersectionVehicle car, int intersectionRoadId)
     {
         if ((intersectionRoadId == 0 || intersectionRoadId == 2) && semaphoreTurn % 2 == 0 && !yellowLightOn)
         {
@@ -543,7 +543,7 @@ public class Street : MonoBehaviour
         }
     }
 
-    private void semaphoreIntersectionPriority4Way2Lane(CarAI car, int intersectionRoadId)
+    private void semaphoreIntersectionPriority4Way2Lane(IntersectionVehicle car, int intersectionRoadId)
     {
         if ((intersectionRoadId == 0 || intersectionRoadId == 2) && car.intersectionDirection != LEFT && semaphoreTurn == 0 && !yellowLightOn)
         {
@@ -587,7 +587,7 @@ public class Street : MonoBehaviour
         }
     }
 
-    private void semaphoreIntersectionPriority3Way2Lane(CarAI car, int intersectionRoadId)
+    private void semaphoreIntersectionPriority3Way2Lane(IntersectionVehicle car, int intersectionRoadId)
     {
         if (intersectionRoadId == 0 && semaphoreTurn == 0 && !yellowLightOn)
         {
@@ -631,7 +631,7 @@ public class Street : MonoBehaviour
         }
     }
 
-    private void semaphoreIntersectionPriority4Way1Lane2Lane(CarAI car, int intersectionRoadId)
+    private void semaphoreIntersectionPriority4Way1Lane2Lane(IntersectionVehicle car, int intersectionRoadId)
     {
         if ((intersectionRoadId == 0 || intersectionRoadId == 2) && semaphoreTurn == 0 && !yellowLightOn)
         {
@@ -669,7 +669,7 @@ public class Street : MonoBehaviour
         }
     }
 
-    private void semaphoreIntersectionPriority3Way1Lane2Lane(CarAI car, int intersectionRoadId)
+    private void semaphoreIntersectionPriority3Way1Lane2Lane(IntersectionVehicle car, int intersectionRoadId)
     {
         if (intersectionRoadId == 0 && semaphoreTurn == 0 && !yellowLightOn)
         {
@@ -677,7 +677,7 @@ public class Street : MonoBehaviour
             car.isInsideIntersection = true;
             numberCarsInsideIntersection++;
         }
-        else if ((intersectionRoadId == 1 || intersectionRoadId == 3)  && semaphoreTurn == 1 && !yellowLightOn)
+        else if ((intersectionRoadId == 1 || intersectionRoadId == 3) && semaphoreTurn == 1 && !yellowLightOn)
         {
             car.intersectionStop = false;
             car.isInsideIntersection = true;
@@ -701,7 +701,7 @@ public class Street : MonoBehaviour
         }
     }
 
-    private void semaphoreIntersectionPriority3Way2Lane1Lane(CarAI car, int intersectionRoadId)
+    private void semaphoreIntersectionPriority3Way2Lane1Lane(IntersectionVehicle car, int intersectionRoadId)
     {
         if (intersectionRoadId == 0 && semaphoreTurn == 0 && !yellowLightOn)
         {
@@ -747,7 +747,7 @@ public class Street : MonoBehaviour
 
 
     //CAR EXITING INTERSECTION MANAGEMENT
-    private void restoreSimpleIntersectionPriority1Lane(CarAI car, int intersectionRoadId)
+    private void restoreSimpleIntersectionPriority1Lane(IntersectionVehicle car, int intersectionRoadId)
     {
         numberCarsInsideIntersection--;
         car.isInsideIntersection = false;
@@ -786,7 +786,7 @@ public class Street : MonoBehaviour
         }
     }
 
-    private void restoreSimpleIntersectionPriority2Lane(CarAI car, int intersectionRoadId)
+    private void restoreSimpleIntersectionPriority2Lane(IntersectionVehicle car, int intersectionRoadId)
     {
         numberCarsInsideIntersection--;
         car.isInsideIntersection = false;
@@ -830,7 +830,7 @@ public class Street : MonoBehaviour
         }*/
     }
 
-    private void restoreSemaphoreIntersectionPriority(CarAI car, int intersectionRoadId)
+    private void restoreSemaphoreIntersectionPriority(IntersectionVehicle car, int intersectionRoadId)
     {
         car.isInsideIntersection = false;
     }
@@ -847,7 +847,7 @@ public class Street : MonoBehaviour
                 {
                     if (intersectionQueue1Lane[i] != null)
                     {
-                        CarAI car = intersectionQueue1Lane[i];
+                        IntersectionVehicle car = intersectionQueue1Lane[i];
                         if (intersectionBusyMarker[i, car.intersectionDirection] == 0)
                         {
                             intersectionPriorityCleaner(car, car.intersectionEnterId);
@@ -863,7 +863,7 @@ public class Street : MonoBehaviour
                     {
                         if (intersectionQueue2Lane[i, j] != null)
                         {
-                            CarAI car = intersectionQueue2Lane[i, j];
+                            IntersectionVehicle car = intersectionQueue2Lane[i, j];
                             if (intersectionBusyMarker[i, car.intersectionDirection] == 0)
                             {
                                 intersectionPriorityCleaner(car, car.intersectionEnterId);
@@ -916,7 +916,7 @@ public class Street : MonoBehaviour
             //Move cars inside the intersection
             if (semaphoreTurn % 2 == 0)
             {
-                CarAI car;
+                IntersectionVehicle car;
                 if (intersectionQueue1Lane[0] != null)
                 {
                     car = intersectionQueue1Lane[0];
@@ -934,7 +934,7 @@ public class Street : MonoBehaviour
             }
             else
             {
-                CarAI car;
+                IntersectionVehicle car;
                 if (intersectionQueue1Lane[1] != null)
                 {
                     car = intersectionQueue1Lane[1];
@@ -973,7 +973,7 @@ public class Street : MonoBehaviour
 
     private void updateSemaphoreIntersection3Way2Lane()
     {
-        CarAI car;
+        IntersectionVehicle car;
         semaphoreTime += Time.deltaTime;
         if (semaphoreTime >= semaphoreTimerMainLane - 3 && semaphoreTime <= semaphoreTimerMainLane && !yellowLightOn)
         {
@@ -1120,7 +1120,7 @@ public class Street : MonoBehaviour
 
     private void updateSemaphoreIntersection4Way2Lane()
     {
-        CarAI car;
+        IntersectionVehicle car;
         semaphoreTime += Time.deltaTime;
         if (semaphoreTime >= semaphoreTimerMainLane - 3 && semaphoreTime <= semaphoreTimerMainLane && !yellowLightOn)
         {
@@ -1346,7 +1346,7 @@ public class Street : MonoBehaviour
 
     private void updateSemaphoreIntersection4Way1Lane2Lane()
     {
-        CarAI car;
+        IntersectionVehicle car;
         semaphoreTime += Time.deltaTime;
         if (semaphoreTime >= semaphoreTimerMainLane - 3 && semaphoreTime <= semaphoreTimerMainLane && !yellowLightOn)
         {
@@ -1518,7 +1518,7 @@ public class Street : MonoBehaviour
 
     private void updateSemaphoreIntersection3Way1Lane2Lane()
     {
-        CarAI car;
+        IntersectionVehicle car;
         semaphoreTime += Time.deltaTime;
         if (semaphoreTime >= semaphoreTimerMainLane - 3 && semaphoreTime <= semaphoreTimerMainLane && !yellowLightOn)
         {
@@ -1623,7 +1623,7 @@ public class Street : MonoBehaviour
 
     private void updateSemaphoreIntersection3Way2Lane1Lane()
     {
-        CarAI car;
+        IntersectionVehicle car;
         semaphoreTime += Time.deltaTime;
         if (semaphoreTime >= semaphoreTimerMainLane - 3 && semaphoreTime <= semaphoreTimerMainLane && !yellowLightOn)
         {
