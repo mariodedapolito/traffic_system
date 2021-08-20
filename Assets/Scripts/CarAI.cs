@@ -10,7 +10,7 @@ public class CarAI : MonoBehaviour
     public List<Node> carPath;
 
     //public Transform path;
-    public float maxSteerAngle = 60f;
+    public float maxSteerAngle = 50f;
     public float turnSpeed = 6f;
     public WheelCollider wheelFL;
     public WheelCollider wheelFR;
