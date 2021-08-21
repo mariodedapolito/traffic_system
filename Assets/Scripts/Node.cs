@@ -18,6 +18,8 @@ public class Node : MonoBehaviour
     public int laneNumber;          //identify lane number (lane 0 is middlemost lane)
     public int trafficDirection;    //0: right lane traffic, 1: left lane 
 
+    public bool isOccupied = false;
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
@@ -57,5 +59,20 @@ public class Node : MonoBehaviour
         }
 
         Gizmos.color = Color.white;
+    }
+
+    public void OnTriggerStay(Collider other)
+    {
+        isOccupied = true;
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        isOccupied = false;
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        isOccupied = true;
     }
 }

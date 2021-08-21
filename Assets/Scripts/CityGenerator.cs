@@ -26,6 +26,8 @@ public class CityGenerator : MonoBehaviour
     public int maxNumberVerticalStreets;
     public int minDistanceBetweenHorizontalStreets;
     public int maxDistanceBetweenHorizontalStreets;
+    public int numberCarWaypointsSpawn;
+    public int numberCars;
     public bool onlySimpleIntersections;
     public bool onlySemaphoreIntersections;
     public bool only1LaneStreets;
@@ -132,6 +134,7 @@ public class CityGenerator : MonoBehaviour
     private int[] numberVerticalStreets;
     private int[,] lanesVerticalStreets;
 
+    private SimpleCarSpawner carSpawner;
 
     // Start is called before the first frame update
     void Start()
@@ -450,112 +453,41 @@ public class CityGenerator : MonoBehaviour
         //Connect all prefabs together
         cityStreetConnector();
 
-        SimpleCarSpawner carSpawner = new SimpleCarSpawner(carPrefab, this);
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        /*carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar(); carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();
-        carSpawner.spawnCar();*/
+        carsSpawn();
 
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        for (int c = 0; c < numberCars; c++)
+        {
+            if (carSpawner.spawnCar())
+            {
+                numberCars--;
+            }
+        }
+    }
 
+    private void Awake()
+    {
+        
+
+    }
+
+    private void carsSpawn()
+    {
+        carSpawner = new SimpleCarSpawner(carPrefab, this);
+        carSpawner.SetWaypointsSpawnCar(numberCarWaypointsSpawn);
+
+        for (int c = 0; c < numberCars ; c++)
+        {
+            if(carSpawner.spawnCar())
+            {
+                numberCars--;
+            }
+
+        }
     }
 
     private int[] generateVerticalStreetsNumber()

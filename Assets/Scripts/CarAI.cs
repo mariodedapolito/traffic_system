@@ -10,7 +10,7 @@ public class CarAI : MonoBehaviour
     public List<Node> carPath;
 
     //public Transform path;
-    public float maxSteerAngle = 60f;
+    public float maxSteerAngle = 50f;
     public float turnSpeed = 6f;
     public WheelCollider wheelFL;
     public WheelCollider wheelFR;
@@ -96,7 +96,7 @@ public class CarAI : MonoBehaviour
             Street s = nodes[currectNode].GetComponentInParent<Street>();
             if (s.isSimpleIntersection)
             {
-                sensorFrontLength = 1.5f;
+                sensorFrontLength = 1f;
                 sensorLength = 1.5f;
             }
             else
@@ -231,12 +231,25 @@ public class CarAI : MonoBehaviour
 
     private void CheckWaypointDistance()
     {
-        if (nodes[currectNode] != null)
+        if (nodes.Count > 0)
         {
             if (Vector3.Distance(transform.position, nodes[currectNode].position) < 1f)
             {
                 if (currectNode == nodes.Count - 1)
                 {
+                    // end == parking Waypoint
+                    /*
+                    {
+                        - trasform to position waypoint into parking
+                        - List of free parking waypoint
+                        - pathfinding with min
+                        - function sleep mode (t = random)
+                        - check exti (queue)
+                        - return to enter
+                        - new path
+                    }
+                    */
+
                     GameObject[] waypointsNew = GameObject.FindGameObjectsWithTag("CarWaypoint");
                     List<Node> nodesNew = new List<Node>();
                     foreach (GameObject w in waypointsNew)
