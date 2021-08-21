@@ -387,7 +387,7 @@ GameObject:
   - component: {fileID: 8584000127295981496}
   m_Layer: 9
   m_Name: Car
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -454,8 +454,8 @@ MonoBehaviour:
   startWaypoint: {fileID: 0}
   endWaypoint: {fileID: 0}
   carPath: []
-  maxSteerAngle: 60
-  turnSpeed: 5
+  maxSteerAngle: 50
+  turnSpeed: 6
   wheelFL: {fileID: 4962731153447657957}
   wheelFR: {fileID: 4962731152976978984}
   wheelRL: {fileID: 4962731152682156657}
@@ -466,15 +466,13 @@ MonoBehaviour:
   maxSpeed: 10
   centerOfMass: {x: 0, y: 0, z: 0}
   isBraking: 0
-  textureNormal: {fileID: 0}
-  textureBraking: {fileID: 0}
-  carRenderer: {fileID: 4962731154328168826}
-  sensorLength: 0.9
+  sensorLength: 1
   sensorFrontLength: 1.2
   frontSensorPosition: {x: 0, y: 0.2, z: 0.5}
-  frontSideSensorPosition: 0.13
-  frontSensorAngle: 60
+  frontSideSensorPosition: 0.2
+  frontSensorAngle: 35
   currectNode: 0
+  intersectionData: {fileID: 0}
 --- !u!114 &7374494642020744637
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,28 +10,28 @@ public class CarAI : MonoBehaviour
     public List<Node> carPath;
 
     //public Transform path;
-    public float maxSteerAngle = 90f;
-    public float turnSpeed = 5f;
+    public float maxSteerAngle = 50f;
+    public float turnSpeed = 6f;
     public WheelCollider wheelFL;
     public WheelCollider wheelFR;
     public WheelCollider wheelRL;
     public WheelCollider wheelRR;
-    public float maxMotorTorque = 80f;
-    public float maxBrakeTorque = 150f;
+    public float maxMotorTorque = 90f;
+    public float maxBrakeTorque = 10f;
     public float currentSpeed;
     public float maxSpeed = 10f;
     public Vector3 centerOfMass;
     public bool isBraking = false;
-    public Texture2D textureNormal;
+/*    public Texture2D textureNormal;
     public Texture2D textureBraking;
-    public Renderer carRenderer;
+    public Renderer carRenderer;*/
 
     [Header("Sensors")]
-    public float sensorLength = 0.9f;
+    public float sensorLength = 1f;
     public float sensorFrontLength = 1.2f;
     public Vector3 frontSensorPosition = new Vector3(0f, 0.2f, 0.5f);
-    public float frontSideSensorPosition = 0.2f;
-    public float frontSensorAngle = 60f;
+    public float frontSideSensorPosition = 0.15f;
+    public float frontSensorAngle = 27f;
 
     private List<Transform> nodes;
     public int currectNode = 0;
@@ -90,6 +90,21 @@ public class CarAI : MonoBehaviour
         avoidingR = false;
         avoidingL = false;
         avoidingI = false;
+        
+        if (currectNode < nodes.Count) // Disable sensors during the intersections
+        {
+            Street s = nodes[currectNode].GetComponentInParent<Street>();
+            if (s.isSimpleIntersection)
+            {
+                sensorFrontLength = 1f;
+                sensorLength = 1.5f;
+            }
+            else
+            {
+                sensorLength = 1f;
+                sensorFrontLength = 1.2f;
+            }
+        }
 
         //front right sensor
         sensorStartPos += transform.right * frontSideSensorPosition;
@@ -157,12 +172,7 @@ public class CarAI : MonoBehaviour
             }
             
         }
-        
 
-
-        //Debug.Log(avoidingI); 
-        //Debug.Log(avoidingL); 
-        //Debug.Log(avoidingR);
 
         if ((avoidingI && avoidingL && avoidingR) || intersectionData.intersectionStop)
         {
@@ -221,15 +231,106 @@ public class CarAI : MonoBehaviour
 
     private void CheckWaypointDistance()
     {
-        if (Vector3.Distance(transform.position, nodes[currectNode].position) < 1f)
+        if (nodes.Count > 0)
         {
-            if (currectNode == nodes.Count - 1)
+            if (Vector3.Distance(transform.position, nodes[currectNode].position) < 1f)
             {
-                currectNode = 0;
+                if (currectNode == nodes.Count - 1)
+                {
+                    // end == parking Waypoint
+                    /*
+                    {
+                        - trasform to position waypoint into parking
+                        - List of free parking waypoint
+                        - pathfinding with min
+                        - function sleep mode (t = random)
+                        - check exti (queue)
+                        - return to enter
+                        - new path
+                    }
+                    */
+
+                    GameObject[] waypointsNew = GameObject.FindGameObjectsWithTag("CarWaypoint");
+                    List<Node> nodesNew = new List<Node>();
+                    foreach (GameObject w in waypointsNew)
+                    {
+                        if (w.GetComponent<Node>() != null)
+                            nodesNew.Add(w.GetComponent<Node>());
+                    }
+
+                    this.startWaypoint = nodes[currectNode].GetComponent<Node>();
+
+                    int randomSrcNode = (int)UnityEngine.Random.Range(0, nodesNew.Count - 1);
+
+                    Street s = nodesNew[randomSrcNode].GetComponentInParent<Street>();
+
+                    while (!s.hasBusStop && s.isSemaphoreIntersection && s.isSimpleIntersection)
+                    {
+                        randomSrcNode = (int)UnityEngine.Random.Range(0, nodesNew.Count - 1);
+                        s = nodesNew[randomSrcNode].GetComponentInParent<Street>();
+                    }
+                    this.endWaypoint = nodesNew[randomSrcNode];
+                    currectNode = 1;
+
+                    Path path = new Path(); // problem with MonoBehaviour
+                    this.nodes.Clear();
+                    //this.carPath.Clear();
+
+                    this.carPath = path.findShortestPath(startWaypoint.transform, endWaypoint.transform);
+
+
+                    for (int i = 0; i < this.carPath.Count; i++)
+                    {
+                        this.nodes.Add(carPath[i].transform);
+                    }
+                }
+                else
+                {
+                    currectNode++;
+                }
             }
-            else
+        }
+        else
+        {
+            GameObject[] waypointsNew = GameObject.FindGameObjectsWithTag("CarWaypoint");
+            List<Node> nodesNew = new List<Node>();
+            float min = 0f;
+            foreach (GameObject w in waypointsNew)
             {
-                currectNode++;
+                if (w.GetComponent<Node>() != null)
+                {
+                    nodesNew.Add(w.GetComponent<Node>());
+                    Street sStart = w.GetComponent<Node>().GetComponentInParent<Street>();
+                    if (Vector3.Distance(transform.position, w.GetComponent<Node>().nextNodes[0].transform.position) < min && !sStart.hasBusStop && !sStart.isSemaphoreIntersection && !sStart.isSimpleIntersection)
+                    {
+                        min = Vector3.Distance(transform.position, w.GetComponent<Node>().nextNodes[0].transform.position);
+                        this.startWaypoint = w.GetComponent<Node>();
+                    }
+                }
+            }
+
+            int randomSrcNode = (int)UnityEngine.Random.Range(0, nodesNew.Count - 1);
+
+            Street s = nodesNew[randomSrcNode].GetComponentInParent<Street>();
+
+            while (!s.hasBusStop && !s.isSemaphoreIntersection && !s.isSimpleIntersection)
+            {
+                randomSrcNode = (int)UnityEngine.Random.Range(0, nodesNew.Count - 1);
+                s = nodesNew[randomSrcNode].GetComponentInParent<Street>();
+            }
+            this.endWaypoint = nodesNew[randomSrcNode];
+            currectNode = 1;
+
+            Path path = new Path(); // problem with MonoBehaviour
+            this.nodes.Clear();
+            //this.carPath.Clear();
+
+            this.carPath = path.findShortestPath(startWaypoint.transform, endWaypoint.transform);
+
+
+            for (int i = 0; i < this.carPath.Count; i++)
+            {
+                this.nodes.Add(carPath[i].transform);
             }
         }
     }

@@ -11,28 +11,28 @@ public class BusAI : MonoBehaviour
     public List<Node> carPath;
 
     //public Transform path;
-    public float maxSteerAngle = 90f;
+    public float maxSteerAngle = 45f;
     public float turnSpeed = 5f;
     public WheelCollider wheelFL;
     public WheelCollider wheelFR;
     public WheelCollider wheelRL;
     public WheelCollider wheelRR;
-    public float maxMotorTorque = 80f;
-    public float maxBrakeTorque = 150f;
+    public float maxMotorTorque = 90f;
+    public float maxBrakeTorque = 10f;
     public float currentSpeed;
     public float maxSpeed = 10f;
     public Vector3 centerOfMass;
     public bool isBraking = false;
-    public Texture2D textureNormal;
+/*    public Texture2D textureNormal;
     public Texture2D textureBraking;
-    public Renderer carRenderer;
+    public Renderer carRenderer;*/
 
     [Header("Sensors")]
-    public float sensorLength = 0.9f;
+    public float sensorLength = 1.7f;
     public float sensorFrontLength = 1.2f;
     public Vector3 frontSensorPosition = new Vector3(0f, 0.2f, 0.5f);
-    public float frontSideSensorPosition = 0.2f;
-    public float frontSensorAngle = 60f;
+    public float frontSideSensorPosition = 0.15f;
+    public float frontSensorAngle = 27f;
 
     private List<Transform> nodes;
     public int currectNode = 0;
