@@ -15,6 +15,8 @@ public class Node : MonoBehaviour
     public bool isTurnRight;        //identify waypoints that are used for turning right in intersections (needed for intersection precedence)
     public bool isBusLane;          //identify waypoints that are used for bus-only lanes
     public bool isBusStop;          //identify waypoints that are used as bus stops (fermate)
+    public bool isParkingSpot;      //identify waypoints that are used as car parking spots
+    public int parkingRotation;     //identify car rotation when parked
     public int laneNumber;          //identify lane number (lane 0 is middlemost lane)
     public int trafficDirection;    //0: right lane traffic, 1: left lane 
 
@@ -56,6 +58,11 @@ public class Node : MonoBehaviour
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawSphere(transform.position, 0.5f);
+        }
+        if (isParkingSpot)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(transform.position, 0.1f);
         }
 
         Gizmos.color = Color.white;

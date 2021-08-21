@@ -578,7 +578,6 @@ public class CityGenerator : MonoBehaviour
     {
         carSpawner = new SimpleCarSpawner(carPrefab, this);
         carSpawner.SetWaypointsSpawnCar(numberCarWaypointsSpawn);
-
         for (int c = 0; c < numberCars; c++)
         {
             if (carSpawner.spawnCar())
