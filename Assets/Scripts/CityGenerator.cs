@@ -1154,7 +1154,7 @@ public class CityGenerator : MonoBehaviour
         {
             for (int j = 0; j < cityWidth; j++)
             {
-                if (cityMap[i, j].prefabType != 0)
+                if (cityMap[i, j].prefabType > 0)
                 {
                     //CONNECT NEIGHBORING STREET PREFABS (IN ORDER TO GENERATE A GRAPH FOR THE WHOLE CITY)
                     List<Node> carWaypoints = cityMap[i, j].instantiatedPrefab.GetComponent<Street>().carWaypoints;
@@ -1238,18 +1238,22 @@ public class CityGenerator : MonoBehaviour
             if (tile.prefabType == INTERSECTION_4WAY_1LANE)
             {
                 cityMap[row, col].prefabReference = intersection4Way1Lane;
+                cityMap[row, col].rotation = 90*UnityEngine.Random.Range(0, 4);
             }
             else if (tile.prefabType == INTERSECTION_4WAY_1LANE_SEMAPHORE)
             {
                 cityMap[row, col].prefabReference = intersection4Way1LaneSemaphore;
+                cityMap[row, col].rotation = 90 * UnityEngine.Random.Range(0, 4);
             }
             else if (tile.prefabType == INTERSECTION_4WAY_2LANE)
             {
                 cityMap[row, col].prefabReference = intersection4Way2Lane;
+                cityMap[row, col].rotation = 90 * UnityEngine.Random.Range(0, 4);
             }
             else if (tile.prefabType == INTERSECTION_4WAY_2LANE_SEMAPHORE)
             {
                 cityMap[row, col].prefabReference = intersection4Way2LaneSemaphore;
+                cityMap[row, col].rotation = 90 * UnityEngine.Random.Range(0, 4);
             }
             else if (tile.prefabType == INTERSECTION_3WAY_1LANE)
             {
