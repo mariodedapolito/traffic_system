@@ -16,7 +16,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8786393332988259124
 Transform:
@@ -53,8 +53,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isOccupied: 0
 --- !u!135 &2741602153465544344
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -84,7 +87,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4126451638370409252
 Transform:
@@ -143,7 +146,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &580443021898765818
 Transform:
@@ -267,7 +270,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &230215446113941866
 Transform:
@@ -305,8 +308,11 @@ MonoBehaviour:
   isTurnRight: 1
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isOccupied: 0
 --- !u!1 &1178253246419041926
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,7 +329,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7947286588937100775
 Transform:
@@ -360,8 +366,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isOccupied: 0
 --- !u!135 &5977116207340032285
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -392,7 +401,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6725253135729829047
 Transform:
@@ -489,7 +498,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1465620864583535484
 Transform:
@@ -582,7 +591,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2185454412991083540
 Transform:
@@ -677,7 +686,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3081143953773275237
 Transform:
@@ -716,8 +725,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isOccupied: 0
 --- !u!1 &3204028650571661755
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,7 +747,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4098253200019212745
 Transform:
@@ -828,7 +840,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7509576987490276727
 Transform:
@@ -921,7 +933,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6414669233594677821
 Transform:
@@ -1014,7 +1026,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6223838277591868260
 Transform:
@@ -1107,7 +1119,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2359639193780539294
 Transform:
@@ -1200,7 +1212,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8022580329273708120
 Transform:
@@ -1291,7 +1303,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8684979921407337988
 Transform:
@@ -1329,8 +1341,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isOccupied: 0
 --- !u!1 &4177442859872519025
 GameObject:
   m_ObjectHideFlags: 0
@@ -1348,7 +1363,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7278734886036273424
 Transform:
@@ -1445,7 +1460,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4973671813293562616
 Transform:
@@ -1536,7 +1551,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6622430293787349776
 Transform:
@@ -1574,8 +1589,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isOccupied: 0
 --- !u!1 &4492168409550688014
 GameObject:
   m_ObjectHideFlags: 0
@@ -1592,7 +1610,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2073976289628173132
 Transform:
@@ -1650,7 +1668,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2624514915432672084
 Transform:
@@ -1709,7 +1727,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1890595604418653915
 Transform:
@@ -1801,7 +1819,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2151945311956184902
 Transform:
@@ -1860,7 +1878,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1451778978076135750
 Transform:
@@ -1952,7 +1970,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4558454472635422712
 Transform:
@@ -1991,8 +2009,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isOccupied: 0
 --- !u!135 &6480498520760564167
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2023,7 +2044,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3260570090665192405
 Transform:
@@ -2114,7 +2135,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2465490262424341562
 Transform:
@@ -2152,8 +2173,11 @@ MonoBehaviour:
   isTurnRight: 1
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isOccupied: 0
 --- !u!1 &5842330217787272691
 GameObject:
   m_ObjectHideFlags: 0
@@ -2169,7 +2193,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8009646276050209318
 Transform:
@@ -2207,8 +2231,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isOccupied: 0
 --- !u!1 &5952874804469768135
 GameObject:
   m_ObjectHideFlags: 0
@@ -2226,7 +2253,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6326317120842189242
 Transform:
@@ -2318,7 +2345,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &650542326098648481
 Transform:
@@ -2357,8 +2384,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isOccupied: 0
 --- !u!135 &8263870143011406841
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2388,7 +2418,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3523263079668487012
 Transform:
@@ -2426,8 +2456,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isOccupied: 0
 --- !u!135 &4919556895415680501
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2457,7 +2490,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3096682631757836510
 Transform:
@@ -2494,8 +2527,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isOccupied: 0
 --- !u!135 &2624118883576105199
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2526,7 +2562,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3371121454028073527
 Transform:
@@ -2619,7 +2655,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8701418900570529586
 Transform:
@@ -2711,7 +2747,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5223672737605822605
 Transform:
@@ -2770,7 +2806,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2270429109155563595
 Transform:
@@ -2862,7 +2898,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2628314014680592085
 Transform:
@@ -2921,7 +2957,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5323003428183413151
 Transform:
@@ -3014,7 +3050,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7246458320186723783
 Transform:
@@ -3107,7 +3143,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4721525861222981894
 Transform:
@@ -3201,7 +3237,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1952225155875115036
 Transform:
@@ -3311,6 +3347,7 @@ MonoBehaviour:
   isSemaphoreIntersection: 1
   isTBoneIntersection: 1
   hasBusStop: 0
+  busStopNode: {fileID: 0}
   isLaneAdapter: 0
   isCurve: 0
   isDeadend: 0
@@ -3339,7 +3376,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3745987083975974525
 Transform:
@@ -3426,6 +3463,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: LampPost_D
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
       propertyPath: m_RootOrder
       value: 28
@@ -3508,6 +3569,30 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
       propertyPath: m_Name
       value: LampPost_D (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
       propertyPath: m_RootOrder
@@ -3596,6 +3681,30 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
       propertyPath: m_RootOrder
       value: 31
@@ -3682,6 +3791,30 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
       propertyPath: m_Name
       value: LampPost_D (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
       propertyPath: m_RootOrder

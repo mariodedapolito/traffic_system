@@ -29,7 +29,7 @@ public class SimpleCarSpawner : MonoBehaviour
 
             //Debug.Log(randomSrcRow + "," + randomSrcCol);
 
-            if (cityMap[randomSrcRow, randomSrcCol].prefabType == 1)
+            if (cityMap[randomSrcRow, randomSrcCol].prefabType == 1 || cityMap[randomSrcRow, randomSrcCol].prefabType == 2)
             {
                 int carRotation;
                 
@@ -85,7 +85,7 @@ public class SimpleCarSpawner : MonoBehaviour
                     int randomDstCol = UnityEngine.Random.Range(0, cityWidth);
                     if (cityMap[randomDstRow, randomDstCol].prefabType != 0)
                     {
-                        Street dstStreet = cityMap[randomDstRow, randomDstCol].instantiatedStreet.GetComponent<Street>();
+                        Street dstStreet = cityMap[randomDstRow, randomDstCol].instantiatedPrefab.GetComponent<Street>();
                         if (!dstStreet.isSemaphoreIntersection && !dstStreet.isSimpleIntersection)
                         {
                             List<Node> dstStreetNodes = dstStreet.carWaypoints;
@@ -124,9 +124,9 @@ public class SimpleCarSpawner : MonoBehaviour
                 randomSrcRow = UnityEngine.Random.Range(0, cityLength);
                 randomSrcCol = UnityEngine.Random.Range(0, cityWidth);
 
-                if (cityMap[randomSrcRow, randomSrcCol].prefabType == 1)
+                if (cityMap[randomSrcRow, randomSrcCol].prefabType == 1 || cityMap[randomSrcRow, randomSrcCol].prefabType == 2)
                 {
-                    Street currentStreet = cityMap[randomSrcRow, randomSrcCol].instantiatedStreet.GetComponent<Street>();
+                    Street currentStreet = cityMap[randomSrcRow, randomSrcCol].instantiatedPrefab.GetComponent<Street>();
                     
                     if (!currentStreet.isSemaphoreIntersection && !currentStreet.isSimpleIntersection && !currentStreet.isTBoneIntersection)
                     {

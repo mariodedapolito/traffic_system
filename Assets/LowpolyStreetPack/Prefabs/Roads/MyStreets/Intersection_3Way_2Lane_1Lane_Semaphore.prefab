@@ -17,7 +17,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &9153516383408031026
 Transform:
@@ -114,7 +114,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &112203767867542440
 Transform:
@@ -152,8 +152,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isOccupied: 0
 --- !u!1 &304806203800500385
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +172,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &304806203800331393
 Transform:
@@ -263,7 +266,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &304806203800331395
 Transform:
@@ -363,7 +366,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &304806203800331401
 Transform:
@@ -478,7 +481,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &304806203800331403
 Transform:
@@ -570,7 +573,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &304806203800331405
 Transform:
@@ -662,7 +665,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &304806203800331407
 Transform:
@@ -754,7 +757,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5488684200671691705
 Transform:
@@ -847,7 +850,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1221856321824519167
 Transform:
@@ -884,8 +887,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isOccupied: 0
 --- !u!135 &3603283494286624523
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -915,7 +921,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4840585848065762459
 Transform:
@@ -973,7 +979,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7557870607072196158
 Transform:
@@ -1032,7 +1038,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6808343049591665045
 Transform:
@@ -1123,7 +1129,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5128786044626929896
 Transform:
@@ -1217,7 +1223,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6896382557457597446
 Transform:
@@ -1319,7 +1325,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8551082760481428028
 Transform:
@@ -1411,7 +1417,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8211236965183049988
 Transform:
@@ -1449,8 +1455,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 1
   trafficDirection: 0
+  isOccupied: 0
 --- !u!135 &2094304236704274812
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1479,7 +1488,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8014117161019969673
 Transform:
@@ -1572,7 +1581,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4398392005719757980
 Transform:
@@ -1609,8 +1618,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isOccupied: 0
 --- !u!135 &1650283540427925142
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1640,7 +1652,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8854803257124656534
 Transform:
@@ -1679,8 +1691,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isOccupied: 0
 --- !u!135 &8002383247512376648
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1711,7 +1726,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &738091382885167154
 Transform:
@@ -1820,7 +1835,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8709057925046969036
 Transform:
@@ -1913,7 +1928,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &46455128648472293
 Transform:
@@ -2005,7 +2020,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4029066858421169717
 Transform:
@@ -2042,8 +2057,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 1
   trafficDirection: 0
+  isOccupied: 0
 --- !u!135 &8949271220310029559
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2072,7 +2090,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4205048977324763654
 Transform:
@@ -2111,8 +2129,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isOccupied: 0
 --- !u!1 &2760516714598506176
 GameObject:
   m_ObjectHideFlags: 0
@@ -2129,7 +2150,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &298354502600055506
 Transform:
@@ -2167,8 +2188,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isOccupied: 0
 --- !u!135 &5386450411061494764
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2197,7 +2221,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8311568869661949670
 Transform:
@@ -2235,8 +2259,11 @@ MonoBehaviour:
   isTurnRight: 1
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isOccupied: 0
 --- !u!1 &2958653687856877644
 GameObject:
   m_ObjectHideFlags: 0
@@ -2253,7 +2280,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5508419464839761086
 Transform:
@@ -2292,8 +2319,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 1
   trafficDirection: 1
+  isOccupied: 0
 --- !u!135 &5085799135828222590
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2323,7 +2353,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5491994165136769890
 Transform:
@@ -2361,8 +2391,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 1
   trafficDirection: 1
+  isOccupied: 0
 --- !u!135 &9209655117663829440
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2391,7 +2424,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6311017588281159853
 Transform:
@@ -2484,7 +2517,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7341538350321462727
 Transform:
@@ -2522,8 +2555,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isOccupied: 0
 --- !u!135 &276311285898042702
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2553,7 +2589,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8289149915532035952
 Transform:
@@ -2592,8 +2628,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isOccupied: 0
 --- !u!135 &7563878927844448919
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2624,7 +2663,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &877925586126056543
 Transform:
@@ -2717,7 +2756,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2477514874190951359
 Transform:
@@ -2809,7 +2848,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1189047370082690596
 Transform:
@@ -2867,7 +2906,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &723225460069697535
 Transform:
@@ -2925,7 +2964,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8515326892558465497
 Transform:
@@ -2964,8 +3003,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isOccupied: 0
 --- !u!135 &3271732471478367597
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2994,7 +3036,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6525000422228388941
 Transform:
@@ -3032,8 +3074,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isOccupied: 0
 --- !u!1 &4774748620547060590
 GameObject:
   m_ObjectHideFlags: 0
@@ -3050,7 +3095,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5059054543465129372
 Transform:
@@ -3089,8 +3134,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isOccupied: 0
 --- !u!135 &662984383962694535
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3120,7 +3168,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3406353710427002641
 Transform:
@@ -3158,8 +3206,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 1
   trafficDirection: 0
+  isOccupied: 0
 --- !u!135 &1487838286181268947
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3188,7 +3239,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8432076306906750230
 Transform:
@@ -3226,8 +3277,11 @@ MonoBehaviour:
   isTurnRight: 1
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isOccupied: 0
 --- !u!1 &5267928156864903668
 GameObject:
   m_ObjectHideFlags: 0
@@ -3243,7 +3297,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5098689329728532992
 Transform:
@@ -3282,8 +3336,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isOccupied: 0
 --- !u!1 &5293000022265668485
 GameObject:
   m_ObjectHideFlags: 0
@@ -3299,7 +3356,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2319988885214592701
 Transform:
@@ -3393,7 +3450,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4191787092643628863
 Transform:
@@ -3486,7 +3543,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &67082888885349314
 Transform:
@@ -3579,7 +3636,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7536094688517904238
 Transform:
@@ -3670,7 +3727,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2404724616514420282
 Transform:
@@ -3708,8 +3765,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isOccupied: 0
 --- !u!1 &6205324247000523578
 GameObject:
   m_ObjectHideFlags: 0
@@ -3727,7 +3787,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6205324247000301338
 Transform:
@@ -3859,7 +3919,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &9149316691617215063
 Transform:
@@ -3898,8 +3958,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 1
   trafficDirection: 0
+  isOccupied: 0
 --- !u!135 &5940395641484308031
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3930,7 +3993,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1457011039647052800
 Transform:
@@ -4023,7 +4086,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8791942772393241404
 Transform:
@@ -4116,7 +4179,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6447790596713459706
 Transform:
@@ -4209,7 +4272,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3696724372876238405
 Transform:
@@ -4300,7 +4363,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1964978056211140183
 Transform:
@@ -4392,7 +4455,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4999855685517019915
 Transform:
@@ -4430,8 +4493,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isOccupied: 0
 --- !u!1 &6748039246679672868
 GameObject:
   m_ObjectHideFlags: 0
@@ -4448,7 +4514,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8965922545005626916
 Transform:
@@ -4507,7 +4573,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7331752279782230215
 Transform:
@@ -4609,7 +4675,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2746715751192136071
 Transform:
@@ -4702,7 +4768,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1010898792455333090
 Transform:
@@ -4795,7 +4861,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2303964307454451205
 Transform:
@@ -4891,7 +4957,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4085709345225111925
 Transform:
@@ -4928,8 +4994,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 1
   trafficDirection: 1
+  isOccupied: 0
 --- !u!135 &4866509189584150535
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4960,7 +5029,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7681843230953525344
 Transform:
@@ -5053,7 +5122,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2100110857430660631
 Transform:
@@ -5145,7 +5214,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7955168106283860369
 Transform:
@@ -5203,7 +5272,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4287230376752646182
 Transform:
@@ -5240,8 +5309,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isOccupied: 0
 --- !u!135 &8061208330296743329
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5270,7 +5342,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6477807274290007275
 Transform:
@@ -5308,8 +5380,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isOccupied: 0
 --- !u!1 &8258114607550846299
 GameObject:
   m_ObjectHideFlags: 0
@@ -5326,7 +5401,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3767044294740328158
 Transform:
@@ -5364,8 +5439,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isOccupied: 0
 --- !u!135 &4553615830900402622
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5395,7 +5473,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3194592640942694474
 Transform:
@@ -5433,8 +5511,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isOccupied: 0
 --- !u!135 &6911913193248871146
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5464,7 +5545,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6573484080150861711
 Transform:
@@ -5502,8 +5583,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isOccupied: 0
 --- !u!135 &978495645659386120
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5533,7 +5617,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5788006218444481387
 Transform:
@@ -5571,8 +5655,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 1
   trafficDirection: 1
+  isOccupied: 0
 --- !u!135 &6942514588948022551
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5603,7 +5690,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7416620003767490510
 Transform:
@@ -5697,7 +5784,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1952225155875115036
 Transform:
@@ -5825,6 +5912,7 @@ MonoBehaviour:
   isSemaphoreIntersection: 1
   isTBoneIntersection: 1
   hasBusStop: 0
+  busStopNode: {fileID: 0}
   isLaneAdapter: 1
   isCurve: 0
   isDeadend: 0
@@ -5851,7 +5939,7 @@ GameObject:
   m_TagString: CarWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2644112545294907177
 Transform:
@@ -5890,8 +5978,11 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingSpot: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isOccupied: 0
 --- !u!1 &9197202749817149784
 GameObject:
   m_ObjectHideFlags: 0
@@ -5909,7 +6000,7 @@ GameObject:
   m_TagString: NavigationWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5069786762218922065
 Transform:
@@ -6000,7 +6091,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &9199060868297188833
 Transform:
@@ -6092,7 +6183,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &9199060868297188835
 Transform:
@@ -6184,7 +6275,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &9199060868297188837
 Transform:
@@ -6276,7 +6367,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &9199060868297188839
 Transform:
@@ -6370,7 +6461,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &9199060868297188841
 Transform:
@@ -6479,7 +6570,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &9199060868297188843
 Transform:
@@ -6576,7 +6667,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &9199060868297188845
 Transform:
@@ -6668,7 +6759,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &9199060868297188847
 Transform:
