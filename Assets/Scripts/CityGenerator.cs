@@ -524,12 +524,12 @@ public class CityGenerator : MonoBehaviour
                         busLine.Add(cityMap[k, (int)(j * intersectionPositionsQuotient)].instantiatedPrefab.GetComponent<Street>().busStopNode);
                     }
                 }
-                //Bottom street
+                //Top street
                 for (int k = (int)(j * intersectionPositionsQuotient); k < (int)((j + 1) * intersectionPositionsQuotient); k++)
                 {
-                    if ((cityMap[(i + 1) * distanceBetweenHorizontalStreets, k].prefabType == BUS_STOP_1LANE || cityMap[(i + 1) * distanceBetweenHorizontalStreets, k].prefabType == BUS_STOP_2LANE) && cityMap[(i + 1) * distanceBetweenHorizontalStreets, k].rotation == BUS_STOP_ROTATION_DOWN)
+                    if ((cityMap[i * distanceBetweenHorizontalStreets, k].prefabType == BUS_STOP_1LANE || cityMap[i * distanceBetweenHorizontalStreets, k].prefabType == BUS_STOP_2LANE) && cityMap[i * distanceBetweenHorizontalStreets, k].rotation == BUS_STOP_ROTATION_DOWN)
                     {
-                        busLine.Add(cityMap[(i + 1) * distanceBetweenHorizontalStreets, k].instantiatedPrefab.GetComponent<Street>().busStopNode);
+                        busLine.Add(cityMap[i * distanceBetweenHorizontalStreets, k].instantiatedPrefab.GetComponent<Street>().busStopNode);
                     }
                 }
                 if ((int)((j + 1) * intersectionPositionsQuotient) < cityWidth)
@@ -553,12 +553,12 @@ public class CityGenerator : MonoBehaviour
                         }
                     }
                 }
-                //Top street
+                //Bottom street
                 for (int k = (int)(j * intersectionPositionsQuotient); k < (int)((j + 1) * intersectionPositionsQuotient); k++)
                 {
-                    if ((cityMap[i * distanceBetweenHorizontalStreets, k].prefabType == BUS_STOP_1LANE || cityMap[i * distanceBetweenHorizontalStreets, k].prefabType == BUS_STOP_2LANE) && cityMap[i * distanceBetweenHorizontalStreets, k].rotation == BUS_STOP_ROTATION_DOWN)
+                    if ((cityMap[(i + 1) * distanceBetweenHorizontalStreets, k].prefabType == BUS_STOP_1LANE || cityMap[(i + 1) * distanceBetweenHorizontalStreets, k].prefabType == BUS_STOP_2LANE) && cityMap[(i + 1) * distanceBetweenHorizontalStreets, k].rotation == BUS_STOP_ROTATION_DOWN)
                     {
-                        busLine.Add(cityMap[i * distanceBetweenHorizontalStreets, k].instantiatedPrefab.GetComponent<Street>().busStopNode);
+                        busLine.Add(cityMap[(i + 1) * distanceBetweenHorizontalStreets, k].instantiatedPrefab.GetComponent<Street>().busStopNode);
                     }
                 }
                 Debug.Log("Bus stops " + busLine.Count);
