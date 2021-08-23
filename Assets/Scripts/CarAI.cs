@@ -48,7 +48,7 @@ public class CarAI : MonoBehaviour
     private bool isIntersactionF = false;
     private bool isLaneOne = false;
     private bool isCurveOne = false;
-
+    private bool precedence = false;
     public IntersectionVehicle intersectionData;
 
     private void Start()
@@ -100,6 +100,7 @@ public class CarAI : MonoBehaviour
         avoidingI = false;
         avoidingIR = false;
         avoidingIF = false;
+        precedence = false;
 
 
         if (currectNode < nodes.Count) // Disable sensors during the intersections
@@ -107,13 +108,13 @@ public class CarAI : MonoBehaviour
             Street s = nodes[currectNode].GetComponentInParent<Street>();
             if (s.isSimpleIntersection)
             {
-                sensorFrontLength = 1.2f;
-                sensorLength = 1f;
+                sensorFrontLength = 0.8f;
+                sensorLength = 0.8f;
                 isIntersactionF = true;
             }
             else
             {
-                sensorLength = 1f;
+                sensorLength = 0.8f;
                 sensorFrontLength = 1.2f;
                 isIntersactionF = false;
             }
@@ -144,10 +145,18 @@ public class CarAI : MonoBehaviour
         {
             if (!hit.collider.CompareTag("Terrain"))
             {
-                Debug.DrawLine(sensorStartPos, hit.point);
-                avoiding = true;
-                avoidingR = true;
-                avoidMultiplier -= 1f;
+                if (hit.rigidbody != null && hit.rigidbody.CompareTag("Car") && isIntersactionF)
+                {
+                    precedence = true;
+                }
+                else
+                {
+                    precedence = false;
+                    Debug.DrawLine(sensorStartPos, hit.point);
+                    avoiding = true;
+                    avoidingR = true;
+                    avoidMultiplier -= 1f;
+                }                
             }
         }
 
@@ -181,6 +190,7 @@ public class CarAI : MonoBehaviour
         if (Physics.Raycast(sensorStartPos, transform.forward, out hit, sensorFrontLength, -1, QueryTriggerInteraction.Ignore))
         {
             Debug.DrawLine(sensorStartPos, hit.point);
+
             avoiding = true;
             avoidingI = true;
             if (hit.normal.x < 0)
@@ -206,7 +216,7 @@ public class CarAI : MonoBehaviour
                 isLaneOne = false;
             }
 
-            if(s.isSimpleIntersection && avoidingI) //dont surpass in intersection
+            if(s.isSimpleIntersection && avoidingI ) //dont surpass in intersection
             {
                 isIntersactionF = true;
             }
@@ -227,7 +237,7 @@ public class CarAI : MonoBehaviour
         }
 
 
-        if (intersectionData.intersectionStop || isIntersactionF || isLaneOne || isCurveOne)
+        if (intersectionData.intersectionStop || isIntersactionF || isLaneOne || isCurveOne || precedence)
         {
             Stop = true;
             isBraking = true;
