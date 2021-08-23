@@ -1158,7 +1158,7 @@ public class CityGenerator : MonoBehaviour
         {
             for (int j = 0; j < cityWidth; j++)
             {
-                if (cityMap[i, j].prefabType != 0)
+                if (cityMap[i, j].prefabType > 0)
                 {
                     //CONNECT NEIGHBORING STREET PREFABS (IN ORDER TO GENERATE A GRAPH FOR THE WHOLE CITY)
                     List<Node> carWaypoints = cityMap[i, j].instantiatedStreet.GetComponent<Street>().carWaypoints;

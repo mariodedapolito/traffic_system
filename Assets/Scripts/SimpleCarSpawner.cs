@@ -39,7 +39,7 @@ public class SimpleCarSpawner : MonoBehaviour
                 //Debug.Log(currentStreetNodes[randomSrcNode].transform.position);
                 Node spawnNode = currentStreetNodes[randomSrcNode];
                 Node startingNode = currentStreetNodes[randomSrcNode].nextNodes[0];
-                if (spawnNode.numberCars > 0 && spawnNode.isOccupied)
+                if (spawnNode.numberCars > 1 || spawnNode.isOccupied)
                 {
                     /*int i;
                     for (i = 0; i < spawnWaypoints.Count; i++)
@@ -56,7 +56,7 @@ public class SimpleCarSpawner : MonoBehaviour
                     return false;
                 }
                 spawnNode.isOccupied = true;
-                spawnNode.numberCars++;
+                spawnNode.numberCars = 1;
                 //Car Rotation
                 if ((int)currentStreetNodes[randomSrcNode].transform.position.x == (int)startingNode.transform.position.x)
                 {

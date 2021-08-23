@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 5, y: 1.3647354, z: 5}
   m_Children: []
   m_Father: {fileID: 948469683409360524}
-  m_RootOrder: 24
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!65 &7863428061910379039
 BoxCollider:
@@ -85,8 +85,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 211905704372949308}
   m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0, z: 2.5}
-  m_LocalScale: {x: 30, y: 5, z: 0.50000006}
+  m_LocalPosition: {x: 0, y: 1.6, z: 2.5}
+  m_LocalScale: {x: 33.043034, y: 5, z: 0.50000006}
   m_Children: []
   m_Father: {fileID: 1912977372321163114}
   m_RootOrder: 2
@@ -302,7 +302,9 @@ MonoBehaviour:
   laneNumber: 0
   trafficDirection: 1
   isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
 --- !u!135 &2534296643440000494
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -456,9 +458,6 @@ Transform:
   - {fileID: 3953011050913209611}
   - {fileID: 9071982067148299332}
   - {fileID: 7041121343119658673}
-  - {fileID: 5975175113236253388}
-  - {fileID: 6014559555334266898}
-  - {fileID: 2709089607304482024}
   - {fileID: 2889163358343948451}
   - {fileID: 4465436054735162047}
   - {fileID: 1868922990556115002}
@@ -589,7 +588,9 @@ MonoBehaviour:
   laneNumber: 0
   trafficDirection: 0
   isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
 --- !u!1 &1548814863121726960
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,7 +649,9 @@ MonoBehaviour:
   laneNumber: 0
   trafficDirection: 0
   isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
 --- !u!135 &6329099511529296491
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -911,7 +914,9 @@ MonoBehaviour:
   laneNumber: 0
   trafficDirection: 1
   isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
 --- !u!1 &2977300364707578573
 GameObject:
   m_ObjectHideFlags: 0
@@ -943,7 +948,7 @@ Transform:
   m_LocalScale: {x: 3.5, y: 5, z: 0.49999994}
   m_Children: []
   m_Father: {fileID: 948469683409360524}
-  m_RootOrder: 21
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 135, y: -270, z: 89.99999}
 --- !u!33 &7026221515599866501
 MeshFilter:
@@ -1098,99 +1103,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.0000005, z: 1.0000005}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &3561702397032248140
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2709089607304482024}
-  - component: {fileID: 3655910662560321479}
-  - component: {fileID: 5135481469604705299}
-  - component: {fileID: 5261886867613754885}
-  m_Layer: 0
-  m_Name: NavigationWall (18)
-  m_TagString: NavigationWall
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2709089607304482024
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3561702397032248140}
-  m_LocalRotation: {x: -0.49930352, y: 0.50069606, z: 0.5006925, w: -0.49930614}
-  m_LocalPosition: {x: -3.75, y: -12.41, z: 2.5}
-  m_LocalScale: {x: 5, y: 5, z: 0.50000006}
-  m_Children: []
-  m_Father: {fileID: 948469683409360524}
-  m_RootOrder: 19
-  m_LocalEulerAnglesHint: {x: 180.159, y: -270, z: 89.99999}
---- !u!33 &3655910662560321479
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3561702397032248140}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &5135481469604705299
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3561702397032248140}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 07442a0887fcb3c45abc9db76c9f2d7e, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!65 &5261886867613754885
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3561702397032248140}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.0000005, z: 1.0000005}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3654562229588093873
 GameObject:
   m_ObjectHideFlags: 0
@@ -1216,7 +1128,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3654562229588093873}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -4.5, y: -4.27, z: 0.5}
+  m_LocalPosition: {x: -5.92, y: -3.11, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 948469683409360524}
@@ -1249,7 +1161,9 @@ MonoBehaviour:
   laneNumber: 0
   trafficDirection: 1
   isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
 --- !u!1 &3693134622393587410
 GameObject:
   m_ObjectHideFlags: 0
@@ -1337,99 +1251,6 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3693134622393587410}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.0000005, z: 1.0000005}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &3942834579327729321
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6014559555334266898}
-  - component: {fileID: 736321907928167081}
-  - component: {fileID: 4841035252754182657}
-  - component: {fileID: 9095722609155890878}
-  m_Layer: 0
-  m_Name: NavigationWall (17)
-  m_TagString: NavigationWall
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6014559555334266898
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3942834579327729321}
-  m_LocalRotation: {x: -0.49930352, y: 0.50069606, z: 0.5006925, w: -0.49930614}
-  m_LocalPosition: {x: -3.75, y: 12.41, z: 2.5}
-  m_LocalScale: {x: 5, y: 5, z: 0.50000006}
-  m_Children: []
-  m_Father: {fileID: 948469683409360524}
-  m_RootOrder: 18
-  m_LocalEulerAnglesHint: {x: 180.159, y: -270, z: 89.99999}
---- !u!33 &736321907928167081
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3942834579327729321}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &4841035252754182657
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3942834579327729321}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 07442a0887fcb3c45abc9db76c9f2d7e, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!65 &9095722609155890878
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3942834579327729321}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -1554,7 +1375,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4094441254913960976}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -4.5, y: 4.27, z: 0.5}
+  m_LocalPosition: {x: -5.79, y: 3.72, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 948469683409360524}
@@ -1587,7 +1408,9 @@ MonoBehaviour:
   laneNumber: 0
   trafficDirection: 1
   isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
 --- !u!1 &4283172433356573816
 GameObject:
   m_ObjectHideFlags: 0
@@ -1618,7 +1441,7 @@ Transform:
   m_LocalScale: {x: 5, y: 1, z: 5}
   m_Children: []
   m_Father: {fileID: 948469683409360524}
-  m_RootOrder: 22
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8809413183680917710
 BoxCollider:
@@ -1676,7 +1499,7 @@ Transform:
   m_LocalScale: {x: 5, y: 1, z: 5}
   m_Children: []
   m_Father: {fileID: 948469683409360524}
-  m_RootOrder: 26
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &5550642114935017554
 BoxCollider:
@@ -1734,7 +1557,7 @@ Transform:
   m_LocalScale: {x: 5, y: 1, z: 5}
   m_Children: []
   m_Father: {fileID: 948469683409360524}
-  m_RootOrder: 23
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &5165397399777873954
 BoxCollider:
@@ -1915,7 +1738,9 @@ MonoBehaviour:
   laneNumber: 0
   trafficDirection: 1
   isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
 --- !u!135 &6685834360187681457
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1960,7 +1785,7 @@ Transform:
   m_LocalScale: {x: 3.5, y: 5, z: 0.49999994}
   m_Children: []
   m_Father: {fileID: 948469683409360524}
-  m_RootOrder: 20
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 45, y: -270, z: 89.99999}
 --- !u!33 &2599095429039431793
 MeshFilter:
@@ -2080,7 +1905,9 @@ MonoBehaviour:
   laneNumber: 0
   trafficDirection: 0
   isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
 --- !u!1 &5815066194785417487
 GameObject:
   m_ObjectHideFlags: 0
@@ -2141,7 +1968,9 @@ MonoBehaviour:
   laneNumber: 0
   trafficDirection: 0
   isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
 --- !u!135 &8613323269183897743
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2213,7 +2042,9 @@ MonoBehaviour:
   laneNumber: 0
   trafficDirection: 0
   isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
 --- !u!1 &6076626297361553911
 GameObject:
   m_ObjectHideFlags: 0
@@ -2311,99 +2142,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300022, guid: bca5c93adbc71744ca9ea932c796e900, type: 3}
---- !u!1 &6321749739733638321
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5975175113236253388}
-  - component: {fileID: 1178287036333651792}
-  - component: {fileID: 3765933310533940645}
-  - component: {fileID: 8388850708772357379}
-  m_Layer: 0
-  m_Name: NavigationWall (16)
-  m_TagString: NavigationWall
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5975175113236253388
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6321749739733638321}
-  m_LocalRotation: {x: -0.7071068, y: -0.00000014901161, z: 0.00000014901161, w: -0.7071068}
-  m_LocalPosition: {x: 8.62, y: 0.01, z: 2.5}
-  m_LocalScale: {x: 5, y: 5, z: 0.49999988}
-  m_Children: []
-  m_Father: {fileID: 948469683409360524}
-  m_RootOrder: 17
-  m_LocalEulerAnglesHint: {x: 90, y: -270, z: 89.99999}
---- !u!33 &1178287036333651792
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6321749739733638321}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &3765933310533940645
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6321749739733638321}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 07442a0887fcb3c45abc9db76c9f2d7e, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!65 &8388850708772357379
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6321749739733638321}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.0000005, z: 1.0000005}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6561308409239180132
 GameObject:
   m_ObjectHideFlags: 0
@@ -2556,7 +2294,9 @@ MonoBehaviour:
   laneNumber: 0
   trafficDirection: 1
   isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
 --- !u!135 &4711406306188459651
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2628,7 +2368,9 @@ MonoBehaviour:
   laneNumber: 0
   trafficDirection: 0
   isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
 --- !u!135 &2399644287848680345
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2672,7 +2414,7 @@ Transform:
   m_LocalScale: {x: 5, y: 1, z: 5}
   m_Children: []
   m_Father: {fileID: 948469683409360524}
-  m_RootOrder: 27
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!65 &8777434264306770256
 BoxCollider:
@@ -3106,7 +2848,7 @@ Transform:
   m_LocalScale: {x: 5, y: 1, z: 5}
   m_Children: []
   m_Father: {fileID: 948469683409360524}
-  m_RootOrder: 25
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &4008953924152696920
 BoxCollider:
