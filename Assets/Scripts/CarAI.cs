@@ -41,6 +41,7 @@ public class CarAI : MonoBehaviour
     private bool avoidingI = false;
     private bool Stop = false;
     private float targetSteerAngle = 0;
+    private bool collisionHappen;
 
     public IntersectionVehicle intersectionData;
 
@@ -71,9 +72,10 @@ public class CarAI : MonoBehaviour
     private void FixedUpdate()
     {
         Sensors();
+        CheckWaypointDistance();
         ApplySteer();
         Drive();
-        CheckWaypointDistance();
+        
         Braking();
         LerpToSteerAngle();
     }
@@ -214,7 +216,7 @@ public class CarAI : MonoBehaviour
 
     private void Drive()
     {
-        if (Stop || intersectionData.intersectionStop) return;
+        //if (Stop || intersectionData.intersectionStop) return;
         currentSpeed = 2 * Mathf.PI * wheelFL.radius * wheelFL.rpm * 60 / 1000;
         currentSpeed = currentSpeed * 2;
         if (currentSpeed < maxSpeed && !isBraking)
@@ -295,6 +297,10 @@ public class CarAI : MonoBehaviour
             GameObject[] waypointsNew = GameObject.FindGameObjectsWithTag("CarWaypoint");
             List<Node> nodesNew = new List<Node>();
             float min = 0f;
+
+            Destroy(this.transform.parent);
+
+            /*
             foreach (GameObject w in waypointsNew)
             {
                 if (w.GetComponent<Node>() != null)
@@ -331,7 +337,7 @@ public class CarAI : MonoBehaviour
             for (int i = 0; i < this.carPath.Count; i++)
             {
                 this.nodes.Add(carPath[i].transform);
-            }
+            }*/
         }
     }
 
@@ -361,6 +367,46 @@ public class CarAI : MonoBehaviour
             wheelFL.steerAngle = Mathf.Lerp(wheelFL.steerAngle, targetSteerAngle, Time.deltaTime * turnSpeed);
             wheelFR.steerAngle = Mathf.Lerp(wheelFR.steerAngle, targetSteerAngle, Time.deltaTime * turnSpeed);
             //Debug.Log(wheelFL.steerAngle);
+        }
+    }
+
+    /*
+    public void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.GetComponent<Node>() != null)
+        {
+            Node n = other.gameObject.GetComponent<Node>();
+            if (n.isCarSpawn)
+                n.isOccupied = true;
+        }
+    }*/
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<Node>() != null && collisionHappen)
+        {
+            Node n = other.gameObject.GetComponent<Node>();
+            if (n.isCarSpawn)
+            {
+                n.numberCars--;
+                collisionHappen = false;
+                n.isOccupied = false;
+            }
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        //this.numberCars++;
+        if (other.gameObject.GetComponent<Node>() != null && !collisionHappen)
+        {
+            Node n = other.gameObject.GetComponent<Node>();
+            if (n.isCarSpawn)
+            {
+                n.numberCars++;
+                collisionHappen = true;
+                n.isOccupied = true;
+            }
         }
     }
 }

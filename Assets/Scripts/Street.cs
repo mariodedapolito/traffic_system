@@ -11,6 +11,7 @@ public class Street : MonoBehaviour
     public bool isSemaphoreIntersection;
     public bool isTBoneIntersection;
     public bool hasBusStop;
+    public Node busStopNode;
     public bool isLaneAdapter;
     public bool isCurve;
     public bool isDeadend;
