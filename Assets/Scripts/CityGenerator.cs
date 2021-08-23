@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class MapTile
 {
-    public GameObject prefabReference;
-    public GameObject instantiatedPrefab;
+    public GameObject prefabStreet;
+    public GameObject instantiatedStreet;
     public int prefabType;
     public int rotation;
 
@@ -14,7 +14,7 @@ public class MapTile
     {
         this.prefabType = prefabType;
         this.rotation = rotation;
-        this.prefabReference = null;
+        this.prefabStreet = null;
     }
 }
 
@@ -35,6 +35,7 @@ public class CityGenerator : MonoBehaviour
 
     public GameObject cityPlane;
     public GameObject carPrefab;
+    public GameObject busPrefab;
 
     public GameObject straightStreet1Lane;
     //public GameObject straightGameObject1LaneShort;
@@ -62,18 +63,15 @@ public class CityGenerator : MonoBehaviour
     public GameObject intersection3Way2Lane1Lane;
     public GameObject intersection3Way2Lane1LaneSemaphore;
 
-    public bool generateBuildings;
-    public List<GameObject> buildingPrefabs;
-
 
     private const int distanceBetweenVerticalStreets = 5;   //2 prefabs for bus stops + 1 prefab (optional) for lane adapter + 2 reserved prefabs
-    private const int distanceBetweenHorizontalStreets = 6;
+    private const int distanceBetweenHorizontalStreets = 5;
 
     public MapTile[,] cityMap;
     public int cityWidth;
     public int cityLength;
 
-    public List<List<Node>> busLines;
+    public List<List<Street>> busLines;
 
     private const int STRAIGHT_1LANE = 1;
     private const int STRAIGHT_2LANE = 2;
@@ -96,8 +94,6 @@ public class CityGenerator : MonoBehaviour
     private const int INTERSECTION_3WAY_1LANE_2LANE_SEMAPHORE = 3121;
     private const int INTERSECTION_3WAY_2LANE_1LANE = 3210;
     private const int INTERSECTION_3WAY_2LANE_1LANE_SEMAPHORE = 3211;
-
-    private const int BUILDINGS = -1;
 
     private const int LANE_ADAPTOR = 21;
 
@@ -142,6 +138,7 @@ public class CityGenerator : MonoBehaviour
     private int[,] lanesVerticalStreets;
 
     private SimpleCarSpawner carSpawner;
+    private SimpleBusSpawner busSpawner;
 
     // Start is called before the first frame update
     void Start()
@@ -406,20 +403,6 @@ public class CityGenerator : MonoBehaviour
             }
         }
 
-        //Generate city buildings
-        if (generateBuildings)
-        {
-            for (int i = 0; i < cityLength; i++)
-            {
-                for (int j = 0; j < cityWidth; j++)
-                {
-                    if (cityMap[i, j].prefabType == 0)
-                    {
-                        generateBuildingPrefab(cityMap[i, j], i, j);
-                    }
-                }
-            }
-        }
 
         //
         //DEBUGGING
@@ -472,15 +455,15 @@ public class CityGenerator : MonoBehaviour
         }
 
         //Generate bus lines
-        busLines = new List<List<Node>>();
+        busLines = new List<List<Street>>();
         //Generate bus line for city extremity (ring)
-        List<Node> cityRingBusLine = new List<Node>();
+        List<Street> cityRingBusLine = new List<Street>();
         //Leftmost extreme bus stops (scan from top to bottom)
         for (int i = 0; i < cityLength; i++)
         {
             if ((cityMap[i, 0].prefabType == BUS_STOP_1LANE || cityMap[i, 0].prefabType == BUS_STOP_2LANE) && cityMap[i, 0].rotation == BUS_STOP_ROTATION_LEFT)
             {
-                cityRingBusLine.Add(cityMap[i, 0].instantiatedPrefab.GetComponent<Street>().busStopNode);
+                cityRingBusLine.Add(cityMap[i, 0].instantiatedStreet.GetComponent<Street>());
             }
         }
         //Bottom extreme bus stops (scan from left to right)
@@ -488,7 +471,7 @@ public class CityGenerator : MonoBehaviour
         {
             if ((cityMap[cityLength - 1, i].prefabType == BUS_STOP_1LANE || cityMap[cityLength - 1, i].prefabType == BUS_STOP_2LANE) && cityMap[cityLength - 1, i].rotation == BUS_STOP_ROTATION_DOWN)
             {
-                cityRingBusLine.Add(cityMap[cityLength - 1, i].instantiatedPrefab.GetComponent<Street>().busStopNode);
+                cityRingBusLine.Add(cityMap[cityLength - 1, i].instantiatedStreet.GetComponent<Street>());
             }
         }
         //Rightmost extreme bus stops (scan from bottom to top)
@@ -496,7 +479,7 @@ public class CityGenerator : MonoBehaviour
         {
             if ((cityMap[i, cityWidth - 1].prefabType == BUS_STOP_1LANE || cityMap[i, cityWidth - 1].prefabType == BUS_STOP_2LANE) && cityMap[i, cityWidth - 1].rotation == BUS_STOP_ROTATION_LEFT)
             {
-                cityRingBusLine.Add(cityMap[i, cityWidth - 1].instantiatedPrefab.GetComponent<Street>().busStopNode);
+                cityRingBusLine.Add(cityMap[i, cityWidth - 1].instantiatedStreet.GetComponent<Street>());
             }
         }
         //Top extreme bus stops (scan from right to left)
@@ -504,7 +487,7 @@ public class CityGenerator : MonoBehaviour
         {
             if ((cityMap[0, i].prefabType == BUS_STOP_1LANE || cityMap[0, i].prefabType == BUS_STOP_2LANE) && cityMap[0, i].rotation == BUS_STOP_ROTATION_DOWN)
             {
-                cityRingBusLine.Add(cityMap[0, i].instantiatedPrefab.GetComponent<Street>().busStopNode);
+                cityRingBusLine.Add(cityMap[0, i].instantiatedStreet.GetComponent<Street>());
             }
         }
         busLines.Add(cityRingBusLine);
@@ -515,13 +498,13 @@ public class CityGenerator : MonoBehaviour
             Debug.Log(numberVerticalStreets[i]);
             for (int j = 0; j < numberVerticalStreets[i] + 1; j++)
             {
-                List<Node> busLine = new List<Node>();
+                List<Street> busLine = new List<Street>();
                 //Left street
                 for (int k = i * distanceBetweenHorizontalStreets; k < (i + 1) * distanceBetweenHorizontalStreets; k++)
                 {
                     if ((cityMap[k, (int)(j * intersectionPositionsQuotient)].prefabType == BUS_STOP_1LANE || cityMap[k, (int)(j * intersectionPositionsQuotient)].prefabType == BUS_STOP_2LANE) && cityMap[k, (int)(j * intersectionPositionsQuotient)].rotation == BUS_STOP_ROTATION_LEFT)
                     {
-                        busLine.Add(cityMap[k, (int)(j * intersectionPositionsQuotient)].instantiatedPrefab.GetComponent<Street>().busStopNode);
+                        busLine.Add(cityMap[k, (int)(j * intersectionPositionsQuotient)].instantiatedStreet.GetComponent<Street>());
                     }
                 }
                 //Top street
@@ -529,9 +512,10 @@ public class CityGenerator : MonoBehaviour
                 {
                     if ((cityMap[i * distanceBetweenHorizontalStreets, k].prefabType == BUS_STOP_1LANE || cityMap[i * distanceBetweenHorizontalStreets, k].prefabType == BUS_STOP_2LANE) && cityMap[i * distanceBetweenHorizontalStreets, k].rotation == BUS_STOP_ROTATION_DOWN)
                     {
-                        busLine.Add(cityMap[i * distanceBetweenHorizontalStreets, k].instantiatedPrefab.GetComponent<Street>().busStopNode);
+                        busLine.Add(cityMap[i * distanceBetweenHorizontalStreets, k].instantiatedStreet.GetComponent<Street>());
                     }
                 }
+
                 if ((int)((j + 1) * intersectionPositionsQuotient) < cityWidth)
                 {
                     //Right street
@@ -539,7 +523,7 @@ public class CityGenerator : MonoBehaviour
                     {
                         if ((cityMap[k, (int)((j + 1) * intersectionPositionsQuotient)].prefabType == BUS_STOP_1LANE || cityMap[k, (int)((j + 1) * intersectionPositionsQuotient)].prefabType == BUS_STOP_2LANE) && cityMap[k, (int)((j + 1) * intersectionPositionsQuotient)].rotation == BUS_STOP_ROTATION_LEFT)
                         {
-                            busLine.Add(cityMap[k, (int)((j + 1) * intersectionPositionsQuotient)].instantiatedPrefab.GetComponent<Street>().busStopNode);
+                            busLine.Add(cityMap[k, (int)((j + 1) * intersectionPositionsQuotient)].instantiatedStreet.GetComponent<Street>());
                         }
                     }
                 }
@@ -549,18 +533,20 @@ public class CityGenerator : MonoBehaviour
                     {
                         if ((cityMap[k, cityWidth - 1].prefabType == BUS_STOP_1LANE || cityMap[k, cityWidth - 1].prefabType == BUS_STOP_2LANE) && cityMap[k, cityWidth - 1].rotation == BUS_STOP_ROTATION_LEFT)
                         {
-                            busLine.Add(cityMap[k, cityWidth - 1].instantiatedPrefab.GetComponent<Street>().busStopNode);
+                            busLine.Add(cityMap[k, cityWidth - 1].instantiatedStreet.GetComponent<Street>());
                         }
                     }
                 }
+
                 //Bottom street
                 for (int k = (int)(j * intersectionPositionsQuotient); k < (int)((j + 1) * intersectionPositionsQuotient); k++)
                 {
                     if ((cityMap[(i + 1) * distanceBetweenHorizontalStreets, k].prefabType == BUS_STOP_1LANE || cityMap[(i + 1) * distanceBetweenHorizontalStreets, k].prefabType == BUS_STOP_2LANE) && cityMap[(i + 1) * distanceBetweenHorizontalStreets, k].rotation == BUS_STOP_ROTATION_DOWN)
                     {
-                        busLine.Add(cityMap[(i + 1) * distanceBetweenHorizontalStreets, k].instantiatedPrefab.GetComponent<Street>().busStopNode);
+                        busLine.Add(cityMap[(i + 1) * distanceBetweenHorizontalStreets, k].instantiatedStreet.GetComponent<Street>());
                     }
                 }
+                
                 Debug.Log("Bus stops " + busLine.Count);
                 busLines.Add(busLine);
             }
@@ -571,8 +557,9 @@ public class CityGenerator : MonoBehaviour
         //Connect all prefabs together
         cityStreetConnector();
 
+     
         carsSpawn();
-
+        //busSpawn();
     }
 
     // Update is called once per frame
@@ -604,6 +591,23 @@ public class CityGenerator : MonoBehaviour
                 numberCars--;
             }
 
+        }
+    }
+
+    private void busSpawn()
+    {
+        busSpawner = new SimpleBusSpawner(busPrefab, this);
+        busSpawner.SetWaypointsSpawnBus(numberCarWaypointsSpawn, busLines);
+        foreach (var bl in busLines)
+        {
+            for (int b = 0; b < bl.Count; b++)
+            {
+                if (busSpawner.spawnBus())
+                {
+
+                }
+
+            }
         }
     }
 
@@ -1157,7 +1161,7 @@ public class CityGenerator : MonoBehaviour
                 if (cityMap[i, j].prefabType > 0)
                 {
                     //CONNECT NEIGHBORING STREET PREFABS (IN ORDER TO GENERATE A GRAPH FOR THE WHOLE CITY)
-                    List<Node> carWaypoints = cityMap[i, j].instantiatedPrefab.GetComponent<Street>().carWaypoints;
+                    List<Node> carWaypoints = cityMap[i, j].instantiatedStreet.GetComponent<Street>().carWaypoints;
                     foreach (var node in carWaypoints)
                     {
                         if (node.needOutgoingConnection)
@@ -1199,37 +1203,37 @@ public class CityGenerator : MonoBehaviour
         {
             if (tile.prefabType == STRAIGHT_1LANE)
             {
-                cityMap[row, col].prefabReference = straightStreet1Lane;
+                cityMap[row, col].prefabStreet = straightStreet1Lane;
             }
             else
             {
-                cityMap[row, col].prefabReference = straightStreet2Lane;
+                cityMap[row, col].prefabStreet = straightStreet2Lane;
             }
         }
         else if (tile.prefabType == CURVE_1LANE || tile.prefabType == CURVE_2LANE)
         {
             if (tile.prefabType == CURVE_1LANE)
             {
-                cityMap[row, col].prefabReference = curve1Lane;
+                cityMap[row, col].prefabStreet = curve1Lane;
             }
             else
             {
-                cityMap[row, col].prefabReference = curve2Lane;
+                cityMap[row, col].prefabStreet = curve2Lane;
             }
         }
         else if (tile.prefabType == LANE_ADAPTOR)
         {
-            cityMap[row, col].prefabReference = laneAdaptor;
+            cityMap[row, col].prefabStreet = laneAdaptor;
         }
         else if (tile.prefabType == BUS_STOP_1LANE || tile.prefabType == BUS_STOP_2LANE)
         {
             if (tile.prefabType == BUS_STOP_1LANE)
             {
-                cityMap[row, col].prefabReference = busStop1Lane;
+                cityMap[row, col].prefabStreet = busStop1Lane;
             }
             else if (tile.prefabType == BUS_STOP_2LANE)
             {
-                cityMap[row, col].prefabReference = busStop2Lane;
+                cityMap[row, col].prefabStreet = busStop2Lane;
             }
         }
         //INTERSECTIONS
@@ -1237,74 +1241,61 @@ public class CityGenerator : MonoBehaviour
         {
             if (tile.prefabType == INTERSECTION_4WAY_1LANE)
             {
-                cityMap[row, col].prefabReference = intersection4Way1Lane;
-                cityMap[row, col].rotation = 90*UnityEngine.Random.Range(0, 4);
+                cityMap[row, col].prefabStreet = intersection4Way1Lane;
             }
             else if (tile.prefabType == INTERSECTION_4WAY_1LANE_SEMAPHORE)
             {
-                cityMap[row, col].prefabReference = intersection4Way1LaneSemaphore;
-                cityMap[row, col].rotation = 90 * UnityEngine.Random.Range(0, 4);
+                cityMap[row, col].prefabStreet = intersection4Way1LaneSemaphore;
             }
             else if (tile.prefabType == INTERSECTION_4WAY_2LANE)
             {
-                cityMap[row, col].prefabReference = intersection4Way2Lane;
-                cityMap[row, col].rotation = 90 * UnityEngine.Random.Range(0, 4);
+                cityMap[row, col].prefabStreet = intersection4Way2Lane;
             }
             else if (tile.prefabType == INTERSECTION_4WAY_2LANE_SEMAPHORE)
             {
-                cityMap[row, col].prefabReference = intersection4Way2LaneSemaphore;
-                cityMap[row, col].rotation = 90 * UnityEngine.Random.Range(0, 4);
+                cityMap[row, col].prefabStreet = intersection4Way2LaneSemaphore;
             }
             else if (tile.prefabType == INTERSECTION_3WAY_1LANE)
             {
-                cityMap[row, col].prefabReference = intersection3Way1Lane;
+                cityMap[row, col].prefabStreet = intersection3Way1Lane;
             }
             else if (tile.prefabType == INTERSECTION_3WAY_1LANE_SEMAPHORE)
             {
-                cityMap[row, col].prefabReference = intersection3Way1LaneSemaphore;
+                cityMap[row, col].prefabStreet = intersection3Way1LaneSemaphore;
             }
             else if (tile.prefabType == INTERSECTION_3WAY_2LANE)
             {
-                cityMap[row, col].prefabReference = intersection3Way2Lane;
+                cityMap[row, col].prefabStreet = intersection3Way2Lane;
             }
             else if (tile.prefabType == INTERSECTION_3WAY_2LANE_SEMAPHORE)
             {
-                cityMap[row, col].prefabReference = intersection3Way2LaneSemaphore;
+                cityMap[row, col].prefabStreet = intersection3Way2LaneSemaphore;
             }
             else if (tile.prefabType == INTERSECTION_4WAY_1LANE_2LANE)
             {
-                cityMap[row, col].prefabReference = intersection4Way1Lane2Lane;
+                cityMap[row, col].prefabStreet = intersection4Way1Lane2Lane;
             }
             else if (tile.prefabType == INTERSECTION_4WAY_1LANE_2LANE_SEMAPHORE)
             {
-                cityMap[row, col].prefabReference = intersection4Way1Lane2LaneSemaphore;
+                cityMap[row, col].prefabStreet = intersection4Way1Lane2LaneSemaphore;
             }
             else if (tile.prefabType == INTERSECTION_3WAY_1LANE_2LANE)
             {
-                cityMap[row, col].prefabReference = intersection3Way1Lane2Lane;
+                cityMap[row, col].prefabStreet = intersection3Way1Lane2Lane;
             }
             else if (tile.prefabType == INTERSECTION_3WAY_1LANE_2LANE_SEMAPHORE)
             {
-                cityMap[row, col].prefabReference = intersection3Way1Lane2LaneSemaphore;
+                cityMap[row, col].prefabStreet = intersection3Way1Lane2LaneSemaphore;
             }
             else if (tile.prefabType == INTERSECTION_3WAY_2LANE_1LANE)
             {
-                cityMap[row, col].prefabReference = intersection3Way2Lane1Lane;
+                cityMap[row, col].prefabStreet = intersection3Way2Lane1Lane;
             }
             else if (tile.prefabType == INTERSECTION_3WAY_2LANE_1LANE_SEMAPHORE)
             {
-                cityMap[row, col].prefabReference = intersection3Way2Lane1LaneSemaphore;
+                cityMap[row, col].prefabStreet = intersection3Way2Lane1LaneSemaphore;
             }
         }
-    }
-
-    private void generateBuildingPrefab(MapTile tile, int row, int col)
-    {
-        GameObject randomBuldingBlock = buildingPrefabs[UnityEngine.Random.Range(0, buildingPrefabs.Count)];
-        int randomBlockRotation = 90 * UnityEngine.Random.Range(0, 4);
-        cityMap[row, col].prefabType = BUILDINGS;
-        cityMap[row, col].prefabReference = randomBuldingBlock;
-        cityMap[row, col].rotation = randomBlockRotation;
     }
 
     private void instantiateTerrain(int cityWidth, int cityLength)
@@ -1317,7 +1308,8 @@ public class CityGenerator : MonoBehaviour
     {
         int SceneRow = (row - (cityLength / 2));
         int SceneCol = -(col - (cityLength / 2));
-        cityMap[row, col].instantiatedPrefab = Instantiate(tile.prefabReference, new Vector3(SceneCol * (-20), 0, SceneRow * (-20)), Quaternion.Euler(0, tile.rotation, 0));
+        cityMap[row, col].instantiatedStreet = Instantiate(tile.prefabStreet, new Vector3(SceneCol * (-20), 0, SceneRow * (-20)), Quaternion.Euler(0, tile.rotation, 0));
     }
+
 
 }

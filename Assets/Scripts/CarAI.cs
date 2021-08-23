@@ -39,9 +39,16 @@ public class CarAI : MonoBehaviour
     private bool avoidingR = false;
     private bool avoidingL = false;
     private bool avoidingI = false;
+    private bool avoidingIR = false;
+    private bool avoidingIF = false;
     private bool Stop = false;
     private float targetSteerAngle = 0;
-
+    private bool collisionHappen;
+    private bool inPath = false;
+    private bool isIntersactionF = false;
+    private bool isLaneOne = false;
+    private bool isCurveOne = false;
+    private bool precedence = false;
     public IntersectionVehicle intersectionData;
 
     private void Start()
@@ -85,24 +92,37 @@ public class CarAI : MonoBehaviour
         sensorStartPos += transform.forward * frontSensorPosition.z;
         sensorStartPos += transform.up * frontSensorPosition.y;
         float avoidMultiplier = 0;
+        float avoidIntersaction = 1f;
 
         avoiding = false;
         avoidingR = false;
         avoidingL = false;
         avoidingI = false;
-        
+        avoidingIR = false;
+        avoidingIF = false;
+        precedence = false;
+
+
         if (currectNode < nodes.Count) // Disable sensors during the intersections
-        {
+        {   
             Street s = nodes[currectNode].GetComponentInParent<Street>();
             if (s.isSimpleIntersection)
             {
-                sensorFrontLength = 1f;
-                sensorLength = 1.5f;
+                sensorFrontLength = 0.8f;
+                sensorLength = 0.8f;
+                isIntersactionF = true;
             }
             else
             {
-                sensorLength = 1f;
+                sensorLength = 0.8f;
                 sensorFrontLength = 1.2f;
+                isIntersactionF = false;
+            }
+
+            if(s.isCurve)
+            {
+                sensorFrontLength = 1f;
+                sensorLength = 0.8f;
             }
         }
 
@@ -114,7 +134,8 @@ public class CarAI : MonoBehaviour
             {
                 Debug.DrawLine(sensorStartPos, hit.point);
                 avoiding = true;
-                avoidingR = true;
+                avoidingI = true;
+                avoidingIR = true;
                 avoidMultiplier -= 0.5f;
             }
         }
@@ -124,10 +145,18 @@ public class CarAI : MonoBehaviour
         {
             if (!hit.collider.CompareTag("Terrain"))
             {
-                Debug.DrawLine(sensorStartPos, hit.point);
-                avoiding = true;
-                avoidingR = true;
-                avoidMultiplier -= 0.5f;
+                if (hit.rigidbody != null && hit.rigidbody.CompareTag("Car") && isIntersactionF)
+                {
+                    precedence = true;
+                }
+                else
+                {
+                    precedence = false;
+                    Debug.DrawLine(sensorStartPos, hit.point);
+                    avoiding = true;
+                    avoidingR = true;
+                    avoidMultiplier -= 1f;
+                }                
             }
         }
 
@@ -139,7 +168,8 @@ public class CarAI : MonoBehaviour
             {
                 Debug.DrawLine(sensorStartPos, hit.point);
                 avoiding = true;
-                avoidingL = true;
+                avoidingI = true;
+                avoidingIF = true;
                 avoidMultiplier += 0.5f;
             }
         }
@@ -160,6 +190,7 @@ public class CarAI : MonoBehaviour
         if (Physics.Raycast(sensorStartPos, transform.forward, out hit, sensorFrontLength, -1, QueryTriggerInteraction.Ignore))
         {
             Debug.DrawLine(sensorStartPos, hit.point);
+
             avoiding = true;
             avoidingI = true;
             if (hit.normal.x < 0)
@@ -173,8 +204,40 @@ public class CarAI : MonoBehaviour
             
         }
 
+        if (currectNode < nodes.Count) // Disable sensors during the intersections
+        {
+            Street s = nodes[currectNode].GetComponentInParent<Street>();
+            if (s.numberLanes == 1 && avoidingI) //dont surpass in one lane
+            {
+                isLaneOne = true;                
+            }
+            else
+            {
+                isLaneOne = false;
+            }
 
-        if ((avoidingI && avoidingL && avoidingR) || intersectionData.intersectionStop)
+            if(s.isSimpleIntersection && avoidingI ) //dont surpass in intersection
+            {
+                isIntersactionF = true;
+            }
+            else
+            {
+                isIntersactionF = false;
+            }
+
+            if(s.isCurve && s.numberLanes == 1 && avoidingIR && avoidingIF) //dont surpass in Curve
+            {
+                
+                isCurveOne = true;
+            }
+            else
+            {
+                isCurveOne = false;
+            }
+        }
+
+
+        if (intersectionData.intersectionStop || isIntersactionF || isLaneOne || isCurveOne || precedence)
         {
             Stop = true;
             isBraking = true;
@@ -198,7 +261,7 @@ public class CarAI : MonoBehaviour
         }
 
         if (avoiding)
-        {
+        {   
             targetSteerAngle = maxSteerAngle * avoidMultiplier;
         }
 
@@ -207,6 +270,7 @@ public class CarAI : MonoBehaviour
     private void ApplySteer()
     {
         if (avoiding || Stop || intersectionData.intersectionStop) return;
+        if (currectNode >= nodes.Count ) newPath();
         Vector3 relativeVector = transform.InverseTransformPoint(nodes[currectNode].position);
         float newSteer = (relativeVector.x / relativeVector.magnitude) * maxSteerAngle;
         targetSteerAngle = newSteer;
@@ -214,7 +278,7 @@ public class CarAI : MonoBehaviour
 
     private void Drive()
     {
-        if (Stop || intersectionData.intersectionStop) return;
+        //if (Stop || intersectionData.intersectionStop) return;
         currentSpeed = 2 * Mathf.PI * wheelFL.radius * wheelFL.rpm * 60 / 1000;
         currentSpeed = currentSpeed * 2;
         if (currentSpeed < maxSpeed && !isBraking)
@@ -231,12 +295,16 @@ public class CarAI : MonoBehaviour
 
     private void CheckWaypointDistance()
     {
+        if (this.inPath) return;
+        
         if (nodes.Count > 0)
-        {
+        {   
+            this.inPath = true;
             if (Vector3.Distance(transform.position, nodes[currectNode].position) < 1f)
             {
                 if (currectNode == nodes.Count - 1)
                 {
+                    
                     // end == parking Waypoint
                     /*
                     {
@@ -252,9 +320,10 @@ public class CarAI : MonoBehaviour
 
                     GameObject[] waypointsNew = GameObject.FindGameObjectsWithTag("CarWaypoint");
                     List<Node> nodesNew = new List<Node>();
+                    Node lastWaypoint = this.endWaypoint;
                     foreach (GameObject w in waypointsNew)
                     {
-                        if (w.GetComponent<Node>() != null)
+                        if (w.GetComponent<Node>() != null && !w.GetComponent<Node>().isParkingSpot)
                             nodesNew.Add(w.GetComponent<Node>());
                     }
 
@@ -283,56 +352,70 @@ public class CarAI : MonoBehaviour
                     {
                         this.nodes.Add(carPath[i].transform);
                     }
+                    
                 }
                 else
                 {
                     currectNode++;
-                }
+                } 
+                
             }
+            this.inPath = false;
         }
         else
         {
-            GameObject[] waypointsNew = GameObject.FindGameObjectsWithTag("CarWaypoint");
-            List<Node> nodesNew = new List<Node>();
-            float min = 0f;
-            foreach (GameObject w in waypointsNew)
+            newPath();
+        }
+       
+    }
+
+    private void newPath()
+    {
+        if (this.inPath) return;
+        this.inPath = true;
+        GameObject[] waypointsNew = GameObject.FindGameObjectsWithTag("CarWaypoint");
+        List<Node> nodesNew = new List<Node>();
+        float min = 1f;
+        Node lastWaypoint = this.endWaypoint;
+
+        //Destroy(this);
+
+        
+        foreach (GameObject w in waypointsNew)
+        {
+            if (w.GetComponent<Node>() != null && !w.GetComponent<Node>().isParkingSpot)
             {
-                if (w.GetComponent<Node>() != null)
+                Street sStart = w.GetComponent<Node>().GetComponentInParent<Street>();
+                if (!sStart.hasBusStop && !sStart.isSemaphoreIntersection && !sStart.isSimpleIntersection)
                 {
                     nodesNew.Add(w.GetComponent<Node>());
-                    Street sStart = w.GetComponent<Node>().GetComponentInParent<Street>();
-                    if (Vector3.Distance(transform.position, w.GetComponent<Node>().nextNodes[0].transform.position) < min && !sStart.hasBusStop && !sStart.isSemaphoreIntersection && !sStart.isSimpleIntersection)
-                    {
-                        min = Vector3.Distance(transform.position, w.GetComponent<Node>().nextNodes[0].transform.position);
-                        this.startWaypoint = w.GetComponent<Node>();
-                    }
                 }
             }
-
-            int randomSrcNode = (int)UnityEngine.Random.Range(0, nodesNew.Count - 1);
-
-            Street s = nodesNew[randomSrcNode].GetComponentInParent<Street>();
-
-            while (!s.hasBusStop && !s.isSemaphoreIntersection && !s.isSimpleIntersection)
-            {
-                randomSrcNode = (int)UnityEngine.Random.Range(0, nodesNew.Count - 1);
-                s = nodesNew[randomSrcNode].GetComponentInParent<Street>();
-            }
-            this.endWaypoint = nodesNew[randomSrcNode];
-            currectNode = 1;
-
-            Path path = new Path(); // problem with MonoBehaviour
-            this.nodes.Clear();
-            //this.carPath.Clear();
-
-            this.carPath = path.findShortestPath(startWaypoint.transform, endWaypoint.transform);
-
-
-            for (int i = 0; i < this.carPath.Count; i++)
-            {
-                this.nodes.Add(carPath[i].transform);
-            }
         }
+
+        this.startWaypoint = lastWaypoint;
+
+        int randomSrcNode = (int)UnityEngine.Random.Range(0, nodesNew.Count - 1);
+
+        Street s = nodesNew[randomSrcNode].GetComponentInParent<Street>();
+        
+
+        this.endWaypoint = nodesNew[randomSrcNode];
+        currectNode = 1;
+
+        Path path = new Path(); // problem with MonoBehaviour
+        this.nodes.Clear();
+        //this.carPath.Clear();
+
+        this.carPath = path.findShortestPath(startWaypoint.transform, endWaypoint.transform);
+
+
+        for (int i = 0; i < this.carPath.Count; i++)
+        {
+            this.nodes.Add(carPath[i].transform);
+        }
+        this.inPath = false;
+        
     }
 
     private void Braking()
@@ -361,6 +444,35 @@ public class CarAI : MonoBehaviour
             wheelFL.steerAngle = Mathf.Lerp(wheelFL.steerAngle, targetSteerAngle, Time.deltaTime * turnSpeed);
             wheelFR.steerAngle = Mathf.Lerp(wheelFR.steerAngle, targetSteerAngle, Time.deltaTime * turnSpeed);
             //Debug.Log(wheelFL.steerAngle);
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<Node>() != null && collisionHappen)
+        {
+            Node n = other.gameObject.GetComponent<Node>();
+            if (n.isCarSpawn)
+            {
+                n.numberCars--;
+                collisionHappen = false;
+                n.isOccupied = false;
+            }
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        //this.numberCars++;
+        if (other.gameObject.GetComponent<Node>() != null && !collisionHappen)
+        {
+            Node n = other.gameObject.GetComponent<Node>();
+            if (n.isCarSpawn)
+            {
+                n.numberCars++;
+                collisionHappen = true;
+                n.isOccupied = true;
+            }
         }
     }
 }

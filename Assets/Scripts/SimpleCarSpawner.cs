@@ -29,7 +29,7 @@ public class SimpleCarSpawner : MonoBehaviour
 
             //Debug.Log(randomSrcRow + "," + randomSrcCol);
 
-            if (cityMap[randomSrcRow, randomSrcCol].prefabType == 1 || cityMap[randomSrcRow, randomSrcCol].prefabType == 2)
+            if (cityMap[randomSrcRow, randomSrcCol].prefabType == 1)
             {
                 int carRotation;
                 
@@ -37,8 +37,9 @@ public class SimpleCarSpawner : MonoBehaviour
                 int randomSrcNode = (int)UnityEngine.Random.Range(0, currentStreetNodes.Count - 1);
 
                 //Debug.Log(currentStreetNodes[randomSrcNode].transform.position);
+                Node spawnNode = currentStreetNodes[randomSrcNode];
                 Node startingNode = currentStreetNodes[randomSrcNode].nextNodes[0];
-                if (startingNode.isOccupied)
+                if (spawnNode.numberCars > 1 || spawnNode.isOccupied)
                 {
                     /*int i;
                     for (i = 0; i < spawnWaypoints.Count; i++)
@@ -54,7 +55,8 @@ public class SimpleCarSpawner : MonoBehaviour
                         break;*/
                     return false;
                 }
-                startingNode.isOccupied = true;
+                spawnNode.isOccupied = true;
+                spawnNode.numberCars = 1;
                 //Car Rotation
                 if ((int)currentStreetNodes[randomSrcNode].transform.position.x == (int)startingNode.transform.position.x)
                 {
@@ -83,9 +85,9 @@ public class SimpleCarSpawner : MonoBehaviour
                 {
                     int randomDstRow = UnityEngine.Random.Range(0, cityLength);
                     int randomDstCol = UnityEngine.Random.Range(0, cityWidth);
-                    if (cityMap[randomDstRow, randomDstCol].prefabType != 0)
+                    if (cityMap[randomDstRow, randomDstCol].prefabType > 0)
                     {
-                        Street dstStreet = cityMap[randomDstRow, randomDstCol].instantiatedPrefab.GetComponent<Street>();
+                        Street dstStreet = cityMap[randomDstRow, randomDstCol].instantiatedStreet.GetComponent<Street>();
                         if (!dstStreet.isSemaphoreIntersection && !dstStreet.isSimpleIntersection)
                         {
                             List<Node> dstStreetNodes = dstStreet.carWaypoints;
@@ -124,16 +126,23 @@ public class SimpleCarSpawner : MonoBehaviour
                 randomSrcRow = UnityEngine.Random.Range(0, cityLength);
                 randomSrcCol = UnityEngine.Random.Range(0, cityWidth);
 
-                if (cityMap[randomSrcRow, randomSrcCol].prefabType == 1 || cityMap[randomSrcRow, randomSrcCol].prefabType == 2)
+                if (cityMap[randomSrcRow, randomSrcCol].prefabType == 1)
                 {
-                    Street currentStreet = cityMap[randomSrcRow, randomSrcCol].instantiatedPrefab.GetComponent<Street>();
+                    Street currentStreet = cityMap[randomSrcRow, randomSrcCol].instantiatedStreet.GetComponent<Street>();
                     
                     if (!currentStreet.isSemaphoreIntersection && !currentStreet.isSimpleIntersection && !currentStreet.isTBoneIntersection)
                     {
                         Node possibleWaypointSpawn = currentStreet.carWaypoints[UnityEngine.Random.Range(0, currentStreet.carWaypoints.Count - 1)];
                         if(!spawnWaypoints.Contains(possibleWaypointSpawn))
                         {
-                            possibleWaypointSpawn.GetComponent<SphereCollider>().radius = 7.5f;
+                            possibleWaypointSpawn.GetComponent<SphereCollider>().enabled = false;
+                            possibleWaypointSpawn.gameObject.AddComponent<BoxCollider>();
+                            possibleWaypointSpawn.GetComponent<BoxCollider>().isTrigger = true;
+                            possibleWaypointSpawn.GetComponent<BoxCollider>().center = new Vector3(0, 2.11f, 0);
+                            possibleWaypointSpawn.GetComponent<BoxCollider>().size = new Vector3(3.64f, 4.23f, 7.04f);
+
+                            //possibleWaypointSpawn.GetComponent<SphereCollider>().radius = 1f;
+                            possibleWaypointSpawn.isCarSpawn = true;
                             spawnWaypoints.Add(possibleWaypointSpawn);
                             break;
                         }

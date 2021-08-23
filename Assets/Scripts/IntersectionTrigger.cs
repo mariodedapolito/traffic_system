@@ -59,6 +59,11 @@ public class IntersectionTrigger : MonoBehaviour
             }
         }
 
+        if(intersectionCarPathNodes.Count == 0)
+        {
+            throw new System.Exception("No path nodes");
+        }
+
         foreach (var node in intersectionCarPathNodes)
         {
             if (node.isTurnLeft)
