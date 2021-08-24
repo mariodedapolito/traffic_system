@@ -145,7 +145,7 @@ public class CarAI : MonoBehaviour
         {
             if (!hit.collider.CompareTag("Terrain"))
             {
-                if (hit.rigidbody != null && hit.rigidbody.CompareTag("Car") && isIntersactionF)
+                if (hit.rigidbody != null && hit.rigidbody.CompareTag("Car")  && isIntersactionF)
                 {
                     precedence = true;
                 }

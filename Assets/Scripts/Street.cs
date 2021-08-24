@@ -347,6 +347,18 @@ public class Street : MonoBehaviour
                 restoreSemaphoreIntersectionPriority(car, intersectionRoadId);
             }
         }
+        string str = "";
+        for (int i = 0; i < 4; i++)
+        {
+                str = "<b><color=green>";
+                for (int j = 0; j < 3; j++)
+                {
+                    str += intersectionBusyMarker[i, j];
+                }
+                str += "\t </color></b>";
+
+        }
+        Debug.Log(str);
     }
 
 
