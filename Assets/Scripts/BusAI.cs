@@ -40,12 +40,18 @@ public class BusAI : MonoBehaviour
     private bool avoidingR = false;
     private bool avoidingL = false;
     private bool avoidingI = false;
+    private bool avoidingIR = false;
+    private bool avoidingIL = false;
     private bool Stop = false;
     private float targetSteerAngle = 0;
     private bool busStop = false;
 
+    public int direction; 
+    private bool collisionHappen;
     public bool stopBuses;
+    public int currentStreet = 0;
 
+    public List<Street> busLines;
     public IntersectionVehicle intersectionData;
 
     private void Start()
@@ -95,17 +101,21 @@ public class BusAI : MonoBehaviour
         avoidingR = false;
         avoidingL = false;
         avoidingI = false;
+        avoidingIR = false;
+        avoidingIL = false;
 
         if (currectNode < nodes.Count) // Disable sensors during the intersections
         {
             Street s = nodes[currectNode].GetComponentInParent<Street>();
-            if (s.isSimpleIntersection)
+            if (s.isSimpleIntersection || nodes[currectNode].GetComponent<Node>().isBusLane)
             {
                 sensorFrontLength = 0f;
+                sensorLength = 0.8f;
             }
             else
             {
-                sensorFrontLength = 1.2f;
+                sensorLength = 0f;
+                sensorFrontLength = 1f;
             }
         }
 
@@ -117,7 +127,7 @@ public class BusAI : MonoBehaviour
             {
                 Debug.DrawLine(sensorStartPos, hit.point);
                 avoiding = true;
-                avoidingR = true;
+                avoidingIR = true;
                 avoidMultiplier -= 0.5f;
             }
         }
@@ -142,7 +152,7 @@ public class BusAI : MonoBehaviour
             {
                 Debug.DrawLine(sensorStartPos, hit.point);
                 avoiding = true;
-                avoidingL = true;
+                avoidingIL = true;
                 avoidMultiplier += 0.5f;
             }
         }
@@ -173,10 +183,8 @@ public class BusAI : MonoBehaviour
             {
                 avoidMultiplier += 1f;
             }
-
         }
-                
-
+        
         if (avoidingI || intersectionData.intersectionStop)
         {
             Stop = true;
@@ -216,7 +224,7 @@ public class BusAI : MonoBehaviour
 
     private void Drive()
     {
-        if (Stop || intersectionData.intersectionStop) return;
+        //if (Stop || intersectionData.intersectionStop) return;
         currentSpeed = 2 * Mathf.PI * wheelFL.radius * wheelFL.rpm * 60 / 1000;
         currentSpeed = currentSpeed * 2;
         if (currentSpeed < maxSpeed && !isBraking)
@@ -238,6 +246,33 @@ public class BusAI : MonoBehaviour
             if (currectNode == nodes.Count - 1)
             {
                 currectNode = 0;
+                currentStreet++;
+                this.startWaypoint = endWaypoint;
+                if (currentStreet + 1 >= busLines.Count)
+                    currentStreet = 0;
+
+                foreach (var w in busLines[currentStreet].carWaypoints)
+                {
+                    if (w.isBusStop)
+                    {
+                        this.endWaypoint = w;
+                        break;
+                    }
+                }
+
+                
+
+                Path path = new Path();
+
+                carPath = path.findShortestPath(this.startWaypoint.transform, this.endWaypoint.transform);
+                
+                nodes.Clear();
+
+                for (int i = 0; i < carPath.Count; i++)
+                {
+                    nodes.Add(carPath[i].transform);
+                }
+
             }
             else
             {
@@ -281,11 +316,13 @@ public class BusAI : MonoBehaviour
         {
             StopObject();
             yield return new WaitForSeconds(10);
+            
 
             busStop = true;
         } 
         else
         {
+            
             busStop = false;
             stopBuses = false;
             StartObject();
@@ -311,5 +348,34 @@ public class BusAI : MonoBehaviour
         wheelFR.radius = 0.12f;
         wheelRL.radius = 0.12f;
         wheelRR.radius = 0.12f;
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<Node>() != null && collisionHappen)
+        {
+            Node n = other.gameObject.GetComponent<Node>();
+            if (n.isCarSpawn)
+            {
+                n.numberCars--;
+                collisionHappen = false;
+                n.isOccupied = false;
+            }
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        //this.numberCars++;
+        if (other.gameObject.GetComponent<Node>() != null && !collisionHappen)
+        {
+            Node n = other.gameObject.GetComponent<Node>();
+            if (n.isCarSpawn)
+            {
+                n.numberCars++;
+                collisionHappen = true;
+                n.isOccupied = true;
+            }
+        }
     }
 }

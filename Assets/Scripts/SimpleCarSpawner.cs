@@ -130,7 +130,7 @@ public class SimpleCarSpawner : MonoBehaviour
                 {
                     Street currentStreet = cityMap[randomSrcRow, randomSrcCol].instantiatedStreet.GetComponent<Street>();
                     
-                    if (!currentStreet.isSemaphoreIntersection && !currentStreet.isSimpleIntersection && !currentStreet.isTBoneIntersection)
+                    if (!currentStreet.isSemaphoreIntersection && !currentStreet.isSimpleIntersection && !currentStreet.isTBoneIntersection && !currentStreet.hasBusStop)
                     {
                         Node possibleWaypointSpawn = currentStreet.carWaypoints[UnityEngine.Random.Range(0, currentStreet.carWaypoints.Count - 1)];
                         if(!spawnWaypoints.Contains(possibleWaypointSpawn))
