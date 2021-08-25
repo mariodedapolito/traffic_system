@@ -110,6 +110,7 @@ public class BusAI : MonoBehaviour
         avoidingI = false;
         avoidingIR = false;
         avoidingIL = false;
+        precedence = false;
         busPrecedence = false;
 
         if (currectNode < nodes.Count) // Disable sensors during the intersections
@@ -117,16 +118,17 @@ public class BusAI : MonoBehaviour
             Street s = nodes[currectNode].GetComponentInParent<Street>();
             if (s.isSimpleIntersection || nodes[currectNode].GetComponent<Node>().isBusLane)
             {
-                sensorFrontLength = 0f;
-                sensorLength = 0.8f;
+                sensorFrontLength = 0.4f;
+                sensorLength = 1f;
+                isIntersactionF = true;
             }
             else
             {
                 sensorLength = 0f;
                 sensorFrontLength = 1f;
+                isIntersactionF = false;
             }
         }
-
 
         //precedence parking angle sensor
         if (nodes[currectNode].GetComponent<Node>().isBusLane)
@@ -295,19 +297,21 @@ public class BusAI : MonoBehaviour
                 Debug.DrawLine(sensorStartPos, hit.point);
                 avoiding = true;
                 avoidingIR = true;
-                avoidMultiplier -= 0.5f;
+                //if (hit.rigidbody != null && !hit.rigidbody.CompareTag("Car") && !hit.rigidbody.CompareTag("Bus"))
+                    avoidMultiplier -= 0.5f;
             }
         }
 
         //front right angle sensor
         if (Physics.Raycast(sensorStartPos, Quaternion.AngleAxis(frontSensorAngle, transform.up) * transform.forward, out hit, sensorLength, -1, QueryTriggerInteraction.Ignore))
         {
-            if (hit.rigidbody != null && hit.rigidbody.CompareTag("Car") && hit.rigidbody.CompareTag("Bus") && isIntersactionF)
+            if (hit.rigidbody != null && ( hit.rigidbody.CompareTag("Car") || hit.rigidbody.CompareTag("Bus")) && isIntersactionF)
             {
                 precedence = true;
             }
             else
             {
+                precedence = false;
                 Debug.DrawLine(sensorStartPos, hit.point);
                 avoiding = true;
                 avoidingR = true;
@@ -324,6 +328,7 @@ public class BusAI : MonoBehaviour
                 Debug.DrawLine(sensorStartPos, hit.point);
                 avoiding = true;
                 avoidingIL = true;
+                //if (hit.rigidbody != null && !hit.rigidbody.CompareTag("Car") && !hit.rigidbody.CompareTag("Bus"))
                 avoidMultiplier += 0.5f;
             }
         }
@@ -345,14 +350,17 @@ public class BusAI : MonoBehaviour
         {
             Debug.DrawLine(sensorStartPos, hit.point);
             avoiding = true;
-            avoidingI = true;
+            if (hit.rigidbody != null && (hit.rigidbody.CompareTag("Car") || hit.rigidbody.CompareTag("Bus")) && isIntersactionF)
+            {
+                avoidingI = true;
+            }
             if (hit.normal.x < 0)
             {
-                avoidMultiplier += -1f;
+                 avoidMultiplier += -1f;//if (hit.rigidbody != null && !hit.rigidbody.CompareTag("Car") && !hit.rigidbody.CompareTag("Bus"))
             }
             else
             {
-                avoidMultiplier += 1f;
+                 avoidMultiplier += 1f;
             }
         }
 
@@ -368,7 +376,7 @@ public class BusAI : MonoBehaviour
                 isLaneOne = false;
             }
 
-            if (s.isSimpleIntersection && avoidingI) //dont surpass in intersection
+            if (s.isSimpleIntersection && (avoidingI || precedence )) //dont surpass in intersection
             {
                 isIntersactionF = true;
             }
