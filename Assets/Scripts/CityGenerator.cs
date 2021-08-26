@@ -34,7 +34,7 @@ public class CityGenerator : MonoBehaviour
     public bool only2LaneStreets;
 
     public GameObject cityPlane;
-    public GameObject carPrefab;
+    public List<GameObject> carPrefab;
     public GameObject busPrefab;
 
     public GameObject straightStreet1Lane;
