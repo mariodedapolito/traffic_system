@@ -57,6 +57,7 @@ public class BusAI : MonoBehaviour
     private bool isLaneOne = false;
     private bool isCurveOne = false;
     private bool precedence = false;
+    private bool isCar = false;
 
     public List<Street> busLines;
     public IntersectionVehicle intersectionData;
@@ -112,6 +113,7 @@ public class BusAI : MonoBehaviour
         avoidingIL = false;
         precedence = false;
         busPrecedence = false;
+        isCar = false;
 
         if (currectNode < nodes.Count) // Disable sensors during the intersections
         {
@@ -292,13 +294,31 @@ public class BusAI : MonoBehaviour
         sensorStartPos += transform.right * frontSideSensorPosition;
         if (Physics.Raycast(sensorStartPos, transform.forward, out hit, sensorFrontLength, -1, QueryTriggerInteraction.Ignore))
         {
-            if (!hit.collider.CompareTag("Terrain"))
+            if (hit.rigidbody != null && (hit.rigidbody.CompareTag("Car") || hit.rigidbody.CompareTag("Bus")))
             {
-                Debug.DrawLine(sensorStartPos, hit.point);
-                avoiding = true;
-                avoidingIR = true;
-                //if (hit.rigidbody != null && !hit.rigidbody.CompareTag("Car") && !hit.rigidbody.CompareTag("Bus"))
+                isCar = true;
+            }
+            else
+            {
+                isCar = false;
+            }
+
+
+            if (hit.rigidbody != null && (hit.rigidbody.CompareTag("Car") || hit.rigidbody.CompareTag("Bus")))
+            {
+               
+                precedence = true;
+            }
+            else
+            {
+                if (!hit.collider.CompareTag("Terrain"))
+                {
+                    Debug.DrawLine(sensorStartPos, hit.point);
+                    avoiding = true;
+                    avoidingIR = true;
+                    //if (hit.rigidbody != null && hit.rigidbody.CompareTag("Car") && hit.rigidbody.CompareTag("Bus")) co
                     avoidMultiplier -= 0.5f;
+                }
             }
         }
 
@@ -323,6 +343,15 @@ public class BusAI : MonoBehaviour
         sensorStartPos -= transform.right * frontSideSensorPosition * 2;
         if (Physics.Raycast(sensorStartPos, transform.forward, out hit, sensorFrontLength, -1, QueryTriggerInteraction.Ignore))
         {
+            if (hit.rigidbody != null && (hit.rigidbody.CompareTag("Car") || hit.rigidbody.CompareTag("Bus")))
+            {
+                isCar = true;
+            }
+            else
+            {
+                isCar = false;
+            }
+
             if (!hit.collider.CompareTag("Terrain"))
             {
                 Debug.DrawLine(sensorStartPos, hit.point);
@@ -331,6 +360,7 @@ public class BusAI : MonoBehaviour
                 //if (hit.rigidbody != null && !hit.rigidbody.CompareTag("Car") && !hit.rigidbody.CompareTag("Bus"))
                 avoidMultiplier += 0.5f;
             }
+            
         }
 
         //front left angle sensor
@@ -367,7 +397,7 @@ public class BusAI : MonoBehaviour
         if (currectNode < nodes.Count) // Disable sensors during the intersections
         {
             Street s = nodes[currectNode].GetComponentInParent<Street>();
-            if (s.numberLanes == 1 && avoidingI) //dont surpass in one lane
+            if (s.numberLanes == 1 && (avoidingI || avoidingIR || avoidingIL) && isCar) //dont surpass in one lane
             {
                 isLaneOne = true;
             }
