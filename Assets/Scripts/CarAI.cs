@@ -401,6 +401,9 @@ public class CarAI : MonoBehaviour
         if (nodes.Count > 0)
         {   
             this.inPath = true;
+			if(Vector3.Distance(transform.position, nodes[currectNode].position) > 25f){
+				throw new System.Exception("BAD NEW PATH "+transform.position);
+			}
             if (Vector3.Distance(transform.position, nodes[currectNode].position) < 1f)
             {
 				if(currectNode == nodes.Count - 2 && nodes[currectNode + 1].GetComponent<Node>().isParkingGateway)
@@ -469,6 +472,7 @@ public class CarAI : MonoBehaviour
         }
         else
         {
+			Debug.Log("SEARCHING NEW PATH");
             newPath();
         }
        

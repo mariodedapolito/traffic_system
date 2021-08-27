@@ -578,7 +578,7 @@ public class CityGenerator : MonoBehaviour
 		
 
         carsSpawn();
-        busSpawn();
+        //busSpawn();
 		
 		cityIsConnected = true;
 

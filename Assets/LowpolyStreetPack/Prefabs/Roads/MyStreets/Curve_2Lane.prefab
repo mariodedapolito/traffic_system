@@ -466,7 +466,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 7171163222009894192}
-  - {fileID: 4143011994799003721}
   needIncomingConnection: 1
   needOutgoingConnection: 0
   isIntersection: 0
@@ -970,84 +969,6 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2245223247877771793}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &2359430907685096653
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8757066260420586226}
-  - component: {fileID: 4212465279043757208}
-  - component: {fileID: 788108022579878627}
-  m_Layer: 6
-  m_Name: Node_lanechange
-  m_TagString: CarWaypoint
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8757066260420586226
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2359430907685096653}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -5.4, y: 0.000000923872, z: 0.5}
-  m_LocalScale: {x: 1, y: 0.99999976, z: 0.99999976}
-  m_Children: []
-  m_Father: {fileID: 6012983340371684172}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4212465279043757208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2359430907685096653}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextNodes:
-  - {fileID: 6005914917137345722}
-  - {fileID: 4930938268436380976}
-  needIncomingConnection: 0
-  needOutgoingConnection: 0
-  isIntersection: 0
-  isLaneChange: 1
-  isTurnLeft: 0
-  isTurnRight: 0
-  isBusLane: 0
-  isBusStop: 0
-  isParkingGateway: 0
-  isParkingSpot: 0
-  parkingExitRotation: 0
-  parkingRotation: 0
-  laneNumber: 0
-  trafficDirection: 1
-  isBusSpawn: 0
-  isCarSpawn: 0
-  isOccupied: 0
-  numberCars: 0
---- !u!135 &788108022579878627
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2359430907685096653}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
@@ -1797,84 +1718,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300094, guid: bca5c93adbc71744ca9ea932c796e900, type: 3}
---- !u!1 &4693414637088720822
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6738524544547088999}
-  - component: {fileID: 4143011994799003721}
-  - component: {fileID: 6977615066515890596}
-  m_Layer: 6
-  m_Name: Node_lanechange
-  m_TagString: CarWaypoint
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6738524544547088999
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4693414637088720822}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 5.4, y: 0.000000923872, z: 0.5}
-  m_LocalScale: {x: 1, y: 0.99999976, z: 0.99999976}
-  m_Children: []
-  m_Father: {fileID: 6505905690555548573}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4143011994799003721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4693414637088720822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextNodes:
-  - {fileID: 6528345146585216999}
-  - {fileID: 7171163222009894192}
-  needIncomingConnection: 0
-  needOutgoingConnection: 0
-  isIntersection: 0
-  isLaneChange: 1
-  isTurnLeft: 0
-  isTurnRight: 0
-  isBusLane: 0
-  isBusStop: 0
-  isParkingGateway: 0
-  isParkingSpot: 0
-  parkingExitRotation: 0
-  parkingRotation: 0
-  laneNumber: 0
-  trafficDirection: 0
-  isBusSpawn: 0
-  isCarSpawn: 0
-  isOccupied: 0
-  numberCars: 0
---- !u!135 &6977615066515890596
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4693414637088720822}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4729204353070424016
 GameObject:
   m_ObjectHideFlags: 0
@@ -1906,7 +1749,7 @@ Transform:
   m_LocalScale: {x: 30, y: 5, z: 0.50000006}
   m_Children: []
   m_Father: {fileID: 6505905690555548573}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: -90.00001}
 --- !u!33 &6263298103082816347
 MeshFilter:
@@ -2014,7 +1857,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 4930938268436380976}
-  - {fileID: 4212465279043757208}
   needIncomingConnection: 1
   needOutgoingConnection: 0
   isIntersection: 0
@@ -2092,7 +1934,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 6005914917137345722}
-  - {fileID: 4212465279043757208}
   needIncomingConnection: 1
   needOutgoingConnection: 0
   isIntersection: 0
@@ -2247,7 +2088,7 @@ Transform:
   m_LocalScale: {x: 1, y: 0.99999976, z: 0.99999976}
   m_Children: []
   m_Father: {fileID: 6012983340371684172}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3478214640354128024
 MonoBehaviour:
@@ -2326,7 +2167,7 @@ Transform:
   m_LocalScale: {x: 30, y: 5, z: 0.50000006}
   m_Children: []
   m_Father: {fileID: 6012983340371684172}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: -90.00001}
 --- !u!33 &6904091675590835082
 MeshFilter:
@@ -2770,7 +2611,6 @@ Transform:
   - {fileID: 4380516723612284351}
   - {fileID: 4824097170790912841}
   - {fileID: 7816199394179237302}
-  - {fileID: 8757066260420586226}
   - {fileID: 6106875472250487478}
   - {fileID: 5094084326783850441}
   - {fileID: 7364299831101190499}
@@ -2870,7 +2710,7 @@ Transform:
   m_LocalScale: {x: 30, y: 5, z: 0.50000006}
   m_Children: []
   m_Father: {fileID: 6012983340371684172}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: -90.00001}
 --- !u!33 &6511018621340371648
 MeshFilter:
@@ -3125,7 +2965,6 @@ Transform:
   - {fileID: 5460988851399310232}
   - {fileID: 7296747649487531367}
   - {fileID: 8123561213035463203}
-  - {fileID: 6738524544547088999}
   - {fileID: 5731433095532756760}
   - {fileID: 8000865815772715442}
   - {fileID: 5073561654651795253}
@@ -3224,7 +3063,7 @@ Transform:
   m_LocalScale: {x: 30, y: 5, z: 0.50000006}
   m_Children: []
   m_Father: {fileID: 6505905690555548573}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: -90.00001}
 --- !u!33 &6007870400694968849
 MeshFilter:
@@ -4074,7 +3913,7 @@ Transform:
   m_LocalScale: {x: 30, y: 5, z: 0.50000006}
   m_Children: []
   m_Father: {fileID: 6012983340371684172}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: -90.00001}
 --- !u!33 &8587361937900822511
 MeshFilter:
@@ -4415,7 +4254,7 @@ Transform:
   m_LocalScale: {x: 30, y: 5, z: 0.50000006}
   m_Children: []
   m_Father: {fileID: 6505905690555548573}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: -90.00001}
 --- !u!33 &9085878740683749182
 MeshFilter:
@@ -4633,7 +4472,6 @@ MonoBehaviour:
   - {fileID: 4930938268436380976}
   - {fileID: 7691831816303246817}
   - {fileID: 7532237442453900950}
-  - {fileID: 4212465279043757208}
   - {fileID: 3478214640354128024}
   - {fileID: 1506558755485205095}
   - {fileID: 6512976334019576939}
@@ -4644,7 +4482,6 @@ MonoBehaviour:
   - {fileID: 7171163222009894192}
   - {fileID: 7042526697566971463}
   - {fileID: 3696989540752444489}
-  - {fileID: 4143011994799003721}
   isSimpleIntersection: 0
   isSemaphoreIntersection: 0
   isTBoneIntersection: 0
@@ -4703,7 +4540,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 6528345146585216999}
-  - {fileID: 4143011994799003721}
   needIncomingConnection: 1
   needOutgoingConnection: 0
   isIntersection: 0
