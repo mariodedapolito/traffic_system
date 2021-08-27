@@ -55,8 +55,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!135 &7490596373616890111
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2169,6 +2177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2695156817012809327}
   - component: {fileID: 487783073256482716}
+  - component: {fileID: 4851757855564079578}
   m_Layer: 6
   m_Name: Node_lanechange
   m_TagString: CarWaypoint
@@ -2213,8 +2222,29 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
+--- !u!135 &4851757855564079578
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408544654327199685}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1659134999823833080
 GameObject:
   m_ObjectHideFlags: 0
@@ -2455,8 +2485,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!135 &7991016884369273737
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2806,8 +2844,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!135 &4049244427784679371
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2967,8 +3013,16 @@ MonoBehaviour:
   isTurnRight: 1
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!1 &2307172277687645053
 GameObject:
   m_ObjectHideFlags: 0
@@ -3024,8 +3078,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!135 &8055593757118690873
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3910,8 +3972,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!135 &4206656276824819469
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4071,8 +4141,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!1 &3618989286212546901
 GameObject:
   m_ObjectHideFlags: 0
@@ -4228,8 +4306,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 1
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!135 &3763620818268549513
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4536,6 +4622,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3084986566610291461}
   - component: {fileID: 3265417301492797841}
+  - component: {fileID: 3517622046885156420}
   m_Layer: 6
   m_Name: Node_lanechange
   m_TagString: CarWaypoint
@@ -4580,8 +4667,29 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
+--- !u!135 &3517622046885156420
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4354076960680194438}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4722785524798619805
 GameObject:
   m_ObjectHideFlags: 0
@@ -4635,8 +4743,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 1
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!135 &4134308952139834692
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4761,8 +4877,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!1 &4836617131926114724
 GameObject:
   m_ObjectHideFlags: 0
@@ -4817,8 +4941,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 1
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!135 &7396913477715498860
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4885,8 +5017,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!135 &4356879305552715780
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5011,8 +5151,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!135 &1503278916267938453
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5081,8 +5229,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!1 &5039537972265159666
 GameObject:
   m_ObjectHideFlags: 0
@@ -5136,8 +5292,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!1 &5054716804747551452
 GameObject:
   m_ObjectHideFlags: 0
@@ -5435,8 +5599,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!1 &5493588904134985584
 GameObject:
   m_ObjectHideFlags: 0
@@ -6077,8 +6249,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!135 &2025849132905237543
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -6145,8 +6325,16 @@ MonoBehaviour:
   isTurnRight: 1
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!1 &5865925942291562510
 GameObject:
   m_ObjectHideFlags: 0
@@ -6202,8 +6390,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!135 &9148539184375947783
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -6270,8 +6466,16 @@ MonoBehaviour:
   isTurnRight: 1
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!1 &5903162936316279879
 GameObject:
   m_ObjectHideFlags: 0
@@ -6477,8 +6681,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!135 &5206394371606067475
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -6547,8 +6759,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!1 &6260080156220052647
 GameObject:
   m_ObjectHideFlags: 0
@@ -6696,8 +6916,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!135 &7093902453146514219
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -6766,8 +6994,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!135 &1093573532315015756
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -6894,8 +7130,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!135 &5383792344845788730
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -6962,8 +7206,16 @@ MonoBehaviour:
   isTurnRight: 1
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!1 &7795175652475261768
 GameObject:
   m_ObjectHideFlags: 0
@@ -7121,8 +7373,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!135 &8571725003033546167
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -7248,8 +7508,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!135 &9092007401685649457
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -7839,8 +8107,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!1 &8685928476542330470
 GameObject:
   m_ObjectHideFlags: 0
@@ -7896,8 +8172,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!135 &6804055638801233913
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -7964,8 +8248,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!1 &8804798027475171679
 GameObject:
   m_ObjectHideFlags: 0
@@ -8241,6 +8533,8 @@ Transform:
   - {fileID: 8125290871315815152}
   - {fileID: 4197271980218433245}
   - {fileID: 5291106550990664017}
+  - {fileID: 1251122267846872373}
+  - {fileID: 5971931064387363636}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8356,6 +8650,7 @@ MonoBehaviour:
   isSemaphoreIntersection: 1
   isTBoneIntersection: 0
   hasBusStop: 0
+  busStopNode: {fileID: 0}
   isLaneAdapter: 1
   isCurve: 0
   isDeadend: 0
@@ -8421,8 +8716,16 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
   laneNumber: 1
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!135 &3276197860994226594
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8622,3 +8925,193 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.0000005, z: 1.0000005}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &1603182620327676366
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1952225155875115036}
+    m_Modifications:
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.9983368
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.087705895
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325992238, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: endWaypoint
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325992238, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: startWaypoint
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154326057418, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_Name
+      value: Car01 (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2aa59101a95e4564883d334e2c10eb4f, type: 3}
+--- !u!4 &5971931064387363636 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1603182620327676366}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6161989313698719695
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1952225155875115036}
+    m_Modifications:
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.9983368
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.087705895
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325992238, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: endWaypoint
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154325992238, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: startWaypoint
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962731154326057418, guid: 2aa59101a95e4564883d334e2c10eb4f,
+        type: 3}
+      propertyPath: m_Name
+      value: Car01
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2aa59101a95e4564883d334e2c10eb4f, type: 3}
+--- !u!4 &1251122267846872373 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4962731154325891834, guid: 2aa59101a95e4564883d334e2c10eb4f,
+    type: 3}
+  m_PrefabInstance: {fileID: 6161989313698719695}
+  m_PrefabAsset: {fileID: 0}

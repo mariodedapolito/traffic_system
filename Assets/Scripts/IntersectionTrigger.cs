@@ -24,14 +24,18 @@ public class IntersectionTrigger : MonoBehaviour
             if (!vehicle.isInsideIntersection)
             {
                 vehicle.intersectionEnterId = id;
+                
+                if(vehicle.GetComponentInParent<BusAI>()!=null)
+                {
+                    identifyBusDirection(vehicle.GetComponentInParent<BusAI>());
+                }
+
                 if (vehicle.GetComponentInParent<CarAI>() != null)
                 {
                     identifyCarDirection(vehicle.GetComponentInParent<CarAI>());
                 }
-                else
-                {
-                    identifyBusDirection(vehicle.GetComponentInParent<BusAI>());
-                }
+
+                
                 intersection.intersectionManager(vehicle, id);
             }
             else

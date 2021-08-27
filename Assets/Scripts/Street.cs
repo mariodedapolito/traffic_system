@@ -347,6 +347,18 @@ public class Street : MonoBehaviour
                 restoreSemaphoreIntersectionPriority(car, intersectionRoadId);
             }
         }
+        /*string str = "";
+        for (int i = 0; i < 4; i++)
+        {
+                str += "<b><color=green>";
+                for (int j = 0; j < 3; j++)
+                {
+                    str += intersectionBusyMarker[i, j];
+                }
+                str += "\t </color></b>";
+
+        }
+        Debug.Log(str);*/
     }
 
 
@@ -1044,14 +1056,14 @@ public class Street : MonoBehaviour
 
             if (numberCarsWaiting > 0)
             {
-                if (intersectionQueue2Lane[1, 0] != null && intersectionQueue2Lane[0, 0].intersectionDirection != LEFT)
+                if (intersectionQueue2Lane[1, 0] != null && intersectionQueue2Lane[1, 0].intersectionDirection != LEFT)
                 {
                     car = intersectionQueue2Lane[1, 0];
                     intersectionManager(car, car.intersectionEnterId);
                     intersectionQueue2Lane[1, 0] = null;
                     numberCarsWaiting--;
                 }
-                if (intersectionQueue2Lane[1, 1] != null && intersectionQueue2Lane[0, 1].intersectionDirection != LEFT)
+                if (intersectionQueue2Lane[1, 1] != null && intersectionQueue2Lane[1, 1].intersectionDirection != LEFT)
                 {
                     car = intersectionQueue2Lane[1, 1];
                     intersectionManager(car, car.intersectionEnterId);

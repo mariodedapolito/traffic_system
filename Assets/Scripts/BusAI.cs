@@ -40,12 +40,26 @@ public class BusAI : MonoBehaviour
     private bool avoidingR = false;
     private bool avoidingL = false;
     private bool avoidingI = false;
+    private bool avoidingIR = false;
+    private bool avoidingIL = false;
     private bool Stop = false;
     private float targetSteerAngle = 0;
     private bool busStop = false;
+    private bool busPrecedence = false;
+    public bool stopNow = false;
 
+    public int direction; 
+    private bool collisionHappen;
     public bool stopBuses;
+    public int currentStreet = 0;
 
+    private bool isIntersactionF = false;
+    private bool isLaneOne = false;
+    private bool isCurveOne = false;
+    private bool precedence = false;
+    private bool isCar = false;
+
+    public List<Street> busLines;
     public IntersectionVehicle intersectionData;
 
     private void Start()
@@ -95,17 +109,184 @@ public class BusAI : MonoBehaviour
         avoidingR = false;
         avoidingL = false;
         avoidingI = false;
+        avoidingIR = false;
+        avoidingIL = false;
+        precedence = false;
+        busPrecedence = false;
+        isCar = false;
 
         if (currectNode < nodes.Count) // Disable sensors during the intersections
         {
             Street s = nodes[currectNode].GetComponentInParent<Street>();
-            if (s.isSimpleIntersection)
+            if (s.isSimpleIntersection || nodes[currectNode].GetComponent<Node>().isBusLane)
             {
-                sensorFrontLength = 0f;
+                sensorFrontLength = 0.4f;
+                sensorLength = 1f;
+                isIntersactionF = true;
             }
             else
             {
-                sensorFrontLength = 1.2f;
+                sensorLength = 0f;
+                sensorFrontLength = 1f;
+                isIntersactionF = false;
+            }
+        }
+
+        //precedence parking angle sensor
+        if (nodes[currectNode].GetComponent<Node>().isBusLane)
+        {
+            Vector3 sensorStartPosParking = sensorStartPos;
+            float sensorLengthParking = 5f;
+            float frontSensorAngleParking = 90f;
+
+            sensorStartPosParking -= transform.forward * -0.4f;
+
+            if (Physics.Raycast(sensorStartPosParking, Quaternion.AngleAxis(-frontSensorAngleParking, transform.up) * transform.forward, out hit, sensorLengthParking, -1, QueryTriggerInteraction.Ignore))
+            {
+                if (hit.rigidbody != null)
+                {
+                    if (!hit.collider.CompareTag("Terrain") && hit.rigidbody.CompareTag("Car"))
+                    {
+                        Debug.DrawLine(sensorStartPosParking, hit.point, Color.red);
+                        busPrecedence = true;
+                        //avoidMultiplier += 0.5f;
+                    }
+                }
+            }
+
+            sensorStartPosParking -= transform.forward * -0.2f;
+
+             if (Physics.Raycast(sensorStartPosParking, Quaternion.AngleAxis(-frontSensorAngleParking, transform.up) * transform.forward, out hit, sensorLengthParking, -1, QueryTriggerInteraction.Ignore))
+             {
+                 if (hit.rigidbody != null)
+                 {
+                     if (!hit.collider.CompareTag("Terrain") && hit.rigidbody.CompareTag("Car"))
+                     {
+                         Debug.DrawLine(sensorStartPosParking, hit.point, Color.red);
+                         busPrecedence = true;
+                         //avoidMultiplier += 0.5f;
+                     }
+                 }
+             }
+           
+            sensorStartPosParking -= transform.forward * -0.1f;
+
+            if (Physics.Raycast(sensorStartPosParking, Quaternion.AngleAxis(-frontSensorAngleParking, transform.up) * transform.forward, out hit, sensorLengthParking, -1, QueryTriggerInteraction.Ignore))
+            {
+                if (hit.rigidbody != null)
+                {
+                    if (!hit.collider.CompareTag("Terrain") && hit.rigidbody.CompareTag("Car"))
+                    {
+                        Debug.DrawLine(sensorStartPosParking, hit.point, Color.red);
+                        busPrecedence = true;
+                        //avoidMultiplier += 0.5f;
+                    }
+                }
+            }
+
+            sensorStartPosParking -= transform.forward * 0.1f;
+
+            if (Physics.Raycast(sensorStartPosParking, Quaternion.AngleAxis(-frontSensorAngleParking, transform.up) * transform.forward, out hit, sensorLengthParking, -1, QueryTriggerInteraction.Ignore))
+            {
+                if (hit.rigidbody != null)
+                {
+                    if (!hit.collider.CompareTag("Terrain") && hit.rigidbody.CompareTag("Car"))
+                    {
+                        Debug.DrawLine(sensorStartPosParking, hit.point, Color.red);
+                        busPrecedence = true;
+                        //avoidMultiplier += 0.5f;
+                    }
+                }
+            }
+
+            sensorStartPosParking -= transform.forward * 0.2f;
+
+            if (Physics.Raycast(sensorStartPosParking, Quaternion.AngleAxis(-frontSensorAngleParking, transform.up) * transform.forward, out hit, sensorLengthParking, -1, QueryTriggerInteraction.Ignore))
+            {
+                if (hit.rigidbody != null)
+                {
+                    if (!hit.collider.CompareTag("Terrain") && hit.rigidbody.CompareTag("Car"))
+                    {
+                        Debug.DrawLine(sensorStartPosParking, hit.point, Color.red);
+                        busPrecedence = true;
+                        //avoidMultiplier += 0.5f;
+                    }
+                }
+            }
+
+            sensorStartPosParking -= transform.forward *0.4f;
+
+            if (Physics.Raycast(sensorStartPosParking, Quaternion.AngleAxis(-frontSensorAngleParking, transform.up) * transform.forward, out hit, sensorLengthParking, -1, QueryTriggerInteraction.Ignore))
+            {
+                if (hit.rigidbody != null)
+                {
+                    if (!hit.collider.CompareTag("Terrain") && hit.rigidbody.CompareTag("Car"))
+                    {
+                        Debug.DrawLine(sensorStartPosParking, hit.point, Color.red);
+                        busPrecedence = true;
+                        //avoidMultiplier += 0.5f;
+                    }
+                }
+            }
+
+            sensorStartPosParking -= transform.forward * 0.6f;
+
+            if (Physics.Raycast(sensorStartPosParking, Quaternion.AngleAxis(-frontSensorAngleParking, transform.up) * transform.forward, out hit, sensorLengthParking, -1, QueryTriggerInteraction.Ignore))
+            {
+                if (hit.rigidbody != null)
+                {
+                    if (!hit.collider.CompareTag("Terrain") && hit.rigidbody.CompareTag("Car"))
+                    {
+                        Debug.DrawLine(sensorStartPosParking, hit.point, Color.red);
+                        busPrecedence = true;
+                        //avoidMultiplier += 0.5f;
+                    }
+                }
+            }
+
+            sensorStartPosParking -= transform.forward * 0.8f;
+
+            if (Physics.Raycast(sensorStartPosParking, Quaternion.AngleAxis(-frontSensorAngleParking, transform.up) * transform.forward, out hit, sensorLengthParking, -1, QueryTriggerInteraction.Ignore))
+            {
+                if (hit.rigidbody != null)
+                {
+                    if (!hit.collider.CompareTag("Terrain") && hit.rigidbody.CompareTag("Car"))
+                    {
+                        Debug.DrawLine(sensorStartPosParking, hit.point, Color.red);
+                        busPrecedence = true;
+                        //avoidMultiplier += 0.5f;
+                    }
+                }
+            }
+
+            sensorStartPosParking -= transform.forward * 1f;
+
+            if (Physics.Raycast(sensorStartPosParking, Quaternion.AngleAxis(-frontSensorAngleParking, transform.up) * transform.forward, out hit, sensorLengthParking, -1, QueryTriggerInteraction.Ignore))
+            {
+                if (hit.rigidbody != null)
+                {
+                    if (!hit.collider.CompareTag("Terrain") && hit.rigidbody.CompareTag("Car"))
+                    {
+                        Debug.DrawLine(sensorStartPosParking, hit.point, Color.red);
+                        busPrecedence = true;
+                        //avoidMultiplier += 0.5f;
+                    }
+                }
+            }
+
+            sensorStartPosParking -= transform.forward * 1.2f;
+
+            if (Physics.Raycast(sensorStartPosParking, Quaternion.AngleAxis(-frontSensorAngleParking, transform.up) * transform.forward, out hit, sensorLengthParking, -1, QueryTriggerInteraction.Ignore))
+            {
+                if (hit.rigidbody != null)
+                {
+                    if (!hit.collider.CompareTag("Terrain") && hit.rigidbody.CompareTag("Car"))
+                    {
+                        Debug.DrawLine(sensorStartPosParking, hit.point, Color.red);
+                        busPrecedence = true;
+                        //avoidMultiplier += 0.5f;
+                    }
+                }
             }
         }
 
@@ -113,20 +294,44 @@ public class BusAI : MonoBehaviour
         sensorStartPos += transform.right * frontSideSensorPosition;
         if (Physics.Raycast(sensorStartPos, transform.forward, out hit, sensorFrontLength, -1, QueryTriggerInteraction.Ignore))
         {
-            if (!hit.collider.CompareTag("Terrain"))
+            if (hit.rigidbody != null && (hit.rigidbody.CompareTag("Car") || hit.rigidbody.CompareTag("Bus")))
             {
-                Debug.DrawLine(sensorStartPos, hit.point);
-                avoiding = true;
-                avoidingR = true;
-                avoidMultiplier -= 0.5f;
+                isCar = true;
+            }
+            else
+            {
+                isCar = false;
+            }
+
+
+            if (hit.rigidbody != null && (hit.rigidbody.CompareTag("Car") || hit.rigidbody.CompareTag("Bus")))
+            {
+               
+                precedence = true;
+            }
+            else
+            {
+                if (!hit.collider.CompareTag("Terrain"))
+                {
+                    Debug.DrawLine(sensorStartPos, hit.point);
+                    avoiding = true;
+                    avoidingIR = true;
+                    //if (hit.rigidbody != null && hit.rigidbody.CompareTag("Car") && hit.rigidbody.CompareTag("Bus")) co
+                    avoidMultiplier -= 0.5f;
+                }
             }
         }
 
         //front right angle sensor
         if (Physics.Raycast(sensorStartPos, Quaternion.AngleAxis(frontSensorAngle, transform.up) * transform.forward, out hit, sensorLength, -1, QueryTriggerInteraction.Ignore))
         {
-            if (!hit.collider.CompareTag("Terrain"))
+            if (hit.rigidbody != null && ( hit.rigidbody.CompareTag("Car") || hit.rigidbody.CompareTag("Bus")) && isIntersactionF)
             {
+                precedence = true;
+            }
+            else
+            {
+                precedence = false;
                 Debug.DrawLine(sensorStartPos, hit.point);
                 avoiding = true;
                 avoidingR = true;
@@ -138,13 +343,24 @@ public class BusAI : MonoBehaviour
         sensorStartPos -= transform.right * frontSideSensorPosition * 2;
         if (Physics.Raycast(sensorStartPos, transform.forward, out hit, sensorFrontLength, -1, QueryTriggerInteraction.Ignore))
         {
+            if (hit.rigidbody != null && (hit.rigidbody.CompareTag("Car") || hit.rigidbody.CompareTag("Bus")))
+            {
+                isCar = true;
+            }
+            else
+            {
+                isCar = false;
+            }
+
             if (!hit.collider.CompareTag("Terrain"))
             {
                 Debug.DrawLine(sensorStartPos, hit.point);
                 avoiding = true;
-                avoidingL = true;
+                avoidingIL = true;
+                //if (hit.rigidbody != null && !hit.rigidbody.CompareTag("Car") && !hit.rigidbody.CompareTag("Bus"))
                 avoidMultiplier += 0.5f;
             }
+            
         }
 
         //front left angle sensor
@@ -164,35 +380,76 @@ public class BusAI : MonoBehaviour
         {
             Debug.DrawLine(sensorStartPos, hit.point);
             avoiding = true;
-            avoidingI = true;
+            if (hit.rigidbody != null && (hit.rigidbody.CompareTag("Car") || hit.rigidbody.CompareTag("Bus")) && isIntersactionF)
+            {
+                avoidingI = true;
+            }
             if (hit.normal.x < 0)
             {
-                avoidMultiplier += -1f;
+                 avoidMultiplier += -1f;//if (hit.rigidbody != null && !hit.rigidbody.CompareTag("Car") && !hit.rigidbody.CompareTag("Bus"))
             }
             else
             {
-                avoidMultiplier += 1f;
+                 avoidMultiplier += 1f;
+            }
+        }
+
+        if (currectNode < nodes.Count) // Disable sensors during the intersections
+        {
+            Street s = nodes[currectNode].GetComponentInParent<Street>();
+            if (s.numberLanes == 1 && (avoidingI || avoidingIR || avoidingIL) && isCar) //dont surpass in one lane
+            {
+                isLaneOne = true;
+            }
+            else
+            {
+                isLaneOne = false;
             }
 
+            if (s.isSimpleIntersection && (avoidingI || precedence )) //dont surpass in intersection
+            {
+                isIntersactionF = true;
+            }
+            else
+            {
+                isIntersactionF = false;
+            }
         }
-                
 
-        if (avoidingI || intersectionData.intersectionStop)
+
+        if (avoidingI || intersectionData.intersectionStop || busPrecedence || stopNow || isLaneOne || isIntersactionF)
         {
             Stop = true;
             isBraking = true;
             maxSpeed = 0f;
             currentSpeed = 0f;
-            wheelFL.radius = 0.01f;
-            wheelFR.radius = 0.01f;
-            wheelRL.radius = 0.01f;
-            wheelRR.radius = 0.01f;
+            /*wheelFL.enabled = false;
+            wheelFR.enabled = false;
+            wheelRR.enabled = false;
+            wheelRL.enabled = false;*/
+
+            wheelFL.mass = 0f;
+            wheelFR.mass = 0f;
+            wheelRL.mass = 0f;
+            wheelRR.mass = 0f;
+
+
+            wheelFL.radius = 0.05f;
+            wheelFR.radius = 0.05f;
+            wheelRL.radius = 0.05f;
+            wheelRR.radius = 0.05f;
+
         }
         else
         {
             Stop = false;
             isBraking = false;
             maxSpeed = 10f;
+            wheelFL.mass = 20f;
+            wheelFR.mass = 20f;
+            wheelRL.mass = 20f;
+            wheelRR.mass = 20f;
+
             wheelFL.radius = 0.12f;
             wheelFR.radius = 0.12f;
             wheelRL.radius = 0.12f;
@@ -216,7 +473,7 @@ public class BusAI : MonoBehaviour
 
     private void Drive()
     {
-        if (Stop || intersectionData.intersectionStop) return;
+        //if (Stop || intersectionData.intersectionStop) return;
         currentSpeed = 2 * Mathf.PI * wheelFL.radius * wheelFL.rpm * 60 / 1000;
         currentSpeed = currentSpeed * 2;
         if (currentSpeed < maxSpeed && !isBraking)
@@ -238,6 +495,33 @@ public class BusAI : MonoBehaviour
             if (currectNode == nodes.Count - 1)
             {
                 currectNode = 0;
+                currentStreet++;
+                this.startWaypoint = endWaypoint;
+                if (currentStreet + 1 >= busLines.Count)
+                    currentStreet = 0;
+
+                foreach (var w in busLines[currentStreet].carWaypoints)
+                {
+                    if (w.isBusStop)
+                    {
+                        this.endWaypoint = w;
+                        break;
+                    }
+                }
+
+                
+
+                Path path = new Path();
+
+                carPath = path.findShortestPath(this.startWaypoint.transform, this.endWaypoint.transform);
+                
+                nodes.Clear();
+
+                for (int i = 0; i < carPath.Count; i++)
+                {
+                    nodes.Add(carPath[i].transform);
+                }
+
             }
             else
             {
@@ -281,11 +565,13 @@ public class BusAI : MonoBehaviour
         {
             StopObject();
             yield return new WaitForSeconds(10);
+            
 
             busStop = true;
         } 
         else
         {
+            
             busStop = false;
             stopBuses = false;
             StartObject();
@@ -298,18 +584,45 @@ public class BusAI : MonoBehaviour
         currentSpeed = 0f;
         Stop = true;
         isBraking = true;
-        intersectionData.intersectionStop = true;
     }
 
     private void StartObject()
     {
         Stop = false;
         isBraking = false;
-        intersectionData.intersectionStop = false;
         maxSpeed = 10f;
         wheelFL.radius = 0.12f;
         wheelFR.radius = 0.12f;
         wheelRL.radius = 0.12f;
         wheelRR.radius = 0.12f;
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<Node>() != null && collisionHappen)
+        {
+            Node n = other.gameObject.GetComponent<Node>();
+            if (n.isCarSpawn)
+            {
+                n.numberCars--;
+                collisionHappen = false;
+                n.isOccupied = false;
+            }
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        //this.numberCars++;
+        if (other.gameObject.GetComponent<Node>() != null && !collisionHappen)
+        {
+            Node n = other.gameObject.GetComponent<Node>();
+            if (n.isCarSpawn)
+            {
+                n.numberCars++;
+                collisionHappen = true;
+                n.isOccupied = true;
+            }
+        }
     }
 }

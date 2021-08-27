@@ -15,7 +15,9 @@ public class Node : MonoBehaviour
     public bool isTurnRight;        //identify waypoints that are used for turning right in intersections (needed for intersection precedence)
     public bool isBusLane;          //identify waypoints that are used for bus-only lanes
     public bool isBusStop;          //identify waypoints that are used as bus stops (fermate)
+    public bool isParkingGateway;
     public bool isParkingSpot;      //identify waypoints that are used as car parking spots
+    public int parkingExitRotation;
     public int parkingRotation;     //identify car rotation when parked
     public int laneNumber;          //identify lane number (lane 0 is middlemost lane)
     public int trafficDirection;    //0: right lane traffic, 1: left lane 
