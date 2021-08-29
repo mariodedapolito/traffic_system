@@ -383,8 +383,8 @@ GameObject:
   - component: {fileID: 317023337603952175}
   - component: {fileID: 4962731154325992224}
   - component: {fileID: 4962731154325992238}
-  - component: {fileID: 7374494642020744637}
-  - component: {fileID: 8584000127295981496}
+  - component: {fileID: 1322543956265189598}
+  - component: {fileID: 2388404798758842969}
   m_Layer: 9
   m_Name: Car02
   m_TagString: Car
@@ -420,7 +420,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.11, y: 0.4, z: 1.45}
+  m_Size: {x: 0.4, y: 0.4, z: 1.45}
   m_Center: {x: 0, y: 0.22, z: 0.05}
 --- !u!54 &4962731154325992224
 Rigidbody:
@@ -445,7 +445,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4962731154326057418}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b96ed6377a45fd4db21b82c2ab8c9cc, type: 3}
   m_Name: 
@@ -470,9 +470,11 @@ MonoBehaviour:
   frontSensorPosition: {x: 0, y: 0.2, z: 0.5}
   frontSideSensorPosition: 0.18
   frontSensorAngle: 35
+  nodes: []
   currectNode: 0
   intersectionData: {fileID: 0}
---- !u!114 &7374494642020744637
+  needParkingSpot: 0
+--- !u!114 &1322543956265189598
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -481,11 +483,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4962731154326057418}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b735eb3ed6b747340ba1851f12636e35, type: 3}
+  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineColor: {r: 1, g: 1, b: 1, a: 1}
---- !u!114 &8584000127295981496
+  ConversionMode: 0
+--- !u!114 &2388404798758842969
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -494,13 +496,49 @@ MonoBehaviour:
   m_GameObject: {fileID: 4962731154326057418}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 400b71975891ebb46995c7a04cee27ab, type: 3}
+  m_Script: {fileID: 11500000, guid: 1107ca1be37bd9e4a911ff41aaa678a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intersectionStop: 0
-  isInsideIntersection: 0
-  intersectionDirection: 0
-  intersectionEnterId: 0
+  agentPosition:
+    x: 0
+    y: 0
+    z: 0
+  inverseTrasnformPoint:
+    x: 0
+    y: 0
+    z: 0
+  wheelRadius: 0
+  wheelRpm: 0
+  wheelFLMotorTorque: 0
+  wheelFRMotorTorque: 0
+  startWaypoint:
+    x: 0
+    y: 0
+    z: 0
+  endWaypoint:
+    x: 0
+    y: 0
+    z: 0
+  maxSteerAngle: 0
+  turnSpeed: 0
+  maxMotorTorque: 0
+  maxBrakeTorque: 0
+  currentSpeed: 0
+  maxSpeed: 0
+  centerOfMass:
+    x: 0
+    y: 0
+    z: 0
+  isBraking: 0
+  sensorLength: 0
+  sensorFrontLength: 0
+  frontSensorPosition:
+    x: 0
+    y: 0
+    z: 0
+  frontSideSensorPosition: 0
+  frontSensorAngle: 0
+  currectNode: 0
 --- !u!1 &4962731154326098288
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,13 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Entities;
 using UnityEngine;
+using Unity.Transforms;
+using Unity.Rendering;
+using Unity.Mathematics;
 
 public class SimpleCarSpawner : MonoBehaviour
 {
 
-    public List<GameObject> carPrefab;
-    public CityGenerator city;
-    public List<Node> spawnWaypoints;
+    [SerializeField] public List<GameObject> carPrefab;
+    [SerializeField] public CityGenerator city;
+    [SerializeField] public List<Node> spawnWaypoints;
+
+    private Entity entityPrefab;
+    private World defaultWorld;
+    private EntityManager entityManager;
+    private GameObjectConversionSettings settings;
 
     public SimpleCarSpawner(List<GameObject> carPrefab, CityGenerator city)
     {
@@ -29,10 +38,11 @@ public class SimpleCarSpawner : MonoBehaviour
         int randomSrcCol = UnityEngine.Random.Range(0, cityWidth);
 
         List<Node> currentStreetNodes = spawnWaypoints;
-        int randomSrcNode = (int)UnityEngine.Random.Range(0, currentStreetNodes.Count - 1);
+        int randomSrcNode = (int)UnityEngine.Random.Range(0, currentStreetNodes.Count);
         
         Node spawnNode = currentStreetNodes[randomSrcNode];
-        Node startingNode = currentStreetNodes[randomSrcNode].nextNodes[0];
+        
+		Node startingNode = currentStreetNodes[randomSrcNode].nextNodes[0];
 
         
         int carRotation;
@@ -40,51 +50,64 @@ public class SimpleCarSpawner : MonoBehaviour
            
         if (spawnNode.numberCars > 1 || spawnNode.isOccupied)
         {
-                /*int i;
-                for (i = 0; i < spawnWaypoints.Count; i++)
-                {
-                    Node findWaypointSpawn = currentStreetNodes[i].nextNodes[0];
-                    if (!findWaypointSpawn.isOccupied)
-                    {
-                        startingNode = findWaypointSpawn;
-                        break;
-                    }                        
-                }
-                if(i == spawnWaypoints.Count)
-                    break;*/
             return false;
         }
         spawnNode.isOccupied = true;
         spawnNode.numberCars = 1;
         //Car Rotation
-        if ((int)currentStreetNodes[randomSrcNode].transform.position.x == (int)startingNode.transform.position.x)
-                {
-                    if ((int)currentStreetNodes[randomSrcNode].transform.position.z < (int)startingNode.transform.position.z)
-                    {
-                        carRotation = 0;
-                    }
-                    else
-                    {
-                        carRotation = 180;
-                    }
-                }
-        else
-                {
-                    if ((int)currentStreetNodes[randomSrcNode].transform.position.x < (int)startingNode.transform.position.x)
-                    {
-                        carRotation = 90;
-                    }
-                    else
-                    {
-                        carRotation = 270;
-                    }
-                }
+		if(startingNode.transform.parent.gameObject.GetComponentInParent<Street>().numberLanes==1){
+			Debug.Log("1 lane");
+			if ((int)spawnNode.transform.position.x == (int)startingNode.transform.position.x)
+					{
+						if ((int)spawnNode.transform.position.z < (int)startingNode.transform.position.z)
+						{
+							carRotation = 0;
+						}
+						else
+						{
+							carRotation = 180;
+						}
+					}
+			else
+					{
+						if ((int)spawnNode.transform.position.x < (int)startingNode.transform.position.x)
+						{
+							carRotation = 90;
+						}
+						else
+						{
+							carRotation = 270;
+						}
+					}
+		}
+		else{
+			if((int)spawnNode.transform.parent.transform.parent.localRotation.eulerAngles.y == 0){		//HORIZONTAL STREET
+				if(spawnNode.trafficDirection == 0){
+					carRotation=90;
+				}
+				else{
+					carRotation=270;
+				}
+			}
+			else{	//VERTICAL
+				if(spawnNode.trafficDirection == 0){
+					carRotation=0;
+				}
+				else{
+					carRotation=180;
+				}
+			}
+		}
         //Find random destination
         //while (1 == 1)
         //{
 
         Node endRandomNode = startingNode;
-        while (endRandomNode.nextNodes[0].GetComponentInParent<Street>().isSemaphoreIntersection || endRandomNode.nextNodes[0].GetComponentInParent<Street>().isSimpleIntersection)
+		if(endRandomNode.nextNodes.Count <= 0){
+			return false;
+		}
+        endRandomNode = endRandomNode.nextNodes[0];
+        while (endRandomNode.GetComponentInParent<Street>().isSemaphoreIntersection || endRandomNode.GetComponentInParent<Street>().isSimpleIntersection)
         {
             endRandomNode = endRandomNode.nextNodes[0];
         }
@@ -97,17 +120,28 @@ public class SimpleCarSpawner : MonoBehaviour
             Street dstStreet = endRandomNode.GetComponentInParent<Street>();
             if (!dstStreet.isSemaphoreIntersection && !dstStreet.isSimpleIntersection)
             {
-                List<Node> dstStreetNodes = dstStreet.carWaypoints;
-                int randomDstNode = UnityEngine.Random.Range(0, currentStreetNodes.Count);
-                Node dstNode = currentStreetNodes[randomDstNode].nextNodes[0];
-                if (dstNode.transform != startingNode.transform)
+                //int randomDstNode = UnityEngine.Random.Range(0, currentStreetNodes.Count);
+                //Node dstNode = currentStreetNodes[randomDstNode].nextNodes[0];
+                if (endRandomNode.transform != startingNode.transform)
                 {
-                    int carIndex = UnityEngine.Random.Range(0, carPrefab.Count);
+                    int carIndex = UnityEngine.Random.Range(0, carPrefab.Count - 1);
+
+                    /*
                     CarAI car = carPrefab[carIndex].GetComponent<CarAI>();
                     car.startWaypoint = startingNode; //starting waypoint
-                    car.endWaypoint = dstNode;        //end waypoint
-                    Instantiate(carPrefab[carIndex], currentStreetNodes[randomSrcNode].transform.position, Quaternion.Euler(0, carRotation, 0));
-                    return true;
+                    car.endWaypoint = endRandomNode;        //end waypoint
+                    Instantiate(carPrefab[carIndex], spawnNode.transform.position, Quaternion.Euler(0, carRotation, 0));*/
+                    if (carPrefab[carIndex] != null)
+                    {
+                        // generate Entity Prefab
+                        defaultWorld = World.DefaultGameObjectInjectionWorld;
+                        entityManager = defaultWorld.EntityManager;
+
+                        settings = GameObjectConversionSettings.FromWorld(defaultWorld, null);
+                        entityPrefab = GameObjectConversionUtility.ConvertGameObjectHierarchy(carPrefab[carIndex], settings);
+                        InstantiateEntity(spawnNode.transform.position, Quaternion.Euler(0, carRotation, 0), startingNode.transform.position, endRandomNode.transform.position);
+                        return true;
+                    }
                 }
             }
         //}
@@ -115,6 +149,31 @@ public class SimpleCarSpawner : MonoBehaviour
         return false;
 
         //}
+    }
+    private void InstantiateEntity(float3 position, Quaternion rotation, Vector3 startWaypoint, Vector3 endWaypoint)
+    {
+        
+        if (entityManager == null)
+        {
+            Debug.LogWarning("InstantiateEntity WARNING: No EntityManager found!");
+            return;
+        }
+
+        Entity myEntity = entityManager.Instantiate(entityPrefab);
+        entityManager.SetComponentData(myEntity, new Translation
+        {
+            Value = position
+        });
+        entityManager.SetComponentData(myEntity, new Rotation
+        {
+            Value = rotation
+        });
+        /*
+        entityManager.SetComponentData(myEntity, new CarData
+        {
+            startWaypoint = startWaypoint,
+            endWaypoint = endWaypoint
+        });*/
     }
 
     public void SetWaypointsSpawnCar(int nWaypointsSpawn)
@@ -140,8 +199,8 @@ public class SimpleCarSpawner : MonoBehaviour
                     
                     if (!currentStreet.isSemaphoreIntersection && !currentStreet.isSimpleIntersection && !currentStreet.isTBoneIntersection && !currentStreet.hasBusStop && !currentStreet.isCurve)
                     {
-                        Node possibleWaypointSpawn = currentStreet.carWaypoints[UnityEngine.Random.Range(0, currentStreet.carWaypoints.Count - 1)];
-                        if(!spawnWaypoints.Contains(possibleWaypointSpawn))
+                        Node possibleWaypointSpawn = currentStreet.carWaypoints[UnityEngine.Random.Range(0, currentStreet.carWaypoints.Count)];
+                        if(!spawnWaypoints.Contains(possibleWaypointSpawn) && !possibleWaypointSpawn.isLaneChange && !possibleWaypointSpawn.needOutgoingConnection)
                         {
                             possibleWaypointSpawn.GetComponent<SphereCollider>().enabled = false;
                             possibleWaypointSpawn.gameObject.AddComponent<BoxCollider>();

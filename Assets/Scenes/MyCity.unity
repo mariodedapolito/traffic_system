@@ -244,22 +244,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberHorizontalStreets: 2
   minNumberVerticalStreets: 1
-  maxNumberVerticalStreets: 2
-  minDistanceBetweenHorizontalStreets: 1
-  maxDistanceBetweenHorizontalStreets: 1
+  maxNumberVerticalStreets: 1
+  minDistanceBetweenHorizontalStreets: 2
+  maxDistanceBetweenHorizontalStreets: 2
   numberCarWaypointsSpawn: 25
-  numberCars: 200
-  onlySimpleIntersections: 1
-  onlySemaphoreIntersections: 0
-  only1LaneStreets: 1
-  only2LaneStreets: 0
+  numberCars: 10
+  onlySimpleIntersections: 0
+  onlySemaphoreIntersections: 1
+  only1LaneStreets: 0
+  only2LaneStreets: 1
   cityPlane: {fileID: 8875702055242613236, guid: 4ff6c5b2d5701604f9a6a55a3726dc9f,
     type: 3}
   carPrefab:
   - {fileID: 4962731154326057418, guid: 67cb4237567c02747b713345109f8148, type: 3}
-  - {fileID: 4962731154326057418, guid: 2aa59101a95e4564883d334e2c10eb4f, type: 3}
-  - {fileID: 4962731154326057418, guid: 18c50b6b5a137af45a1dddb6368ff394, type: 3}
-  - {fileID: 4962731154326057418, guid: 33cc6e1090216044293f6a48ef11d7bc, type: 3}
   busPrefab: {fileID: 197350, guid: cefdc448c71f2034f80ee3c2a03817c2, type: 3}
   straightStreet1Lane: {fileID: 8875702055242613236, guid: 57504f73fb74faa40a50afb1d62704c0,
     type: 3}
@@ -275,7 +272,7 @@ MonoBehaviour:
     type: 3}
   deadend2Lane: {fileID: 8875702055242613236, guid: ff4a696a3d557324aa42aabda473ee1b,
     type: 3}
-  curve1Lane: {fileID: 8875702055242613236, guid: 1bad8f9967e2bc949aeaac97292aca9f,
+  curve1Lane: {fileID: 8875702055242613236, guid: 8700f8025bda22344b07f950f3ada773,
     type: 3}
   curve2Lane: {fileID: 8875702055242613236, guid: 6bd6a234aa0a7e1499253445322fb357,
     type: 3}
@@ -307,6 +304,8 @@ MonoBehaviour:
     type: 3}
   intersection3Way2Lane1LaneSemaphore: {fileID: 8875702055242613236, guid: 4dcd188facbfee846ad07c9c3cc73446,
     type: 3}
+  generateBuildings: 0
+  buildingPrefabs: []
   cityWidth: 0
   cityLength: 0
 --- !u!4 &1653372353

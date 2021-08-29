@@ -53,7 +53,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
@@ -174,14 +176,14 @@ Transform:
   - {fileID: 3523263079668487012}
   - {fileID: 3081143953773275237}
   - {fileID: 6622430293787349776}
+  - {fileID: 2442867781136597689}
+  - {fileID: 4528604548375024555}
   - {fileID: 1465620864583535484}
   - {fileID: 4973671813293562616}
   - {fileID: 3745987083975974525}
   - {fileID: 8701418900570529586}
   - {fileID: 7246458320186723783}
   - {fileID: 6326317120842189242}
-  - {fileID: 6223838277591868260}
-  - {fileID: 2359639193780539294}
   - {fileID: 3260570090665192405}
   - {fileID: 4098253200019212745}
   - {fileID: 2073976289628173132}
@@ -311,7 +313,9 @@ MonoBehaviour:
   isTurnRight: 1
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
@@ -372,7 +376,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
@@ -521,7 +527,7 @@ Transform:
   m_LocalScale: {x: 7, y: 5, z: 0.50000006}
   m_Children: []
   m_Father: {fileID: 580443021898765818}
-  m_RootOrder: 12
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 180.159, y: -270, z: 89.99999}
 --- !u!33 &958632433761255158
 MeshFilter:
@@ -680,6 +686,69 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300022, guid: bca5c93adbc71744ca9ea932c796e900, type: 3}
+--- !u!1 &2387326071388341246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4528604548375024555}
+  - component: {fileID: 8139269743159160102}
+  m_Layer: 6
+  m_Name: Node_lane_0 (16)
+  m_TagString: CarWaypoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4528604548375024555
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2387326071388341246}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -3.0500083, y: 1.8199664, z: 0.49999997}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 580443021898765818}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8139269743159160102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2387326071388341246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 114660254402778452}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 1
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!1 &2666843986213863919
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,7 +794,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 1842547091730236308}
-  - {fileID: 6766171398971047304}
+  - {fileID: 3299005432272142678}
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 1
@@ -734,7 +803,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
@@ -1021,192 +1092,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.0000005, z: 1.0000005}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &3715543172349328863
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6223838277591868260}
-  - component: {fileID: 1085491907365417439}
-  - component: {fileID: 5046650711207096695}
-  - component: {fileID: 8871526637394402760}
-  m_Layer: 0
-  m_Name: NavigationWall (17)
-  m_TagString: NavigationWall
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6223838277591868260
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3715543172349328863}
-  m_LocalRotation: {x: -0.49930352, y: 0.50069606, z: 0.5006925, w: -0.49930614}
-  m_LocalPosition: {x: -3.75, y: 12.41, z: 2.5}
-  m_LocalScale: {x: 5, y: 5, z: 0.50000006}
-  m_Children: []
-  m_Father: {fileID: 580443021898765818}
-  m_RootOrder: 18
-  m_LocalEulerAnglesHint: {x: 180.159, y: -270, z: 89.99999}
---- !u!33 &1085491907365417439
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3715543172349328863}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &5046650711207096695
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3715543172349328863}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 07442a0887fcb3c45abc9db76c9f2d7e, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!65 &8871526637394402760
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3715543172349328863}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.0000005, z: 1.0000005}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &3767881801829543994
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2359639193780539294}
-  - component: {fileID: 4007049851418070193}
-  - component: {fileID: 4783778059504678757}
-  - component: {fileID: 5486083388624332147}
-  m_Layer: 0
-  m_Name: NavigationWall (18)
-  m_TagString: NavigationWall
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2359639193780539294
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3767881801829543994}
-  m_LocalRotation: {x: -0.49930352, y: 0.50069606, z: 0.5006925, w: -0.49930614}
-  m_LocalPosition: {x: -3.75, y: -12.41, z: 2.5}
-  m_LocalScale: {x: 5, y: 5, z: 0.50000006}
-  m_Children: []
-  m_Father: {fileID: 580443021898765818}
-  m_RootOrder: 19
-  m_LocalEulerAnglesHint: {x: 180.159, y: -270, z: 89.99999}
---- !u!33 &4007049851418070193
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3767881801829543994}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &4783778059504678757
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3767881801829543994}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 07442a0887fcb3c45abc9db76c9f2d7e, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!65 &5486083388624332147
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3767881801829543994}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.0000005, z: 1.0000005}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3841855431737493541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1325,7 +1210,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4003731956907813063}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -5.74, y: -2.49, z: 0.5}
+  m_LocalPosition: {x: -6.19, y: -3.72, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 580443021898765818}
@@ -1344,7 +1229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextNodes:
-  - {fileID: 114660254402778452}
+  - {fileID: 8139269743159160102}
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 1
@@ -1353,7 +1238,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
@@ -1458,6 +1345,69 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300022, guid: bca5c93adbc71744ca9ea932c796e900, type: 3}
+--- !u!1 &4357467755688701519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2442867781136597689}
+  - component: {fileID: 3299005432272142678}
+  m_Layer: 6
+  m_Name: Node_lane_0 (15)
+  m_TagString: CarWaypoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2442867781136597689
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4357467755688701519}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -2.9899905, y: -1.9799802, z: 0.49999997}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 580443021898765818}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3299005432272142678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4357467755688701519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 6766171398971047304}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 1
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!1 &4397073817548245587
 GameObject:
   m_ObjectHideFlags: 0
@@ -1489,7 +1439,7 @@ Transform:
   m_LocalScale: {x: 30, y: 5, z: 0.50000006}
   m_Children: []
   m_Father: {fileID: 580443021898765818}
-  m_RootOrder: 13
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 180.159, y: -270, z: 89.99999}
 --- !u!33 &1730110204917911509
 MeshFilter:
@@ -1576,7 +1526,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4464722392801816422}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -5.4, y: 3.59, z: 0.5}
+  m_LocalPosition: {x: -6.19, y: 3.72, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 580443021898765818}
@@ -1604,7 +1554,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
@@ -2027,7 +1979,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
@@ -2194,7 +2148,9 @@ MonoBehaviour:
   isTurnRight: 1
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
@@ -2255,7 +2211,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
@@ -2294,7 +2252,7 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 0.49999988}
   m_Children: []
   m_Father: {fileID: 580443021898765818}
-  m_RootOrder: 17
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 90, y: -270, z: 89.99999}
 --- !u!33 &1548565566915851302
 MeshFilter:
@@ -2411,7 +2369,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
@@ -2486,7 +2446,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
@@ -2560,7 +2522,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
@@ -2705,7 +2669,7 @@ Transform:
   m_LocalScale: {x: 7, y: 5, z: 0.49999988}
   m_Children: []
   m_Father: {fileID: 580443021898765818}
-  m_RootOrder: 15
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 90, y: -270, z: 89.99999}
 --- !u!33 &2816404762404628309
 MeshFilter:
@@ -3100,7 +3064,7 @@ Transform:
   m_LocalScale: {x: 7, y: 5, z: 0.49999988}
   m_Children: []
   m_Father: {fileID: 580443021898765818}
-  m_RootOrder: 16
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 90, y: -270, z: 89.99999}
 --- !u!33 &6364614334422863962
 MeshFilter:
@@ -3426,7 +3390,7 @@ Transform:
   m_LocalScale: {x: 7, y: 5, z: 0.50000006}
   m_Children: []
   m_Father: {fileID: 580443021898765818}
-  m_RootOrder: 14
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 180.159, y: -270, z: 89.99999}
 --- !u!33 &8864474726912239386
 MeshFilter:
@@ -3553,12 +3517,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
---- !u!4 &315122762986932647 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 2ea1ccd72e26f874eac1724744be6ae7,
-    type: 3}
-  m_PrefabInstance: {fileID: 315122762987328295}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7109434167757595836 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7419190892818904987, guid: 2ea1ccd72e26f874eac1724744be6ae7,
@@ -3571,6 +3529,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac25d66bbe9e0594da72a186942a761b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &315122762986932647 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 2ea1ccd72e26f874eac1724744be6ae7,
+    type: 3}
+  m_PrefabInstance: {fileID: 315122762987328295}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1120559127471606910
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3636,12 +3600,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
---- !u!4 &1120559127471478526 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 2ea1ccd72e26f874eac1724744be6ae7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1120559127471606910}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7600743941160106981 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7419190892818904987, guid: 2ea1ccd72e26f874eac1724744be6ae7,
@@ -3654,6 +3612,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac25d66bbe9e0594da72a186942a761b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1120559127471478526 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 2ea1ccd72e26f874eac1724744be6ae7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1120559127471606910}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6014454134523604930
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3727,12 +3691,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
---- !u!4 &6014454134523999554 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 2ea1ccd72e26f874eac1724744be6ae7,
-    type: 3}
-  m_PrefabInstance: {fileID: 6014454134523604930}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3855610032999635033 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7419190892818904987, guid: 2ea1ccd72e26f874eac1724744be6ae7,
@@ -3745,6 +3703,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac25d66bbe9e0594da72a186942a761b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &6014454134523999554 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 2ea1ccd72e26f874eac1724744be6ae7,
+    type: 3}
+  m_PrefabInstance: {fileID: 6014454134523604930}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7892779211350730478
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3810,12 +3774,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ea1ccd72e26f874eac1724744be6ae7, type: 3}
---- !u!4 &7892779211350604910 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 2ea1ccd72e26f874eac1724744be6ae7,
-    type: 3}
-  m_PrefabInstance: {fileID: 7892779211350730478}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &828251187243209077 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7419190892818904987, guid: 2ea1ccd72e26f874eac1724744be6ae7,
@@ -3828,3 +3786,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac25d66bbe9e0594da72a186942a761b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &7892779211350604910 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 2ea1ccd72e26f874eac1724744be6ae7,
+    type: 3}
+  m_PrefabInstance: {fileID: 7892779211350730478}
+  m_PrefabAsset: {fileID: 0}

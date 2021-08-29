@@ -33,7 +33,7 @@ public class CarAI : MonoBehaviour
     public float frontSideSensorPosition = 0.15f;
     public float frontSensorAngle = 27f;
 
-    private List<Transform> nodes;
+    public List<Transform> nodes;
     public int currectNode = 0;
     private bool avoiding = false;
     private bool avoidingR = false;
@@ -61,6 +61,7 @@ public class CarAI : MonoBehaviour
     private bool isCar = false;
 
     public IntersectionVehicle intersectionData;
+	public bool needParkingSpot;
 
     private void Start()
     {
@@ -121,6 +122,17 @@ public class CarAI : MonoBehaviour
         if (currectNode < nodes.Count) // Disable sensors during the intersections
         {   
             Street s = nodes[currectNode].GetComponentInParent<Street>();
+            if(s.isSemaphoreIntersection)
+            {
+            	sensorFrontLength = 0.8f;
+                sensorLength = 0.8f;
+            }
+            else
+            {
+                sensorLength = 0.8f;
+                sensorFrontLength = 1.2f;
+            }
+
             if (s.isSimpleIntersection)
             {
                 sensorFrontLength = 0.8f;
@@ -270,7 +282,7 @@ public class CarAI : MonoBehaviour
         if (currectNode < nodes.Count) // Disable sensors during the intersections
         {
             Street s = nodes[currectNode].GetComponentInParent<Street>();
-            if (s.numberLanes == 1 && isCar) //dont surpass in one lane
+            if (/*s.numberLanes == 1 && */isCar /*&& !s.isSemaphoreIntersection*/) //dont surpass in one lane
             {
                 isLaneOne = true;                
             }
@@ -279,6 +291,13 @@ public class CarAI : MonoBehaviour
                 isLaneOne = false;
             }
 
+            if(s.isSemaphoreIntersection){
+            	precedence = false;
+            } 
+			else{
+				
+			}
+			
             if(s.isSimpleIntersection && (avoidingI || precedence || precedenceLeft)) //dont surpass in intersection
             {
                 isIntersactionStop = true;
@@ -347,9 +366,15 @@ public class CarAI : MonoBehaviour
     {
         if (avoiding || Stop || intersectionData.intersectionStop) return;
         if (currectNode >= nodes.Count ) newPath();
+		try{
         Vector3 relativeVector = transform.InverseTransformPoint(nodes[currectNode].position);
-        float newSteer = (relativeVector.x / relativeVector.magnitude) * maxSteerAngle;
+		float newSteer = (relativeVector.x / relativeVector.magnitude) * maxSteerAngle;
         targetSteerAngle = newSteer;
+		}
+		catch(System.Exception e){
+			Debug.Log(transform.position);
+			throw new System.Exception("hey");
+		}
     }
 
     private void Drive()
@@ -376,8 +401,15 @@ public class CarAI : MonoBehaviour
         if (nodes.Count > 0)
         {   
             this.inPath = true;
+			if(Vector3.Distance(transform.position, nodes[currectNode].position) > 25f){
+				throw new System.Exception("BAD NEW PATH "+transform.position);
+			}
             if (Vector3.Distance(transform.position, nodes[currectNode].position) < 1f)
             {
+				if(currectNode == nodes.Count - 2 && nodes[currectNode + 1].GetComponent<Node>().isParkingGateway)
+                {
+                    needParkingSpot = true;
+                }
                 if (currectNode == nodes.Count - 1)
                 {
                     
@@ -440,6 +472,7 @@ public class CarAI : MonoBehaviour
         }
         else
         {
+			Debug.Log("SEARCHING NEW PATH");
             newPath();
         }
        
