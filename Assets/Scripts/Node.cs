@@ -13,8 +13,19 @@ public class Node : MonoBehaviour
     public bool isLaneChange;       //identify waypoints that are used for lane changing on double lane streets
     public bool isTurnLeft;         //identify waypoints that are used for turning left in intersections (needed for intersection precedence)
     public bool isTurnRight;        //identify waypoints that are used for turning right in intersections (needed for intersection precedence)
+    public bool isBusLane;          //identify waypoints that are used for bus-only lanes
+    public bool isBusStop;          //identify waypoints that are used as bus stops (fermate)
+    public bool isParkingGateway;
+    public bool isParkingSpot;      //identify waypoints that are used as car parking spots
+    public int parkingExitRotation;
+    public int parkingRotation;     //identify car rotation when parked
     public int laneNumber;          //identify lane number (lane 0 is middlemost lane)
     public int trafficDirection;    //0: right lane traffic, 1: left lane 
+
+    public bool isBusSpawn;
+    public bool isCarSpawn;
+    public bool isOccupied = false;
+    public int numberCars;
 
     private void OnDrawGizmos()
     {
@@ -23,7 +34,16 @@ public class Node : MonoBehaviour
         {
             Gizmos.DrawLine(transform.position, nextNodes[i].transform.position);
         }
-
+        if (isTurnLeft)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawCube(transform.position, new Vector3(0.25f, 0.25f, 1f));
+        }
+        if (isTurnRight)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawCube(transform.position, new Vector3(0.25f, 0.25f, 1f));
+        }
         if (trafficDirection == 0)
         {
             Gizmos.color = Color.red;
@@ -44,7 +64,13 @@ public class Node : MonoBehaviour
             Gizmos.color = Color.blue;
             Gizmos.DrawSphere(transform.position, 0.5f);
         }
+        if (isParkingSpot)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(transform.position, 0.1f);
+        }
 
         Gizmos.color = Color.white;
     }
+    
 }
