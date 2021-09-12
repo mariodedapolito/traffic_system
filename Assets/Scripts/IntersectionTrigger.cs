@@ -116,6 +116,7 @@ public class IntersectionTrigger : MonoBehaviour
     void Start()
     {
         intersection = this.transform.parent.transform.parent.GetComponent<Street>();
+        if(intersection!=null)
         intersectionNodes = intersection.carWaypoints;
         collisionRegistered = new List<IntersectionVehicle>();
     }

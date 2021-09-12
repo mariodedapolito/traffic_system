@@ -44,7 +44,7 @@ class ChangeActiveVehicleSystem : SystemBase
     protected override void OnUpdate()
     {
         // update stable list of vehicles if they have changed
-        if (m_NewVehicleQuery.CalculateEntityCount() > 0 || m_DeletedVehicleQuery.CalculateEntityCount() > 0)
+     /*   if (m_NewVehicleQuery.CalculateEntityCount() > 0 || m_DeletedVehicleQuery.CalculateEntityCount() > 0)
         {
             EntityManager.AddComponent(m_NewVehicleQuery, typeof(AvailableVehicle));
             EntityManager.RemoveComponent<AvailableVehicle>(m_DeletedVehicleQuery);
@@ -108,5 +108,5 @@ class ChangeActiveVehicleSystem : SystemBase
 
         EntityManager.RemoveComponent<ActiveVehicle>(m_AllVehicles);
         EntityManager.AddComponent(m_AllVehicles[newVehicleIndex], typeof(ActiveVehicle));
-    }
+    */}
 }
