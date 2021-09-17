@@ -27,6 +27,7 @@ public class Node : MonoBehaviour
     public bool isOccupied = false;
     public int numberCars;
 
+    /*
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
@@ -71,6 +72,6 @@ public class Node : MonoBehaviour
         }
 
         Gizmos.color = Color.white;
-    }
+    }*/
     
 }

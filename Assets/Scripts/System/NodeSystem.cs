@@ -12,6 +12,8 @@ public class NodeSystem : SystemBase
             .ForEach((ref NodePosition node, in Translation translation) =>
             {
                 node.position = translation.Value;
+
+
             }).Run();
     }
 }

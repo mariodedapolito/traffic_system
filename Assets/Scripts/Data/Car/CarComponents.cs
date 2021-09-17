@@ -1,12 +1,16 @@
 ﻿using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
+using Unity.Collections;
+using System.Collections.Generic;
 
 struct Vehicle : IComponentData { }
 
 struct CarPosition : IComponentData
 {
     public float3 carPosition;
+    public int currentNode;
+    public bool checkNode;
 }
 
 struct CarDestination : IComponentData
@@ -25,6 +29,10 @@ struct VehicleSteering : IComponentData
     public float DesiredSteeringAngle;
 }
 
+struct ListNode : IBufferElementData
+{
+    public float3 listNodesTransform;
+}
 
 class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
 {
@@ -36,7 +44,7 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
     [Range(0f, 1f)] public float SteeringDamping = 0.1f;
     [Range(0f, 1f)] public float SpeedDamping = 0.01f;
     public float3 positionDest;
-
+    public List<Node> listNodes;
 #pragma warning restore 649
 
     void OnValidate()
@@ -53,6 +61,8 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
 
         dstManager.AddComponent<CarPosition>(entity);
 
+        dstManager.AddComponent<ListNode>(entity);
+
         dstManager.AddComponentData(entity, new CarDestination
         {
             position = positionDest,
@@ -67,6 +77,10 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
         {
             MaxSteeringAngle = math.radians(SteeringAngle),
         });
+        
+        DynamicBuffer<ListNode> listNodesTransform = dstManager.AddBuffer<ListNode>(entity);
+        for (var i = 0; i < listNodes.Count; i++)
+            listNodesTransform.Add( new ListNode { listNodesTransform = listNodes[i].transform.position });
     }
 }
 
