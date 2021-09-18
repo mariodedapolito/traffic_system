@@ -14,8 +14,9 @@ class CarSystem : SystemBase
         float time = Time.DeltaTime;
         Entities
             .WithoutBurst()
-            .ForEach((DynamicBuffer<ListNode> ListNode, ref CarPosition position, ref CarDestination destination, ref Translation translation, ref Rotation rotation, in VehicleSpeed speed) =>
+            .ForEach((DynamicBuffer<ListNode> ListNode, ref CarPosition position, ref CarDestination destination, ref Translation translation, ref Rotation rotation, ref VehicleSpeed speed, in LocalToWorld ltw) =>
             {
+                
                 if (position.currentNode >= ListNode.Length) 
                     position.currentNode = 0;
 
@@ -24,9 +25,9 @@ class CarSystem : SystemBase
                 destination.position = ListNode[position.currentNode].listNodesTransform;
 
                 float3 direction = destination.position - position.carPosition;
+                //translation.Value = Vector3.Lerp(position.carPosition, destination.position, 0.008f);
 
-                //if( status ) -> Stop
-                    translation.Value += direction * time;
+                translation.Value  += ltw.Forward * time * 2;
 
                 if (math.distance(translation.Value, destination.position) > 2.7f)
                 {
