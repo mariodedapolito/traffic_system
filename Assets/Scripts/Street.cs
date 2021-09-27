@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Street : MonoBehaviour
 {
+    [Header("Intersection Data")]
+    public int intersectionId;
+
     [Header("Street data")]
     public List<Node> carWaypoints;
     public bool isSimpleIntersection;

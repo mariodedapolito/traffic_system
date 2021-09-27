@@ -5,7 +5,10 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 using Unity.Physics;
+using Unity.Collections;
 
+[UpdateBefore(typeof(CarsPositionSystem))]
+[UpdateAfter(typeof(IntersectionTriggerSystem))]
 [UpdateInGroup(typeof(InitializationSystemGroup))]
 class CarSystem : SystemBase
 {
@@ -14,79 +17,66 @@ class CarSystem : SystemBase
         float time = Time.DeltaTime;
         Entities
             .WithoutBurst()
-            .ForEach((DynamicBuffer<ListNode> ListNode, ref CarPosition position, ref CarDestination destination, ref Translation translation, ref Rotation rotation, ref VehicleSpeed speed, in LocalToWorld ltw) =>
+            .ForEach((DynamicBuffer<ListNode> ListNode, ref VehicleNavigation navigation, ref Translation translation, ref Rotation rotation, ref VehicleSpeed speed, in VehicleSteering steering, in LocalToWorld ltw) =>
             {
-
-                if (position.currentNode == ListNode.Length - 1)
+                NativeHashMap<int, char> carsPosition = CarsPositionSystem.carsPositionMap;
+                int lookaheadLength = 2;
+                for (int i = 1; i <= lookaheadLength && !navigation.intersectionStop; i++)
                 {
-                    Node startWaypoint = new Node(), endWaypoint = new Node();
-
-                    GameObject[] waypointsNew = GameObject.FindGameObjectsWithTag("CarWaypoint");
-                    List<Node> nodesNew = new List<Node>();
-                    foreach (GameObject w in waypointsNew)
+                    int positionKey = CarsPositionSystem.GetPositionHashMapKey(translation.Value + ltw.Forward * i);
+                    if (carsPosition.TryGetValue(positionKey, out _))
                     {
-                        if (w.GetComponent<Node>() != null && !w.GetComponent<Node>().isParkingSpot)
-                        {
-                            if (ListNode[ListNode.Length - 1].listNodesTransform.Equals((float3)w.transform.position)) //find start waypoint
-                            {
-                                startWaypoint = w.GetComponent<Node>();
-                            }
-                            /*
-                            if (ListNode[ListNode.Length - 1].listNodesTransform.Equals((float3)w.transform.position)) //find end waypoint
-                            {
-                                endWaypoint = w.GetComponent<Node>();
-                            }*/
-
-                            nodesNew.Add(w.GetComponent<Node>());
-                        }
+                        navigation.trafficStop = true;
+                        break;
                     }
-
-                    int randomSrcNode = (int)UnityEngine.Random.Range(0, nodesNew.Count - 1);
-
-                    /*Street s = nodesNew[randomSrcNode].GetComponentInParent<Street>();
-
-                    while (!s.hasBusStop && s.isSemaphoreIntersection && s.isSimpleIntersection)
+                    else
                     {
-                        randomSrcNode = (int)UnityEngine.Random.Range(0, nodesNew.Count - 1);
-                        s = nodesNew[randomSrcNode].GetComponentInParent<Street>();
-                    }*/
-
-                    endWaypoint = nodesNew[randomSrcNode];
-
-                    /** NEW PATH **/
-                    Path path = new Path();
-                    List<Node> carPath = new List<Node>();
-                    
-                    carPath = path.findShortestPath(startWaypoint.transform, endWaypoint.transform);
-                    ListNode.Clear();
-
-                    for (int i = 0; i < carPath.Count; i++)
-                    {
-                        ListNode.Add(new ListNode { listNodesTransform = carPath[i].transform.position});
-
+                        navigation.trafficStop = false;
                     }
-
-                    position.currentNode = 0;
                 }
 
-                position.carPosition = translation.Value;
-
-                destination.position = ListNode[position.currentNode].listNodesTransform;
-
-                float3 direction = destination.position - position.carPosition;
-                //translation.Value = Vector3.Lerp(position.carPosition, destination.position, 0.008f);
-
-                translation.Value  += ltw.Forward * time * 2;
-
-                if (math.distance(translation.Value, destination.position) > 2.7f)
+                if(navigation.currentNode == ListNode.Length-1)
                 {
+                    navigation.needParking = true;
+                    navigation.trafficStop = true;
+                }
+
+                if (navigation.trafficStop || navigation.intersectionStop)  //STOPPING IN TRAFFIC OR INTERSECTION
+                {
+                    if (speed.currentSpeed > 0.25)
+                    {
+                        speed.currentSpeed -= speed.maxSpeed * speed.speedDamping;
+                        //Debug.Log("STOPPING");
+                    }
+                    else
+                    {
+                        speed.currentSpeed = 0;
+                    }
+                    translation.Value += ltw.Forward * time * speed.currentSpeed;
+                    float3 direction = ListNode[navigation.currentNode].listNodesTransform - translation.Value;
+                    rotation.Value = Quaternion.LookRotation(direction);
+                }
+                else  //SPEEDING UP IF NO TRAFFIC OR MY TURN IN INTERSECTION
+                {
+                    if (speed.currentSpeed < speed.maxSpeed)
+                    {
+                        speed.currentSpeed += speed.maxSpeed * speed.speedDamping;
+                        //Debug.Log("SPEEDING");
+                    }
+                    else
+                    {
+                        speed.currentSpeed = speed.maxSpeed;
+
+                    }
+                    translation.Value += ltw.Forward * time * speed.currentSpeed;
+                    float3 direction = ListNode[navigation.currentNode].listNodesTransform - translation.Value;
                     rotation.Value = Quaternion.LookRotation(direction);
                 }
 
-                if ((math.distance(translation.Value, destination.position) < 1f)) 
-                    position.currentNode++;
+                if ((math.distance(translation.Value, ListNode[navigation.currentNode].listNodesTransform) < 1f && !navigation.needParking))
+                    navigation.currentNode++;
 
-            }).Run();
+            }).ScheduleParallel();
     }
 
 

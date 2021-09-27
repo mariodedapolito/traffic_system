@@ -26,8 +26,7 @@ public class CityGenerator : MonoBehaviour
     public int maxNumberVerticalStreets;
     public int minDistanceBetweenHorizontalStreets;
     public int maxDistanceBetweenHorizontalStreets;
-    public int numberCarWaypointsSpawn;
-    public int numberCars;
+    public int numberCarsToSpawn;
     public bool onlySimpleIntersections;
     public bool onlySemaphoreIntersections;
     public bool only1LaneStreets;
@@ -68,7 +67,7 @@ public class CityGenerator : MonoBehaviour
 
 
     private const int distanceBetweenVerticalStreets = 5;   //2 prefabs for bus stops + 1 prefab (optional) for lane adapter + 2 reserved prefabs
-    private const int distanceBetweenHorizontalStreets = 6;
+    private const int distanceBetweenHorizontalStreets = 5;
 
     public MapTile[,] cityMap;
     public int cityWidth;
@@ -124,7 +123,7 @@ public class CityGenerator : MonoBehaviour
     private const int INTERSECTION_ROTATION_TOP = 180;
     private const int INTERSECTION_ROTATION_RIGHT = 270;
     private const int STRAIGHT_STREET_ROTATION_HORIZONTAL = 0;
-    private const int STRAIGHT_STREET_ROTATION_VERTICAL = -90;
+    private const int STRAIGHT_STREET_ROTATION_VERTICAL = 90;
     private const int CURVE_ROTATION_TOP_LEFT = 0;
     private const int CURVE_ROTATION_TOP_RIGHT = 90;
     private const int CURVE_ROTATION_BOTTOM_RIGHT = 180;
@@ -142,10 +141,14 @@ public class CityGenerator : MonoBehaviour
     private int[] numberVerticalStreets;
     private int[,] lanesVerticalStreets;
 
-    private SimpleCarSpawner carSpawner;
+    private CarSpawner carSpawner;
     private SimpleBusSpawner busSpawner;
 
-	private bool cityIsConnected = false;
+
+    public List<Node> cityParkingNodes = new List<Node>();
+    public List<Node> citySpawnNodes = new List<Node>();
+    public List<Node> cityNodes = new List<Node>();
+
 
     // Start is called before the first frame update
     void Start()
@@ -428,7 +431,7 @@ public class CityGenerator : MonoBehaviour
         //
         //DEBUGGING
         //
-        string str = "";
+        /*string str = "";
         for (int i = 0; i < cityLength; i++)
         {
             if (i % distanceBetweenHorizontalStreets == 0)
@@ -456,7 +459,7 @@ public class CityGenerator : MonoBehaviour
                 }
             }
             Debug.Log(str);
-        }
+        }*/
         //
         //DEBUGGING END
         //
@@ -574,47 +577,16 @@ public class CityGenerator : MonoBehaviour
 
         //Connect all prefabs together
         cityStreetConnector();
-		
-		
 
-        carsSpawn();
+
+        //Spawn cars
+        carSpawner = new CarSpawner(carPrefab, this, numberCarsToSpawn);
+        carSpawner.generateTraffic();
+
         //busSpawn();
-		
-		cityIsConnected = true;
 
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        for (int c = 0; c < numberCars && cityIsConnected; c++)
-        {
-            if (carSpawner.spawnCar())
-            {
-                numberCars--;
-            }
-        }
-    }
-
-    private void Awake()
-    {
-
-
-    }
-
-    private void carsSpawn()
-    {
-        carSpawner = new SimpleCarSpawner(carPrefab, this);
-        carSpawner.SetWaypointsSpawnCar(numberCarWaypointsSpawn);
-        for (int c = 0; c < numberCars; c++)
-        {
-            if (carSpawner.spawnCar())
-            {
-                numberCars--;
-            }
-
-        }
-    }
 
     private void busSpawn()
     {
@@ -1216,6 +1188,19 @@ public class CityGenerator : MonoBehaviour
                 }
             }
         }
+        for (int i = 0; i < cityLength; i++)
+        {
+            for (int j = 0; j < cityWidth; j++)
+            {
+                if (cityMap[i, j].prefabType > 0)
+                {
+                    foreach (var node in cityMap[i, j].instantiatedStreet.GetComponent<Street>().carWaypoints)
+                    {
+                        Destroy(node.GetComponent<SphereCollider>());
+                    }
+                }
+            }
+        }
     }
 
     private void generatePrefab(MapTile tile, int row, int col)
@@ -1334,15 +1319,49 @@ public class CityGenerator : MonoBehaviour
 
     private void instantiateTerrain(int cityWidth, int cityLength)
     {
-        GameObject terrain = Instantiate(cityPlane, new Vector3(0f, 0f, 0f), Quaternion.identity);
-        terrain.transform.localScale = new Vector3(cityWidth * 5, 1, cityLength * 5);
+        cityPlane.transform.localScale = new Vector3(cityWidth * 5, 1, cityLength * 5);
+        GameObject terrain = Instantiate(cityPlane, new Vector3(cityWidth*10, 0.05f, cityLength*10), Quaternion.identity);
     }
 
     private void instantiatePrefab(MapTile tile, int row, int col)
     {
-        int SceneRow = (row - (cityLength / 2));
-        int SceneCol = -(col - (cityLength / 2));
-        cityMap[row, col].instantiatedStreet = Instantiate(tile.prefabReference, new Vector3(SceneCol * (-20), 0, SceneRow * (-20)), Quaternion.Euler(0, tile.rotation, 0));
+        //int SceneRow = (row - (cityLength / 2));
+        //int SceneCol = -(col - (cityLength / 2));
+
+        int zPosition = Mathf.Abs(row * 20 - cityLength * 20) + 10;
+        int xPosition = col * 20 + 10;
+
+        cityMap[row, col].instantiatedStreet = Instantiate(tile.prefabReference, new Vector3(xPosition, 0, zPosition), Quaternion.Euler(0, tile.rotation, 0));
+
+        if (cityMap[row, col].prefabType > 0)
+        {
+            Street currentStreet = cityMap[row, col].instantiatedStreet.GetComponent<Street>();
+            //set bus stop lane directions correctly
+            if ((tile.prefabType == BUS_STOP_1LANE || tile.prefabType == BUS_STOP_2LANE) && (tile.rotation == BUS_STOP_ROTATION_RIGHT || tile.rotation == BUS_STOP_ROTATION_UP))
+            {
+                foreach (var node in currentStreet.carWaypoints)
+                {
+                    node.trafficDirection = (node.trafficDirection + 1) % 2;
+                }
+            }
+
+            //fill nodes (waypoint) list
+            foreach (var node in currentStreet.carWaypoints)
+            {
+                if (node.isParkingGateway)
+                {
+                    cityParkingNodes.Add(node);
+                }
+                else
+                {
+                    cityNodes.Add(node);
+                    if (cityMap[row, col].prefabType == STRAIGHT_1LANE || (cityMap[row, col].prefabType == STRAIGHT_2LANE && !node.isLaneChange))   //spawn nodes dont include parking gateways
+                    {
+                        citySpawnNodes.Add(node);
+                    }
+                }
+            }
+        }
     }
 
 }

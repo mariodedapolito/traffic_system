@@ -4,32 +4,34 @@ using UnityEngine;
 using Unity.Collections;
 using System.Collections.Generic;
 
-struct Vehicle : IComponentData { }
+public struct Vehicle : IComponentData { }
 
-struct CarPosition : IComponentData
+public struct Car : IComponentData { }
+
+public struct VehicleNavigation : IComponentData
 {
-    public float3 carPosition;
     public int currentNode;
-    public bool checkNode;
+    public bool needParking;
+    public bool intersectionStop;
+    public bool isInsideIntersection;
+    public bool trafficStop;
 }
 
-struct CarDestination : IComponentData
+public struct VehicleSpeed : IComponentData
 {
-    public float3 position;
-}
-struct VehicleSpeed : IComponentData
-{
-    public float Speed;
-    public float DesiredSpeed;
+    public float currentSpeed;
+    public float maxSpeed;
+    public float speedDamping;
 }
 
-struct VehicleSteering : IComponentData
+public struct VehicleSteering : IComponentData
 {
     public float MaxSteeringAngle;
     public float DesiredSteeringAngle;
+    public float SteeringDamping;
 }
 
-struct ListNode : IBufferElementData
+public struct ListNode : IBufferElementData
 {
     public float3 listNodesTransform;
 }
@@ -39,50 +41,61 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
 #pragma warning disable 649
 
     [Header("Handling")]
-    public float Speed = 10.0f;
+    public float Speed = 1f;
     public float SteeringAngle = 30.0f;
     [Range(0f, 1f)] public float SteeringDamping = 0.1f;
-    [Range(0f, 1f)] public float SpeedDamping = 0.01f;
-    public float3 positionDest;
-    public List<Node> listNodes;
-#pragma warning restore 649
+    [Range(0f, 1f)] public float SpeedDamping = 0.1f;
 
-    void OnValidate()
-    {
-        Speed = math.max(0f, Speed);
-        SteeringAngle = math.max(0f, SteeringAngle);
-        SteeringDamping = math.clamp(SteeringDamping, 0f, 1f);
-        SpeedDamping = math.clamp(SpeedDamping, 0f, 1f);
-    }
+    [Header("Navigation")]
+    public Node startingNode;
+    public Node destinationNode;
+
+#pragma warning restore 649
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
         dstManager.AddComponent<Vehicle>(entity);
 
-        dstManager.AddComponent<CarPosition>(entity);
+        dstManager.AddComponent<VehicleNavigation>(entity);
 
-        dstManager.AddComponent<ListNode>(entity);
-
-        dstManager.AddComponentData(entity, new CarDestination
+        dstManager.AddComponentData(entity, new VehicleNavigation
         {
-            position = positionDest,
+            currentNode = 0,
+            needParking = false,
+            intersectionStop = false,
+            trafficStop = false,
         });
 
         dstManager.AddComponentData(entity, new VehicleSpeed
         {
-            Speed = Speed,
+            maxSpeed = Speed,
+            currentSpeed = Speed,
+            speedDamping = SpeedDamping,
         });
 
         dstManager.AddComponentData(entity, new VehicleSteering
         {
             MaxSteeringAngle = math.radians(SteeringAngle),
-        });
-        
+            SteeringDamping = SteeringDamping,
+        }) ;
+
+        /** Create path for car **/
+        Path path = new Path();
+        List<Node> carPath = new List<Node>();
+        carPath = path.findShortestPath(startingNode.transform, destinationNode.transform);
+
+        if (carPath[0]!=startingNode || carPath[carPath.Count-1]!=destinationNode)
+        {
+            throw new System.Exception("NO PATH FOUND");
+        }
+
         DynamicBuffer<ListNode> listNodesTransform = dstManager.AddBuffer<ListNode>(entity);
-        for (var i = 0; i < listNodes.Count; i++)
-            listNodesTransform.Add( new ListNode { listNodesTransform = listNodes[i].transform.position });
+        for (int i = 0; i < carPath.Count; i++)
+        {
+            listNodesTransform.Add(new ListNode { listNodesTransform = carPath[i].transform.position });
+        }
+
+        Debug.Log("ENTITY CREATED");
+
     }
 }
-
-
-

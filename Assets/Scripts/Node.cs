@@ -27,13 +27,19 @@ public class Node : MonoBehaviour
     public bool isOccupied = false;
     public int numberCars;
 
-    /*
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
-        for (int i=0;i<nextNodes.Count;i++)
+        for (int i = 0; i < nextNodes.Count; i++)
         {
+            if (nextNodes[i] == null)
+            {
+                Debug.Log(transform.position);
+            }
             Gizmos.DrawLine(transform.position, nextNodes[i].transform.position);
+            float distance = Vector3.Distance(transform.position, nextNodes[i].transform.position);
+            Gizmos.DrawSphere(Vector3.MoveTowards(transform.position, nextNodes[i].transform.position, distance - 0.4f), 0.15f);
         }
         if (isTurnLeft)
         {
@@ -45,26 +51,27 @@ public class Node : MonoBehaviour
             Gizmos.color = Color.cyan;
             Gizmos.DrawCube(transform.position, new Vector3(0.25f, 0.25f, 1f));
         }
-        if (trafficDirection == 0)
+        if (needIncomingConnection)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(transform.position, 0.3f);
+        }
+        else if (needOutgoingConnection)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(transform.position, 0.3f);
+        }
+        else if (trafficDirection == 0)
         {
             Gizmos.color = Color.red;
             Gizmos.DrawCube(transform.position, new Vector3(0.5f, 0.5f, 0.5f));
         }
-        if(trafficDirection == 1)
+        else if (trafficDirection == 1)
         {
             Gizmos.color = Color.magenta;
             Gizmos.DrawCube(transform.position, new Vector3(0.5f, 0.5f, 0.5f));
         }
-        if (needIncomingConnection)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawSphere(transform.position, 0.5f);
-        }
-        if (needOutgoingConnection)
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(transform.position, 0.5f);
-        }
+
         if (isParkingSpot)
         {
             Gizmos.color = Color.yellow;
@@ -72,6 +79,6 @@ public class Node : MonoBehaviour
         }
 
         Gizmos.color = Color.white;
-    }*/
-    
+    }
+
 }

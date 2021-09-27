@@ -5,6 +5,7 @@ using UnityEngine;
 public class IntersectionTrigger : MonoBehaviour
 {
     public int id;
+    public int intersectionId;
 
     private const int LEFT = 0;
     private const int STRAIGHT = 1;
@@ -16,6 +17,7 @@ public class IntersectionTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Collision happened");
         IntersectionVehicle collider = other.GetComponent<IntersectionVehicle>();
         if (other.gameObject.layer == 9 && !collisionRegistered.Contains(collider))
         {
