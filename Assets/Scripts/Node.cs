@@ -28,7 +28,7 @@ public class Node : MonoBehaviour
     public int numberCars;
 
 
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
         for (int i = 0; i < nextNodes.Count; i++)
@@ -41,6 +41,9 @@ public class Node : MonoBehaviour
             float distance = Vector3.Distance(transform.position, nextNodes[i].transform.position);
             Gizmos.DrawSphere(Vector3.MoveTowards(transform.position, nextNodes[i].transform.position, distance - 0.4f), 0.15f);
         }
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(transform.position, 0.25f);
+
         if (isTurnLeft)
         {
             Gizmos.color = Color.yellow;
@@ -77,8 +80,13 @@ public class Node : MonoBehaviour
             Gizmos.color = Color.yellow;
             Gizmos.DrawSphere(transform.position, 0.1f);
         }
+        if (isLaneChange)
+        {
+            Gizmos.color = Color.white;
+            Gizmos.DrawCube(transform.position, new Vector3(0.7f, 0.7f, 0.7f));
+        }
 
         Gizmos.color = Color.white;
-    }
+    }*/
 
 }

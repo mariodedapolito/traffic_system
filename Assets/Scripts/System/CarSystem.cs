@@ -7,35 +7,209 @@ using Unity.Transforms;
 using Unity.Physics;
 using Unity.Collections;
 
-[UpdateBefore(typeof(CarsPositionSystem))]
-[UpdateAfter(typeof(IntersectionTriggerSystem))]
+
+[UpdateAfter(typeof(IntersectionPrecedenceSystem))]
+[UpdateAfter(typeof(CarsPositionSystem))]
 [UpdateInGroup(typeof(InitializationSystemGroup))]
 class CarSystem : SystemBase
 {
+
+    private const int LANE_CHANGE = 1;
+
     protected override void OnUpdate()
     {
+        int elapsedTime = (int)UnityEngine.Time.time;
+
         float time = Time.DeltaTime;
+
         Entities
             .WithoutBurst()
-            .ForEach((DynamicBuffer<ListNode> ListNode, ref VehicleNavigation navigation, ref Translation translation, ref Rotation rotation, ref VehicleSpeed speed, in VehicleSteering steering, in LocalToWorld ltw) =>
+            .ForEach((DynamicBuffer<NodesPositionList> NodesPositionList, DynamicBuffer<NodesTypeList> NodesTypeList, ref VehicleNavigation navigation, ref Translation translation, ref Rotation rotation, ref VehicleSpeed speed, in VehicleSteering steering, in LocalToWorld ltw) =>
             {
-                NativeHashMap<int, char> carsPosition = CarsPositionSystem.carsPositionMap;
-                int lookaheadLength = 2;
-                for (int i = 1; i <= lookaheadLength && !navigation.intersectionStop; i++)
+                if (navigation.intersectionStop && navigation.isSemaphoreIntersection)
                 {
-                    int positionKey = CarsPositionSystem.GetPositionHashMapKey(translation.Value + ltw.Forward * i);
-                    if (carsPosition.TryGetValue(positionKey, out _))
+                    float preciseCrossingTurn = (elapsedTime / 15f) % (float)navigation.intersectionNumRoads;
+                    int actualCrossingTurn = -1;
+                    if (preciseCrossingTurn % 1 <= 0.8f)
                     {
-                        navigation.trafficStop = true;
-                        break;
+                        actualCrossingTurn = (int)preciseCrossingTurn;
+                    }
+
+                    if (navigation.intersectionNumRoads == 3 && actualCrossingTurn == 2)
+                    {
+                        actualCrossingTurn = 3;
+                    }
+
+                    if (navigation.intersectionDirection == actualCrossingTurn)
+                    {
+                        navigation.intersectionStop = false;
+                        navigation.intersectionCrossing = true;
+                    }
+                }
+                else
+                {
+                    NativeHashMap<int, char> carsPosition = CarsPositionSystem.carsPositionMap;
+                    int lookaheadLength = 2;
+                    for (int i = 1; i <= lookaheadLength; i++)
+                    {
+                        //Debug.DrawLine(translation.Value, translation.Value + ltw.Forward * i, Color.white, 0.1f, false);
+                        int positionKey = CarsPositionSystem.GetPositionHashMapKey(translation.Value + ltw.Forward * i);
+                        if (carsPosition.ContainsKey(positionKey))
+                        {
+                            navigation.trafficStop = true;
+
+                        }
+                        else
+                        {
+                            navigation.trafficStop = false;
+                        }
+                    }
+
+                    if (NodesTypeList[navigation.currentNode - 1].nodeType == LANE_CHANGE || NodesTypeList[navigation.currentNode].nodeType == LANE_CHANGE)
+                    {
+                        navigation.isChangingLanes = true;
+                        int positionKey1, positionKey2;
+                        float3 leftDirection = (-1) * ltw.Right;
+                        float3 leftDiagDirection = leftDirection + ltw.Forward;
+                        float3 rightDirection = ltw.Right;
+                        float3 rightDiagDirection = ltw.Right + ltw.Forward;
+                        float3 carRotation = ((Quaternion)rotation.Value).eulerAngles;
+                        //Get angle between 0 and 360
+                        float carAngle = carRotation.y - Mathf.CeilToInt(carRotation.y / 360f) * 360f;
+                        if (carAngle < 0)
+                        {
+                            carAngle += 360f;
+                        }
+                        ////Debug.Log(carAngle);
+                        if (carAngle >= 65 && carAngle <= 75)    //LEFT -> RIGHT lanechange (go left lane)
+                        {
+                            //Debug.DrawLine(translation.Value, translation.Value + leftDirection, Color.white, 0.1f, false);
+                            //Debug.DrawLine(translation.Value, translation.Value + leftDiagDirection, Color.white, 0.1f, false);
+                            positionKey1 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + leftDirection);
+                            positionKey2 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + leftDiagDirection);
+                            if (carsPosition.ContainsKey(positionKey1) || carsPosition.ContainsKey(positionKey2))
+                            {
+                                navigation.trafficStop = true;
+                            }
+                            else
+                            {
+                                navigation.trafficStop = false;
+                            }
+                        }
+                        else if (carAngle >= 100 && carAngle <= 110)    //LEFT -> RIGHT lanechange (go right lane)
+                        {
+                            //Debug.DrawLine(translation.Value, translation.Value + rightDirection, Color.white, 0.1f, false);
+                            //Debug.DrawLine(translation.Value, translation.Value + rightDiagDirection, Color.white, 0.1f, false);
+                            positionKey1 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + rightDirection);
+                            positionKey2 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + rightDiagDirection);
+                            if (carsPosition.ContainsKey(positionKey1) || carsPosition.ContainsKey(positionKey2))
+                            {
+                                navigation.trafficStop = true;
+                            }
+                            else
+                            {
+                                navigation.trafficStop = false;
+                            }
+                        }
+                        else if (carAngle >= 250 && carAngle <= 260)    //RIGHT -> LEFT lanechange (go to left lane)
+                        {
+                            //Debug.DrawLine(translation.Value, translation.Value + leftDirection, Color.white, 0.1f, false);
+                            //Debug.DrawLine(translation.Value, translation.Value + leftDiagDirection, Color.white, 0.1f, false);
+                            positionKey1 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + leftDirection);
+                            positionKey2 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + leftDiagDirection);
+                            if (carsPosition.ContainsKey(positionKey1) || carsPosition.ContainsKey(positionKey2))
+                            {
+                                navigation.trafficStop = true;
+                            }
+                            else
+                            {
+                                navigation.trafficStop = false;
+                            }
+                        }
+                        else if (carAngle >= 280 && carAngle <= 290)    //RIGHT -> LEFT lanechange (go to right lane)
+                        {
+                            //Debug.DrawLine(translation.Value, translation.Value + rightDirection, Color.white, 0.1f, false);
+                            //Debug.DrawLine(translation.Value, translation.Value + rightDiagDirection, Color.white, 0.1f, false);
+                            positionKey1 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + rightDirection);
+                            positionKey2 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + rightDiagDirection);
+                            if (carsPosition.ContainsKey(positionKey1) || carsPosition.ContainsKey(positionKey2))
+                            {
+                                navigation.trafficStop = true;
+                            }
+                            else
+                            {
+                                navigation.trafficStop = false;
+                            }
+                        }
+                        else if (carAngle >= 160 && carAngle <= 170)    //TOP -> BOTTOM lanechange (go to left lane)
+                        {
+                            //Debug.DrawLine(translation.Value, translation.Value + leftDirection, Color.white, 0.1f, false);
+                            //Debug.DrawLine(translation.Value, translation.Value + leftDiagDirection, Color.white, 0.1f, false);
+                            positionKey1 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + leftDirection);
+                            positionKey2 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + leftDiagDirection);
+                            if (carsPosition.ContainsKey(positionKey1) || carsPosition.ContainsKey(positionKey2))
+                            {
+                                navigation.trafficStop = true;
+                            }
+                            else
+                            {
+                                navigation.trafficStop = false;
+                            }
+                        }
+                        else if (carAngle >= 190 && carAngle <= 200)    //TOP -> BOTTOM lanechange (go to right lane)
+                        {
+                            //Debug.DrawLine(translation.Value, translation.Value + rightDirection, Color.white, 0.1f, false);
+                            //Debug.DrawLine(translation.Value, translation.Value + rightDiagDirection, Color.white, 0.1f, false);
+                            positionKey1 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + rightDirection);
+                            positionKey2 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + rightDiagDirection);
+                            if (carsPosition.ContainsKey(positionKey1) || carsPosition.ContainsKey(positionKey2))
+                            {
+                                navigation.trafficStop = true;
+                            }
+                            else
+                            {
+                                navigation.trafficStop = false;
+                            }
+                        }
+                        else if (carAngle >= 340 && carAngle <= 350)    //BOTTOM -> TOP lanechange (go to left lane)
+                        {
+                            //Debug.DrawLine(translation.Value, translation.Value + leftDirection, Color.white, 0.1f, false);
+                            //Debug.DrawLine(translation.Value, translation.Value + leftDiagDirection, Color.white, 0.1f, false);
+                            positionKey1 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + leftDirection);
+                            positionKey2 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + leftDiagDirection);
+                            if (carsPosition.ContainsKey(positionKey1) || carsPosition.ContainsKey(positionKey2))
+                            {
+                                navigation.trafficStop = true;
+                            }
+                            else
+                            {
+                                navigation.trafficStop = false;
+                            }
+                        }
+                        else if (carAngle >= 10 && carAngle <= 20)    //BOTTOM -> TOP lanechange (go to right lane)
+                        {
+                            //Debug.DrawLine(translation.Value, translation.Value + rightDirection, Color.white, 0.1f, false);
+                            //Debug.DrawLine(translation.Value, translation.Value + rightDiagDirection, Color.white, 0.1f, false);
+                            positionKey1 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + rightDirection);
+                            positionKey2 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + rightDiagDirection);
+                            if (carsPosition.ContainsKey(positionKey1) || carsPosition.ContainsKey(positionKey2))
+                            {
+                                navigation.trafficStop = true;
+
+                            }
+                            else
+                            {
+                                navigation.trafficStop = false;
+                            }
+                        }
                     }
                     else
                     {
-                        navigation.trafficStop = false;
+                        navigation.isChangingLanes = false;
                     }
                 }
 
-                if(navigation.currentNode == ListNode.Length-1)
+                if (navigation.currentNode == NodesPositionList.Length - 1)
                 {
                     navigation.needParking = true;
                     navigation.trafficStop = true;
@@ -53,7 +227,7 @@ class CarSystem : SystemBase
                         speed.currentSpeed = 0;
                     }
                     translation.Value += ltw.Forward * time * speed.currentSpeed;
-                    float3 direction = ListNode[navigation.currentNode].listNodesTransform - translation.Value;
+                    float3 direction = NodesPositionList[navigation.currentNode].nodePosition - translation.Value;
                     rotation.Value = Quaternion.LookRotation(direction);
                 }
                 else  //SPEEDING UP IF NO TRAFFIC OR MY TURN IN INTERSECTION
@@ -68,26 +242,20 @@ class CarSystem : SystemBase
                         speed.currentSpeed = speed.maxSpeed;
 
                     }
-                    translation.Value += ltw.Forward * time * speed.currentSpeed;
-                    float3 direction = ListNode[navigation.currentNode].listNodesTransform - translation.Value;
-                    rotation.Value = Quaternion.LookRotation(direction);
+                    float3 nextNodeDirection = Unity.Mathematics.math.normalize((NodesPositionList[navigation.currentNode].nodePosition - translation.Value));
+                    translation.Value += nextNodeDirection * time * speed.currentSpeed;
+
+                    float3 direction = NodesPositionList[navigation.currentNode].nodePosition - translation.Value;
+                    float3 neededRotation = Quaternion.LookRotation(direction).eulerAngles;
+
+                    rotation.Value = Quaternion.Euler(neededRotation);
                 }
 
-                if ((math.distance(translation.Value, ListNode[navigation.currentNode].listNodesTransform) < 1f && !navigation.needParking))
+                if ((math.distance(translation.Value, NodesPositionList[navigation.currentNode].nodePosition) < 1f && !navigation.needParking))
+                {
                     navigation.currentNode++;
+                }
 
             }).ScheduleParallel();
     }
-
-
-    void Stop(PhysicsVelocity p, bool status) //to implement
-    {
-        float3 v = p.Linear;
-        if (status)
-            p.Linear = new float3(0, 0, 0);
-        else
-            p.Linear = v;
-    }
-
-
 }

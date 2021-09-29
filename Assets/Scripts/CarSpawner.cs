@@ -12,6 +12,8 @@ public class CarSpawner : MonoBehaviour
     private List<Node> parkingWaypoints;
     private int numCarsToSpawn;
 
+    private int carId = 0;
+
     private List<Entity> carEntities;
     private EntityManager entityManager;
     private BlobAssetStore blobAssetStore;
@@ -40,14 +42,14 @@ public class CarSpawner : MonoBehaviour
 
             int randomSrcNode = UnityEngine.Random.Range(0, spawnWaypoints.Count);
             Node spawnNode = spawnWaypoints[randomSrcNode];
-            Node startingNode = spawnNode.nextNodes[0];
+            //Node startingNode = spawnNode.nextNodes[0];
 
             int carRotation;
-            if (startingNode.gameObject.GetComponentInParent<Street>().numberLanes == 1)
+            if (spawnNode.gameObject.GetComponentInParent<Street>().numberLanes == 1)
             {
-                if ((int)spawnNode.transform.position.x == (int)startingNode.transform.position.x)
+                if ((int)spawnNode.transform.position.x == (int)spawnNode.transform.position.x)
                 {
-                    if ((int)spawnNode.transform.position.z < (int)startingNode.transform.position.z)
+                    if ((int)spawnNode.transform.position.z < (int)spawnNode.transform.position.z)
                     {
                         carRotation = 0;
                     }
@@ -58,7 +60,7 @@ public class CarSpawner : MonoBehaviour
                 }
                 else
                 {
-                    if ((int)spawnNode.transform.position.x < (int)startingNode.transform.position.x)
+                    if ((int)spawnNode.transform.position.x < (int)spawnNode.transform.position.x)
                     {
                         carRotation = 90;
                     }
@@ -103,8 +105,10 @@ public class CarSpawner : MonoBehaviour
 
             carToSpawn.transform.position = spawnNode.transform.position;
             carToSpawn.transform.rotation = Quaternion.Euler(0, carRotation, 0);
-            carData.startingNode = startingNode;
+            carData.startingNode = spawnNode;
             carData.destinationNode = destinationNode;
+            carData.Speed = 1.5f + Random.Range(-0.5f, 0.5f);  //driver angryness: top speed
+            carData.SpeedDamping = carData.Speed / 10f;     //driver angryness: speeding/braking aggressivity
 
             //Debug.Log("Car position: " + carToSpawn.transform.position + " rotation: " + carToSpawn.transform.rotation);
 

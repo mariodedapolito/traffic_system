@@ -382,7 +382,6 @@ GameObject:
   - component: {fileID: 586779000389191503}
   - component: {fileID: 586779000385008015}
   - component: {fileID: 7985703107842599092}
-  - component: {fileID: 2090827885466071164}
   m_Layer: 0
   m_Name: LampPost_D (3)
   m_TagString: Untagged
@@ -482,26 +481,13 @@ MonoBehaviour:
   semaphoreId: 0
   redLights:
   - {fileID: 586779000380888237}
+  - {fileID: 586779000380888237}
   yellowLights:
+  - {fileID: 586779000380888233}
   - {fileID: 586779000380888233}
   greenLights:
   - {fileID: 586779000380888235}
---- !u!114 &2090827885466071164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 586779000391195023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac25d66bbe9e0594da72a186942a761b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  semaphoreId: 0
-  redLights: []
-  yellowLights: []
-  greenLights: []
+  - {fileID: 586779000380888235}
 --- !u!1 &653987445875523936
 GameObject:
   m_ObjectHideFlags: 0
@@ -707,7 +693,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 3
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 0
+  isIntersectionExit: 1
+  isSimpleIntersection: 0
+  isSemaphoreIntersection: 1
+  intersectionNumRoads: 4
 --- !u!114 &753447687536732895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -825,7 +816,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1324014338396369839}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 1.5, y: 0.5000002, z: 0.48149872}
+  m_LocalPosition: {x: 1.74, y: 0.5000002, z: 0.48149872}
   m_LocalScale: {x: 0.7500002, y: 0.15000002, z: 1}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -1003,7 +994,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 1
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 1
+  isIntersectionExit: 0
+  isSimpleIntersection: 0
+  isSemaphoreIntersection: 1
+  intersectionNumRoads: 4
 --- !u!114 &6961011049675193865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1122,7 +1118,6 @@ GameObject:
   - component: {fileID: 1363406189089952377}
   - component: {fileID: 1363406189085762745}
   - component: {fileID: 8366993742005878146}
-  - component: {fileID: 1907142803465958429}
   m_Layer: 0
   m_Name: LampPost_D (2)
   m_TagString: Untagged
@@ -1222,26 +1217,13 @@ MonoBehaviour:
   semaphoreId: 0
   redLights:
   - {fileID: 1363406189097992603}
+  - {fileID: 1363406189097992603}
   yellowLights:
+  - {fileID: 1363406189097992607}
   - {fileID: 1363406189097992607}
   greenLights:
   - {fileID: 1363406189097992605}
---- !u!114 &1907142803465958429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1363406189091884217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac25d66bbe9e0594da72a186942a761b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  semaphoreId: 0
-  redLights: []
-  yellowLights: []
-  greenLights: []
+  - {fileID: 1363406189097992605}
 --- !u!1 &1363406189091884221
 GameObject:
   m_ObjectHideFlags: 0
@@ -1453,7 +1435,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1657108550622718673}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.48150635, y: 0.5000005, z: 1.5}
+  m_LocalPosition: {x: -0.48150635, y: 0.5000005, z: 1.94}
   m_LocalScale: {x: 0.75, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -1631,7 +1613,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 2
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 1
+  isIntersectionExit: 0
+  isSimpleIntersection: 0
+  isSemaphoreIntersection: 1
+  intersectionNumRoads: 4
 --- !u!114 &2049925990745010715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1903,7 +1890,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2673948630916210182}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.5, y: 0.10000008, z: 0.375}
+  m_LocalPosition: {x: -1.1199951, y: 0.10000008, z: 0.375}
   m_LocalScale: {x: 0.15, y: 0.20000008, z: 0.15000004}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -2044,7 +2031,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2756452828896087316}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -1.5, y: 0.50000006, z: -0.4544983}
+  m_LocalPosition: {x: -1.78, y: 0.50000006, z: -0.4544983}
   m_LocalScale: {x: 0.7500002, y: 0.15000002, z: 1}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -2222,7 +2209,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 3
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 1
+  isIntersectionExit: 0
+  isSimpleIntersection: 0
+  isSemaphoreIntersection: 1
+  intersectionNumRoads: 4
 --- !u!114 &259952847976933228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2261,7 +2253,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2796393342937563752}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3600006, y: 0.099999785, z: -1.5}
+  m_LocalPosition: {x: 0.3600006, y: 0.099999785, z: -1.14}
   m_LocalScale: {x: 0.15, y: 0.20000008, z: 0.15000004}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -2326,7 +2318,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2854424254445899697}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.34500122, y: 0.10000026, z: 1.5}
+  m_LocalPosition: {x: -0.34500122, y: 0.10000026, z: 1.2099991}
   m_LocalScale: {x: 0.15, y: 0.20000008, z: 0.15000004}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -2634,7 +2626,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 0
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 0
+  isIntersectionExit: 1
+  isSimpleIntersection: 0
+  isSemaphoreIntersection: 1
+  intersectionNumRoads: 4
 --- !u!114 &1746376821422221684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2766,7 +2763,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3580008997884257303}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3600006, y: 0.10000026, z: 1.5}
+  m_LocalPosition: {x: 0.3600006, y: 0.10000026, z: 1.21}
   m_LocalScale: {x: 0.15, y: 0.20000008, z: 0.15000004}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -2829,7 +2826,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3862904229557755330}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.34500122, y: 0.099999785, z: -1.5}
+  m_LocalPosition: {x: -0.34500122, y: 0.099999785, z: -1.1399994}
   m_LocalScale: {x: 0.15, y: 0.20000008, z: 0.15000004}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -3274,7 +3271,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 1
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 0
+  isIntersectionExit: 1
+  isSimpleIntersection: 0
+  isSemaphoreIntersection: 1
+  intersectionNumRoads: 4
 --- !u!114 &8249684612306477590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3315,7 +3317,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5916471292015237640}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.4830017, y: 0.49999988, z: -1.5}
+  m_LocalPosition: {x: 0.4830017, y: 0.49999988, z: -1.8}
   m_LocalScale: {x: 0.75, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -3493,7 +3495,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 0
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 1
+  isIntersectionExit: 0
+  isSimpleIntersection: 0
+  isSemaphoreIntersection: 1
+  intersectionNumRoads: 4
 --- !u!114 &4941360240218407035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3671,7 +3678,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6501038572128093263}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 0.099999964, z: -0.375}
+  m_LocalPosition: {x: 1.17, y: 0.099999964, z: -0.375}
   m_LocalScale: {x: 0.15, y: 0.20000008, z: 0.15000004}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -4046,7 +4053,6 @@ GameObject:
   - component: {fileID: 7142941166305316501}
   - component: {fileID: 7142941166309521493}
   - component: {fileID: 420684056432157038}
-  - component: {fileID: 8498421265519000946}
   m_Layer: 0
   m_Name: LampPost_D
   m_TagString: Untagged
@@ -4146,26 +4152,13 @@ MonoBehaviour:
   semaphoreId: 0
   redLights:
   - {fileID: 7142941166313626999}
+  - {fileID: 7142941166313626999}
   yellowLights:
+  - {fileID: 7142941166313626995}
   - {fileID: 7142941166313626995}
   greenLights:
   - {fileID: 7142941166313626993}
---- !u!114 &8498421265519000946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7142941166303318101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac25d66bbe9e0594da72a186942a761b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  semaphoreId: 0
-  redLights: []
-  yellowLights: []
-  greenLights: []
+  - {fileID: 7142941166313626993}
 --- !u!1 &7142941166303318109
 GameObject:
   m_ObjectHideFlags: 0
@@ -4622,7 +4615,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8088525164659064854}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.5, y: 0.099999964, z: -0.375}
+  m_LocalPosition: {x: -1.12, y: 0.099999964, z: -0.375}
   m_LocalScale: {x: 0.15, y: 0.20000008, z: 0.15000004}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -4813,7 +4806,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8476850671308534989}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 0.10000008, z: 0.375}
+  m_LocalPosition: {x: 1.1699982, y: 0.10000008, z: 0.375}
   m_LocalScale: {x: 0.15, y: 0.20000008, z: 0.15000004}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -5058,7 +5051,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 2
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 0
+  isIntersectionExit: 1
+  isSimpleIntersection: 0
+  isSemaphoreIntersection: 1
+  intersectionNumRoads: 4
 --- !u!114 &5243717162129151660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5205,7 +5203,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6cf3fab3c7adf84a9a8bd5bc01b3df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intersectionId: 0
   carWaypoints:
   - {fileID: 8823778374585020368}
   - {fileID: 6427574373066459664}
@@ -5444,7 +5441,6 @@ GameObject:
   - component: {fileID: 9152168447996061989}
   - component: {fileID: 9152168447991865317}
   - component: {fileID: 1870483101180511966}
-  - component: {fileID: 4351889932588769018}
   m_Layer: 0
   m_Name: LampPost_D (1)
   m_TagString: Untagged
@@ -5544,26 +5540,13 @@ MonoBehaviour:
   semaphoreId: 0
   redLights:
   - {fileID: 9152168448003947207}
+  - {fileID: 9152168448003947207}
   yellowLights:
+  - {fileID: 9152168448003947203}
   - {fileID: 9152168448003947203}
   greenLights:
   - {fileID: 9152168448003947201}
---- !u!114 &4351889932588769018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9152168447997999077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac25d66bbe9e0594da72a186942a761b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  semaphoreId: 0
-  redLights: []
-  yellowLights: []
-  greenLights: []
+  - {fileID: 9152168448003947201}
 --- !u!1 &9152168447997999085
 GameObject:
   m_ObjectHideFlags: 0

@@ -103,7 +103,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 735988297201346117}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 2.2050018, y: 0.5, z: 0.79600143}
+  m_LocalPosition: {x: 2.33, y: 0.5, z: 0.79600143}
   m_LocalScale: {x: 1.5, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -281,7 +281,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 1
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 1
+  isIntersectionExit: 0
+  isSimpleIntersection: 1
+  isSemaphoreIntersection: 0
+  intersectionNumRoads: 3
 --- !u!114 &1291678852735231194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,7 +387,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9177460285109203998}
   - component: {fileID: 1427058483237421572}
-  - component: {fileID: 3984468016897375999}
   m_Layer: 8
   m_Name: Node_lane_0
   m_TagString: CarWaypoint
@@ -436,19 +440,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &3984468016897375999
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1088401950099414208}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1134539343533350751
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,7 +450,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6235103050806737248}
   - component: {fileID: 1546281372416915210}
-  - component: {fileID: 494323509224978119}
   m_Layer: 6
   m_Name: Node_lanechange
   m_TagString: CarWaypoint
@@ -479,7 +469,7 @@ Transform:
   m_LocalScale: {x: 0.15, y: 0.2, z: 0.066}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 48
+  m_RootOrder: 46
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1546281372416915210
 MonoBehaviour:
@@ -514,19 +504,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &494323509224978119
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134539343533350751}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1295995501456825094
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,6 +549,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 4331352759266391504}
+  - {fileID: 6222255469275169965}
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 1
@@ -684,7 +662,7 @@ Transform:
   m_LocalScale: {x: 0.15, y: 0.20000006, z: 0.066000015}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 45
+  m_RootOrder: 43
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7741378073586626210
 MonoBehaviour:
@@ -757,7 +735,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1493801164120843820}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.85650635, y: 0.49999988, z: -1.8395004}
+  m_LocalPosition: {x: 0.85650635, y: 0.49999988, z: -2.44}
   m_LocalScale: {x: 1.5000002, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -935,7 +913,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 0
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 1
+  isIntersectionExit: 0
+  isSimpleIntersection: 1
+  isSemaphoreIntersection: 0
+  intersectionNumRoads: 3
 --- !u!114 &7947612511945950160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -949,84 +932,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConversionMode: 0
---- !u!1 &1532513449239667670
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5185825453059015080}
-  - component: {fileID: 3283287512762956847}
-  - component: {fileID: 8843487591578230133}
-  m_Layer: 6
-  m_Name: Node_lanechange
-  m_TagString: CarWaypoint
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5185825453059015080
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1532513449239667670}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 3.3246002, y: 0.100000024, z: 0.8100014}
-  m_LocalScale: {x: 0.14999999, y: 0.19999997, z: 0.065999985}
-  m_Children: []
-  m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 37
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3283287512762956847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1532513449239667670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextNodes:
-  - {fileID: 1427058483237421572}
-  - {fileID: 1535907822226779778}
-  needIncomingConnection: 0
-  needOutgoingConnection: 0
-  isIntersection: 0
-  isLaneChange: 1
-  isTurnLeft: 0
-  isTurnRight: 0
-  isBusLane: 0
-  isBusStop: 0
-  isParkingGateway: 0
-  isParkingSpot: 0
-  parkingExitRotation: 0
-  parkingRotation: 0
-  laneNumber: 0
-  trafficDirection: 1
-  isBusSpawn: 0
-  isCarSpawn: 0
-  isOccupied: 0
-  numberCars: 0
---- !u!135 &8843487591578230133
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1532513449239667670}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1697922262883441685
 GameObject:
   m_ObjectHideFlags: 0
@@ -1073,7 +978,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 1427058483237421572}
-  - {fileID: 3283287512762956847}
   needIncomingConnection: 1
   needOutgoingConnection: 0
   isIntersection: 0
@@ -1151,7 +1055,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 1535907822226779778}
-  - {fileID: 3283287512762956847}
   needIncomingConnection: 1
   needOutgoingConnection: 0
   isIntersection: 0
@@ -1213,7 +1116,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.19999997, z: 0.065999985}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 38
+  m_RootOrder: 37
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &627334118984844140
 MonoBehaviour:
@@ -1271,7 +1174,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3745318002823821341}
   - component: {fileID: 8374174121628772723}
-  - component: {fileID: 8593465647762655281}
   m_Layer: 8
   m_Name: Node_lane_0 (11)
   m_TagString: CarWaypoint
@@ -1325,19 +1227,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &8593465647762655281
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2107495608144183711}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2366576420802635830
 GameObject:
   m_ObjectHideFlags: 0
@@ -1348,7 +1237,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6953419185460100026}
   - component: {fileID: 1535907822226779778}
-  - component: {fileID: 5475960816944879223}
   m_Layer: 8
   m_Name: Node_lane_1
   m_TagString: CarWaypoint
@@ -1402,19 +1290,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &5475960816944879223
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2366576420802635830}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2600906509087750228
 GameObject:
   m_ObjectHideFlags: 0
@@ -1538,7 +1413,7 @@ Transform:
   m_LocalScale: {x: 0.15, y: 0.20000006, z: 0.066000015}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 47
+  m_RootOrder: 45
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5154143714884181252
 MonoBehaviour:
@@ -1595,7 +1470,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8522470934257549656}
   - component: {fileID: 3870581845951237938}
-  - component: {fileID: 6489802499377041399}
   m_Layer: 6
   m_Name: Node_lanechange
   m_TagString: CarWaypoint
@@ -1611,7 +1485,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3421854579284502375}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -3.3048096, y: 0.100000024, z: 0.8100014}
+  m_LocalPosition: {x: -3.18, y: 0.100000024, z: 0.8100014}
   m_LocalScale: {x: 0.14999999, y: 0.19999997, z: 0.065999985}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -1650,19 +1524,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &6489802499377041399
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3421854579284502375}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3436063773545065329
 GameObject:
   m_ObjectHideFlags: 0
@@ -1908,84 +1769,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &3928058471850825386
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2971198813582785816}
-  - component: {fileID: 2028008409696141135}
-  - component: {fileID: 2251283938977401515}
-  m_Layer: 6
-  m_Name: Node_lanechange (1)
-  m_TagString: CarWaypoint
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2971198813582785816
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3928058471850825386}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.07080078, y: 0.099999905, z: 0.8100014}
-  m_LocalScale: {x: 0.14999999, y: 0.19999997, z: 0.065999985}
-  m_Children: []
-  m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 39
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2028008409696141135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3928058471850825386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextNodes:
-  - {fileID: 6222255469275169965}
-  - {fileID: 8374174121628772723}
-  needIncomingConnection: 0
-  needOutgoingConnection: 0
-  isIntersection: 0
-  isLaneChange: 1
-  isTurnLeft: 0
-  isTurnRight: 0
-  isBusLane: 0
-  isBusStop: 0
-  isParkingGateway: 0
-  isParkingSpot: 0
-  parkingExitRotation: 0
-  parkingRotation: 0
-  laneNumber: 0
-  trafficDirection: 1
-  isBusSpawn: 0
-  isCarSpawn: 0
-  isOccupied: 0
-  numberCars: 0
---- !u!135 &2251283938977401515
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3928058471850825386}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4104367761436823817
 GameObject:
   m_ObjectHideFlags: 0
@@ -1996,7 +1779,6 @@ GameObject:
   m_Component:
   - component: {fileID: 522138613424733865}
   - component: {fileID: 4578080887571067395}
-  - component: {fileID: 7278077609025796436}
   m_Layer: 8
   m_Name: Node_lane_0 (6)
   m_TagString: CarWaypoint
@@ -2051,19 +1833,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &7278077609025796436
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4104367761436823817}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4574206656601068657
 GameObject:
   m_ObjectHideFlags: 0
@@ -2074,7 +1843,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7922520847037939931}
   - component: {fileID: 5025507173244481139}
-  - component: {fileID: 3147091962809415616}
   m_Layer: 8
   m_Name: Node_lane_1
   m_TagString: CarWaypoint
@@ -2094,7 +1862,7 @@ Transform:
   m_LocalScale: {x: 0.15, y: 0.20000006, z: 0.066000015}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 46
+  m_RootOrder: 44
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5025507173244481139
 MonoBehaviour:
@@ -2128,19 +1896,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &3147091962809415616
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4574206656601068657}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4907975623010703530
 GameObject:
   m_ObjectHideFlags: 0
@@ -2234,7 +1989,7 @@ Transform:
   m_LocalScale: {x: 0.15, y: 0.20000006, z: 0.066000015}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 41
+  m_RootOrder: 39
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8960364073524379432
 MonoBehaviour:
@@ -2290,7 +2045,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3611788288513275863}
   - component: {fileID: 8980865414754962596}
-  - component: {fileID: 2809273726067654585}
   m_Layer: 8
   m_Name: Node_lane_0
   m_TagString: CarWaypoint
@@ -2310,7 +2064,7 @@ Transform:
   m_LocalScale: {x: 0.15, y: 0.20000006, z: 0.066000015}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 42
+  m_RootOrder: 40
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8980865414754962596
 MonoBehaviour:
@@ -2344,19 +2098,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &2809273726067654585
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5388694202027723732}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5424852123117041122
 GameObject:
   m_ObjectHideFlags: 0
@@ -2430,7 +2171,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2177256744707650390}
   - component: {fileID: 1301847040601276700}
-  - component: {fileID: 2997744510700638098}
   m_Layer: 8
   m_Name: Node_lane_0
   m_TagString: CarWaypoint
@@ -2485,19 +2225,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &2997744510700638098
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5559583854692777011}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5603629828433239468
 GameObject:
   m_ObjectHideFlags: 0
@@ -2508,7 +2235,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3343874866054979099}
   - component: {fileID: 1710362662196953492}
-  - component: {fileID: 4399949142369841975}
   m_Layer: 8
   m_Name: Node_lane_1
   m_TagString: CarWaypoint
@@ -2563,19 +2289,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &4399949142369841975
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5603629828433239468}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5745664337170073707
 GameObject:
   m_ObjectHideFlags: 0
@@ -2603,7 +2316,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5745664337170073707}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -2.2050018, y: 0.5, z: -0.78499985}
+  m_LocalPosition: {x: -2.33, y: 0.5, z: -0.78499985}
   m_LocalScale: {x: 1.5, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -2781,7 +2494,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 3
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 1
+  isIntersectionExit: 0
+  isSimpleIntersection: 1
+  isSemaphoreIntersection: 0
+  intersectionNumRoads: 3
 --- !u!114 &7350666898052385550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2868,7 +2586,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3206603701148069279}
   - component: {fileID: 1185977095547736051}
-  - component: {fileID: 8405205716600010466}
   m_Layer: 8
   m_Name: Node_lane_0 (18)
   m_TagString: CarWaypoint
@@ -2884,7 +2601,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6131144419134699987}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 1.2734985, y: 0.100000024, z: 0.40750122}
+  m_LocalPosition: {x: 0.61, y: 0.100000024, z: 0.40750122}
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.15}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -2904,7 +2621,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 6222255469275169965}
-  - {fileID: 2028008409696141135}
+  - {fileID: 1362187589791941886}
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
@@ -2923,19 +2640,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &8405205716600010466
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6131144419134699987}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6365608278389599390
 GameObject:
   m_ObjectHideFlags: 0
@@ -2966,7 +2670,7 @@ Transform:
   m_LocalScale: {x: 0.15, y: 0.20000006, z: 0.066000015}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 43
+  m_RootOrder: 41
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3986508607184873040
 MonoBehaviour:
@@ -3116,7 +2820,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6838888233279451084}
   - component: {fileID: 4904166893973109332}
-  - component: {fileID: 4762014297532033641}
   m_Layer: 8
   m_Name: Node_lane_0 (19)
   m_TagString: CarWaypoint
@@ -3171,19 +2874,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &4762014297532033641
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6777755050406948625}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7231232333135273329
 GameObject:
   m_ObjectHideFlags: 0
@@ -3452,7 +3142,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 0
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 0
+  isIntersectionExit: 1
+  isSimpleIntersection: 1
+  isSemaphoreIntersection: 0
+  intersectionNumRoads: 3
 --- !u!114 &5275950143846603134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3476,7 +3171,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5946681703468642136}
   - component: {fileID: 8634754008257377685}
-  - component: {fileID: 4021193130826534843}
   m_Layer: 8
   m_Name: Node_lane_0
   m_TagString: CarWaypoint
@@ -3531,19 +3225,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &4021193130826534843
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7303407455880207228}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7466137749544088426
 GameObject:
   m_ObjectHideFlags: 0
@@ -3630,7 +3311,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5035324716143266630}
   - component: {fileID: 6086683089437982792}
-  - component: {fileID: 8759013857192355091}
   m_Layer: 8
   m_Name: Node_lane_0 (12)
   m_TagString: CarWaypoint
@@ -3666,7 +3346,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 8374174121628772723}
-  - {fileID: 2028008409696141135}
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
@@ -3685,19 +3364,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &8759013857192355091
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7654375057782763687}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7766670898408685944
 GameObject:
   m_ObjectHideFlags: 0
@@ -3708,7 +3374,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6329735594650601583}
   - component: {fileID: 6791929597393153063}
-  - component: {fileID: 6967590557973350166}
   m_Layer: 8
   m_Name: Node_lane_0 (1)
   m_TagString: CarWaypoint
@@ -3762,19 +3427,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &6967590557973350166
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7766670898408685944}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7856099342212572564
 GameObject:
   m_ObjectHideFlags: 0
@@ -3785,7 +3437,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1055455712586049059}
   - component: {fileID: 3998636672481638828}
-  - component: {fileID: 2147563325699148559}
   m_Layer: 8
   m_Name: Node_lane_1
   m_TagString: CarWaypoint
@@ -3805,7 +3456,7 @@ Transform:
   m_LocalScale: {x: 0.15, y: 0.20000006, z: 0.066000015}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 44
+  m_RootOrder: 42
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3998636672481638828
 MonoBehaviour:
@@ -3840,19 +3491,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &2147563325699148559
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7856099342212572564}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7900927256057782640
 GameObject:
   m_ObjectHideFlags: 0
@@ -4058,7 +3696,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 1
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 0
+  isIntersectionExit: 1
+  isSimpleIntersection: 1
+  isSemaphoreIntersection: 0
+  intersectionNumRoads: 3
 --- !u!114 &5937822684632455258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4082,7 +3725,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4536607382802140014}
   - component: {fileID: 3662404949971024164}
-  - component: {fileID: 673375720218113962}
   m_Layer: 8
   m_Name: Node_lane_0
   m_TagString: CarWaypoint
@@ -4102,7 +3744,7 @@ Transform:
   m_LocalScale: {x: 0.15, y: 0.20000006, z: 0.066000015}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 40
+  m_RootOrder: 38
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3662404949971024164
 MonoBehaviour:
@@ -4137,19 +3779,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &673375720218113962
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7919002799402959883}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8445412183977258230
 GameObject:
   m_ObjectHideFlags: 0
@@ -4160,7 +3789,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3082831153934890972}
   - component: {fileID: 6222255469275169965}
-  - component: {fileID: 5794697709953398582}
   m_Layer: 8
   m_Name: Node_lane_0 (17)
   m_TagString: CarWaypoint
@@ -4176,7 +3804,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8445412183977258230}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -1.135498, y: 0.100000024, z: 0.40750122}
+  m_LocalPosition: {x: -0.69, y: 0.100000024, z: 0.40750122}
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.15}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -4214,19 +3842,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &5794697709953398582
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8445412183977258230}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8619824012148700140
 GameObject:
   m_ObjectHideFlags: 0
@@ -4432,7 +4047,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 3
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 0
+  isIntersectionExit: 1
+  isSimpleIntersection: 1
+  isSemaphoreIntersection: 0
+  intersectionNumRoads: 3
 --- !u!114 &4701389766411314592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4590,9 +4210,7 @@ Transform:
   - {fileID: 7474904839499715747}
   - {fileID: 6953419185460100026}
   - {fileID: 5250827350602505829}
-  - {fileID: 5185825453059015080}
   - {fileID: 3596632362289122117}
-  - {fileID: 2971198813582785816}
   - {fileID: 4536607382802140014}
   - {fileID: 5328840472995422370}
   - {fileID: 3611788288513275863}
@@ -4664,22 +4282,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6cf3fab3c7adf84a9a8bd5bc01b3df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intersectionId: 0
   carWaypoints:
-  - {fileID: 8634754008257377685}
-  - {fileID: 4578080887571067395}
-  - {fileID: 9136217123576942017}
-  - {fileID: 8374174121628772723}
-  - {fileID: 6086683089437982792}
-  - {fileID: 6767429918945744533}
-  - {fileID: 6222255469275169965}
-  - {fileID: 1185977095547736051}
-  - {fileID: 6791929597393153063}
-  - {fileID: 4904166893973109332}
-  - {fileID: 2425674138584243444}
-  - {fileID: 4331352759266391504}
-  - {fileID: 1362187589791941886}
   - {fileID: 656666556354283086}
+  - {fileID: 1362187589791941886}
+  - {fileID: 4331352759266391504}
+  - {fileID: 2425674138584243444}
+  - {fileID: 4904166893973109332}
+  - {fileID: 6791929597393153063}
+  - {fileID: 1185977095547736051}
+  - {fileID: 6222255469275169965}
+  - {fileID: 6767429918945744533}
+  - {fileID: 6086683089437982792}
+  - {fileID: 8374174121628772723}
+  - {fileID: 9136217123576942017}
+  - {fileID: 4578080887571067395}
+  - {fileID: 8634754008257377685}
   - {fileID: 1301847040601276700}
   - {fileID: 6673196374741141264}
   - {fileID: 1698001564851232360}
@@ -4693,9 +4310,7 @@ MonoBehaviour:
   - {fileID: 8029381094592827674}
   - {fileID: 1535907822226779778}
   - {fileID: 6858097892293687170}
-  - {fileID: 3283287512762956847}
   - {fileID: 627334118984844140}
-  - {fileID: 2028008409696141135}
   - {fileID: 3662404949971024164}
   - {fileID: 8960364073524379432}
   - {fileID: 8980865414754962596}

@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class Street : MonoBehaviour
 {
-    [Header("Intersection Data")]
-    public int intersectionId;
-
     [Header("Street data")]
     public List<Node> carWaypoints;
     public bool isSimpleIntersection;
@@ -43,41 +40,56 @@ public class Street : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    /*void Start()
     {
         //INITIALIZE SIMPLE INTERSECTION DATA STRUCTURES (FOR INTERSECTION PRECEDENCE)
-        if ((isSimpleIntersection || isSemaphoreIntersection))
-        {
-            numberCarsInsideIntersection = 0;
-            numberCarsWaiting = 0;
+        numberCarsInsideIntersection = 0;
+        numberCarsWaiting = 0;
 
+        if (isSimpleIntersection)
+        {
             //Lane adapters always have at least 1 street with 2 lanes, so we need a queue system with 2 slots
 
             if (numberLanes == 1 && !isLaneAdapter)
             {
                 intersectionQueue1Lane = new IntersectionVehicle[4] { null, null, null, null };
                 intersectionBusyMarker = new int[4, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
-                //Debug.Log("Initialized intersection data structures for: 1 lane intersection");
+                StartCoroutine(updateSimpleIntersection());
             }
             else if (numberLanes == 2)
             {
                 intersectionQueue2Lane = new IntersectionVehicle[4, 2] { { null, null }, { null, null }, { null, null }, { null, null } };
                 intersectionBusyMarker = new int[4, 3] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
-                //Debug.Log("Initialized intersection data structures for: 2 lane intersection");
+                StartCoroutine(updateSimpleIntersection());
             }
         }
-
-        if (isSemaphoreIntersection)
+        else if (isSemaphoreIntersection)
         {
             if (numberLanes == 1 && !isLaneAdapter)
             {
-                semaphoreTurn = 0;
-                intersectionQueue1Lane = new IntersectionVehicle[4] { null, null, null, null };
-                intersectionSemaphores[0].greenLights[0].enabled = true;
-                intersectionSemaphores[2].greenLights[0].enabled = true;
-                intersectionSemaphores[1].redLights[0].enabled = true;
-                intersectionSemaphores[3].redLights[0].enabled = true;
-                yellowLightOn = false;
+                //3 way 1 lane intersection
+                if (isTBoneIntersection)
+                {
+                    semaphoreTurn = 0;
+                    intersectionQueue1Lane = new IntersectionVehicle[4] { null, null, null, null };
+                    intersectionSemaphores[0].greenLights[0].enabled = true;
+                    intersectionSemaphores[1].redLights[0].enabled = true;
+                    intersectionSemaphores[3].redLights[0].enabled = true;
+                    yellowLightOn = false;
+                    StartCoroutine(updateSemaphoreIntersection3Way1Lane());
+                }
+                //4 way 1 lane intersection
+                else
+                {
+                    semaphoreTurn = 0;
+                    intersectionQueue1Lane = new IntersectionVehicle[4] { null, null, null, null };
+                    intersectionSemaphores[0].greenLights[0].enabled = true;
+                    intersectionSemaphores[1].redLights[0].enabled = true;
+                    intersectionSemaphores[2].redLights[0].enabled = true;
+                    intersectionSemaphores[3].redLights[0].enabled = true;
+                    yellowLightOn = false;
+                    StartCoroutine(updateSemaphoreIntersection4Way1Lane());
+                }
             }
             else
             {
@@ -86,6 +98,7 @@ public class Street : MonoBehaviour
                 //3Way intersection init traffic lights
                 if (isTBoneIntersection)
                 {
+                    //3 way 2 lane intersection
                     if (!isLaneAdapter)
                     {
                         intersectionSemaphores[0].greenLights[0].enabled = true;
@@ -95,6 +108,7 @@ public class Street : MonoBehaviour
                         intersectionSemaphores[3].redLights[0].enabled = true;
                         intersectionSemaphores[3].redLights[1].enabled = true;
                         yellowLightOn = false;
+                        StartCoroutine(updateSemaphoreIntersection3Way2Lane());
                     }
                     else
                     {
@@ -106,6 +120,7 @@ public class Street : MonoBehaviour
                             intersectionSemaphores[1].redLights[0].enabled = true;
                             intersectionSemaphores[3].redLights[0].enabled = true;
                             yellowLightOn = false;
+                            StartCoroutine(updateSemaphoreIntersection3Way1Lane2Lane());
                         }
                         //3Way with main street with 2 lanes
                         else
@@ -116,6 +131,7 @@ public class Street : MonoBehaviour
                             intersectionSemaphores[3].redLights[0].enabled = true;
                             intersectionSemaphores[3].redLights[1].enabled = true;
                             yellowLightOn = false;
+                            StartCoroutine(updateSemaphoreIntersection3Way2Lane1Lane());
                         }
                     }
                 }
@@ -134,72 +150,46 @@ public class Street : MonoBehaviour
                         intersectionSemaphores[3].redLights[0].enabled = true;
                         intersectionSemaphores[3].redLights[1].enabled = true;
                         yellowLightOn = false;
+                        StartCoroutine(updateSemaphoreIntersection4Way2Lane());
                     }
                     //4Way intersection with one street with 1 lane and the other with 2 lanes
                     else
                     {
                         intersectionSemaphores[0].greenLights[0].enabled = true;
-                        intersectionSemaphores[2].greenLights[0].enabled = true;
+                        intersectionSemaphores[2].redLights[0].enabled = true;
                         intersectionSemaphores[1].redLights[0].enabled = true;
                         intersectionSemaphores[1].redLights[1].enabled = true;
                         intersectionSemaphores[3].redLights[0].enabled = true;
                         intersectionSemaphores[3].redLights[1].enabled = true;
                         yellowLightOn = false;
+                        StartCoroutine(updateSemaphoreIntersection4Way1Lane2Lane());
                     }
                 }
             }
         }
-    }
+    }*/
 
-    // Update is called once per frame
     void Update()
     {
-        if (isSimpleIntersection)
+        if (isSemaphoreIntersection)
         {
-            updateSimpleIntersection();
-        }
-
-        else if (isSemaphoreIntersection)
-        {
-            if (numberLanes == 1 && !isLaneAdapter)
+            if (isTBoneIntersection)
             {
-                updateSemaphoreIntersection3Way4Way1Lane();
+                intersectionSemaphores[1].redLights[0].enabled = true;
+                intersectionSemaphores[1].redLights[1].enabled = true;
+                intersectionSemaphores[3].redLights[0].enabled = true;
+                intersectionSemaphores[3].redLights[1].enabled = true;
+                Semaphores3Way();
             }
             else
             {
-                //3-way intersection
-                if (isTBoneIntersection)
-                {
-                    if (isLaneAdapter)
-                    {
-                        if (numberLanes == 1)
-                        {
-                            updateSemaphoreIntersection3Way1Lane2Lane();
-                        }
-                        else
-                        {
-                            updateSemaphoreIntersection3Way2Lane1Lane();
-                        }
-                    }
-                    else
-                    {
-                        updateSemaphoreIntersection3Way2Lane();
-                    }
-                }
-                //4-way intersection
-                else
-                {
-                    //4Way intersection with one street with 1 lane and the other with 2 lanes
-                    if (isLaneAdapter)
-                    {
-                        updateSemaphoreIntersection4Way1Lane2Lane();
-                    }
-                    //4Way intersection with both street with 2 lanes
-                    else
-                    {
-                        updateSemaphoreIntersection4Way2Lane();
-                    }
-                }
+                intersectionSemaphores[1].redLights[0].enabled = true;
+                intersectionSemaphores[1].redLights[1].enabled = true;
+                intersectionSemaphores[2].redLights[0].enabled = true;
+                intersectionSemaphores[2].redLights[1].enabled = true;
+                intersectionSemaphores[3].redLights[0].enabled = true;
+                intersectionSemaphores[3].redLights[1].enabled = true;
+                Semaphores4Way();
             }
         }
     }
@@ -293,10 +283,18 @@ public class Street : MonoBehaviour
             {
                 if (numberLanes == 1 && !isLaneAdapter)
                 {
-                    semaphoreIntersectionPriority3Way4Way1Lane(car, intersectionRoadId);
+                    if (isTBoneIntersection)
+                    {
+                        semaphoreIntersectionPriority3Way1Lane(car, intersectionRoadId);
+                    }
+                    else
+                    {
+                        semaphoreIntersectionPriority4Way1Lane(car, intersectionRoadId);
+                    }
                 }
                 else
                 {
+                    //3 way intersections
                     if (isTBoneIntersection)
                     {
                         if (isLaneAdapter)
@@ -531,27 +529,61 @@ public class Street : MonoBehaviour
         }
     }
 
-    private void semaphoreIntersectionPriority3Way4Way1Lane(IntersectionVehicle car, int intersectionRoadId)
+    private void semaphoreIntersectionPriority3Way1Lane(IntersectionVehicle car, int intersectionRoadId)
     {
-        if ((intersectionRoadId == 0 || intersectionRoadId == 2) && semaphoreTurn % 2 == 0 && !yellowLightOn)
+        if (intersectionRoadId == 0 && semaphoreTurn == 0 && !yellowLightOn)
         {
             car.intersectionStop = false;
             car.isInsideIntersection = true;
             numberCarsInsideIntersection++;
         }
-        else if ((intersectionRoadId == 0 || intersectionRoadId == 2) && (semaphoreTurn % 2 == 1 || yellowLightOn))
+        else if (intersectionRoadId == 1 && semaphoreTurn == 1 && !yellowLightOn)
+        {
+            car.intersectionStop = false;
+            car.isInsideIntersection = true;
+            numberCarsInsideIntersection++;
+        }
+        else if (intersectionRoadId == 3 && semaphoreTurn == 2 && !yellowLightOn)
+        {
+            car.intersectionStop = false;
+            car.isInsideIntersection = true;
+            numberCarsInsideIntersection++;
+        }
+        else
         {
             numberCarsWaiting++;
             car.intersectionStop = true;
             intersectionQueue1Lane[intersectionRoadId] = car;
         }
-        else if ((intersectionRoadId == 1 || intersectionRoadId == 3) && semaphoreTurn % 2 == 1 && !yellowLightOn)
+    }
+
+    private void semaphoreIntersectionPriority4Way1Lane(IntersectionVehicle car, int intersectionRoadId)
+    {
+        if (intersectionRoadId == 0 && semaphoreTurn == 0 && !yellowLightOn)
         {
             car.intersectionStop = false;
             car.isInsideIntersection = true;
             numberCarsInsideIntersection++;
         }
-        else if ((intersectionRoadId == 1 || intersectionRoadId == 3) && (semaphoreTurn % 2 == 0 || yellowLightOn))
+        else if (intersectionRoadId == 1 && semaphoreTurn == 1 && !yellowLightOn)
+        {
+            car.intersectionStop = false;
+            car.isInsideIntersection = true;
+            numberCarsInsideIntersection++;
+        }
+        else if (intersectionRoadId == 2 && semaphoreTurn == 2 && !yellowLightOn)
+        {
+            car.intersectionStop = false;
+            car.isInsideIntersection = true;
+            numberCarsInsideIntersection++;
+        }
+        else if (intersectionRoadId == 3 && semaphoreTurn == 3 && !yellowLightOn)
+        {
+            car.intersectionStop = false;
+            car.isInsideIntersection = true;
+            numberCarsInsideIntersection++;
+        }
+        else
         {
             numberCarsWaiting++;
             car.intersectionStop = true;
@@ -561,25 +593,25 @@ public class Street : MonoBehaviour
 
     private void semaphoreIntersectionPriority4Way2Lane(IntersectionVehicle car, int intersectionRoadId)
     {
-        if ((intersectionRoadId == 0 || intersectionRoadId == 2) && car.intersectionDirection != LEFT && semaphoreTurn == 0 && !yellowLightOn)
+        if (intersectionRoadId == 0 && semaphoreTurn == 0 && !yellowLightOn)
         {
             car.intersectionStop = false;
             car.isInsideIntersection = true;
             numberCarsInsideIntersection++;
         }
-        else if ((intersectionRoadId == 0 || intersectionRoadId == 2) && car.intersectionDirection == LEFT && semaphoreTurn == 1 && !yellowLightOn)
+        else if (intersectionRoadId == 1 && semaphoreTurn == 1 && !yellowLightOn)
         {
             car.intersectionStop = false;
             car.isInsideIntersection = true;
             numberCarsInsideIntersection++;
         }
-        else if ((intersectionRoadId == 1 || intersectionRoadId == 3) && car.intersectionDirection != LEFT && semaphoreTurn == 2 && !yellowLightOn)
+        else if (intersectionRoadId == 2 && semaphoreTurn == 2 && !yellowLightOn)
         {
             car.intersectionStop = false;
             car.isInsideIntersection = true;
             numberCarsInsideIntersection++;
         }
-        else if ((intersectionRoadId == 1 || intersectionRoadId == 3) && car.intersectionDirection == LEFT && semaphoreTurn == 3 && !yellowLightOn)
+        else if (intersectionRoadId == 3 && semaphoreTurn == 3 && !yellowLightOn)
         {
             car.intersectionStop = false;
             car.isInsideIntersection = true;
@@ -649,19 +681,31 @@ public class Street : MonoBehaviour
 
     private void semaphoreIntersectionPriority4Way1Lane2Lane(IntersectionVehicle car, int intersectionRoadId)
     {
-        if ((intersectionRoadId == 0 || intersectionRoadId == 2) && semaphoreTurn == 0 && !yellowLightOn)
+        if (intersectionRoadId == 0 && semaphoreTurn == 0 && !yellowLightOn)
         {
             car.intersectionStop = false;
             car.isInsideIntersection = true;
             numberCarsInsideIntersection++;
         }
-        else if ((intersectionRoadId == 1 || intersectionRoadId == 3) && car.intersectionDirection != LEFT && semaphoreTurn == 1 && !yellowLightOn)
+        else if (intersectionRoadId == 2 && semaphoreTurn == 1 && !yellowLightOn)
         {
             car.intersectionStop = false;
             car.isInsideIntersection = true;
             numberCarsInsideIntersection++;
         }
-        else if ((intersectionRoadId == 1 || intersectionRoadId == 3) && car.intersectionDirection == LEFT && semaphoreTurn == 2 && !yellowLightOn)
+        else if ((intersectionRoadId == 1 || intersectionRoadId == 3) && car.intersectionDirection != LEFT && semaphoreTurn == 2 && !yellowLightOn)
+        {
+            car.intersectionStop = false;
+            car.isInsideIntersection = true;
+            numberCarsInsideIntersection++;
+        }
+        else if (intersectionRoadId == 1 && car.intersectionDirection == LEFT && semaphoreTurn == 3 && !yellowLightOn)
+        {
+            car.intersectionStop = false;
+            car.isInsideIntersection = true;
+            numberCarsInsideIntersection++;
+        }
+        else if (intersectionRoadId == 3 && car.intersectionDirection == LEFT && semaphoreTurn == 4 && !yellowLightOn)
         {
             car.intersectionStop = false;
             car.isInsideIntersection = true;
@@ -693,7 +737,13 @@ public class Street : MonoBehaviour
             car.isInsideIntersection = true;
             numberCarsInsideIntersection++;
         }
-        else if ((intersectionRoadId == 1 || intersectionRoadId == 3) && semaphoreTurn == 1 && !yellowLightOn)
+        else if (intersectionRoadId == 1 && semaphoreTurn == 1 && !yellowLightOn)
+        {
+            car.intersectionStop = false;
+            car.isInsideIntersection = true;
+            numberCarsInsideIntersection++;
+        }
+        else if (intersectionRoadId == 3 && semaphoreTurn == 2 && !yellowLightOn)
         {
             car.intersectionStop = false;
             car.isInsideIntersection = true;
@@ -853,165 +903,227 @@ public class Street : MonoBehaviour
 
 
     //SEMAPHORE LIGHTS MANAGEMENT
-    private void updateSimpleIntersection()
+    IEnumerator updateSimpleIntersection()
     {
-        if (numberCarsWaiting > 0)
+        while (true)
         {
-            for (int i = 0; i < 4; i++)
+            yield return new WaitForSeconds(0.5f);
+            if (numberCarsWaiting > 0)
             {
-                if (numberLanes == 1 && !isLaneAdapter)
+                for (int i = 0; i < 4; i++)
                 {
-                    if (intersectionQueue1Lane[i] != null)
+                    if (numberLanes == 1 && !isLaneAdapter)
                     {
-                        IntersectionVehicle car = intersectionQueue1Lane[i];
-                        if (intersectionBusyMarker[i, car.intersectionDirection] == 0)
+                        if (intersectionQueue1Lane[i] != null)
                         {
-                            intersectionPriorityCleaner(car, car.intersectionEnterId);
-                            intersectionManager(car, i);
-                            intersectionQueue1Lane[i] = null;
-                            numberCarsWaiting--;
-                        }
-                    }
-                }
-                else
-                {
-                    for (int j = 0; j < 2; j++)
-                    {
-                        if (intersectionQueue2Lane[i, j] != null)
-                        {
-                            IntersectionVehicle car = intersectionQueue2Lane[i, j];
+                            IntersectionVehicle car = intersectionQueue1Lane[i];
                             if (intersectionBusyMarker[i, car.intersectionDirection] == 0)
                             {
                                 intersectionPriorityCleaner(car, car.intersectionEnterId);
                                 intersectionManager(car, i);
-                                intersectionQueue2Lane[i, j] = null;
+                                intersectionQueue1Lane[i] = null;
                                 numberCarsWaiting--;
                             }
                         }
                     }
-                }
+                    else
+                    {
+                        for (int j = 0; j < 2; j++)
+                        {
+                            if (intersectionQueue2Lane[i, j] != null)
+                            {
+                                IntersectionVehicle car = intersectionQueue2Lane[i, j];
+                                if (intersectionBusyMarker[i, car.intersectionDirection] == 0)
+                                {
+                                    intersectionPriorityCleaner(car, car.intersectionEnterId);
+                                    intersectionManager(car, i);
+                                    intersectionQueue2Lane[i, j] = null;
+                                    numberCarsWaiting--;
+                                }
+                            }
+                        }
+                    }
 
+                }
             }
         }
     }
 
-    private void updateSemaphoreIntersection3Way4Way1Lane()
-    {
-        semaphoreTime += Time.deltaTime;
-        //Debug.Log(semaphoreTime);
-        if (semaphoreTime > semaphoreTimerMainLane)
-        {
-            semaphoreTurn++;
-            semaphoreTime = 0;
-            yellowLightOn = false;
-            if (semaphoreTurn % 2 == 0)
-            {
-                intersectionSemaphores[1].yellowLights[0].enabled = false;
-                intersectionSemaphores[3].yellowLights[0].enabled = false;
-                intersectionSemaphores[1].redLights[0].enabled = true;
-                intersectionSemaphores[3].redLights[0].enabled = true;
-
-                intersectionSemaphores[0].redLights[0].enabled = false;
-                intersectionSemaphores[2].redLights[0].enabled = false;
-                intersectionSemaphores[0].greenLights[0].enabled = true;
-                intersectionSemaphores[2].greenLights[0].enabled = true;
-            }
-            else
-            {
-                intersectionSemaphores[1].redLights[0].enabled = false;
-                intersectionSemaphores[3].redLights[0].enabled = false;
-                intersectionSemaphores[1].greenLights[0].enabled = true;
-                intersectionSemaphores[3].greenLights[0].enabled = true;
-
-
-                intersectionSemaphores[0].yellowLights[0].enabled = false;
-                intersectionSemaphores[2].yellowLights[0].enabled = false;
-                intersectionSemaphores[0].redLights[0].enabled = true;
-                intersectionSemaphores[2].redLights[0].enabled = true;
-            }
-            //Move cars inside the intersection
-            if (semaphoreTurn % 2 == 0)
-            {
-                IntersectionVehicle car;
-                if (intersectionQueue1Lane[0] != null)
-                {
-                    car = intersectionQueue1Lane[0];
-                    intersectionManager(car, car.intersectionEnterId);
-                    intersectionQueue1Lane[0] = null;
-                    numberCarsWaiting--;
-                }
-                if (intersectionQueue1Lane[2] != null)
-                {
-                    car = intersectionQueue1Lane[2];
-                    intersectionManager(car, car.intersectionEnterId);
-                    intersectionQueue1Lane[2] = null;
-                    numberCarsWaiting--;
-                }
-            }
-            else
-            {
-                IntersectionVehicle car;
-                if (intersectionQueue1Lane[1] != null)
-                {
-                    car = intersectionQueue1Lane[1];
-                    intersectionManager(car, car.intersectionEnterId);
-                    intersectionQueue1Lane[1] = null;
-                    numberCarsWaiting--;
-                }
-                if (intersectionQueue1Lane[3] != null)
-                {
-                    car = intersectionQueue1Lane[3];
-                    intersectionManager(car, car.intersectionEnterId);
-                    intersectionQueue1Lane[3] = null;
-                    numberCarsWaiting--;
-                }
-            }
-        }
-        else if (semaphoreTime > semaphoreTimerMainLane - 3)
-        {
-            if (semaphoreTurn % 2 == 0)
-            {
-                intersectionSemaphores[0].greenLights[0].enabled = false;
-                intersectionSemaphores[2].greenLights[0].enabled = false;
-                intersectionSemaphores[0].yellowLights[0].enabled = true;
-                intersectionSemaphores[2].yellowLights[0].enabled = true;
-            }
-            else
-            {
-                intersectionSemaphores[1].greenLights[0].enabled = false;
-                intersectionSemaphores[3].greenLights[0].enabled = false;
-                intersectionSemaphores[1].yellowLights[0].enabled = true;
-                intersectionSemaphores[3].yellowLights[0].enabled = true;
-            }
-            yellowLightOn = true;
-        }
-    }
-
-    private void updateSemaphoreIntersection3Way2Lane()
+    IEnumerator updateSemaphoreIntersection3Way1Lane()
     {
         IntersectionVehicle car;
-        semaphoreTime += Time.deltaTime;
-        if (semaphoreTime >= semaphoreTimerMainLane - 3 && semaphoreTime <= semaphoreTimerMainLane && !yellowLightOn)
+
+        while (true)
         {
             semaphoreTurn = 0;
+            yellowLightOn = false;
+            intersectionSemaphores[3].yellowLights[0].enabled = false;
+            intersectionSemaphores[3].redLights[0].enabled = true;
+            intersectionSemaphores[0].redLights[0].enabled = false;
+            intersectionSemaphores[0].greenLights[0].enabled = true;
+            if (intersectionQueue1Lane[0] != null)
+            {
+                car = intersectionQueue1Lane[0];
+                intersectionManager(car, car.intersectionEnterId);
+                intersectionQueue1Lane[0] = null;
+                numberCarsWaiting--;
+            }
+            yield return new WaitForSeconds(semaphoreTimerMainLane - 3);
+
             yellowLightOn = true;
             intersectionSemaphores[0].greenLights[0].enabled = false;
             intersectionSemaphores[0].yellowLights[0].enabled = true;
-            intersectionSemaphores[0].greenLights[1].enabled = false;
-            intersectionSemaphores[0].yellowLights[1].enabled = true;
+            yield return new WaitForSeconds(3);
+
+
+            semaphoreTurn = 1;
+            yellowLightOn = false;
+            intersectionSemaphores[0].yellowLights[0].enabled = false;
+            intersectionSemaphores[0].redLights[0].enabled = true;
+            intersectionSemaphores[1].redLights[0].enabled = false;
+            intersectionSemaphores[1].greenLights[0].enabled = true;
+            if (intersectionQueue1Lane[1] != null)
+            {
+                car = intersectionQueue1Lane[1];
+                intersectionManager(car, car.intersectionEnterId);
+                intersectionQueue1Lane[1] = null;
+                numberCarsWaiting--;
+            }
+            yield return new WaitForSeconds(semaphoreTimerMainLane - 3);
+
+            yellowLightOn = true;
+            intersectionSemaphores[1].greenLights[0].enabled = false;
+            intersectionSemaphores[1].yellowLights[0].enabled = true;
+            yield return new WaitForSeconds(3);
+
+
+            semaphoreTurn = 2;
+            yellowLightOn = false;
+            intersectionSemaphores[1].yellowLights[0].enabled = false;
+            intersectionSemaphores[1].redLights[0].enabled = true;
+            intersectionSemaphores[3].redLights[0].enabled = false;
+            intersectionSemaphores[3].greenLights[0].enabled = true;
+            if (intersectionQueue1Lane[3] != null)
+            {
+                car = intersectionQueue1Lane[3];
+                intersectionManager(car, car.intersectionEnterId);
+                intersectionQueue1Lane[3] = null;
+                numberCarsWaiting--;
+            }
+            yield return new WaitForSeconds(semaphoreTimerMainLane - 3);
+
+            yellowLightOn = true;
+            intersectionSemaphores[3].greenLights[0].enabled = false;
+            intersectionSemaphores[3].yellowLights[0].enabled = true;
+            yield return new WaitForSeconds(3);
+
         }
-        else if (semaphoreTime <= semaphoreTimerMainLane && semaphoreTurn != 0)
+    }
+
+    IEnumerator updateSemaphoreIntersection4Way1Lane()
+    {
+        IntersectionVehicle car;
+
+        while (true)
+        {
+            semaphoreTurn = 0;
+            yellowLightOn = false;
+            intersectionSemaphores[3].yellowLights[0].enabled = false;
+            intersectionSemaphores[3].redLights[0].enabled = true;
+            intersectionSemaphores[0].redLights[0].enabled = false;
+            intersectionSemaphores[0].greenLights[0].enabled = true;
+            if (intersectionQueue1Lane[0] != null)
+            {
+                car = intersectionQueue1Lane[0];
+                intersectionManager(car, car.intersectionEnterId);
+                intersectionQueue1Lane[0] = null;
+                numberCarsWaiting--;
+            }
+            yield return new WaitForSeconds(semaphoreTimerMainLane - 3);
+
+            yellowLightOn = true;
+            intersectionSemaphores[0].greenLights[0].enabled = false;
+            intersectionSemaphores[0].yellowLights[0].enabled = true;
+            yield return new WaitForSeconds(3);
+
+
+            semaphoreTurn = 1;
+            yellowLightOn = false;
+            intersectionSemaphores[0].yellowLights[0].enabled = false;
+            intersectionSemaphores[0].redLights[0].enabled = true;
+            intersectionSemaphores[1].redLights[0].enabled = false;
+            intersectionSemaphores[1].greenLights[0].enabled = true;
+            if (intersectionQueue1Lane[1] != null)
+            {
+                car = intersectionQueue1Lane[1];
+                intersectionManager(car, car.intersectionEnterId);
+                intersectionQueue1Lane[1] = null;
+                numberCarsWaiting--;
+            }
+            yield return new WaitForSeconds(semaphoreTimerMainLane - 3);
+
+            yellowLightOn = true;
+            intersectionSemaphores[1].greenLights[0].enabled = false;
+            intersectionSemaphores[1].yellowLights[0].enabled = true;
+            yield return new WaitForSeconds(3);
+
+            semaphoreTurn = 2;
+            yellowLightOn = false;
+            intersectionSemaphores[1].yellowLights[0].enabled = false;
+            intersectionSemaphores[1].redLights[0].enabled = true;
+            intersectionSemaphores[2].redLights[0].enabled = false;
+            intersectionSemaphores[2].greenLights[0].enabled = true;
+            if (intersectionQueue1Lane[2] != null)
+            {
+                car = intersectionQueue1Lane[2];
+                intersectionManager(car, car.intersectionEnterId);
+                intersectionQueue1Lane[2] = null;
+                numberCarsWaiting--;
+            }
+            yield return new WaitForSeconds(semaphoreTimerMainLane - 3);
+
+            yellowLightOn = true;
+            intersectionSemaphores[2].greenLights[0].enabled = false;
+            intersectionSemaphores[2].yellowLights[0].enabled = true;
+            yield return new WaitForSeconds(3);
+
+
+            semaphoreTurn = 3;
+            yellowLightOn = false;
+            intersectionSemaphores[2].yellowLights[0].enabled = false;
+            intersectionSemaphores[2].redLights[0].enabled = true;
+            intersectionSemaphores[3].redLights[0].enabled = false;
+            intersectionSemaphores[3].greenLights[0].enabled = true;
+            if (intersectionQueue1Lane[3] != null)
+            {
+                car = intersectionQueue1Lane[3];
+                intersectionManager(car, car.intersectionEnterId);
+                intersectionQueue1Lane[3] = null;
+                numberCarsWaiting--;
+            }
+            yield return new WaitForSeconds(semaphoreTimerMainLane - 3);
+
+            yellowLightOn = true;
+            intersectionSemaphores[3].greenLights[0].enabled = false;
+            intersectionSemaphores[3].yellowLights[0].enabled = true;
+            yield return new WaitForSeconds(3);
+
+        }
+    }
+
+    IEnumerator updateSemaphoreIntersection3Way2Lane()
+    {
+        IntersectionVehicle car;
+        while (true)
         {
             semaphoreTurn = 0;
             yellowLightOn = false;
             intersectionSemaphores[1].yellowLights[1].enabled = false;
             intersectionSemaphores[1].redLights[1].enabled = true;
-
             intersectionSemaphores[0].redLights[0].enabled = false;
             intersectionSemaphores[0].greenLights[0].enabled = true;
             intersectionSemaphores[0].redLights[1].enabled = false;
             intersectionSemaphores[0].greenLights[1].enabled = true;
-
             if (numberCarsWaiting > 0)
             {
                 if (intersectionQueue2Lane[0, 0] != null)
@@ -1029,34 +1141,28 @@ public class Street : MonoBehaviour
                     numberCarsWaiting--;
                 }
             }
-        }
-        else if (semaphoreTime >= 2 * semaphoreTimerMainLane - 3 && semaphoreTime <= 2 * semaphoreTimerMainLane && !yellowLightOn)
-        {
-            semaphoreTurn = 1;
+            yield return new WaitForSeconds(semaphoreTimerMainLane - 3);
+
             yellowLightOn = true;
-            intersectionSemaphores[1].greenLights[0].enabled = false;
-            intersectionSemaphores[3].greenLights[0].enabled = false;
-            intersectionSemaphores[3].greenLights[1].enabled = false;
-            intersectionSemaphores[1].yellowLights[0].enabled = true;
-            intersectionSemaphores[3].yellowLights[0].enabled = true;
-            intersectionSemaphores[3].yellowLights[1].enabled = true;
-        }
-        else if (semaphoreTime >= semaphoreTimerMainLane && semaphoreTime <= 2 * semaphoreTimerMainLane && semaphoreTurn != 1)
-        {
+            intersectionSemaphores[0].greenLights[0].enabled = false;
+            intersectionSemaphores[0].yellowLights[0].enabled = true;
+            intersectionSemaphores[0].greenLights[1].enabled = false;
+            intersectionSemaphores[0].yellowLights[1].enabled = true;
+            yield return new WaitForSeconds(3);
+
+
             semaphoreTurn = 1;
             yellowLightOn = false;
             intersectionSemaphores[0].yellowLights[0].enabled = false;
             intersectionSemaphores[0].redLights[0].enabled = true;
             intersectionSemaphores[0].yellowLights[1].enabled = false;
             intersectionSemaphores[0].redLights[1].enabled = true;
-
             intersectionSemaphores[1].redLights[0].enabled = false;
             intersectionSemaphores[3].redLights[0].enabled = false;
             intersectionSemaphores[3].redLights[1].enabled = false;
             intersectionSemaphores[1].greenLights[0].enabled = true;
             intersectionSemaphores[3].greenLights[0].enabled = true;
             intersectionSemaphores[3].greenLights[1].enabled = true;
-
             if (numberCarsWaiting > 0)
             {
                 if (intersectionQueue2Lane[1, 0] != null && intersectionQueue2Lane[1, 0].intersectionDirection != LEFT)
@@ -1088,16 +1194,18 @@ public class Street : MonoBehaviour
                     numberCarsWaiting--;
                 }
             }
-        }
-        else if (semaphoreTime >= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane - 3 && semaphoreTime <= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane && !yellowLightOn)
-        {
-            semaphoreTurn = 2;
+            yield return new WaitForSeconds(semaphoreTimerMainLane - 3);
+
             yellowLightOn = true;
-            intersectionSemaphores[1].greenLights[1].enabled = false;
-            intersectionSemaphores[1].yellowLights[1].enabled = true;
-        }
-        else if (semaphoreTime >= 2 * semaphoreTimerMainLane && semaphoreTime <= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane && semaphoreTurn != 2)
-        {
+            intersectionSemaphores[1].greenLights[0].enabled = false;
+            intersectionSemaphores[3].greenLights[0].enabled = false;
+            intersectionSemaphores[3].greenLights[1].enabled = false;
+            intersectionSemaphores[1].yellowLights[0].enabled = true;
+            intersectionSemaphores[3].yellowLights[0].enabled = true;
+            intersectionSemaphores[3].yellowLights[1].enabled = true;
+            yield return new WaitForSeconds(3);
+
+
             semaphoreTurn = 2;
             yellowLightOn = false;
             intersectionSemaphores[1].yellowLights[0].enabled = false;
@@ -1106,10 +1214,8 @@ public class Street : MonoBehaviour
             intersectionSemaphores[1].redLights[0].enabled = true;
             intersectionSemaphores[3].redLights[0].enabled = true;
             intersectionSemaphores[3].redLights[1].enabled = true;
-
             intersectionSemaphores[1].redLights[1].enabled = false;
             intersectionSemaphores[1].greenLights[1].enabled = true;
-
             if (numberCarsWaiting > 0)
             {
                 if (intersectionQueue2Lane[1, 0] != null && intersectionQueue2Lane[1, 0].intersectionDirection == LEFT)
@@ -1127,27 +1233,19 @@ public class Street : MonoBehaviour
                     numberCarsWaiting--;
                 }
             }
-        }
-        else if (semaphoreTime >= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane)
-        {
-            semaphoreTime = 0;
+            yield return new WaitForSeconds(semaphoreTimerLeftLane - 3);
+
+            yellowLightOn = true;
+            intersectionSemaphores[1].greenLights[1].enabled = false;
+            intersectionSemaphores[1].yellowLights[1].enabled = true;
+            yield return new WaitForSeconds(3);
         }
     }
 
-    private void updateSemaphoreIntersection4Way2Lane()
+    IEnumerator updateSemaphoreIntersection4Way2Lane()
     {
         IntersectionVehicle car;
-        semaphoreTime += Time.deltaTime;
-        if (semaphoreTime >= semaphoreTimerMainLane - 3 && semaphoreTime <= semaphoreTimerMainLane && !yellowLightOn)
-        {
-            semaphoreTurn = 0;
-            yellowLightOn = true;
-            intersectionSemaphores[0].greenLights[0].enabled = false;
-            intersectionSemaphores[2].greenLights[0].enabled = false;
-            intersectionSemaphores[0].yellowLights[0].enabled = true;
-            intersectionSemaphores[2].yellowLights[0].enabled = true;
-        }
-        else if (semaphoreTime <= semaphoreTimerMainLane && semaphoreTurn != 0)
+        while (true)
         {
             semaphoreTurn = 0;
             yellowLightOn = false;
@@ -1159,7 +1257,6 @@ public class Street : MonoBehaviour
             intersectionSemaphores[2].redLights[0].enabled = false;
             intersectionSemaphores[0].greenLights[0].enabled = true;
             intersectionSemaphores[2].greenLights[0].enabled = true;
-
             if (numberCarsWaiting > 0)
             {
                 if (intersectionQueue2Lane[0, 0] != null && intersectionQueue2Lane[0, 0].intersectionDirection != LEFT)
@@ -1191,18 +1288,16 @@ public class Street : MonoBehaviour
                     numberCarsWaiting--;
                 }
             }
-        }
-        else if (semaphoreTime >= semaphoreTimerMainLane + semaphoreTimerLeftLane - 3 && semaphoreTime <= semaphoreTimerMainLane + semaphoreTimerLeftLane && !yellowLightOn)
-        {
-            semaphoreTurn = 1;
+            yield return new WaitForSeconds(semaphoreTimerMainLane - 3);
+
             yellowLightOn = true;
-            intersectionSemaphores[0].greenLights[1].enabled = false;
-            intersectionSemaphores[2].greenLights[1].enabled = false;
-            intersectionSemaphores[0].yellowLights[1].enabled = true;
-            intersectionSemaphores[2].yellowLights[1].enabled = true;
-        }
-        else if (semaphoreTime >= semaphoreTimerMainLane && semaphoreTime <= semaphoreTimerMainLane + semaphoreTimerLeftLane && semaphoreTurn != 1)
-        {
+            intersectionSemaphores[0].greenLights[0].enabled = false;
+            intersectionSemaphores[2].greenLights[0].enabled = false;
+            intersectionSemaphores[0].yellowLights[0].enabled = true;
+            intersectionSemaphores[2].yellowLights[0].enabled = true;
+            yield return new WaitForSeconds(3);
+
+
             semaphoreTurn = 1;
             yellowLightOn = false;
             intersectionSemaphores[0].yellowLights[0].enabled = false;
@@ -1213,7 +1308,6 @@ public class Street : MonoBehaviour
             intersectionSemaphores[2].redLights[1].enabled = false;
             intersectionSemaphores[0].greenLights[1].enabled = true;
             intersectionSemaphores[2].greenLights[1].enabled = true;
-
             if (numberCarsWaiting > 0)
             {
                 if (intersectionQueue2Lane[0, 0] != null && intersectionQueue2Lane[0, 0].intersectionDirection == LEFT)
@@ -1245,18 +1339,16 @@ public class Street : MonoBehaviour
                     numberCarsWaiting--;
                 }
             }
-        }
-        else if (semaphoreTime >= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane - 3 && semaphoreTime <= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane && !yellowLightOn)
-        {
-            semaphoreTurn = 2;
+            yield return new WaitForSeconds(semaphoreTimerLeftLane - 3);
+
             yellowLightOn = true;
-            intersectionSemaphores[1].greenLights[0].enabled = false;
-            intersectionSemaphores[3].greenLights[0].enabled = false;
-            intersectionSemaphores[1].yellowLights[0].enabled = true;
-            intersectionSemaphores[3].yellowLights[0].enabled = true;
-        }
-        else if (semaphoreTime >= semaphoreTimerMainLane + semaphoreTimerLeftLane && semaphoreTime <= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane && semaphoreTurn != 2)
-        {
+            intersectionSemaphores[0].greenLights[1].enabled = false;
+            intersectionSemaphores[2].greenLights[1].enabled = false;
+            intersectionSemaphores[0].yellowLights[1].enabled = true;
+            intersectionSemaphores[2].yellowLights[1].enabled = true;
+            yield return new WaitForSeconds(3);
+
+
             semaphoreTurn = 2;
             yellowLightOn = false;
             intersectionSemaphores[0].yellowLights[1].enabled = false;
@@ -1267,7 +1359,6 @@ public class Street : MonoBehaviour
             intersectionSemaphores[3].redLights[0].enabled = false;
             intersectionSemaphores[1].greenLights[0].enabled = true;
             intersectionSemaphores[3].greenLights[0].enabled = true;
-
             if (numberCarsWaiting > 0)
             {
                 if (intersectionQueue2Lane[1, 0] != null && intersectionQueue2Lane[1, 0].intersectionDirection != LEFT)
@@ -1299,18 +1390,16 @@ public class Street : MonoBehaviour
                     numberCarsWaiting--;
                 }
             }
-        }
-        else if (semaphoreTime >= 2 * semaphoreTimerMainLane + 2 * semaphoreTimerLeftLane - 3 && semaphoreTime <= 2 * semaphoreTimerMainLane + 2 * semaphoreTimerLeftLane && !yellowLightOn)
-        {
-            semaphoreTurn = 3;
+            yield return new WaitForSeconds(semaphoreTimerMainLane - 3);
+
             yellowLightOn = true;
-            intersectionSemaphores[1].greenLights[1].enabled = false;
-            intersectionSemaphores[3].greenLights[1].enabled = false;
-            intersectionSemaphores[1].yellowLights[1].enabled = true;
-            intersectionSemaphores[3].yellowLights[1].enabled = true;
-        }
-        else if (semaphoreTime >= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane && semaphoreTime <= 2 * semaphoreTimerMainLane + 2 * semaphoreTimerLeftLane && semaphoreTurn != 3)
-        {
+            intersectionSemaphores[1].greenLights[0].enabled = false;
+            intersectionSemaphores[3].greenLights[0].enabled = false;
+            intersectionSemaphores[1].yellowLights[0].enabled = true;
+            intersectionSemaphores[3].yellowLights[0].enabled = true;
+            yield return new WaitForSeconds(3);
+
+
             semaphoreTurn = 3;
             yellowLightOn = false;
             intersectionSemaphores[1].yellowLights[0].enabled = false;
@@ -1353,27 +1442,21 @@ public class Street : MonoBehaviour
                     numberCarsWaiting--;
                 }
             }
-        }
-        else if (semaphoreTime >= 2 * semaphoreTimerMainLane + 2 * semaphoreTimerLeftLane)
-        {
-            semaphoreTime = 0;
+            yield return new WaitForSeconds(semaphoreTimerLeftLane - 3);
+
+            yellowLightOn = true;
+            intersectionSemaphores[1].greenLights[1].enabled = false;
+            intersectionSemaphores[3].greenLights[1].enabled = false;
+            intersectionSemaphores[1].yellowLights[1].enabled = true;
+            intersectionSemaphores[3].yellowLights[1].enabled = true;
+            yield return new WaitForSeconds(3);
         }
     }
 
-    private void updateSemaphoreIntersection4Way1Lane2Lane()
+    IEnumerator updateSemaphoreIntersection4Way1Lane2Lane()
     {
         IntersectionVehicle car;
-        semaphoreTime += Time.deltaTime;
-        if (semaphoreTime >= semaphoreTimerMainLane - 3 && semaphoreTime <= semaphoreTimerMainLane && !yellowLightOn)
-        {
-            semaphoreTurn = 0;
-            yellowLightOn = true;
-            intersectionSemaphores[0].greenLights[0].enabled = false;
-            intersectionSemaphores[2].greenLights[0].enabled = false;
-            intersectionSemaphores[0].yellowLights[0].enabled = true;
-            intersectionSemaphores[2].yellowLights[0].enabled = true;
-        }
-        else if (semaphoreTime <= semaphoreTimerMainLane && semaphoreTurn != 0)
+        while (true)
         {
             semaphoreTurn = 0;
             yellowLightOn = false;
@@ -1382,34 +1465,48 @@ public class Street : MonoBehaviour
             intersectionSemaphores[1].redLights[1].enabled = true;
             intersectionSemaphores[3].redLights[1].enabled = true;
             intersectionSemaphores[0].redLights[0].enabled = false;
-            intersectionSemaphores[2].redLights[0].enabled = false;
             intersectionSemaphores[0].greenLights[0].enabled = true;
-            intersectionSemaphores[2].greenLights[0].enabled = true;
-
             if (numberCarsWaiting > 0)
             {
-                if (intersectionQueue2Lane[0, 0] != null)
+                if (intersectionQueue2Lane[0, 0] != null && intersectionQueue2Lane[0, 0].intersectionDirection != LEFT)
                 {
                     car = intersectionQueue2Lane[0, 0];
                     intersectionManager(car, car.intersectionEnterId);
                     intersectionQueue2Lane[0, 0] = null;
                     numberCarsWaiting--;
                 }
-                if (intersectionQueue2Lane[0, 1] != null)
+                if (intersectionQueue2Lane[0, 1] != null && intersectionQueue2Lane[0, 1].intersectionDirection != LEFT)
                 {
                     car = intersectionQueue2Lane[0, 1];
                     intersectionManager(car, car.intersectionEnterId);
                     intersectionQueue2Lane[0, 1] = null;
                     numberCarsWaiting--;
                 }
-                if (intersectionQueue2Lane[2, 0] != null)
+            }
+            yield return new WaitForSeconds(semaphoreTimerMainLane - 3);
+
+            yellowLightOn = true;
+            intersectionSemaphores[0].greenLights[0].enabled = false;
+            intersectionSemaphores[0].yellowLights[0].enabled = true;
+            yield return new WaitForSeconds(3);
+
+
+            semaphoreTurn = 1;
+            yellowLightOn = false;
+            intersectionSemaphores[0].yellowLights[0].enabled = false;
+            intersectionSemaphores[0].redLights[0].enabled = true;
+            intersectionSemaphores[2].redLights[0].enabled = false;
+            intersectionSemaphores[2].greenLights[0].enabled = true;
+            if (numberCarsWaiting > 0)
+            {
+                if (intersectionQueue2Lane[2, 0] != null && intersectionQueue2Lane[2, 0].intersectionDirection == LEFT)
                 {
                     car = intersectionQueue2Lane[2, 0];
                     intersectionManager(car, car.intersectionEnterId);
                     intersectionQueue2Lane[2, 0] = null;
                     numberCarsWaiting--;
                 }
-                if (intersectionQueue2Lane[2, 1] != null)
+                if (intersectionQueue2Lane[2, 1] != null && intersectionQueue2Lane[2, 1].intersectionDirection == LEFT)
                 {
                     car = intersectionQueue2Lane[2, 1];
                     intersectionManager(car, car.intersectionEnterId);
@@ -1417,19 +1514,15 @@ public class Street : MonoBehaviour
                     numberCarsWaiting--;
                 }
             }
-        }
-        else if (semaphoreTime >= 2 * semaphoreTimerMainLane - 3 && semaphoreTime <= 2 * semaphoreTimerMainLane && !yellowLightOn)
-        {
-            semaphoreTurn = 1;
+            yield return new WaitForSeconds(semaphoreTimerMainLane - 3);
+
             yellowLightOn = true;
-            intersectionSemaphores[1].greenLights[0].enabled = false;
-            intersectionSemaphores[3].greenLights[0].enabled = false;
-            intersectionSemaphores[1].yellowLights[0].enabled = true;
-            intersectionSemaphores[3].yellowLights[0].enabled = true;
-        }
-        else if (semaphoreTime >= semaphoreTimerMainLane && semaphoreTime <= 2 * semaphoreTimerMainLane && semaphoreTurn != 1)
-        {
-            semaphoreTurn = 1;
+            intersectionSemaphores[2].greenLights[0].enabled = false;
+            intersectionSemaphores[2].yellowLights[0].enabled = true;
+            yield return new WaitForSeconds(3);
+
+
+            semaphoreTurn = 2;
             yellowLightOn = false;
             intersectionSemaphores[0].yellowLights[0].enabled = false;
             intersectionSemaphores[2].yellowLights[0].enabled = false;
@@ -1471,28 +1564,24 @@ public class Street : MonoBehaviour
                     numberCarsWaiting--;
                 }
             }
-        }
-        else if (semaphoreTime >= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane - 3 && semaphoreTime <= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane && !yellowLightOn)
-        {
-            semaphoreTurn = 2;
+            yield return new WaitForSeconds(semaphoreTimerMainLane - 3);
+
             yellowLightOn = true;
-            intersectionSemaphores[1].greenLights[1].enabled = false;
-            intersectionSemaphores[3].greenLights[1].enabled = false;
-            intersectionSemaphores[1].yellowLights[1].enabled = true;
-            intersectionSemaphores[3].yellowLights[1].enabled = true;
-        }
-        else if (semaphoreTime >= 2 * semaphoreTimerMainLane && semaphoreTime <= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane && semaphoreTurn != 2)
-        {
-            semaphoreTurn = 2;
+            intersectionSemaphores[1].greenLights[0].enabled = false;
+            intersectionSemaphores[3].greenLights[0].enabled = false;
+            intersectionSemaphores[1].yellowLights[0].enabled = true;
+            intersectionSemaphores[3].yellowLights[0].enabled = true;
+            yield return new WaitForSeconds(3);
+
+
+            semaphoreTurn = 3;
             yellowLightOn = false;
             intersectionSemaphores[1].yellowLights[0].enabled = false;
             intersectionSemaphores[3].yellowLights[0].enabled = false;
             intersectionSemaphores[1].redLights[0].enabled = true;
             intersectionSemaphores[3].redLights[0].enabled = true;
             intersectionSemaphores[1].redLights[1].enabled = false;
-            intersectionSemaphores[3].redLights[1].enabled = false;
             intersectionSemaphores[1].greenLights[1].enabled = true;
-            intersectionSemaphores[3].greenLights[1].enabled = true;
 
             if (numberCarsWaiting > 0)
             {
@@ -1510,6 +1599,24 @@ public class Street : MonoBehaviour
                     intersectionQueue2Lane[1, 1] = null;
                     numberCarsWaiting--;
                 }
+            }
+            yield return new WaitForSeconds(semaphoreTimerLeftLane - 3);
+
+            yellowLightOn = true;
+            intersectionSemaphores[1].greenLights[1].enabled = false;
+            intersectionSemaphores[1].yellowLights[1].enabled = true;
+            yield return new WaitForSeconds(3);
+
+
+            semaphoreTurn = 4;
+            yellowLightOn = false;
+            intersectionSemaphores[1].yellowLights[1].enabled = false;
+            intersectionSemaphores[1].redLights[1].enabled = true;
+            intersectionSemaphores[3].redLights[1].enabled = false;
+            intersectionSemaphores[3].greenLights[1].enabled = true;
+
+            if (numberCarsWaiting > 0)
+            {
                 if (intersectionQueue2Lane[3, 0] != null && intersectionQueue2Lane[3, 0].intersectionDirection == LEFT)
                 {
                     car = intersectionQueue2Lane[3, 0];
@@ -1525,27 +1632,19 @@ public class Street : MonoBehaviour
                     numberCarsWaiting--;
                 }
             }
-        }
-        else if (semaphoreTime > 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane)
-        {
-            semaphoreTime = 0;
+            yield return new WaitForSeconds(semaphoreTimerLeftLane - 3);
+
+            yellowLightOn = true;
+            intersectionSemaphores[3].greenLights[1].enabled = false;
+            intersectionSemaphores[3].yellowLights[1].enabled = true;
+            yield return new WaitForSeconds(3);
         }
     }
 
-    private void updateSemaphoreIntersection3Way1Lane2Lane()
+    IEnumerator updateSemaphoreIntersection3Way1Lane2Lane()
     {
         IntersectionVehicle car;
-        semaphoreTime += Time.deltaTime;
-        if (semaphoreTime >= semaphoreTimerMainLane - 3 && semaphoreTime <= semaphoreTimerMainLane && !yellowLightOn)
-        {
-            semaphoreTurn = 0;
-            yellowLightOn = true;
-            intersectionSemaphores[0].greenLights[0].enabled = false;
-            intersectionSemaphores[0].yellowLights[0].enabled = true;
-            intersectionSemaphores[0].greenLights[1].enabled = false;
-            intersectionSemaphores[0].yellowLights[1].enabled = true;
-        }
-        else if (semaphoreTime <= semaphoreTimerMainLane && semaphoreTurn != 0)
+        while (true)
         {
             semaphoreTurn = 0;
             yellowLightOn = false;
@@ -1557,7 +1656,6 @@ public class Street : MonoBehaviour
             intersectionSemaphores[0].greenLights[0].enabled = true;
             intersectionSemaphores[0].redLights[1].enabled = false;
             intersectionSemaphores[0].greenLights[1].enabled = true;
-
             if (numberCarsWaiting > 0)
             {
                 if (intersectionQueue2Lane[0, 0] != null)
@@ -1575,30 +1673,24 @@ public class Street : MonoBehaviour
                     numberCarsWaiting--;
                 }
             }
-        }
-        else if (semaphoreTime >= 2 * semaphoreTimerMainLane - 3 && semaphoreTime <= 2 * semaphoreTimerMainLane && !yellowLightOn)
-        {
-            semaphoreTurn = 1;
+            yield return new WaitForSeconds(semaphoreTimerMainLane - 3);
+
             yellowLightOn = true;
-            intersectionSemaphores[1].greenLights[0].enabled = false;
-            intersectionSemaphores[3].greenLights[0].enabled = false;
-            intersectionSemaphores[1].yellowLights[0].enabled = true;
-            intersectionSemaphores[3].yellowLights[0].enabled = true;
-        }
-        else if (semaphoreTime >= semaphoreTimerMainLane && semaphoreTime <= 2 * semaphoreTimerMainLane && semaphoreTurn != 1)
-        {
+            intersectionSemaphores[0].greenLights[0].enabled = false;
+            intersectionSemaphores[0].yellowLights[0].enabled = true;
+            intersectionSemaphores[0].greenLights[1].enabled = false;
+            intersectionSemaphores[0].yellowLights[1].enabled = true;
+            yield return new WaitForSeconds(3);
+
+
             semaphoreTurn = 1;
             yellowLightOn = false;
             intersectionSemaphores[0].yellowLights[0].enabled = false;
             intersectionSemaphores[0].redLights[0].enabled = true;
             intersectionSemaphores[0].yellowLights[1].enabled = false;
             intersectionSemaphores[0].redLights[1].enabled = true;
-
             intersectionSemaphores[1].redLights[0].enabled = false;
-            intersectionSemaphores[3].redLights[0].enabled = false;
             intersectionSemaphores[1].greenLights[0].enabled = true;
-            intersectionSemaphores[3].greenLights[0].enabled = true;
-
             if (numberCarsWaiting > 0)
             {
                 if (intersectionQueue2Lane[1, 0] != null)
@@ -1615,6 +1707,23 @@ public class Street : MonoBehaviour
                     intersectionQueue2Lane[1, 1] = null;
                     numberCarsWaiting--;
                 }
+            }
+            yield return new WaitForSeconds(semaphoreTimerMainLane - 3);
+
+            yellowLightOn = true;
+            intersectionSemaphores[1].greenLights[0].enabled = false;
+            intersectionSemaphores[1].yellowLights[0].enabled = true;
+            yield return new WaitForSeconds(3);
+
+
+            semaphoreTurn = 2;
+            yellowLightOn = false;
+            intersectionSemaphores[1].yellowLights[0].enabled = false;
+            intersectionSemaphores[1].redLights[0].enabled = true;
+            intersectionSemaphores[3].redLights[0].enabled = false;
+            intersectionSemaphores[3].greenLights[0].enabled = true;
+            if (numberCarsWaiting > 0)
+            {
                 if (intersectionQueue2Lane[3, 0] != null)
                 {
                     car = intersectionQueue2Lane[3, 0];
@@ -1630,25 +1739,19 @@ public class Street : MonoBehaviour
                     numberCarsWaiting--;
                 }
             }
-        }
-        else if (semaphoreTime >= 2 * semaphoreTimerMainLane)
-        {
-            semaphoreTime = 0;
+            yield return new WaitForSeconds(semaphoreTimerMainLane - 3);
+
+            yellowLightOn = true;
+            intersectionSemaphores[3].greenLights[0].enabled = false;
+            intersectionSemaphores[3].yellowLights[0].enabled = true;
+            yield return new WaitForSeconds(3);
         }
     }
 
-    private void updateSemaphoreIntersection3Way2Lane1Lane()
+    IEnumerator updateSemaphoreIntersection3Way2Lane1Lane()
     {
         IntersectionVehicle car;
-        semaphoreTime += Time.deltaTime;
-        if (semaphoreTime >= semaphoreTimerMainLane - 3 && semaphoreTime <= semaphoreTimerMainLane && !yellowLightOn)
-        {
-            semaphoreTurn = 0;
-            yellowLightOn = true;
-            intersectionSemaphores[0].greenLights[0].enabled = false;
-            intersectionSemaphores[0].yellowLights[0].enabled = true;
-        }
-        else if (semaphoreTime <= semaphoreTimerMainLane && semaphoreTurn != 0)
+        while (true)
         {
             semaphoreTurn = 0;
             yellowLightOn = false;
@@ -1674,20 +1777,14 @@ public class Street : MonoBehaviour
                     numberCarsWaiting--;
                 }
             }
-        }
-        else if (semaphoreTime >= 2 * semaphoreTimerMainLane - 3 && semaphoreTime <= 2 * semaphoreTimerMainLane && !yellowLightOn)
-        {
-            semaphoreTurn = 1;
+            yield return new WaitForSeconds(semaphoreTimerMainLane - 3);
+
             yellowLightOn = true;
-            intersectionSemaphores[1].greenLights[0].enabled = false;
-            intersectionSemaphores[3].greenLights[0].enabled = false;
-            intersectionSemaphores[3].greenLights[1].enabled = false;
-            intersectionSemaphores[1].yellowLights[0].enabled = true;
-            intersectionSemaphores[3].yellowLights[0].enabled = true;
-            intersectionSemaphores[3].yellowLights[1].enabled = true;
-        }
-        else if (semaphoreTime >= semaphoreTimerMainLane && semaphoreTime <= 2 * semaphoreTimerMainLane && semaphoreTurn != 1)
-        {
+            intersectionSemaphores[0].greenLights[0].enabled = false;
+            intersectionSemaphores[0].yellowLights[0].enabled = true;
+            yield return new WaitForSeconds(3);
+
+
             semaphoreTurn = 1;
             yellowLightOn = false;
             intersectionSemaphores[0].yellowLights[0].enabled = false;
@@ -1702,14 +1799,14 @@ public class Street : MonoBehaviour
 
             if (numberCarsWaiting > 0)
             {
-                if (intersectionQueue2Lane[1, 0] != null && intersectionQueue2Lane[0, 0].intersectionDirection != LEFT)
+                if (intersectionQueue2Lane[1, 0] != null && intersectionQueue2Lane[1, 0].intersectionDirection != LEFT)
                 {
                     car = intersectionQueue2Lane[1, 0];
                     intersectionManager(car, car.intersectionEnterId);
                     intersectionQueue2Lane[1, 0] = null;
                     numberCarsWaiting--;
                 }
-                if (intersectionQueue2Lane[1, 1] != null && intersectionQueue2Lane[0, 1].intersectionDirection != LEFT)
+                if (intersectionQueue2Lane[1, 1] != null && intersectionQueue2Lane[1, 1].intersectionDirection != LEFT)
                 {
                     car = intersectionQueue2Lane[1, 1];
                     intersectionManager(car, car.intersectionEnterId);
@@ -1731,16 +1828,18 @@ public class Street : MonoBehaviour
                     numberCarsWaiting--;
                 }
             }
-        }
-        else if (semaphoreTime >= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane - 3 && semaphoreTime <= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane && !yellowLightOn)
-        {
-            semaphoreTurn = 2;
+            yield return new WaitForSeconds(semaphoreTimerMainLane - 3);
+
             yellowLightOn = true;
-            intersectionSemaphores[1].greenLights[1].enabled = false;
-            intersectionSemaphores[1].yellowLights[1].enabled = true;
-        }
-        else if (semaphoreTime >= 2 * semaphoreTimerMainLane && semaphoreTime <= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane && semaphoreTurn != 2)
-        {
+            intersectionSemaphores[1].greenLights[0].enabled = false;
+            intersectionSemaphores[3].greenLights[0].enabled = false;
+            intersectionSemaphores[3].greenLights[1].enabled = false;
+            intersectionSemaphores[1].yellowLights[0].enabled = true;
+            intersectionSemaphores[3].yellowLights[0].enabled = true;
+            intersectionSemaphores[3].yellowLights[1].enabled = true;
+            yield return new WaitForSeconds(3);
+
+
             semaphoreTurn = 2;
             yellowLightOn = false;
             intersectionSemaphores[1].yellowLights[0].enabled = false;
@@ -1770,10 +1869,12 @@ public class Street : MonoBehaviour
                     numberCarsWaiting--;
                 }
             }
-        }
-        else if (semaphoreTime >= 2 * semaphoreTimerMainLane + semaphoreTimerLeftLane)
-        {
-            semaphoreTime = 0;
+            yield return new WaitForSeconds(semaphoreTimerLeftLane - 3);
+
+            yellowLightOn = true;
+            intersectionSemaphores[1].greenLights[1].enabled = false;
+            intersectionSemaphores[1].yellowLights[1].enabled = true;
+            yield return new WaitForSeconds(3);
         }
     }
 
@@ -1788,4 +1889,143 @@ public class Street : MonoBehaviour
     }
 
 
+    private void Semaphores4Way()
+    {
+        float elapsedTime = (Time.time / 15f) % 4f;
+
+        if (elapsedTime < 0.8f)
+        {
+            intersectionSemaphores[3].yellowLights[0].enabled = false;
+            intersectionSemaphores[3].yellowLights[1].enabled = false;
+            intersectionSemaphores[3].redLights[0].enabled = true;
+            intersectionSemaphores[3].redLights[1].enabled = true;
+            intersectionSemaphores[0].redLights[0].enabled = false;
+            intersectionSemaphores[0].redLights[1].enabled = false;
+            intersectionSemaphores[0].greenLights[0].enabled = true;
+            intersectionSemaphores[0].greenLights[1].enabled = true;
+        }
+        else if (elapsedTime < 1f)
+        {
+            intersectionSemaphores[0].greenLights[0].enabled = false;
+            intersectionSemaphores[0].greenLights[1].enabled = false;
+            intersectionSemaphores[0].yellowLights[0].enabled = true;
+            intersectionSemaphores[0].yellowLights[1].enabled = true;
+        }
+        else if (elapsedTime < 1.8f)
+        {
+            intersectionSemaphores[0].yellowLights[0].enabled = false;
+            intersectionSemaphores[0].yellowLights[1].enabled = false;
+            intersectionSemaphores[0].redLights[0].enabled = true;
+            intersectionSemaphores[0].redLights[1].enabled = true;
+            intersectionSemaphores[1].redLights[0].enabled = false;
+            intersectionSemaphores[1].redLights[1].enabled = false;
+            intersectionSemaphores[1].greenLights[0].enabled = true;
+            intersectionSemaphores[1].greenLights[1].enabled = true;
+        }
+        else if (elapsedTime < 2f)
+        {
+            intersectionSemaphores[1].greenLights[0].enabled = false;
+            intersectionSemaphores[1].greenLights[1].enabled = false;
+            intersectionSemaphores[1].yellowLights[0].enabled = true;
+            intersectionSemaphores[1].yellowLights[1].enabled = true;
+        }
+        else if (elapsedTime < 2.8f)
+        {
+            intersectionSemaphores[1].yellowLights[0].enabled = false;
+            intersectionSemaphores[1].yellowLights[1].enabled = false;
+            intersectionSemaphores[1].redLights[0].enabled = true;
+            intersectionSemaphores[1].redLights[1].enabled = true;
+            intersectionSemaphores[2].redLights[0].enabled = false;
+            intersectionSemaphores[2].redLights[1].enabled = false;
+            intersectionSemaphores[2].greenLights[0].enabled = true;
+            intersectionSemaphores[2].greenLights[1].enabled = true;
+        }
+        else if (elapsedTime < 3f)
+        {
+            intersectionSemaphores[2].greenLights[0].enabled = false;
+            intersectionSemaphores[2].greenLights[1].enabled = false;
+            intersectionSemaphores[2].yellowLights[0].enabled = true;
+            intersectionSemaphores[2].yellowLights[1].enabled = true;
+        }
+        else if (elapsedTime < 3.8f)
+        {
+            intersectionSemaphores[2].yellowLights[0].enabled = false;
+            intersectionSemaphores[2].yellowLights[1].enabled = false;
+            intersectionSemaphores[2].redLights[0].enabled = true;
+            intersectionSemaphores[2].redLights[1].enabled = true;
+            intersectionSemaphores[3].redLights[0].enabled = false;
+            intersectionSemaphores[3].redLights[1].enabled = false;
+            intersectionSemaphores[3].greenLights[0].enabled = true;
+            intersectionSemaphores[3].greenLights[1].enabled = true;
+        }
+        else
+        {
+            intersectionSemaphores[3].greenLights[0].enabled = false;
+            intersectionSemaphores[3].greenLights[1].enabled = false;
+            intersectionSemaphores[3].yellowLights[0].enabled = true;
+            intersectionSemaphores[3].yellowLights[1].enabled = true;
+        }
+    }
+
+    private void Semaphores3Way()
+    {
+        float elapsedTime = (Time.time / 15f) % 3f;
+
+        if (elapsedTime < 0.8f)
+        {
+            intersectionSemaphores[3].yellowLights[0].enabled = false;
+            intersectionSemaphores[3].yellowLights[1].enabled = false;
+            intersectionSemaphores[3].redLights[0].enabled = true;
+            intersectionSemaphores[3].redLights[1].enabled = true;
+            intersectionSemaphores[0].redLights[0].enabled = false;
+            intersectionSemaphores[0].redLights[1].enabled = false;
+            intersectionSemaphores[0].greenLights[0].enabled = true;
+            intersectionSemaphores[0].greenLights[1].enabled = true;
+        }
+        else if (elapsedTime < 1f)
+        {
+            intersectionSemaphores[0].greenLights[0].enabled = false;
+            intersectionSemaphores[0].greenLights[1].enabled = false;
+            intersectionSemaphores[0].yellowLights[0].enabled = true;
+            intersectionSemaphores[0].yellowLights[1].enabled = true;
+        }
+        else if (elapsedTime < 1.8f)
+        {
+            intersectionSemaphores[0].yellowLights[0].enabled = false;
+            intersectionSemaphores[0].yellowLights[1].enabled = false;
+            intersectionSemaphores[0].redLights[0].enabled = true;
+            intersectionSemaphores[0].redLights[1].enabled = true;
+            intersectionSemaphores[1].redLights[0].enabled = false;
+            intersectionSemaphores[1].redLights[1].enabled = false;
+            intersectionSemaphores[1].greenLights[0].enabled = true;
+            intersectionSemaphores[1].greenLights[1].enabled = true;
+        }
+        else if (elapsedTime < 2f)
+        {
+            intersectionSemaphores[1].greenLights[0].enabled = false;
+            intersectionSemaphores[1].greenLights[1].enabled = false;
+            intersectionSemaphores[1].yellowLights[0].enabled = true;
+            intersectionSemaphores[1].yellowLights[1].enabled = true;
+        }
+        else if (elapsedTime < 2.8f)
+        {
+            intersectionSemaphores[1].yellowLights[0].enabled = false;
+            intersectionSemaphores[1].yellowLights[1].enabled = false;
+            intersectionSemaphores[1].redLights[0].enabled = true;
+            intersectionSemaphores[1].redLights[1].enabled = true;
+            intersectionSemaphores[3].redLights[0].enabled = false;
+            intersectionSemaphores[3].redLights[1].enabled = false;
+            intersectionSemaphores[3].greenLights[0].enabled = true;
+            intersectionSemaphores[3].greenLights[1].enabled = true;
+        }
+        else if (elapsedTime < 3f)
+        {
+            intersectionSemaphores[3].greenLights[0].enabled = false;
+            intersectionSemaphores[3].greenLights[1].enabled = false;
+            intersectionSemaphores[3].yellowLights[0].enabled = true;
+            intersectionSemaphores[3].yellowLights[1].enabled = true;
+        }
+    }
+
 }
+

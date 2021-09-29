@@ -141,6 +141,8 @@ public class CityGenerator : MonoBehaviour
     private int[] numberVerticalStreets;
     private int[,] lanesVerticalStreets;
 
+    private int intersectionId = 0;
+
     private CarSpawner carSpawner;
     private SimpleBusSpawner busSpawner;
 
@@ -1305,6 +1307,13 @@ public class CityGenerator : MonoBehaviour
             {
                 cityMap[row, col].prefabReference = intersection3Way2Lane1LaneSemaphore;
             }
+            Component[] intersectionTriggers = cityMap[row,col].prefabReference.GetComponentsInChildren<IntersectionTriggerComponent>();
+            foreach(IntersectionTriggerComponent trig in intersectionTriggers)
+            {
+                trig.dynamicIntersectionId = intersectionId;
+            }
+            Debug.Log(intersectionId);
+            this.intersectionId++;
         }
     }
 
@@ -1355,7 +1364,8 @@ public class CityGenerator : MonoBehaviour
                 else
                 {
                     cityNodes.Add(node);
-                    if (cityMap[row, col].prefabType == STRAIGHT_1LANE || (cityMap[row, col].prefabType == STRAIGHT_2LANE && !node.isLaneChange))   //spawn nodes dont include parking gateways
+                    if ((cityMap[row, col].prefabType == STRAIGHT_1LANE || cityMap[row, col].prefabType == STRAIGHT_2LANE || cityMap[row, col].prefabType == BUS_STOP_1LANE || cityMap[row, col].prefabType == BUS_STOP_2LANE) 
+                        && !node.isLaneChange && !node.isBusLane)   //spawn nodes dont include lane-change nodes and bus lanes
                     {
                         citySpawnNodes.Add(node);
                     }

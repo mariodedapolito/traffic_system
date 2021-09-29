@@ -334,7 +334,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1327725838782252470}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.5, y: 0.099999964, z: -0.40499878}
+  m_LocalPosition: {x: -1.13, y: 0.099999964, z: -0.40499878}
   m_LocalScale: {x: 0.15, y: 0.20000008, z: 0.15000004}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -579,7 +579,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 2
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 0
+  isIntersectionExit: 1
+  isSimpleIntersection: 1
+  isSemaphoreIntersection: 0
+  intersectionNumRoads: 4
 --- !u!114 &8103245646478836137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -618,7 +623,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1697544317626151277}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 0.10000008, z: 0.40499878}
+  m_LocalPosition: {x: 1.1699982, y: 0.10000008, z: 0.40499878}
   m_LocalScale: {x: 0.15, y: 0.20000008, z: 0.15000004}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -1344,7 +1349,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 1
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 0
+  isIntersectionExit: 1
+  isSimpleIntersection: 1
+  isSemaphoreIntersection: 0
+  intersectionNumRoads: 4
 --- !u!114 &3454706138004935951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1448,7 +1458,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3474164406750535592}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.44999695, y: 0.49999988, z: -1.5}
+  m_LocalPosition: {x: 0.44999695, y: 0.49999988, z: -1.74}
   m_LocalScale: {x: 0.75, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -1626,7 +1636,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 0
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 1
+  isIntersectionExit: 0
+  isSimpleIntersection: 1
+  isSemaphoreIntersection: 0
+  intersectionNumRoads: 4
 --- !u!114 &3209761713454882252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1867,7 +1882,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4041247801424232943}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 0.099999964, z: -0.40499878}
+  m_LocalPosition: {x: 1.17, y: 0.099999964, z: -0.40499878}
   m_LocalScale: {x: 0.15, y: 0.20000008, z: 0.15000004}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -2148,7 +2163,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4930828527089895604}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -1.5, y: 0.50000006, z: -0.45000076}
+  m_LocalPosition: {x: -1.8, y: 0.50000006, z: -0.45000076}
   m_LocalScale: {x: 0.7500002, y: 0.15000002, z: 1}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -2326,7 +2341,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 3
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 1
+  isIntersectionExit: 0
+  isSimpleIntersection: 1
+  isSemaphoreIntersection: 0
+  intersectionNumRoads: 4
 --- !u!114 &1096154660722733068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2365,7 +2385,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4964085783464576968}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.40499878, y: 0.099999785, z: -1.5}
+  m_LocalPosition: {x: 0.40499878, y: 0.099999785, z: -1.1899986}
   m_LocalScale: {x: 0.15, y: 0.20000008, z: 0.15000004}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -2430,7 +2450,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5022009367683615249}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.40499878, y: 0.10000026, z: 1.5}
+  m_LocalPosition: {x: -0.40499878, y: 0.10000026, z: 1.1699982}
   m_LocalScale: {x: 0.15, y: 0.20000008, z: 0.15000004}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -2495,7 +2515,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5131560719322553254}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.5, y: 0.10000008, z: 0.40499878}
+  m_LocalPosition: {x: -1.1300049, y: 0.10000008, z: 0.40499878}
   m_LocalScale: {x: 0.15, y: 0.20000008, z: 0.15000004}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -2738,7 +2758,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 0
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 0
+  isIntersectionExit: 1
+  isSimpleIntersection: 1
+  isSemaphoreIntersection: 0
+  intersectionNumRoads: 4
 --- !u!114 &959190405911878428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2777,7 +2802,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6017810081547116983}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.40499878, y: 0.10000026, z: 1.5}
+  m_LocalPosition: {x: 0.40499878, y: 0.10000026, z: 1.17}
   m_LocalScale: {x: 0.15, y: 0.20000008, z: 0.15000004}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -2840,7 +2865,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6320515911058085986}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.40499878, y: 0.099999785, z: -1.5}
+  m_LocalPosition: {x: -0.40499878, y: 0.099999785, z: -1.19}
   m_LocalScale: {x: 0.15, y: 0.20000008, z: 0.15000004}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -3239,7 +3264,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 3
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 0
+  isIntersectionExit: 1
+  isSimpleIntersection: 1
+  isSemaphoreIntersection: 0
+  intersectionNumRoads: 4
 --- !u!114 &6468894938157946177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3357,7 +3387,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8102795224202688015}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 1.5, y: 0.5000001, z: 0.45000076}
+  m_LocalPosition: {x: 1.86, y: 0.5000001, z: 0.45000076}
   m_LocalScale: {x: 0.7500002, y: 0.15000002, z: 1}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -3535,7 +3565,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 1
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 1
+  isIntersectionExit: 0
+  isSimpleIntersection: 1
+  isSemaphoreIntersection: 0
+  intersectionNumRoads: 4
 --- !u!114 &7057402993803308273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3576,7 +3611,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8417801818777038705}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.44999695, y: 0.5000005, z: 1.5}
+  m_LocalPosition: {x: -0.44999695, y: 0.5000005, z: 1.78}
   m_LocalScale: {x: 0.75, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -3754,7 +3789,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 2
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 1
+  isIntersectionExit: 0
+  isSimpleIntersection: 1
+  isSemaphoreIntersection: 0
+  intersectionNumRoads: 4
 --- !u!114 &7734692921917655519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3897,7 +3937,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6cf3fab3c7adf84a9a8bd5bc01b3df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intersectionId: 0
   carWaypoints:
   - {fileID: 1754551158357060208}
   - {fileID: 4259953913101373360}

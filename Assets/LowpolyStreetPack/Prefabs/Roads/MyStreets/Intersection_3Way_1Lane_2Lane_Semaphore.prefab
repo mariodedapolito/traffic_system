@@ -282,7 +282,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 3
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 0
+  isIntersectionExit: 1
+  isSimpleIntersection: 0
+  isSemaphoreIntersection: 1
+  intersectionNumRoads: 3
 --- !u!114 &3025001602197954846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1377,7 +1382,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 0
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 0
+  isIntersectionExit: 1
+  isSimpleIntersection: 0
+  isSemaphoreIntersection: 1
+  intersectionNumRoads: 3
 --- !u!114 &3692047229581126092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1843,9 +1853,12 @@ MonoBehaviour:
   semaphoreId: 0
   redLights:
   - {fileID: 2903664850646996581}
+  - {fileID: 2903664850646996581}
   yellowLights:
   - {fileID: 2903664850646996577}
+  - {fileID: 2903664850646996577}
   greenLights:
+  - {fileID: 2903664850646996579}
   - {fileID: 2903664850646996579}
 --- !u!1 &2903664850641050447
 GameObject:
@@ -2291,7 +2304,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3861463384643567311}
   m_LocalRotation: {x: -0, y: 0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: 0.8025055, y: 0.5, z: -1.163002}
+  m_LocalPosition: {x: 0.8025055, y: 0.5, z: -1.53}
   m_LocalScale: {x: 1.4999999, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -2469,7 +2482,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 0
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 1
+  isIntersectionExit: 0
+  isSimpleIntersection: 0
+  isSemaphoreIntersection: 1
+  intersectionNumRoads: 3
 --- !u!114 &3085117697941637072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3000,7 +3018,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 1
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 0
+  isIntersectionExit: 1
+  isSimpleIntersection: 0
+  isSemaphoreIntersection: 1
+  intersectionNumRoads: 3
 --- !u!114 &4166023995290749869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3195,7 +3218,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5824748425108846075}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -1.949997, y: 0.5, z: -0.40250015}
+  m_LocalPosition: {x: -2.28, y: 0.5, z: -0.40250015}
   m_LocalScale: {x: 0.75, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -3373,7 +3396,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 3
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 1
+  isIntersectionExit: 0
+  isSimpleIntersection: 0
+  isSemaphoreIntersection: 1
+  intersectionNumRoads: 3
 --- !u!114 &3995448083909389186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4406,9 +4434,12 @@ MonoBehaviour:
   semaphoreId: 0
   redLights:
   - {fileID: 6947476954736523809}
+  - {fileID: 6947476954736523809}
   yellowLights:
   - {fileID: 6947476954736523813}
+  - {fileID: 6947476954736523813}
   greenLights:
+  - {fileID: 6947476954736523815}
   - {fileID: 6947476954736523815}
 --- !u!1 &6947476954747320069
 GameObject:
@@ -4946,7 +4977,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8135317035059174287}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 1.949997, y: 0.50000024, z: 0.40000153}
+  m_LocalPosition: {x: 2.23, y: 0.50000024, z: 0.40000153}
   m_LocalScale: {x: 0.75, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -5124,7 +5155,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 1
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 1
+  isIntersectionExit: 0
+  isSimpleIntersection: 0
+  isSemaphoreIntersection: 1
+  intersectionNumRoads: 3
 --- !u!114 &3825808278738618806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5609,7 +5645,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6cf3fab3c7adf84a9a8bd5bc01b3df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intersectionId: 0
   carWaypoints:
   - {fileID: 7062268026460243766}
   - {fileID: 3209049038119960890}

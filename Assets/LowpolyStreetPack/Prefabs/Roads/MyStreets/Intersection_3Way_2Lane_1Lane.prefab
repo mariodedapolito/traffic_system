@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.15}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 7
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2695971578972134509
 MonoBehaviour:
@@ -89,12 +89,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 88329200197211724}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.04, y: -10, z: 2.5}
-  m_LocalScale: {x: 10, y: 1, z: 5}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: 1.66, y: 0.5, z: 0.7879982}
+  m_LocalScale: {x: 1.5, y: 0.15, z: 1}
   m_Children: []
-  m_Father: {fileID: 5975299248066258944}
-  m_RootOrder: 5
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4282344060918515759
 MonoBehaviour:
@@ -268,7 +268,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 1
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 1
+  isIntersectionExit: 0
+  isSimpleIntersection: 1
+  isSemaphoreIntersection: 0
+  intersectionNumRoads: 3
 --- !u!114 &1791831165472707949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,7 +317,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.09199999}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 20
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8917465227252972433
 MonoBehaviour:
@@ -388,7 +393,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.09199999}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 26
+  m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7696524008154438319
 MonoBehaviour:
@@ -464,7 +469,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.15}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 5
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &559881129393870149
 MonoBehaviour:
@@ -539,7 +544,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.15}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 6
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6560159281308656547
 MonoBehaviour:
@@ -603,7 +608,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.19999997, z: 0.09199998}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 22
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &421838081605886521
 MonoBehaviour:
@@ -651,84 +656,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &2364119801135573891
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8788267643123502524}
-  - component: {fileID: 4180683354503578582}
-  - component: {fileID: 6931180904352779902}
-  m_Layer: 6
-  m_Name: Node_lanechange
-  m_TagString: CarWaypoint
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8788267643123502524
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2364119801135573891}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 3.0814056, y: 0.099999994, z: 0.8100014}
-  m_LocalScale: {x: 0.14999999, y: 0.19999997, z: 0.09199998}
-  m_Children: []
-  m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 27
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4180683354503578582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2364119801135573891}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextNodes:
-  - {fileID: 3970659685827273178}
-  - {fileID: 4735652427632073005}
-  needIncomingConnection: 0
-  needOutgoingConnection: 0
-  isIntersection: 0
-  isLaneChange: 1
-  isTurnLeft: 0
-  isTurnRight: 0
-  isBusLane: 0
-  isBusStop: 0
-  isParkingGateway: 0
-  isParkingSpot: 0
-  parkingExitRotation: 0
-  parkingRotation: 0
-  laneNumber: 0
-  trafficDirection: 1
-  isBusSpawn: 0
-  isCarSpawn: 0
-  isOccupied: 0
-  numberCars: 0
---- !u!135 &6931180904352779902
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2364119801135573891}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2757400367001831357
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,7 +666,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8075329125505759793}
   - component: {fileID: 1281264722215772349}
-  - component: {fileID: 1983714896876251821}
   m_Layer: 8
   m_Name: Node_lane_0 (6)
   m_TagString: CarWaypoint
@@ -759,7 +685,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.15}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 16
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1281264722215772349
 MonoBehaviour:
@@ -794,19 +720,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &1983714896876251821
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2757400367001831357}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3129318660789732505
 GameObject:
   m_ObjectHideFlags: 0
@@ -833,12 +746,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3129318660789732505}
-  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 9, y: -3.5, z: 2.4999988}
-  m_LocalScale: {x: 5, y: 1, z: 5}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.5249939, y: 0.49999982, z: -2.36}
+  m_LocalScale: {x: 0.7500001, y: 0.15, z: 1}
   m_Children: []
-  m_Father: {fileID: 5975299248066258944}
-  m_RootOrder: 0
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6145415529713211358
 MonoBehaviour:
@@ -1012,7 +925,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 0
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 1
+  isIntersectionExit: 0
+  isSimpleIntersection: 1
+  isSemaphoreIntersection: 0
+  intersectionNumRoads: 3
 --- !u!114 &5777655248091973711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1036,7 +954,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5947113747964340989}
   - component: {fileID: 4735652427632073005}
-  - component: {fileID: 6822590445448810520}
   m_Layer: 8
   m_Name: Node_lane_0 (18)
   m_TagString: CarWaypoint
@@ -1056,7 +973,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.15}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 12
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4735652427632073005
 MonoBehaviour:
@@ -1072,6 +989,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 6977925017708389960}
+  - {fileID: 2591825632880513592}
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
@@ -1090,19 +1008,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &6822590445448810520
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3316138884051546174}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3599716683482955248
 GameObject:
   m_ObjectHideFlags: 0
@@ -1113,7 +1018,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1066344997721983308}
   - component: {fileID: 3310094132295790605}
-  - component: {fileID: 1931395726468432700}
   m_Layer: 8
   m_Name: Node_lane_0
   m_TagString: CarWaypoint
@@ -1133,7 +1037,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.15}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 17
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3310094132295790605
 MonoBehaviour:
@@ -1168,19 +1072,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &1931395726468432700
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3599716683482955248}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3863586368671147559
 GameObject:
   m_ObjectHideFlags: 0
@@ -1207,12 +1098,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3863586368671147559}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.04, y: 10, z: 2.5}
-  m_LocalScale: {x: 10, y: 1, z: 5}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: -1.5, y: 0.5, z: 0.7879982}
+  m_LocalScale: {x: 1.5, y: 0.15, z: 1}
   m_Children: []
-  m_Father: {fileID: 5975299248066258944}
-  m_RootOrder: 4
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4028400424412291795
 MonoBehaviour:
@@ -1386,7 +1277,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 3
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 0
+  isIntersectionExit: 1
+  isSimpleIntersection: 1
+  isSemaphoreIntersection: 0
+  intersectionNumRoads: 3
 --- !u!114 &1639387898744633091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1430,7 +1326,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.09199999}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 21
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6280524018224498743
 MonoBehaviour:
@@ -1487,7 +1383,6 @@ GameObject:
   m_Component:
   - component: {fileID: 950116102529729948}
   - component: {fileID: 6977925017708389960}
-  - component: {fileID: 6649871630428538525}
   m_Layer: 8
   m_Name: Node_lane_0 (17)
   m_TagString: CarWaypoint
@@ -1507,7 +1402,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.15}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 13
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6977925017708389960
 MonoBehaviour:
@@ -1542,19 +1437,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &6649871630428538525
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4521461203164465915}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4668885476281859231
 GameObject:
   m_ObjectHideFlags: 0
@@ -1581,12 +1463,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4668885476281859231}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.4999999, y: -10, z: 2.5}
-  m_LocalScale: {x: 10, y: 1, z: 5}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: 1.5, y: 0.5, z: -0.79299927}
+  m_LocalScale: {x: 1.5, y: 0.15, z: 1}
   m_Children: []
-  m_Father: {fileID: 5975299248066258944}
-  m_RootOrder: 2
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &528753531299099354
 MonoBehaviour:
@@ -1760,7 +1642,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 1
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 0
+  isIntersectionExit: 1
+  isSimpleIntersection: 1
+  isSemaphoreIntersection: 0
+  intersectionNumRoads: 3
 --- !u!114 &7015469294320184243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1784,7 +1671,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1008858947164015036}
   - component: {fileID: 8895883153090215826}
-  - component: {fileID: 9191391653594844296}
   m_Layer: 8
   m_Name: Node_lane_0 (23)
   m_TagString: CarWaypoint
@@ -1804,7 +1690,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.15}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 8
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8895883153090215826
 MonoBehaviour:
@@ -1820,6 +1706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 6560159281308656547}
+  - {fileID: 4135563491414930774}
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
@@ -1838,19 +1725,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &9191391653594844296
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4739312075733997429}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4789511481775821128
 GameObject:
   m_ObjectHideFlags: 0
@@ -1881,7 +1755,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.09199999}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 25
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1733808020241747312
 MonoBehaviour:
@@ -1897,7 +1771,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 3970659685827273178}
-  - {fileID: 4180683354503578582}
   needIncomingConnection: 1
   needOutgoingConnection: 0
   isIntersection: 0
@@ -1959,7 +1832,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.09199999}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 23
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2135482541673680376
 MonoBehaviour:
@@ -1975,7 +1848,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 4735652427632073005}
-  - {fileID: 4180683354503578582}
   needIncomingConnection: 1
   needOutgoingConnection: 0
   isIntersection: 0
@@ -2037,7 +1909,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.19999997, z: 0.09199998}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 28
+  m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3473526897971566550
 MonoBehaviour:
@@ -2115,7 +1987,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.09199999}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 19
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2881522299904062307
 MonoBehaviour:
@@ -2191,13 +2063,7 @@ Transform:
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 0, z: -0.568}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.2}
-  m_Children:
-  - {fileID: 7833978112227358706}
-  - {fileID: 5395975918983552197}
-  - {fileID: 1119405258993088600}
-  - {fileID: 5047864804422666082}
-  - {fileID: 1312103294867010988}
-  - {fileID: 8707827697907553592}
+  m_Children: []
   m_Father: {fileID: 1952225155875115036}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 90}
@@ -2384,7 +2250,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.09199999}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 18
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7851549387862370843
 MonoBehaviour:
@@ -2440,7 +2306,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4487477158296938077}
   - component: {fileID: 9100733953940407595}
-  - component: {fileID: 3157533776257135802}
   m_Layer: 8
   m_Name: Node_lane_0 (1)
   m_TagString: CarWaypoint
@@ -2460,7 +2325,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.15}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 11
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9100733953940407595
 MonoBehaviour:
@@ -2494,19 +2359,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &3157533776257135802
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6427389891750972697}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6697345479340218461
 GameObject:
   m_ObjectHideFlags: 0
@@ -2517,7 +2369,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1384706190300507683}
   - component: {fileID: 5380305764151745152}
-  - component: {fileID: 2325290192860191727}
   m_Layer: 8
   m_Name: Node_lane_0 (16)
   m_TagString: CarWaypoint
@@ -2537,7 +2388,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.15}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 9
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5380305764151745152
 MonoBehaviour:
@@ -2571,19 +2422,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &2325290192860191727
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6697345479340218461}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6698126814060996370
 GameObject:
   m_ObjectHideFlags: 0
@@ -2594,7 +2432,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4261752255948864015}
   - component: {fileID: 3970659685827273178}
-  - component: {fileID: 7777356494723747864}
   m_Layer: 8
   m_Name: Node_lane_0 (12)
   m_TagString: CarWaypoint
@@ -2614,7 +2451,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.15}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 14
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3970659685827273178
 MonoBehaviour:
@@ -2648,19 +2485,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &7777356494723747864
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6698126814060996370}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7142219168757605632
 GameObject:
   m_ObjectHideFlags: 0
@@ -2687,12 +2511,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7142219168757605632}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.4999999, y: 10, z: 2.5}
-  m_LocalScale: {x: 10, y: 1, z: 5}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: -1.85, y: 0.5, z: -0.79299927}
+  m_LocalScale: {x: 1.5, y: 0.15, z: 1}
   m_Children: []
-  m_Father: {fileID: 5975299248066258944}
-  m_RootOrder: 3
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5109744092734441478
 MonoBehaviour:
@@ -2866,7 +2690,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 3
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 1
+  isIntersectionExit: 0
+  isSimpleIntersection: 1
+  isSemaphoreIntersection: 0
+  intersectionNumRoads: 3
 --- !u!114 &7258321738218632560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2910,7 +2739,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.09199999}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 24
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6040394075208300664
 MonoBehaviour:
@@ -2966,7 +2795,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6483511486415181218}
   - component: {fileID: 7610613198292472481}
-  - component: {fileID: 1277681640809680272}
   m_Layer: 8
   m_Name: Node_lane_0 (11)
   m_TagString: CarWaypoint
@@ -2986,7 +2814,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.15}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 15
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7610613198292472481
 MonoBehaviour:
@@ -3021,19 +2849,69 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &1277681640809680272
-SphereCollider:
+--- !u!1 &7651793723627256294
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7436464977344499650}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4839683499796800627}
+  - component: {fileID: 4135563491414930774}
+  m_Layer: 8
+  m_Name: Node_lane_0 (3)
+  m_TagString: CarWaypoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4839683499796800627
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7651793723627256294}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.45, y: 0.100000024, z: 0.21}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.09199999}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 35
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4135563491414930774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7651793723627256294}
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 6977925017708389960}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!1 &7844546141025579469
 GameObject:
   m_ObjectHideFlags: 0
@@ -3127,6 +3005,69 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConversionMode: 0
+--- !u!1 &8188116516006855080
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1759391570341086687}
+  - component: {fileID: 2591825632880513592}
+  m_Layer: 8
+  m_Name: Node_lane_0 (2)
+  m_TagString: CarWaypoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1759391570341086687
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8188116516006855080}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.48, y: 0.100000024, z: 0.21}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.09199999}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 34
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2591825632880513592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8188116516006855080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 5380305764151745152}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
+  isOccupied: 0
+  numberCars: 0
 --- !u!1 &8529269013803444493
 GameObject:
   m_ObjectHideFlags: 0
@@ -3230,7 +3171,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2092301508640717811}
   - component: {fileID: 8228507519592850324}
-  - component: {fileID: 6398728426935324541}
   m_Layer: 8
   m_Name: Node_lane_0 (19)
   m_TagString: CarWaypoint
@@ -3250,7 +3190,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.15}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 10
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8228507519592850324
 MonoBehaviour:
@@ -3285,19 +3225,6 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &6398728426935324541
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8578619379054351526}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8827143653869739393
 GameObject:
   m_ObjectHideFlags: 0
@@ -3324,12 +3251,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8827143653869739393}
-  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 9, y: 3.2, z: 2.4999988}
-  m_LocalScale: {x: 5, y: 1, z: 5}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.47999573, y: 0.49999976, z: -1.9179993}
+  m_LocalScale: {x: 0.7500001, y: 0.15, z: 1}
   m_Children: []
-  m_Father: {fileID: 5975299248066258944}
-  m_RootOrder: 1
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4291788404229333245
 MonoBehaviour:
@@ -3503,7 +3430,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionId: 0
-  intersectionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 0
+  isIntersectionExit: 1
+  isSimpleIntersection: 1
+  isSemaphoreIntersection: 0
+  intersectionNumRoads: 3
 --- !u!114 &6524945384861728363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3551,6 +3483,12 @@ Transform:
   - {fileID: 7844546141025349101}
   - {fileID: 3973802579017319791}
   - {fileID: 5975299248066258944}
+  - {fileID: 7833978112227358706}
+  - {fileID: 5395975918983552197}
+  - {fileID: 1119405258993088600}
+  - {fileID: 5047864804422666082}
+  - {fileID: 1312103294867010988}
+  - {fileID: 8707827697907553592}
   - {fileID: 2531766973930817191}
   - {fileID: 3779911920222845836}
   - {fileID: 5207635042874680837}
@@ -3574,8 +3512,9 @@ Transform:
   - {fileID: 2120665067276616459}
   - {fileID: 2437573897646543615}
   - {fileID: 4792895805284905991}
-  - {fileID: 8788267643123502524}
   - {fileID: 6110981607207446008}
+  - {fileID: 1759391570341086687}
+  - {fileID: 4839683499796800627}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3638,22 +3577,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6cf3fab3c7adf84a9a8bd5bc01b3df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intersectionId: 0
   carWaypoints:
-  - {fileID: 3310094132295790605}
-  - {fileID: 1281264722215772349}
-  - {fileID: 7610613198292472481}
-  - {fileID: 3970659685827273178}
-  - {fileID: 6977925017708389960}
-  - {fileID: 4735652427632073005}
-  - {fileID: 9100733953940407595}
-  - {fileID: 8228507519592850324}
-  - {fileID: 5380305764151745152}
-  - {fileID: 8895883153090215826}
-  - {fileID: 2695971578972134509}
-  - {fileID: 6560159281308656547}
-  - {fileID: 559881129393870149}
   - {fileID: 7390216794174432913}
+  - {fileID: 559881129393870149}
+  - {fileID: 6560159281308656547}
+  - {fileID: 2695971578972134509}
+  - {fileID: 8895883153090215826}
+  - {fileID: 5380305764151745152}
+  - {fileID: 8228507519592850324}
+  - {fileID: 9100733953940407595}
+  - {fileID: 4735652427632073005}
+  - {fileID: 6977925017708389960}
+  - {fileID: 3970659685827273178}
+  - {fileID: 7610613198292472481}
+  - {fileID: 1281264722215772349}
+  - {fileID: 3310094132295790605}
   - {fileID: 7851549387862370843}
   - {fileID: 2881522299904062307}
   - {fileID: 8917465227252972433}
@@ -3663,8 +3601,9 @@ MonoBehaviour:
   - {fileID: 6040394075208300664}
   - {fileID: 1733808020241747312}
   - {fileID: 7696524008154438319}
-  - {fileID: 4180683354503578582}
   - {fileID: 3473526897971566550}
+  - {fileID: 2591825632880513592}
+  - {fileID: 4135563491414930774}
   isSimpleIntersection: 1
   isSemaphoreIntersection: 0
   isTBoneIntersection: 1
@@ -3707,7 +3646,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.15}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 4
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7390216794174432913
 MonoBehaviour:

@@ -233,8 +233,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4962731154326057418}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 390.81, y: 0.099999905, z: 259.018}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 100.99701, y: 0.099999905, z: 232.389}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4962731154325888874}
@@ -242,7 +242,7 @@ Transform:
   - {fileID: 3731912093807782303}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &5661161015576890853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,9 +310,9 @@ MonoBehaviour:
     y: 0.20067479
     z: 0.6
   m_PrimitiveSize:
-    x: 0.2
+    x: 0.4
     y: 0.41797882
-    z: 0.2
+    z: 0.3
   m_PrimitiveOrientation:
     Value:
       x: -0
@@ -321,12 +321,12 @@ MonoBehaviour:
     RotationOrder: 4
   m_Capsule:
     Height: 0.41797882
-    Radius: 0.1
+    Radius: 0.2
     Axis: 1
   m_Cylinder:
-    Height: 0.41797882
-    Radius: 0.1
-    Axis: 1
+    Height: 0.3
+    Radius: 0.20898941
+    Axis: 2
   m_CylinderSideCount: 20
   m_SphereRadius: 0.20898941
   m_MinimumSkinnedVertexWeight: 0.1
@@ -463,10 +463,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf9c81a4caf0484cb9cd8eac30246b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 2
+  Speed: 1.8601396
   SteeringAngle: 0
   SteeringDamping: 0.1
-  SpeedDamping: 0.05
+  SpeedDamping: 0.04650349
   startingNode: {fileID: 0}
   destinationNode: {fileID: 0}
 --- !u!114 &4791537525493104079
@@ -809,7 +809,6 @@ GameObject:
   - component: {fileID: 4962731154325888874}
   - component: {fileID: 4962731154327184042}
   - component: {fileID: 4962731154328168826}
-  - component: {fileID: 4962731153826142784}
   m_Layer: 0
   m_Name: carBody
   m_TagString: Untagged
@@ -878,20 +877,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &4962731153826142784
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4962731154326155310}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300002, guid: ef2348be8be73574aac22a41c4571ccb, type: 3}
 --- !u!1 &4993407268981634371
 GameObject:
   m_ObjectHideFlags: 0
