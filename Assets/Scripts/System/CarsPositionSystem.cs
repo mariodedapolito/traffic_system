@@ -185,6 +185,7 @@ public class CarsPositionSystem : SystemBase
                        intersectionCrossingMap.TryAdd(intersectionCrossingHashMapKey, navigation.intersectionDirection);
                    }
 
+
                }).Schedule();
 
     }
