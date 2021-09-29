@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -27,8 +27,10 @@ public class Node : MonoBehaviour
     public bool isOccupied = false;
     public int numberCars;
 
+    public GameObject parkingPrefab;
 
-    /*private void OnDrawGizmos()
+
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
         for (int i = 0; i < nextNodes.Count; i++)
@@ -43,7 +45,6 @@ public class Node : MonoBehaviour
         }
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(transform.position, 0.25f);
-
         if (isTurnLeft)
         {
             Gizmos.color = Color.yellow;
@@ -74,7 +75,6 @@ public class Node : MonoBehaviour
             Gizmos.color = Color.magenta;
             Gizmos.DrawCube(transform.position, new Vector3(0.5f, 0.5f, 0.5f));
         }
-
         if (isParkingSpot)
         {
             Gizmos.color = Color.yellow;
@@ -85,8 +85,7 @@ public class Node : MonoBehaviour
             Gizmos.color = Color.white;
             Gizmos.DrawCube(transform.position, new Vector3(0.7f, 0.7f, 0.7f));
         }
-
         Gizmos.color = Color.white;
-    }*/
+    }
 
 }

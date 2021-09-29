@@ -209,7 +209,7 @@ class CarSystem : SystemBase
                     }
                 }
 
-                if (navigation.currentNode == NodesPositionList.Length - 1)
+                if (navigation.currentNode == NodesPositionList.Length - 1 && math.distance(translation.Value, NodesPositionList[navigation.currentNode].nodePosition) < 0.1f)
                 {
                     navigation.needParking = true;
                     navigation.trafficStop = true;
@@ -251,7 +251,7 @@ class CarSystem : SystemBase
                     rotation.Value = Quaternion.Euler(neededRotation);
                 }
 
-                if ((math.distance(translation.Value, NodesPositionList[navigation.currentNode].nodePosition) < 1f && !navigation.needParking))
+                if ((math.distance(translation.Value, NodesPositionList[navigation.currentNode].nodePosition) < 1f && !navigation.needParking) && navigation.currentNode != NodesPositionList.Length - 1)
                 {
                     navigation.currentNode++;
                 }

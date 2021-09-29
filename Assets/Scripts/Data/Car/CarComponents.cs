@@ -22,6 +22,7 @@ public struct VehicleNavigation : IComponentData
     public int intersectionNumRoads;
     public bool trafficStop;
     public bool isChangingLanes;
+    public float3 parkingNode;
 }
 
 public struct VehicleSpeed : IComponentData
@@ -61,6 +62,7 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
     [Header("Navigation")]
     public Node startingNode;
     public Node destinationNode;
+    public Node parkingNode;
 
     private const int LANE_CHANGE = 1;
     private const int TURN_LEFT = 2;    //reserved for potential use
@@ -84,8 +86,8 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
             intersectionDirection = -1,
             intersectionId = -1,
             trafficStop = false,
-            isChangingLanes = false
-
+            isChangingLanes = false,
+            parkingNode = parkingNode.transform.position
         });
 
         dstManager.AddComponentData(entity, new VehicleSpeed

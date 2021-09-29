@@ -106,10 +106,28 @@ public class CarSpawner : MonoBehaviour
             carToSpawn.transform.position = spawnNode.transform.position;
             carToSpawn.transform.rotation = Quaternion.Euler(0, carRotation, 0);
             carData.startingNode = spawnNode;
-            carData.destinationNode = destinationNode;
+           
             carData.Speed = 1.5f + Random.Range(-0.5f, 0.5f);  //driver angryness: top speed
             carData.SpeedDamping = carData.Speed / 10f;     //driver angryness: speeding/braking aggressivity
 
+            Parking possiblePaking = destinationNode.parkingPrefab.GetComponent<Parking>();
+
+            while(possiblePaking.numberFreeSpots == 0)
+            {
+                randomDstNodeIndex = UnityEngine.Random.Range(0, parkingWaypoints.Count);
+                destinationNode = parkingWaypoints[randomDstNodeIndex];
+                possiblePaking = destinationNode.parkingPrefab.GetComponent<Parking>();
+            }
+
+            int randomParkingSpot = UnityEngine.Random.Range(0, possiblePaking.freeParkingSpots.Count);
+
+            possiblePaking.numberFreeSpots--;
+            carData.parkingNode = possiblePaking.freeParkingSpots[randomParkingSpot];
+            possiblePaking.freeParkingSpots[randomParkingSpot].isOccupied = true;
+            possiblePaking.freeParkingSpots.RemoveAt(randomParkingSpot);
+            
+            carData.destinationNode = destinationNode;
+             
             //Debug.Log("Car position: " + carToSpawn.transform.position + " rotation: " + carToSpawn.transform.rotation);
 
             //Instantiate a new car (which will then be converted to an entity)
