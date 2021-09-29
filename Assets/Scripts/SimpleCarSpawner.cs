@@ -18,8 +18,9 @@ public class SimpleCarSpawner : MonoBehaviour
     private EntityManager entityManager;
     private GameObjectConversionSettings settings;
 
-    public SimpleCarSpawner(List<GameObject> carPrefab, CityGenerator city)
+    public SimpleCarSpawner(List<GameObject> carPrefab, CityGenerator city) 
     {
+        
         this.carPrefab = carPrefab;
         this.city = city;
     }
@@ -138,8 +139,8 @@ public class SimpleCarSpawner : MonoBehaviour
                         entityManager = defaultWorld.EntityManager;
 
                         settings = GameObjectConversionSettings.FromWorld(defaultWorld, null);
-                        entityPrefab = GameObjectConversionUtility.ConvertGameObjectHierarchy(carPrefab[carIndex], settings);
-                        InstantiateEntity(spawnNode.transform.position, Quaternion.Euler(0, carRotation, 0), startingNode.transform.position, endRandomNode.transform.position);
+                       // entityPrefab = GameObjectConversionUtility.ConvertGameObjectHierarchy(carPrefab[carIndex], settings);
+                      //  InstantiateEntity(spawnNode.transform.position, Quaternion.Euler(0, carRotation, 0), startingNode.transform.position, endRandomNode.transform.position);
                         return true;
                     }
                 }

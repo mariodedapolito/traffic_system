@@ -14,14 +14,16 @@ public class RoadNetworkGenerator : MonoBehaviour
 
     private Dictionary<Node, NodeGenerationInfo> nodesMap = new Dictionary<Node, NodeGenerationInfo>();
     // array of roads filled in traffic spawner
-    private RoadPiece[] roadPieces;
+    private List<RoadPiece> roadPieces;
 
     public RoadNetworkGenerator(EntityManager dstManager)
     {
+        Debug.Log("RoadNetworkGenerator >RoadNetworkGenerator");
         this.dstManager = dstManager;
     }
-    public void GenerateNetwork(RoadPiece[] roadPieces, out List<Entity> roadNodes, out List<Entity> roadSegments)
+    public void GenerateNetwork(List<RoadPiece> roadPieces, out List<Entity> roadNodes, out List<Entity> roadSegments)
     {
+        Debug.Log("RoadNetworkGenerator >GenerateNetwork");
         this.roadPieces = roadPieces;
 
         FindNodesAtSamePositions();
@@ -32,7 +34,8 @@ public class RoadNetworkGenerator : MonoBehaviour
    
     private void FindNodesAtSamePositions()
     {
-        for (int i = 0; i < roadPieces.Length; i++)
+        Debug.Log("RoadNetworkGenerator >FindNodesAtSamePositions");
+        for (int i = 0; i < roadPieces.Count; i++)
         {
             var roadPiece = roadPieces[i];
             // for each node in a roadpiece add node to list
@@ -52,7 +55,7 @@ public class RoadNetworkGenerator : MonoBehaviour
         nodesList.Add(nodeInfo);
         nodeInfo.nodesAtSamePosition.Add(checkedRoadNode);
 
-        for (int i = index + 1; i < roadPieces.Length; i++)
+        for (int i = index + 1; i < roadPieces.Count; i++)
         {
             var roadPiece = roadPieces[i];
             foreach (var roadNode in roadPiece.RoadNodes)
@@ -60,8 +63,11 @@ public class RoadNetworkGenerator : MonoBehaviour
                 if (Vector3.Distance(checkedRoadNode.transform.position, roadNode.transform.position) <
                     MINIMUM_PROXIMITY)
                 {
-                    nodesMap.Add(roadNode, nodeInfo);
-                    nodeInfo.nodesAtSamePosition.Add(roadNode);
+                    if (nodesMap[roadNode] != nodeInfo)
+                    {
+                        nodesMap.Add(roadNode, nodeInfo);
+                        nodeInfo.nodesAtSamePosition.Add(roadNode);
+                    }
                 }
             }
         }
@@ -71,6 +77,7 @@ public class RoadNetworkGenerator : MonoBehaviour
 
     private List<Entity> GenerateNodesEntities(out Dictionary<Node, Entity> roadNodeMap)
     {
+        Debug.Log("RoadNetworkGenerator >GenerateNodesEntities");
         //The map that should be created and pass out
         roadNodeMap = new Dictionary<Node, Entity>();
         // list of nodes with roadnodecomponent position
@@ -96,6 +103,7 @@ public class RoadNetworkGenerator : MonoBehaviour
 
     private List<Entity> GenerateSegmentEntities(Dictionary<Node, Entity> roadNodes)
     {
+        Debug.Log("RoadNetworkGenerator >GenerateSegmentEntities");
         // list of segments
         List<Entity> segments = new List<Entity>();
         // list of segment entities

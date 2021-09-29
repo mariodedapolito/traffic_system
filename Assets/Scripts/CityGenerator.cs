@@ -9,6 +9,7 @@ public class MapTile
     public GameObject instantiatedStreet;
     public int prefabType;
     public int rotation;
+    
 
     public MapTile(int prefabType, int rotation)
     {
@@ -36,7 +37,7 @@ public class CityGenerator : MonoBehaviour
     public GameObject cityPlane;
     public List<GameObject> carPrefab;
     public GameObject busPrefab;
-
+    public bool IsECS=true;
     public GameObject straightStreet1Lane;
     //public GameObject straightGameObject1LaneShort;
     public GameObject straightStreet2Lane;
@@ -149,6 +150,10 @@ public class CityGenerator : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
+    { 
+    
+    }
+    public void buildCity()
     {
         //City map dimensions
         cityWidth = distanceBetweenVerticalStreets * (maxNumberVerticalStreets + 2) + 1;        //X axis city dimension
@@ -587,6 +592,7 @@ public class CityGenerator : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(!IsECS)
         for (int c = 0; c < numberCars && cityIsConnected; c++)
         {
             if (carSpawner.spawnCar())
@@ -604,7 +610,9 @@ public class CityGenerator : MonoBehaviour
 
     private void carsSpawn()
     {
-        carSpawner = new SimpleCarSpawner(carPrefab, this);
+        carSpawner = FindObjectOfType<SimpleCarSpawner>();
+        carSpawner.carPrefab = carPrefab;
+        carSpawner.city= this;
         carSpawner.SetWaypointsSpawnCar(numberCarWaypointsSpawn);
         for (int c = 0; c < numberCars; c++)
         {

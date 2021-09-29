@@ -14,38 +14,49 @@ public class VehicleRenderSystem : SystemBase
 {
     protected override void OnUpdate()
     {
-        Entities
-            .ForEach((Entity entity, int entityInQueryIndex,
-                ref Translation translation,
-                ref Rotation rotation,
-                in VehicleSegmentInfoComponent vehicleSegmentInfoComponent,
-                in VehiclePositionComponent vehicleComponent,
-                in VehicleConfigComponent vehicleConfigComponent) =>
-            {
-                var oldTranslation = translation;
-                var centerVehiclePos = vehicleComponent.HeadSegPos - vehicleConfigComponent.Length / 2;
-                var centerSegment = centerVehiclePos >= 0f
-                    ? vehicleSegmentInfoComponent.HeadSegment
-                    : vehicleSegmentInfoComponent.PreviousSegment;
+        try
+        {
 
-                if (centerVehiclePos < 0)
+
+            Debug.Log("VehicleRenderSystem >OnUpdate");
+            Entities
+                .ForEach((Entity entity, int entityInQueryIndex,
+                    ref Translation translation,
+                    ref Rotation rotation,
+                    in VehicleSegmentInfoComponent vehicleSegmentInfoComponent,
+                    in VehiclePositionComponent vehicleComponent,
+                    in VehicleConfigComponent vehicleConfigComponent) =>
                 {
-                    centerVehiclePos += vehicleSegmentInfoComponent.PreviousSegmentLength;
-                }
+                    var oldTranslation = translation;
+                    var centerVehiclePos = vehicleComponent.HeadSegPos - vehicleConfigComponent.Length / 2;
+                    var centerSegment = centerVehiclePos >= 0f
+                        ? vehicleSegmentInfoComponent.HeadSegment
+                        : vehicleSegmentInfoComponent.PreviousSegment;
 
-                var spline = GetComponent<SplineComponent>(centerSegment);
-                var length = spline.Length;
+                    if (centerVehiclePos < 0)
+                    {
+                        centerVehiclePos += vehicleSegmentInfoComponent.PreviousSegmentLength;
+                    }
 
-                var newTrans = new Translation { Value = spline.Point(centerVehiclePos / length) };
+                    var spline = GetComponent<SplineComponent>(centerSegment);
+                    var length = spline.Length;
 
-                var translationChange = oldTranslation.Value - newTrans.Value;
-                var newRotation = new Rotation
-                { Value = quaternion.LookRotation(translationChange, math.up()) };
+                    var newTrans = new Translation { Value = spline.Point(centerVehiclePos / length) };
 
-                translation = newTrans;
-                if (!translationChange.Equals(float3.zero))
-                    rotation = newRotation;
+                    var translationChange = oldTranslation.Value - newTrans.Value;
+                    var newRotation = new Rotation
+                    { Value = quaternion.LookRotation(translationChange, math.up()) };
 
-            }).ScheduleParallel();
+                    translation = newTrans;
+                    if (!translationChange.Equals(float3.zero))
+                        rotation = newRotation;
+
+                }).ScheduleParallel();
+        }
+        catch (System.Exception e)
+        {
+
+            throw e;
+        }
     }
 }

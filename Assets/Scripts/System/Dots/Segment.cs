@@ -49,6 +49,7 @@ public class Segment : MonoBehaviour
 
         private void DrawSpline(DrawMode mode, SplineComponent s)
         {
+         
             int length = (int)(s.TotalLength() / SegmentLength);
             bool selected = (mode & DrawMode.Selected) != 0;
             if ((mode & DrawMode.Line) != 0)
@@ -84,7 +85,7 @@ public class Segment : MonoBehaviour
                 if (coneMesh != null)
                     Gizmos.DrawMesh(coneMesh, center, Quaternion.LookRotation(forward),
                     new Vector3(1f, 1f, 2f));
-            }
+            } 
         }
 
         [System.Flags]
