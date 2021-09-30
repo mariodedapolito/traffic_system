@@ -15,43 +15,19 @@ public class CalculateCarsInSegmentsSystem : SystemBase
 
     protected override void OnCreate()
     {
-        try
-        {
-            Debug.Log("CalculateCarsInSegmentsSystem>OnCreate");
             VehiclesSegmentsHashMap = new NativeMultiHashMap<Entity, VehicleSegmentData>(0, Allocator.Persistent);
             syncPointSystem = World.GetExistingSystem<SyncPointSystem>();
             base.OnCreate();
-        }
-        catch (System.Exception e)
-        {
-
-            throw e;
-        }
-
     }
 
     protected override void OnDestroy()
     {
-        try
-        {
-            Debug.Log("CalculateCarsInSegmentsSystem>OnDestroy");
             VehiclesSegmentsHashMap.Dispose();
             base.OnDestroy();
-        }
-        catch (System.Exception e)
-        {
-            throw e;
-        }
-   
     }
 
     protected override void OnUpdate()
     {
-        try
-        {
-
-     
-        Debug.Log("CalculateCarsInSegmentsSystem>OnUpdate");
         VehiclesSegmentsHashMap.Clear();
         EntityQuery entityQuery = GetEntityQuery(typeof(VehiclePositionComponent));
         if (entityQuery.CalculateEntityCount() > VehiclesSegmentsHashMap.Capacity)
@@ -77,12 +53,6 @@ public class CalculateCarsInSegmentsSystem : SystemBase
         }).ScheduleParallel(Dependency);
 
         syncPointSystem.AddJobHandleForProducer(Dependency);
-        }
-        catch (System.Exception e)
-        {
-
-            throw e;
-        }
     }
 }
 [UpdateInGroup(typeof(SimulationSystemGroup))]
@@ -118,7 +88,6 @@ public struct VehiclesInSegmentHashMapHelper
         ref float nextVehicleBackPosition
     )
     {
-        Debug.Log("CalculateCarsInSegmentsSystem>FindVehicleInFrontInSegment");
         NativeMultiHashMapIterator<Entity> nativeMultiHashMapIterator;
         if (vehicleSegmentMap.TryGetFirstValue(segmentEntity, out var segmentData, out nativeMultiHashMapIterator))
         {
@@ -152,7 +121,6 @@ public struct VehiclesInSegmentHashMapHelper
         float vehicleSize
     )
     {
-        Debug.Log("CalculateCarsInSegmentsSystem>IsSpaceAvailableAt");
         NativeMultiHashMapIterator<Entity> nativeMultiHashMapIterator;
         var vehicleFrontPos = position + vehicleSize / 2;
         var vehicleBackPos = vehicleFrontPos - vehicleSize;

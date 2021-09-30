@@ -36,11 +36,11 @@ public class CarAI : MonoBehaviour
     public List<Transform> nodes;
     public int currectNode = 0;
     private bool avoiding = false;
-    private bool avoidingR = false;
-    private bool avoidingL = false;
+  //  private bool avoidingR = false;
+  //  private bool avoidingL = false;
     private bool avoidingI = false;
-    private bool avoidingIR = false;
-    private bool avoidingIF = false;
+  //  private bool avoidingIR = false;
+ //   private bool avoidingIF = false;
     private bool Stop = false;
     private float targetSteerAngle = 0;
     private bool collisionHappen;
@@ -106,11 +106,11 @@ public class CarAI : MonoBehaviour
         float avoidMultiplier = 0;
 
         avoiding = false;
-        avoidingR = false;
-        avoidingL = false;
+      //  avoidingR = false;
+      //  avoidingL = false;
         avoidingI = false;
-        avoidingIR = false;
-        avoidingIF = false;
+      //  avoidingIR = false;
+       // avoidingIF = false;
         precedence = false;
         precedenceLeft = false;
         isCarIR = false;
@@ -174,7 +174,7 @@ public class CarAI : MonoBehaviour
                     Debug.DrawLine(sensorStartPos, hit.point);
                     avoiding = true;
                     avoidingI = true;
-                    avoidingIR = true;
+                 //   avoidingIR = true;
                     avoidMultiplier -= 0.5f;
                 }
             }
@@ -200,7 +200,7 @@ public class CarAI : MonoBehaviour
                     precedence = false;
                     Debug.DrawLine(sensorStartPos, hit.point);
                     avoiding = true;
-                    avoidingR = true;
+                  //  avoidingR = true;
                     avoidMultiplier -= 1f;
                 }                
             }
@@ -222,7 +222,7 @@ public class CarAI : MonoBehaviour
                 Debug.DrawLine(sensorStartPos, hit.point);
                 avoiding = true;
                 avoidingI = true;
-                avoidingIF = true;
+              //  avoidingIF = true;
                 avoidMultiplier += 0.5f;
             }
             
@@ -246,7 +246,7 @@ public class CarAI : MonoBehaviour
                 precedenceLeft = false;
                 Debug.DrawLine(sensorStartPos, hit.point);
                 avoiding = true;
-                avoidingL = true;
+            //    avoidingL = true;
                 avoidMultiplier += 0.5f;
             }
         }
@@ -372,7 +372,7 @@ public class CarAI : MonoBehaviour
         targetSteerAngle = newSteer;
 		}
 		catch(System.Exception e){
-			Debug.Log(transform.position);
+			Debug.Log(transform.position+ e.Message);
 			throw new System.Exception("hey");
 		}
     }
@@ -484,7 +484,7 @@ public class CarAI : MonoBehaviour
         this.inPath = true;
         GameObject[] waypointsNew = GameObject.FindGameObjectsWithTag("CarWaypoint");
         List<Node> nodesNew = new List<Node>();
-        float min = 1f;
+       // float min = 1f;
         Node lastWaypoint = this.endWaypoint;
 
         //Destroy(this);

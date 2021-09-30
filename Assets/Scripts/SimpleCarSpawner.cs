@@ -46,7 +46,7 @@ public class SimpleCarSpawner : MonoBehaviour
 		Node startingNode = currentStreetNodes[randomSrcNode].nextNodes[0];
 
         
-        int carRotation;
+      //  int carRotation;
                 
            
         if (spawnNode.numberCars > 1 || spawnNode.isOccupied)
@@ -56,8 +56,8 @@ public class SimpleCarSpawner : MonoBehaviour
         spawnNode.isOccupied = true;
         spawnNode.numberCars = 1;
         //Car Rotation
-		if(startingNode.transform.parent.gameObject.GetComponentInParent<Street>().numberLanes==1){
-			Debug.Log("1 lane");
+	/*	if(startingNode.transform.parent.gameObject.GetComponentInParent<Street>().numberLanes==1){
+		//	Debug.Log("1 lane");
 			if ((int)spawnNode.transform.position.x == (int)startingNode.transform.position.x)
 					{
 						if ((int)spawnNode.transform.position.z < (int)startingNode.transform.position.z)
@@ -102,7 +102,7 @@ public class SimpleCarSpawner : MonoBehaviour
         //Find random destination
         //while (1 == 1)
         //{
-
+*/
         Node endRandomNode = startingNode;
 		if(endRandomNode.nextNodes.Count <= 0){
 			return false;
@@ -154,7 +154,7 @@ public class SimpleCarSpawner : MonoBehaviour
     private void InstantiateEntity(float3 position, Quaternion rotation, Vector3 startWaypoint, Vector3 endWaypoint)
     {
         
-        if (entityManager == null)
+        if (entityManager == default)
         {
             Debug.LogWarning("InstantiateEntity WARNING: No EntityManager found!");
             return;

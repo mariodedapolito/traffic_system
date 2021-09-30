@@ -167,7 +167,7 @@ public class SimpleBusSpawner : MonoBehaviour
         int cityWidth = city.cityWidth;
         int cityLength = city.cityLength;
         spawnWaypoints = new List<Node>();
-        int k = 0;
+       // int k = 0;
 
         foreach(var v in busLines)
         {

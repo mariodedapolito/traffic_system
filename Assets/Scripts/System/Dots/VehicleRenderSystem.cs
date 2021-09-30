@@ -14,11 +14,6 @@ public class VehicleRenderSystem : SystemBase
 {
     protected override void OnUpdate()
     {
-        try
-        {
-
-
-            Debug.Log("VehicleRenderSystem >OnUpdate");
             Entities
                 .ForEach((Entity entity, int entityInQueryIndex,
                     ref Translation translation,
@@ -52,11 +47,6 @@ public class VehicleRenderSystem : SystemBase
                         rotation = newRotation;
 
                 }).ScheduleParallel();
-        }
-        catch (System.Exception e)
-        {
 
-            throw e;
-        }
     }
 }

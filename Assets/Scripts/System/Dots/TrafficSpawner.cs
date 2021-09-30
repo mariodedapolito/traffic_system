@@ -20,11 +20,7 @@ public class TrafficSpawner : MonoBehaviour, IConvertGameObjectToEntity, IDeclar
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
-        Debug.Log("TrafficSpawner >Convert");
         // find road pieces 
-        try
-        {
-
         CityGenerator cityGenerator = FindObjectOfType<CityGenerator>();
             if(cityGenerator!=null)
         cityGenerator.buildCity();
@@ -37,8 +33,9 @@ public class TrafficSpawner : MonoBehaviour, IConvertGameObjectToEntity, IDeclar
             trafficSpawner.RoadPieces.Add(rp);
         }
 
-        // var roadpieces=
-        roadNetworkGenerator = new RoadNetworkGenerator(dstManager);
+        roadNetworkGenerator = FindObjectOfType<RoadNetworkGenerator>();
+        roadNetworkGenerator.dstManager = dstManager;
+        //roadNetworkGenerator = new RoadNetworkGenerator(dstManager);
             using (BlobAssetStore blobAssetStore = new BlobAssetStore())
                 {
                     // convert car prefab to entity 
@@ -51,16 +48,10 @@ public class TrafficSpawner : MonoBehaviour, IConvertGameObjectToEntity, IDeclar
                     this.dstManager = dstManager;
                     SpawnCars(dstManager, carEntityBase, roadSegments);
                 }
-        }
-        catch (System.Exception e)
-        {
-
-            throw e;
-        }
+   
     }
     private void SpawnCars(EntityManager dstManager, Entity carEntity, List<Entity> roadSegments)
     {
-        Debug.Log("TrafficSpawner >SpawnCars");
         for (int i = 0; i < CarToSpawn; i++)
             SpawnCar();
 
@@ -74,9 +65,6 @@ public class TrafficSpawner : MonoBehaviour, IConvertGameObjectToEntity, IDeclar
     }
     private void SpawnCar()
     {
-        try
-        {
-        Debug.Log("TrafficSpawner >SpawnCar");
         var carEntity = dstManager.Instantiate(carEntityBase);
 
             var vehicleComponent = dstManager.GetComponentData<VehiclePositionComponent>(carEntity);
@@ -117,20 +105,12 @@ public class TrafficSpawner : MonoBehaviour, IConvertGameObjectToEntity, IDeclar
             dstManager.SetComponentData(carEntity, vehicleSegmentInfoComponent);
             dstManager.SetComponentData(carEntity, vehicleMoveIntentionComponent);
         }
-        }
-        catch (System.Exception e)
-        {
 
-            throw e;
-        }
     }
 
     // check for free space for spawning the car
     private Entity GetRandomSegmentWithFreeSpace(float position, float size)
     {
-        try
-        {
-        Debug.Log("TrafficSpawner >GetRandomSegmentWithFreeSpace");
         var vehiclesSegmentsHashMap = CalculateCarsInSegmentsSystem.VehiclesSegmentsHashMap;
         var helper = new VehiclesInSegmentHashMapHelper();
 
@@ -143,27 +123,11 @@ public class TrafficSpawner : MonoBehaviour, IConvertGameObjectToEntity, IDeclar
                 return segmentEntity; 
             }
         }
-        }
-        catch (System.Exception e)
-        {
-
-            throw e;
-        }
         return Entity.Null;  
     }
 
     public void DeclareReferencedPrefabs(List<GameObject> referencedPrefabs)
     {
-        Debug.Log("TrafficSpawner >DeclareReferencedPrefabs");
-        try
-        {
-
             referencedPrefabs.Add(CarPrefab);
-        }
-        catch (System.Exception e)
-        {
-
-            throw e;
-        }
     }
 }

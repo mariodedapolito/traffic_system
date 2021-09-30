@@ -17,199 +17,177 @@ public class VehicleMovementSystem : SystemBase
 
     protected override void OnCreate()
     {
-        Debug.Log("VehicleMovementSystem >OnCreate");
-        try
-        {
             base.OnCreate();
             endSimulationEcbSystem = World
                 .GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
-        }
-        catch (System.Exception e)
-        {
-
-            throw e;
-        }
-
     }
 
     protected override void OnUpdate()
     {
-        try
-        {
-            Debug.Log("VehicleMovementSystem >OnUpdate");
-            var time = Time.DeltaTime;
-            var ecb = endSimulationEcbSystem.CreateCommandBuffer().ToConcurrent();
+        var time = Time.DeltaTime;
+        var ecb = endSimulationEcbSystem.CreateCommandBuffer().ToConcurrent();
 
-            BufferFromEntity<ConnectedSegmentBufferElement> nodeConnectedSegmentsBuffer = GetBufferFromEntity<ConnectedSegmentBufferElement>(true);
+        BufferFromEntity<ConnectedSegmentBufferElement> nodeConnectedSegmentsBuffer = GetBufferFromEntity<ConnectedSegmentBufferElement>(true);
 
-            var randomArray = World.GetExistingSystem<RandomSystem>().RandomArray;
+        var randomArray = World.GetExistingSystem<RandomSystem>().RandomArray;
 
-            //move job - updates positions of the vehicle
-            Entities
-                .WithReadOnly(nodeConnectedSegmentsBuffer)
-                .ForEach((Entity entity, int entityInQueryIndex,
-                    ref VehiclePositionComponent vehicleComponent,
-                    ref VehicleSegmentInfoComponent vehicleSegmentInfoComponent,
-                    ref VehicleSegmentChangeIntention segmentChangeIntention,
-                    in VehicleVelocityComponent velocityComponent,
-                    in VehicleMoveIntention moveIntention,
-                    in VehicleConfigComponent vehicleConfigComponent) =>
+        //move job - updates positions of the vehicle
+        Entities
+            .WithReadOnly(nodeConnectedSegmentsBuffer)
+            .ForEach((Entity entity, int entityInQueryIndex,
+                ref VehiclePositionComponent vehicleComponent,
+                ref VehicleSegmentInfoComponent vehicleSegmentInfoComponent,
+                ref VehicleSegmentChangeIntention segmentChangeIntention,
+                in VehicleVelocityComponent velocityComponent,
+                in VehicleMoveIntention moveIntention,
+                in VehicleConfigComponent vehicleConfigComponent) =>
+            {
+                if (moveIntention.AvailableDistance == 0)
+                    return;
+
+                float frameSpeed = velocityComponent.Value * time;
+                var newHeadSegPos = vehicleComponent.HeadSegPos;
+                var newVehicleComponent = vehicleComponent;
+                var newVehicleSegmentInfoComponent = vehicleSegmentInfoComponent;
+
+                newHeadSegPos = math.min(vehicleComponent.HeadSegPos + frameSpeed, vehicleComponent.HeadSegPos + moveIntention.AvailableDistance);
+
+                if (newHeadSegPos >= vehicleSegmentInfoComponent.SegmentLength)
                 {
-                    if (moveIntention.AvailableDistance == 0)
-                        return;
+                        //changing segments
+                        var newSegmentChangeIntention = segmentChangeIntention;
+                    var newSegmentConfig = GetComponent<SegmentConfigComponent>(segmentChangeIntention.NextSegment);
 
-                    float frameSpeed = velocityComponent.Value * time;
-                    var newHeadSegPos = vehicleComponent.HeadSegPos;
-                    var newVehicleComponent = vehicleComponent;
-                    var newVehicleSegmentInfoComponent = vehicleSegmentInfoComponent;
+                        // set new segment information
+                        newVehicleSegmentInfoComponent.HeadSegment = segmentChangeIntention.NextSegment;
+                    newVehicleSegmentInfoComponent.NextNode = newSegmentConfig.EndNode;
+                    newVehicleSegmentInfoComponent.SegmentLength = newSegmentConfig.Length;
+                    newVehicleSegmentInfoComponent.PreviousSegment = vehicleSegmentInfoComponent.HeadSegment;
+                    newVehicleSegmentInfoComponent.PreviousSegmentLength = vehicleSegmentInfoComponent.SegmentLength;
+                    newVehicleSegmentInfoComponent.IsBackInPreviousSegment = true;
+                    newHeadSegPos = newHeadSegPos - vehicleSegmentInfoComponent.SegmentLength;
 
-                    newHeadSegPos = math.min(vehicleComponent.HeadSegPos + frameSpeed, vehicleComponent.HeadSegPos + moveIntention.AvailableDistance);
-
-                    if (newHeadSegPos >= vehicleSegmentInfoComponent.SegmentLength)
+                        // choose segment to go after the new one
+                        newSegmentChangeIntention.NextSegment = Entity.Null;
+                    if (nodeConnectedSegmentsBuffer.Exists(newSegmentConfig.EndNode))
                     {
-                    //changing segments
-                    var newSegmentChangeIntention = segmentChangeIntention;
-                        var newSegmentConfig = GetComponent<SegmentConfigComponent>(segmentChangeIntention.NextSegment);
-
-                    // set new segment information
-                    newVehicleSegmentInfoComponent.HeadSegment = segmentChangeIntention.NextSegment;
-                        newVehicleSegmentInfoComponent.NextNode = newSegmentConfig.EndNode;
-                        newVehicleSegmentInfoComponent.SegmentLength = newSegmentConfig.Length;
-                        newVehicleSegmentInfoComponent.PreviousSegment = vehicleSegmentInfoComponent.HeadSegment;
-                        newVehicleSegmentInfoComponent.PreviousSegmentLength = vehicleSegmentInfoComponent.SegmentLength;
-                        newVehicleSegmentInfoComponent.IsBackInPreviousSegment = true;
-                        newHeadSegPos = newHeadSegPos - vehicleSegmentInfoComponent.SegmentLength;
-
-                    // choose segment to go after the new one
-                    newSegmentChangeIntention.NextSegment = Entity.Null;
-                        if (nodeConnectedSegmentsBuffer.Exists(newSegmentConfig.EndNode))
+                        DynamicBuffer<ConnectedSegmentBufferElement> connectedSegmentBufferElements = nodeConnectedSegmentsBuffer[newSegmentConfig.EndNode];
+                        if (connectedSegmentBufferElements.Length > 0)
                         {
-                            DynamicBuffer<ConnectedSegmentBufferElement> connectedSegmentBufferElements = nodeConnectedSegmentsBuffer[newSegmentConfig.EndNode];
-                            if (connectedSegmentBufferElements.Length > 0)
-                            {
-                                var random = randomArray[entityInQueryIndex];
-                                var index = random.NextInt(0, connectedSegmentBufferElements.Length);
-                                randomArray[entityInQueryIndex] = random;
+                            var random = randomArray[entityInQueryIndex];
+                            var index = random.NextInt(0, connectedSegmentBufferElements.Length);
+                            randomArray[entityInQueryIndex] = random;
 
-                                var nextSegmentEntity = connectedSegmentBufferElements[index].segment;
-                                newSegmentChangeIntention.NextSegment = nextSegmentEntity;
-                            }
-                        }
-                        segmentChangeIntention = newSegmentChangeIntention;
-                    }
-
-                    float newBackSegPos = newHeadSegPos - vehicleConfigComponent.Length;
-                    if (newVehicleSegmentInfoComponent.IsBackInPreviousSegment)
-                    {
-                        if (newBackSegPos >= 0)
-                        {
-                            newVehicleSegmentInfoComponent.IsBackInPreviousSegment = false;
-                            newVehicleSegmentInfoComponent.PreviousSegment = Entity.Null;
-                        }
-                        else
-                        {
-                            newBackSegPos += vehicleSegmentInfoComponent.PreviousSegmentLength;
+                            var nextSegmentEntity = connectedSegmentBufferElements[index].segment;
+                            newSegmentChangeIntention.NextSegment = nextSegmentEntity;
                         }
                     }
+                    segmentChangeIntention = newSegmentChangeIntention;
+                }
 
-                // update position values
-                newVehicleComponent.HeadSegPos = newHeadSegPos;
-                    newVehicleComponent.BackSegPos = newBackSegPos;
-
-                    vehicleComponent = newVehicleComponent;
-                    vehicleSegmentInfoComponent = newVehicleSegmentInfoComponent;
-                }).ScheduleParallel();
-
-            //Put vehicle segment map into class variable, to use burst and jobs in dots you can't pass static fields.
-            //Thanks to that multihashmap is a struct so only value is copied to local variable.
-            //That variable is later used inside of the ForEach method.
-            var vehiclesSegmentsHashMap = CalculateCarsInSegmentsSystem.VehiclesSegmentsHashMap;
-
-            Entities
-                .WithReadOnly(vehiclesSegmentsHashMap)
-                .ForEach((Entity entity, int entityInQueryIndex,
-                        ref SegmentComponent segmentComponent,
-                        in SegmentConfigComponent segmentConfigComponent) =>
+                float newBackSegPos = newHeadSegPos - vehicleConfigComponent.Length;
+                if (newVehicleSegmentInfoComponent.IsBackInPreviousSegment)
                 {
-                    var nextVehicleInSegment = Entity.Null;
-                    var nextVehicleInSegmentPosition = 0f;
-                    var newSegmentComponent = segmentComponent;
+                    if (newBackSegPos >= 0)
+                    {
+                        newVehicleSegmentInfoComponent.IsBackInPreviousSegment = false;
+                        newVehicleSegmentInfoComponent.PreviousSegment = Entity.Null;
+                    }
+                    else
+                    {
+                        newBackSegPos += vehicleSegmentInfoComponent.PreviousSegmentLength;
+                    }
+                }
 
-                    var hashMapKeyHelper = new VehiclesInSegmentHashMapHelper();
+                    // update position values
+                    newVehicleComponent.HeadSegPos = newHeadSegPos;
+                newVehicleComponent.BackSegPos = newBackSegPos;
+
+                vehicleComponent = newVehicleComponent;
+                vehicleSegmentInfoComponent = newVehicleSegmentInfoComponent;
+            }).ScheduleParallel();
+
+        //Put vehicle segment map into class variable, to use burst and jobs in dots you can't pass static fields.
+        //Thanks to that multihashmap is a struct so only value is copied to local variable.
+        //That variable is later used inside of the ForEach method.
+        var vehiclesSegmentsHashMap = CalculateCarsInSegmentsSystem.VehiclesSegmentsHashMap;
+
+        Entities
+            .WithReadOnly(vehiclesSegmentsHashMap)
+            .ForEach((Entity entity, int entityInQueryIndex,
+                    ref SegmentComponent segmentComponent,
+                    in SegmentConfigComponent segmentConfigComponent) =>
+            {
+                var nextVehicleInSegment = Entity.Null;
+                var nextVehicleInSegmentPosition = 0f;
+                var newSegmentComponent = segmentComponent;
+
+                var hashMapKeyHelper = new VehiclesInSegmentHashMapHelper();
                 // Calculate distance which is available in front of the vehicle
                 hashMapKeyHelper.FindVehicleInFrontInSegment(vehiclesSegmentsHashMap, entity, 0, ref nextVehicleInSegment, ref nextVehicleInSegmentPosition);
-                    newSegmentComponent.AvailableLength = nextVehicleInSegment == Entity.Null ? segmentConfigComponent.Length : nextVehicleInSegmentPosition;
+                newSegmentComponent.AvailableLength = nextVehicleInSegment == Entity.Null ? segmentConfigComponent.Length : nextVehicleInSegmentPosition;
 
-                    segmentComponent = newSegmentComponent;
-                }).Schedule();
+                segmentComponent = newSegmentComponent;
+            }).Schedule();
 
 
-            //calculate next frame move intention
-            Entities.WithReadOnly(vehiclesSegmentsHashMap)
-                .ForEach((Entity entity, int entityInQueryIndex,
-                    ref VehicleMoveIntention moveIntention,
-                    ref VehicleVelocityComponent velocityComponent,
-                    in VehicleSegmentInfoComponent vehicleSegmentInfoComponent,
-                    in VehicleSegmentChangeIntention vehicleSegmentChangeIntention,
-                    in VehiclePositionComponent vehicleComponent,
-                    in VehicleConfigComponent vehicleConfigComponent) =>
-                {
-                    var hashMapKey = new VehiclesInSegmentHashMapHelper();
+        //calculate next frame move intention
+        Entities.WithReadOnly(vehiclesSegmentsHashMap)
+            .ForEach((Entity entity, int entityInQueryIndex,
+                ref VehicleMoveIntention moveIntention,
+                ref VehicleVelocityComponent velocityComponent,
+                in VehicleSegmentInfoComponent vehicleSegmentInfoComponent,
+                in VehicleSegmentChangeIntention vehicleSegmentChangeIntention,
+                in VehiclePositionComponent vehicleComponent,
+                in VehicleConfigComponent vehicleConfigComponent) =>
+            {
+                var hashMapKey = new VehiclesInSegmentHashMapHelper();
 
-                    var segment = vehicleSegmentInfoComponent.HeadSegment;
-                    var nextVehicleInSegment = Entity.Null;
-                    var nextVehicleInSegmentPosition = 0f;
-                    var distance = 0f;
-                    var headSegPos = vehicleComponent.HeadSegPos;
+                var segment = vehicleSegmentInfoComponent.HeadSegment;
+                var nextVehicleInSegment = Entity.Null;
+                var nextVehicleInSegmentPosition = 0f;
+                var distance = 0f;
+                var headSegPos = vehicleComponent.HeadSegPos;
 
                 // Calculate distance which is available in front of the vehicle
                 hashMapKey.FindVehicleInFrontInSegment(vehiclesSegmentsHashMap, segment, headSegPos, ref nextVehicleInSegment, ref nextVehicleInSegmentPosition);
                 //there is a car in front of current car, calculate distance between them
                 if (nextVehicleInSegment != Entity.Null)
-                    {
-                        distance = nextVehicleInSegmentPosition - headSegPos;
-                    }
-                    else
-                    {
+                {
+                    distance = nextVehicleInSegmentPosition - headSegPos;
+                }
+                else
+                {
                     //there is no car in front in the same segment
                     var distanceTillNode = vehicleSegmentInfoComponent.SegmentLength - headSegPos;
-                        distance = distanceTillNode;
+                    distance = distanceTillNode;
 
-                        if (distance < MIN_DISTANCE && vehicleSegmentChangeIntention.NextSegment == Entity.Null)
-                        {
-                            ecb.DestroyEntity(entityInQueryIndex, entity);
-                        }
-
-                        if (distanceTillNode < MAX_DISTANCE && vehicleSegmentChangeIntention.NextSegment != Entity.Null)
-                        {
-                            var nexSegmentTrafficTypeComp = GetComponent<SegmentTrafficTypeComponent>(vehicleSegmentChangeIntention.NextSegment);
-                            var nexSegmentComp = GetComponent<SegmentComponent>(vehicleSegmentChangeIntention.NextSegment);
-                            if (nexSegmentTrafficTypeComp.TrafficType == ConnectionTrafficType.Normal)
-                                distance += nexSegmentComp.AvailableLength;
-                        }
-
+                    if (distance < MIN_DISTANCE && vehicleSegmentChangeIntention.NextSegment == Entity.Null)
+                    {
+                        ecb.DestroyEntity(entityInQueryIndex, entity);
                     }
+
+                    if (distanceTillNode < MAX_DISTANCE && vehicleSegmentChangeIntention.NextSegment != Entity.Null)
+                    {
+                        var nexSegmentTrafficTypeComp = GetComponent<SegmentTrafficTypeComponent>(vehicleSegmentChangeIntention.NextSegment);
+                        var nexSegmentComp = GetComponent<SegmentComponent>(vehicleSegmentChangeIntention.NextSegment);
+                        if (nexSegmentTrafficTypeComp.TrafficType == ConnectionTrafficType.Normal)
+                            distance += nexSegmentComp.AvailableLength;
+                    }
+
+                }
 
                 //Calculate new velocity based on available distance
                 var newVelocity = CalculateVelocityBasedOnDistance(velocityComponent.Value, vehicleConfigComponent.Speed, distance);
-                    velocityComponent = new VehicleVelocityComponent { Value = newVelocity };
-                    moveIntention = new VehicleMoveIntention { AvailableDistance = distance };
-                }).Schedule();
+                velocityComponent = new VehicleVelocityComponent { Value = newVelocity };
+                moveIntention = new VehicleMoveIntention { AvailableDistance = distance };
+            }).Schedule();
 
-            endSimulationEcbSystem.AddJobHandleForProducer(this.Dependency);
-        }
-        catch (System.Exception e)
-        {
-
-            throw e;
-        }
+        endSimulationEcbSystem.AddJobHandleForProducer(this.Dependency);
     }
 
     public static float CalculateVelocityBasedOnDistance(float currentVelocity, float maxSpeed, float distance)
     {
-
-
-        Debug.Log("VehicleMovementSystem >CalculateVelocityBasedOnDistance");
         float velocity = currentVelocity;
       
             if (distance > MAX_DISTANCE)

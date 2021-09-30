@@ -76,11 +76,11 @@ class ChangeActiveVehicleSystem : SystemBase
         {
             using (var activeVehicles = m_ActiveVehicleQuery.ToEntityArray(Allocator.TempJob))
             {
-                Debug.LogWarning(
+             /*   Debug.LogWarning(
                     $"Expected exactly one {nameof(VehicleAuthoring)} component in the scene to be marked {nameof(VehicleAuthoring.ActiveAtStart)}. " +
                     "First available vehicle is being set to active."
                 );
-
+             */
                 // prefer the first vehicle prospectively marked as active
                 if (activeVehicles.Length > 0)
                 {

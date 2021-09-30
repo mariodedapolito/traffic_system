@@ -37,8 +37,8 @@ public class BusAI : MonoBehaviour
     private List<Transform> nodes;
     public int currectNode = 0;
     private bool avoiding = false;
-    private bool avoidingR = false;
-    private bool avoidingL = false;
+   // private bool avoidingR = false;
+   // private bool avoidingL = false;
     private bool avoidingI = false;
     private bool avoidingIR = false;
     private bool avoidingIL = false;
@@ -55,7 +55,7 @@ public class BusAI : MonoBehaviour
 
     private bool isIntersactionF = false;
     private bool isLaneOne = false;
-    private bool isCurveOne = false;
+   // private bool isCurveOne = false;
     private bool precedence = false;
     private bool isCar = false;
 
@@ -106,8 +106,8 @@ public class BusAI : MonoBehaviour
         float avoidMultiplier = 0;
 
         avoiding = false;
-        avoidingR = false;
-        avoidingL = false;
+       // avoidingR = false;
+       // avoidingL = false;
         avoidingI = false;
         avoidingIR = false;
         avoidingIL = false;
@@ -334,7 +334,7 @@ public class BusAI : MonoBehaviour
                 precedence = false;
                 Debug.DrawLine(sensorStartPos, hit.point);
                 avoiding = true;
-                avoidingR = true;
+            //    avoidingR = true;
                 avoidMultiplier -= 0.5f;
             }
         }
@@ -370,7 +370,7 @@ public class BusAI : MonoBehaviour
             {
                 Debug.DrawLine(sensorStartPos, hit.point);
                 avoiding = true;
-                avoidingL = true;
+             //   avoidingL = true;
                 avoidMultiplier += 0.5f;
             }
         }

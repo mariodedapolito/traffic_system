@@ -13,9 +13,6 @@ class RandomSystem : ComponentSystem
 
     protected override void OnCreate()
     {
-        Debug.Log("RandomSystem >OnCreate");
-        try
-        {
             var randomArray = new Unity.Mathematics.Random[JobsUtility.MaxJobThreadCount];
             var seed = new System.Random();
 
@@ -23,13 +20,6 @@ class RandomSystem : ComponentSystem
                 randomArray[i] = new Unity.Mathematics.Random((uint)seed.Next());
 
             RandomArray = new NativeArray<Unity.Mathematics.Random>(randomArray, Allocator.Persistent);
-        }
-        catch (System.Exception e)
-        {
-
-            throw e;
-        }
-
     }
 
     protected override void OnDestroy()

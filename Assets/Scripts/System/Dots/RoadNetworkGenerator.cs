@@ -8,7 +8,7 @@ public class RoadNetworkGenerator : MonoBehaviour
     private const float MINIMUM_PROXIMITY = 0.3f;
 
 
-    private EntityManager dstManager;
+    public EntityManager dstManager;
     //list of nodes in road pieces
     private List<NodeGenerationInfo> nodesList = new List<NodeGenerationInfo>();
 
@@ -18,23 +18,22 @@ public class RoadNetworkGenerator : MonoBehaviour
 
     public RoadNetworkGenerator(EntityManager dstManager)
     {
-        Debug.Log("RoadNetworkGenerator >RoadNetworkGenerator");
         this.dstManager = dstManager;
     }
     public void GenerateNetwork(List<RoadPiece> roadPieces, out List<Entity> roadNodes, out List<Entity> roadSegments)
     {
-        Debug.Log("RoadNetworkGenerator >GenerateNetwork");
         this.roadPieces = roadPieces;
-
+        if(nodesMap==null)
+            nodesMap = new Dictionary<Node, NodeGenerationInfo>();
+        if (nodesList == null)
+            nodesList = new List<NodeGenerationInfo>();
         FindNodesAtSamePositions();
-
         roadNodes = GenerateNodesEntities(out var roadNodesMap);
         roadSegments = GenerateSegmentEntities(roadNodesMap);
     }
    
     private void FindNodesAtSamePositions()
     {
-        Debug.Log("RoadNetworkGenerator >FindNodesAtSamePositions");
         for (int i = 0; i < roadPieces.Count; i++)
         {
             var roadPiece = roadPieces[i];
@@ -77,7 +76,6 @@ public class RoadNetworkGenerator : MonoBehaviour
 
     private List<Entity> GenerateNodesEntities(out Dictionary<Node, Entity> roadNodeMap)
     {
-        Debug.Log("RoadNetworkGenerator >GenerateNodesEntities");
         //The map that should be created and pass out
         roadNodeMap = new Dictionary<Node, Entity>();
         // list of nodes with roadnodecomponent position
@@ -89,11 +87,8 @@ public class RoadNetworkGenerator : MonoBehaviour
             dstManager.AddBuffer<ConnectedSegmentBufferElement>(roadNodeEntity);
             var roadNodeComponent = dstManager.GetComponentData<RoadNodeComponent>(roadNodeEntity);
             roadNodeComponent.Position = roadNode.position;
-
             dstManager.SetComponentData(roadNodeEntity, roadNodeComponent);
-
             roadNodes.Add(roadNodeEntity);
-
             foreach (var node in roadNode.nodesAtSamePosition)
                 roadNodeMap.Add(node, roadNodeEntity);
         }
@@ -103,7 +98,6 @@ public class RoadNetworkGenerator : MonoBehaviour
 
     private List<Entity> GenerateSegmentEntities(Dictionary<Node, Entity> roadNodes)
     {
-        Debug.Log("RoadNetworkGenerator >GenerateSegmentEntities");
         // list of segments
         List<Entity> segments = new List<Entity>();
         // list of segment entities

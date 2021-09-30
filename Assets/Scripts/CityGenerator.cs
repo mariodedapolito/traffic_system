@@ -440,16 +440,14 @@ public class CityGenerator : MonoBehaviour
             {
                 str = "<b><color=green>";
                 for (int j = 0; j < cityWidth; j++)
-                {
                     str += cityMap[i, j].prefabType + "\t";
-                }
+                
                 str += "</color></b>";
             }
             else
             {
                 str = "";
                 for (int j = 0; j < cityWidth; j++)
-                {
                     if (cityMap[i, j].prefabType != 0)
                     {
                         str += "<b><color=green>" + cityMap[i, j].prefabType + "</color></b>" + "\t";
@@ -458,9 +456,9 @@ public class CityGenerator : MonoBehaviour
                     {
                         str += cityMap[i, j].prefabType + "\t";
                     }
-                }
+                
             }
-            Debug.Log(str);
+           // Debug.Log(str);
         }
         //
         //DEBUGGING END
