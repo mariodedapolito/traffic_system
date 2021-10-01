@@ -21,11 +21,10 @@ public class ParkingSystem : SystemBase
 
                     Debug.Log("parked car");
                     EntityManager.RemoveComponent<VehicleSpeed>(e);
-                    EntityManager.RemoveComponent<Car>(e);
                     EntityManager.RemoveComponent<Vehicle>(e);
                     EntityManager.RemoveComponent<VehicleNavigation>(e);
                     EntityManager.RemoveComponent<VehicleSteering>(e);
-
+                    EntityManager.AddComponent<EndGameNeedCount>(e);
                 }
             }).Run();
     }

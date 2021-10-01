@@ -8,8 +8,8 @@ public struct Vehicle : IComponentData { }
 
 public struct Car : IComponentData { }
 
+public struct EndGameNeedCount : IComponentData { }
 public struct Bus : IComponentData { }
-
 public struct VehicleNavigation : IComponentData
 {
     public int currentNode;

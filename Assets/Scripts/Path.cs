@@ -133,7 +133,7 @@ public class Path : MonoBehaviour
         }
         return candidate;
     }
-        private static float ManhattanDiscance(Node endPos, Node position)
+    private static float ManhattanDiscance(Node endPos, Node position)
     {
         return System.Math.Abs(endPos.transform.position.x - position.transform.position.x) + System.Math.Abs(endPos.transform.position.z - position.transform.position.z);
     }
