@@ -53,6 +53,13 @@ public struct NodesTypeList : IBufferElementData
     public int nodeType;
 }
 
+public struct PathFinding : IComponentData {
+    public float3 startingNodePosition;
+    public float3 destinationNodePosition;
+}
+
+public struct NeedPath : IComponentData { }
+
 class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
 {
 #pragma warning disable 649
@@ -150,7 +157,7 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
         if (isCar)
         {
             /** Create path for car **/
-            Path path = new Path();
+            /*Path path = new Path();
             List<Node> carPath = path.findShortestPath(startingNode.transform, destinationNode.transform);
 
             if (carPath[0] != startingNode || carPath[carPath.Count - 1] != destinationNode)
@@ -168,10 +175,20 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
             for (int i = 0; i < carPath.Count; i++)
             {
                 if (carPath[i].isLaneChange) nodesTypeList.Add(new NodesTypeList { nodeType = LANE_CHANGE });
-                /*else if(carPath[i].isTurnLeft) nodesTypeList.Add(new NodesTypeList { nodeType = TURN_LEFT });   //reserved for potential use
-                else if (carPath[i].isTurnLeft) nodesTypeList.Add(new NodesTypeList { nodeType = TURN_RIGHT });*/ //reserved for potential use
+                //else if(carPath[i].isTurnLeft) nodesTypeList.Add(new NodesTypeList { nodeType = TURN_LEFT });   //reserved for potential use
+                //else if (carPath[i].isTurnLeft) nodesTypeList.Add(new NodesTypeList { nodeType = TURN_RIGHT }); //reserved for potential use
                 else nodesTypeList.Add(new NodesTypeList { nodeType = 0 });
-            }
+            }*/
+
+            dstManager.AddComponentData(entity, new PathFinding
+            {
+                startingNodePosition = startingNode.transform.position,
+                destinationNodePosition = destinationNode.transform.position
+            });
+
+            dstManager.AddComponent<NeedPath>(entity);
+
+
         }
         else if (isBus)
         {
