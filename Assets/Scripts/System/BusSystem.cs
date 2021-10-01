@@ -10,10 +10,11 @@ using Unity.Collections;
 
 [UpdateAfter(typeof(IntersectionPrecedenceSystem))]
 [UpdateAfter(typeof(CarsPositionSystem))]
-class CarSystem : SystemBase
+class BusSystem : SystemBase
 {
 
     private const int LANE_CHANGE = 1;
+    private const int BUS_STOP = 1;
 
     protected override void OnUpdate()
     {
@@ -23,8 +24,16 @@ class CarSystem : SystemBase
 
         Entities
             .WithoutBurst()
-            .ForEach((DynamicBuffer<NodesPositionList> NodesPositionList, DynamicBuffer<NodesTypeList> NodesTypeList, ref VehicleNavigation navigation, ref Translation translation, ref Rotation rotation, ref VehicleSpeed speed, in Car car, in LocalToWorld ltw) =>
+            .ForEach((DynamicBuffer<NodesPositionList> NodesPositionList, DynamicBuffer<NodesTypeList> NodesTypeList, ref VehicleNavigation navigation, ref Translation translation, ref Rotation rotation, ref VehicleSpeed speed, in Bus bus, in LocalToWorld ltw) =>
             {
+                //detect bus stop
+                if (navigation.busStop && elapsedTime >= navigation.timeExitBusStop)
+                {
+                    navigation.busStop = false;
+                    navigation.timeExitBusStop = int.MaxValue;
+                }
+
+                //semaphore crossing turn
                 if (navigation.intersectionStop && navigation.isSemaphoreIntersection)
                 {
                     float preciseCrossingTurn = (elapsedTime / 15f) % (float)navigation.intersectionNumRoads;
@@ -45,10 +54,11 @@ class CarSystem : SystemBase
                         navigation.intersectionCrossing = true;
                     }
                 }
-                else if (!navigation.intersectionStop)
+                //moving vehicle collision avoidance
+                else if (!navigation.intersectionStop && !navigation.busStop)
                 {
                     NativeHashMap<int, char> carsPosition = CarsPositionSystem.carsPositionMap;
-                    int lookaheadLength = 2;
+                    int lookaheadLength = 3;
                     for (int i = 1; i <= lookaheadLength; i++)
                     {
                         //Debug.DrawLine(translation.Value, translation.Value + ltw.Forward * i, Color.white, 0.1f, false);
@@ -300,12 +310,7 @@ class CarSystem : SystemBase
                     }
                 }
 
-                if (navigation.currentNode == NodesPositionList.Length - 1 && math.distance(translation.Value, NodesPositionList[navigation.currentNode].nodePosition) < 0.1f)
-                {
-                    navigation.needParking = true;
-                }
-
-                if (navigation.trafficStop || navigation.intersectionStop)  //STOPPING IN TRAFFIC OR INTERSECTION
+                if (navigation.trafficStop || navigation.intersectionStop || navigation.busStop)  //STOPPING IN TRAFFIC OR INTERSECTION
                 {
                     if (speed.currentSpeed > 0.25)
                     {
@@ -341,9 +346,19 @@ class CarSystem : SystemBase
                     rotation.Value = Quaternion.Euler(neededRotation);
                 }
 
-                if (math.distance(translation.Value, NodesPositionList[navigation.currentNode].nodePosition) < 0.8f && !navigation.needParking && navigation.currentNode < NodesPositionList.Length - 1)
+                if (math.distance(translation.Value, NodesPositionList[navigation.currentNode].nodePosition) < 0.3f)
                 {
                     navigation.currentNode++;
+                    //make bus move on an infinite loop
+                    if (navigation.currentNode == NodesPositionList.Length)
+                    {
+                        navigation.currentNode = 1;
+                    }
+                    if (NodesTypeList[navigation.currentNode].nodeType == BUS_STOP)
+                    {
+                        navigation.busStop = true;
+                        navigation.timeExitBusStop = elapsedTime + 10;
+                    }
                 }
 
             }).ScheduleParallel();

@@ -63,6 +63,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &88329200197211724
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,6 +351,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!135 &5994556073323035447
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -426,6 +428,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!135 &350450211041592092
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -502,6 +505,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!135 &3035041044105107115
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -560,6 +564,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 1281264722215772349}
+  - {fileID: 8228507519592850324}
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 1
@@ -578,6 +583,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &2238681208138353260
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,7 +594,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5055391769712487507}
   - component: {fileID: 421838081605886521}
-  - component: {fileID: 941967108609577693}
   m_Layer: 6
   m_Name: Node_lanechange
   m_TagString: CarWaypoint
@@ -623,7 +628,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextNodes:
-  - {fileID: 7851549387862370843}
   - {fileID: 8917465227252972433}
   needIncomingConnection: 0
   needOutgoingConnection: 0
@@ -643,19 +647,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &941967108609577693
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2238681208138353260}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  parkingPrefab: {fileID: 0}
 --- !u!1 &2757400367001831357
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,6 +712,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &3129318660789732505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1008,6 +1001,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &3599716683482955248
 GameObject:
   m_ObjectHideFlags: 0
@@ -1072,6 +1066,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &3863586368671147559
 GameObject:
   m_ObjectHideFlags: 0
@@ -1360,6 +1355,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!135 &3089699898328477297
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1437,6 +1433,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &4668885476281859231
 GameObject:
   m_ObjectHideFlags: 0
@@ -1725,6 +1722,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &4789511481775821128
 GameObject:
   m_ObjectHideFlags: 0
@@ -1789,6 +1787,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!135 &3655821856970244051
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1866,6 +1865,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!135 &2749997660006810486
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1889,7 +1889,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6110981607207446008}
   - component: {fileID: 3473526897971566550}
-  - component: {fileID: 2643614704133877664}
   m_Layer: 6
   m_Name: Node_lanechange
   m_TagString: CarWaypoint
@@ -1905,7 +1904,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5217638442543581225}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 3.4034119, y: 0.1, z: -0.8100014}
+  m_LocalPosition: {x: 3.22, y: 0.1, z: -0.8100014}
   m_LocalScale: {x: 0.14999999, y: 0.19999997, z: 0.09199998}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
@@ -1925,7 +1924,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 6040394075208300664}
-  - {fileID: 7696524008154438319}
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
@@ -1944,19 +1942,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
---- !u!135 &2643614704133877664
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5217638442543581225}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  parkingPrefab: {fileID: 0}
 --- !u!1 &5258227681498888621
 GameObject:
   m_ObjectHideFlags: 0
@@ -2021,6 +2007,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!135 &8893962378728479007
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2283,6 +2270,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!135 &5630506682494460986
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2359,6 +2347,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &6697345479340218461
 GameObject:
   m_ObjectHideFlags: 0
@@ -2422,6 +2411,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &6698126814060996370
 GameObject:
   m_ObjectHideFlags: 0
@@ -2485,6 +2475,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &7142219168757605632
 GameObject:
   m_ObjectHideFlags: 0
@@ -2772,6 +2763,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!135 &688259621642308453
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2830,7 +2822,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 8917465227252972433}
-  - {fileID: 421838081605886521}
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
@@ -2849,6 +2840,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &7651793723627256294
 GameObject:
   m_ObjectHideFlags: 0
@@ -2894,6 +2886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 6977925017708389960}
+  - {fileID: 7610613198292472481}
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
@@ -2912,6 +2905,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &7844546141025579469
 GameObject:
   m_ObjectHideFlags: 0
@@ -3068,6 +3062,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &8529269013803444493
 GameObject:
   m_ObjectHideFlags: 0
@@ -3206,7 +3201,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 6040394075208300664}
-  - {fileID: 3473526897971566550}
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
@@ -3225,6 +3219,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &8827143653869739393
 GameObject:
   m_ObjectHideFlags: 0
@@ -3680,6 +3675,7 @@ MonoBehaviour:
   isCarSpawn: 0
   isOccupied: 0
   numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!135 &6617239343087701692
 SphereCollider:
   m_ObjectHideFlags: 0

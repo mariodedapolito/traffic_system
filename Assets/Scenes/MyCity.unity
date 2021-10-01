@@ -242,13 +242,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe8dd4106f61824a8bcfcb47a8702a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberHorizontalStreets: 2
+  numberHorizontalStreets: 3
   minNumberVerticalStreets: 2
   maxNumberVerticalStreets: 2
   minDistanceBetweenHorizontalStreets: 2
   maxDistanceBetweenHorizontalStreets: 2
-  numberCarsToSpawn: 100
-  onlySimpleIntersections: 0
+  numberCarsToSpawn: 500
+  onlySimpleIntersections: 1
   onlySemaphoreIntersections: 0
   only1LaneStreets: 0
   only2LaneStreets: 1
@@ -256,7 +256,8 @@ MonoBehaviour:
     type: 3}
   carPrefab:
   - {fileID: 4962731154326057418, guid: 67cb4237567c02747b713345109f8148, type: 3}
-  busPrefab: {fileID: 197350, guid: cefdc448c71f2034f80ee3c2a03817c2, type: 3}
+  busPrefab: {fileID: 4962731154326057418, guid: c5a6a0a638d11a84dbbf2ca79ac45a86,
+    type: 3}
   straightStreet1Lane: {fileID: 8875702055242613236, guid: 57504f73fb74faa40a50afb1d62704c0,
     type: 3}
   straightStreet2Lane: {fileID: 8875702055242613236, guid: 2bcde946bce84384f9714657145951f9,

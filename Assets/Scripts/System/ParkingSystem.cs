@@ -14,14 +14,12 @@ public class ParkingSystem : SystemBase
         float time = Time.DeltaTime;
         Entities
             .WithStructuralChanges()
-            .ForEach((Entity e, ref VehicleNavigation navigation, ref Translation translation, ref Rotation rotation, ref VehicleSpeed speed, in VehicleSteering steering, in LocalToWorld ltw) => {
+            .ForEach((Entity e, ref VehicleNavigation navigation, ref Translation translation, in Car car) => {
                 if (navigation.needParking)
                 {
-                    float3 newTranslation = navigation.parkingNode;
-
                     translation.Value = navigation.parkingNode;
 
-                    Debug.Log("parked:" + navigation.parkingNode);
+                    Debug.Log("parked car");
                     EntityManager.RemoveComponent<VehicleSpeed>(e);
                     EntityManager.RemoveComponent<Car>(e);
                     EntityManager.RemoveComponent<Vehicle>(e);

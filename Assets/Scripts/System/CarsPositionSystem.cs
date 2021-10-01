@@ -16,7 +16,7 @@ public class CarsPositionSystem : SystemBase
     public static NativeHashMap<int, int> intersectionQueueMap;
     public static NativeHashMap<int, int> intersectionCrossingMap;
 
-    public const int zMultiplier = 100000;
+    public const int xMultiplier = 100000;
 
     private EntityQuery query;
 
@@ -24,7 +24,7 @@ public class CarsPositionSystem : SystemBase
     {
         int xPosition = (int)position.x;
         int zPosition = (int)position.z;
-        return zPosition * zMultiplier + xPosition;
+        return xPosition * xMultiplier + zPosition;
     }
     public static int GetIntersectionQueueHashMapKey(int intersectionId, int directionId)
     {
@@ -72,14 +72,16 @@ public class CarsPositionSystem : SystemBase
                {
                    //update car position on the map (collision avoidance)
                    int hashMapKey = GetPositionHashMapKey(translation.Value);
-                   if (carsPositionMap.ContainsKey(hashMapKey))
+                   /*if (carsPositionMap.ContainsKey(hashMapKey))
                    {
-                       navigation.trafficStop = true;
+                       navigation.overlapStop = true;
                    }
                    else
                    {
-                       carsPositionMap.TryAdd(hashMapKey, '1');
-                   }
+                       navigation.overlapStop = false;
+                       carsPositionMap.Add(hashMapKey, '1');
+                   }*/
+                   carsPositionMap.TryAdd(hashMapKey, '1');
 
                    //compensate for car position being on the limit between 2 adjacent coordinates
                    if (!navigation.isChangingLanes && !navigation.intersectionCrossing)

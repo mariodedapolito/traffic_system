@@ -63,64 +63,6 @@ MonoBehaviour:
   isOccupied: 0
   numberCars: 0
   parkingPrefab: {fileID: 0}
---- !u!1 &190451466762368847
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8167779631764563853}
-  - component: {fileID: 1776662553108596178}
-  - component: {fileID: 6886725777235545198}
-  m_Layer: 0
-  m_Name: ParkingTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8167779631764563853
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 190451466762368847}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 13.19, z: 2.29}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 881101655023506264}
-  m_RootOrder: 41
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1776662553108596178
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 190451466762368847}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 7, y: 3, z: 4}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6886725777235545198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 190451466762368847}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc85efd602aff4d4f93ee9a9ec0b2970, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numberCarsInside: 0
 --- !u!1 &289616323948958608
 GameObject:
   m_ObjectHideFlags: 0
@@ -1772,7 +1714,6 @@ Transform:
   - {fileID: 145991011021024577}
   - {fileID: 4323476959625142971}
   - {fileID: 300634148369220344}
-  - {fileID: 8167779631764563853}
   m_Father: {fileID: 1952225155875115036}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -90.00001, y: 180, z: 0}
@@ -6357,11 +6298,11 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
-  isLaneChange: 0
+  isLaneChange: 1
   isTurnLeft: 0
   isTurnRight: 0
   isBusLane: 1
-  isBusStop: 1
+  isBusStop: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -7136,7 +7077,7 @@ MonoBehaviour:
   isSemaphoreIntersection: 0
   isTBoneIntersection: 0
   hasBusStop: 1
-  busStopNode: {fileID: 0}
+  busStopNode: {fileID: 7813914632083681603}
   isLaneAdapter: 0
   isCurve: 0
   isDeadend: 0

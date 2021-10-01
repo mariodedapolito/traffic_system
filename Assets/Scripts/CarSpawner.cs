@@ -47,9 +47,9 @@ public class CarSpawner : MonoBehaviour
             int carRotation;
             if (spawnNode.gameObject.GetComponentInParent<Street>().numberLanes == 1)
             {
-                if ((int)spawnNode.transform.position.x == (int)spawnNode.transform.position.x)
+                if ((int)spawnNode.transform.position.x == (int)spawnNode.nextNodes[0].transform.position.x)
                 {
-                    if ((int)spawnNode.transform.position.z < (int)spawnNode.transform.position.z)
+                    if ((int)spawnNode.transform.position.z < (int)spawnNode.nextNodes[0].transform.position.z)
                     {
                         carRotation = 0;
                     }
@@ -60,7 +60,7 @@ public class CarSpawner : MonoBehaviour
                 }
                 else
                 {
-                    if ((int)spawnNode.transform.position.x < (int)spawnNode.transform.position.x)
+                    if ((int)spawnNode.transform.position.x < (int)spawnNode.nextNodes[0].transform.position.x)
                     {
                         carRotation = 90;
                     }
@@ -103,12 +103,11 @@ public class CarSpawner : MonoBehaviour
             GameObject carToSpawn = carPrefab[carIndex];
             CarComponents carData = carToSpawn.GetComponent<CarComponents>();
 
-            carToSpawn.transform.position = spawnNode.transform.position;
-            carToSpawn.transform.rotation = Quaternion.Euler(0, carRotation, 0);
             carData.startingNode = spawnNode;
+            carData.currentNode = 1;
            
-            carData.Speed = 1.5f + Random.Range(-0.5f, 0.5f);  //driver angryness: top speed
-            carData.SpeedDamping = carData.Speed / 10f;     //driver angryness: speeding/braking aggressivity
+            carData.Speed = 2f;  
+            carData.SpeedDamping = carData.Speed / 10f; 
 
             Parking possiblePaking = destinationNode.parkingPrefab.GetComponent<Parking>();
 
@@ -131,12 +130,12 @@ public class CarSpawner : MonoBehaviour
             //Debug.Log("Car position: " + carToSpawn.transform.position + " rotation: " + carToSpawn.transform.rotation);
 
             //Instantiate a new car (which will then be converted to an entity)
-            Instantiate(carToSpawn);
+            Instantiate(carToSpawn, spawnNode.transform.position, Quaternion.Euler(0, carRotation, 0));
             
             spawnWaypoints.Remove(spawnNode);
         }
 
-        Debug.Log("FINISH SPAWNING!!!");
+        Debug.Log("FINISH CAR SPAWNING!!!");
 
     }
 
