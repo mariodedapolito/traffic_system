@@ -23,8 +23,8 @@ public class PathSystem : SystemBase
                 Vector3 startPosition = new Vector3(pathFinding.startingNodePosition.x, pathFinding.startingNodePosition.y, pathFinding.startingNodePosition.z);
                 Vector3 endPosition = new Vector3(pathFinding.destinationNodePosition.x, pathFinding.destinationNodePosition.y, pathFinding.destinationNodePosition.z);
 
-                Node startingNode = new Node();
-                Node destinationNode = new Node();
+                Node startingNode = null;
+                Node destinationNode = null;
 
                 nodes = new List<Node>();
                 waypoints = GameObject.FindGameObjectsWithTag("CarWaypoint");
@@ -37,7 +37,7 @@ public class PathSystem : SystemBase
 
                         if (w.transform.position.Equals(pathFinding.startingNodePosition))
                         {
-                            startingNode = w.GetComponent<Node>();
+                           startingNode = w.GetComponent<Node>();
                         }
 
                         if (w.transform.position.Equals(pathFinding.destinationNodePosition))

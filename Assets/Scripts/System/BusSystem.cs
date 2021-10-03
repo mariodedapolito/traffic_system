@@ -58,7 +58,7 @@ class BusSystem : SystemBase
                 else if (!navigation.intersectionStop && !navigation.busStop)
                 {
                     NativeHashMap<int, char> carsPosition = CarsPositionSystem.carsPositionMap;
-                    int lookaheadLength = 3;
+                    int lookaheadLength = 2;
                     for (int i = 1; i <= lookaheadLength; i++)
                     {
                         //Debug.DrawLine(translation.Value, translation.Value + ltw.Forward * i, Color.white, 0.1f, false);
