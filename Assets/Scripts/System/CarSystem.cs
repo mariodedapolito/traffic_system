@@ -62,7 +62,7 @@ class CarSystem : SystemBase
                             navigation.trafficStop = false;
                         }
                     }
-
+                    /*
                     if (NodesTypeList[navigation.currentNode - 1].nodeType == LANE_CHANGE || NodesTypeList[navigation.currentNode].nodeType == LANE_CHANGE)
                     {
                         navigation.isChangingLanes = true;
@@ -297,7 +297,7 @@ class CarSystem : SystemBase
                     else
                     {
                         navigation.isChangingLanes = false;
-                    }
+                    }*/
                 }
 
                 if (navigation.currentNode == NodesPositionList.Length - 1 && math.distance(translation.Value, NodesPositionList[navigation.currentNode].nodePosition) < 0.1f)

@@ -180,15 +180,69 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
                 else nodesTypeList.Add(new NodesTypeList { nodeType = 0 });
             }*/
 
-            dstManager.AddComponentData(entity, new PathFinding
+            GameObject[] nodes = GameObject.FindGameObjectsWithTag("CarWaypoint");
+            List<Node> nodesList = new List<Node>();
+
+            nodes[0].GetComponent<Node>();
+
+            NewPathSystem pathSystem = new NewPathSystem();
+
+            NativeMultiHashMap<float3, float3> nodesCity = new NativeMultiHashMap<float3, float3>(nodes.Length, Allocator.Temp);
+            NativeArray<float3> waypoitnsCity = new NativeArray<float3>(nodes.Length, Allocator.Temp);
+
+            for (int i = 0; i < nodes.Length; i++)
+            {
+                if (!nodes[i].GetComponent<Node>().isParkingSpot)
+                {
+                    //NativeList<float3> nextNodes = new NativeList<float3>(city.cityNodes[i].nextNodes.Count, Allocator.Temp);
+                    for (int j = 0; j < nodes[i].GetComponent<Node>().nextNodes.Count; j++)
+                    {
+                        //nextNodes.Add(city.cityNodes[i].nextNodes[j].transform.position);
+                        nodesCity.Add(nodes[i].GetComponent<Node>().transform.position, nodes[i].GetComponent<Node>().nextNodes[j].transform.position);
+                    }
+
+
+                    waypoitnsCity[i] = nodes[i].GetComponent<Node>().transform.position;
+                }
+
+                //nextNodes.Dispose();
+            }
+            
+            NativeList<float3> pathNative = pathSystem.FindPath(startingNode.transform.position, destinationNode.transform.position, waypoitnsCity, nodesCity);
+
+            List<float3> path = new List<float3>();
+
+            for (int i = 0; i < pathNative.Length; i++)
+                path.Add(pathNative[i]);
+
+            path.Reverse();
+
+            DynamicBuffer<NodesPositionList> nodesPositionList = dstManager.AddBuffer<NodesPositionList>(entity);
+            for (int i = 0; i < path.Count; i++)
+            {
+                nodesPositionList.Add(new NodesPositionList { nodePosition = path[i] });
+            }
+
+            DynamicBuffer<NodesTypeList> nodesTypeList = dstManager.AddBuffer<NodesTypeList>(entity);
+            for (int i = 0; i < path.Count; i++)
+            {
+                //if (path[i]) nodesTypeList.Add(new NodesTypeList { nodeType = LANE_CHANGE });
+                //else if(carPath[i].isTurnLeft) nodesTypeList.Add(new NodesTypeList { nodeType = TURN_LEFT });   //reserved for potential use
+                //else if (carPath[i].isTurnLeft) nodesTypeList.Add(new NodesTypeList { nodeType = TURN_RIGHT }); //reserved for potential use
+                nodesTypeList.Add(new NodesTypeList { nodeType = 0 });
+            }
+
+            /*dstManager.AddComponentData(entity, new PathFinding
             {
                 startingNodePosition = startingNode.transform.position,
                 destinationNodePosition = destinationNode.transform.position
             });
 
             dstManager.AddComponent<NeedPath>(entity);
+            */
 
-
+            waypoitnsCity.Dispose();
+            nodesCity.Dispose();
         }
         else if (isBus)
         {

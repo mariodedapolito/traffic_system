@@ -1339,14 +1339,14 @@ public class CityGenerator : MonoBehaviour
 
             //fill nodes (waypoint) list
             foreach (var node in currentStreet.carWaypoints)
-            {
+            {   
+                cityNodes.Add(node);
                 if (node.isParkingGateway)
                 {
                     cityParkingNodes.Add(node);
                 }
                 else
                 {
-                    cityNodes.Add(node);
                     if ((cityMap[row, col].prefabType == STRAIGHT_1LANE || cityMap[row, col].prefabType == STRAIGHT_2LANE || cityMap[row, col].prefabType == BUS_STOP_1LANE || cityMap[row, col].prefabType == BUS_STOP_2LANE)
                         && !node.isLaneChange && !node.isBusLane)   //spawn nodes dont include lane-change nodes and bus lanes
                     {

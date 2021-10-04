@@ -43,7 +43,7 @@ public class EndGameSystem : SystemBase
                   if (nCarParked >= nCar && !endGameNow)
                   {
                       endGameNow = true;
-                      Debug.Log("END GAME \n num Cars: " + nCar + "time: " + time);
+                      Debug.Log("END GAME \n num Cars: " + nCar + "time: " + time*1000f);
                   }
               
                   EntityManager.RemoveComponent<Car>(e);
