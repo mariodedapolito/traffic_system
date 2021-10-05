@@ -14,6 +14,7 @@ public struct VehicleNavigation : IComponentData
 {
     public int currentNode;
     public bool needParking;
+    public bool isParked;
     public bool intersectionStop;
     public bool intersectionCrossing;
     public bool intersectionCrossed;
@@ -27,6 +28,8 @@ public struct VehicleNavigation : IComponentData
     public int timeExitBusStop;
     public bool isChangingLanes;
     public float3 parkingNode;
+    public bool isCar;
+    public bool isBus;
 }
 
 public struct VehicleSpeed : IComponentData
@@ -56,6 +59,7 @@ public struct NodesTypeList : IBufferElementData
 public struct PathFinding : IComponentData {
     public float3 startingNodePosition;
     public float3 destinationNodePosition;
+    public bool pathFound;
 }
 
 public struct NeedPath : IComponentData { }
@@ -81,8 +85,14 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
     public Node parkingNode;
     public List<Node> busStops;
 
+    public List<float3> pathNodeList;
+
     private const int LANE_CHANGE = 1;
     private const int BUS_STOP = 2;
+    private const int BUS_MERGE = 3;
+    private const int INTERSECTION = 4;
+    private const int MERGE_LEFT = 5;
+    private const int MERGE_RIGHT = 6;
     private const int TURN_LEFT = 9999;    //reserved for potential use
     private const int TURN_RIGHT = 9999;   //reserved for potential use
 
@@ -120,7 +130,8 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
                 intersectionId = -1,
                 trafficStop = false,
                 isChangingLanes = false,
-                parkingNode = parkingNode.transform.position
+                parkingNode = parkingNode.transform.position,
+                isCar = true
             });
         }
         else if (isBus)
@@ -138,6 +149,7 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
                 busStop = true,
                 timeExitBusStop = 10,
                 isChangingLanes = false,
+                isBus = true
             });
         }
 
@@ -156,37 +168,30 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
 
         if (isCar)
         {
-            /** Create path for car **/
-            /*Path path = new Path();
-            List<Node> carPath = path.findShortestPath(startingNode.transform, destinationNode.transform);
+            List<float3> path = new List<float3>();
 
-            if (carPath[0] != startingNode || carPath[carPath.Count - 1] != destinationNode)
-            {
-                throw new System.Exception("NO CAR PATH FOUND");
-            }
+            for (int i = 0; i < pathNodeList.Count; i++)
+                path.Add(pathNodeList[i]);
+
+            path.Reverse();
 
             DynamicBuffer<NodesPositionList> nodesPositionList = dstManager.AddBuffer<NodesPositionList>(entity);
-            for (int i = 0; i < carPath.Count; i++)
+            for (int i = 0; i < path.Count; i++)
             {
-                nodesPositionList.Add(new NodesPositionList { nodePosition = carPath[i].transform.position });
+                nodesPositionList.Add(new NodesPositionList { nodePosition = path[i] });
             }
 
+            CityGenerator city = GameObject.FindGameObjectWithTag("CityGenerator").GetComponent<CityGenerator>();
             DynamicBuffer<NodesTypeList> nodesTypeList = dstManager.AddBuffer<NodesTypeList>(entity);
-            for (int i = 0; i < carPath.Count; i++)
+            for (int i = 0; i < path.Count; i++)
             {
-                if (carPath[i].isLaneChange) nodesTypeList.Add(new NodesTypeList { nodeType = LANE_CHANGE });
+                if (city.nodesMap[path[i]].isIntersection) nodesTypeList.Add(new NodesTypeList { nodeType = 4 });
+                else if (city.nodesMap[path[i]].isLaneMergeLeft) nodesTypeList.Add(new NodesTypeList { nodeType = 5 });
+                else if (city.nodesMap[path[i]].isLaneMergeRight) nodesTypeList.Add(new NodesTypeList { nodeType = 6 });
                 //else if(carPath[i].isTurnLeft) nodesTypeList.Add(new NodesTypeList { nodeType = TURN_LEFT });   //reserved for potential use
                 //else if (carPath[i].isTurnLeft) nodesTypeList.Add(new NodesTypeList { nodeType = TURN_RIGHT }); //reserved for potential use
-                else nodesTypeList.Add(new NodesTypeList { nodeType = 0 });
-            }*/
-
-            dstManager.AddComponentData(entity, new PathFinding
-            {
-                startingNodePosition = startingNode.transform.position,
-                destinationNodePosition = destinationNode.transform.position
-            });
-
-            dstManager.AddComponent<NeedPath>(entity);
+                nodesTypeList.Add(new NodesTypeList { nodeType = 0 });
+            }
 
 
         }
@@ -217,10 +222,10 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
                 finalBusPath.Add(busPath[j]);
             }
 
-            for (int i = 0; i < finalBusPath.Count - 1; i++)
+            /*for (int i = 0; i < finalBusPath.Count - 1; i++)
             {
                 Debug.DrawLine(finalBusPath[i].transform.position, finalBusPath[i + 1].transform.position, Color.white, 30f);
-            }
+            }*/
 
             DynamicBuffer<NodesPositionList> nodesPositionList = dstManager.AddBuffer<NodesPositionList>(entity);
             for (int i = 0; i < finalBusPath.Count; i++)
@@ -233,6 +238,10 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
             {
                 if (finalBusPath[i].isLaneChange) nodesTypeList.Add(new NodesTypeList { nodeType = LANE_CHANGE });
                 else if(finalBusPath[i].isBusStop) nodesTypeList.Add(new NodesTypeList { nodeType = BUS_STOP });
+                else if (finalBusPath[i].isBusMerge) nodesTypeList.Add(new NodesTypeList { nodeType = BUS_MERGE });
+                else if(finalBusPath[i].isIntersection) nodesTypeList.Add(new NodesTypeList { nodeType = INTERSECTION });
+                else if(finalBusPath[i].isLaneMergeLeft) nodesTypeList.Add(new NodesTypeList { nodeType = MERGE_LEFT });
+                else if(finalBusPath[i].isLaneMergeRight) nodesTypeList.Add(new NodesTypeList { nodeType = MERGE_RIGHT });
                 /*else if(carPath[i].isTurnLeft) nodesTypeList.Add(new NodesTypeList { nodeType = TURN_LEFT });   //reserved for potential use
                 else if (carPath[i].isTurnLeft) nodesTypeList.Add(new NodesTypeList { nodeType = TURN_RIGHT });*/ //reserved for potential use
                 else nodesTypeList.Add(new NodesTypeList { nodeType = 0 });

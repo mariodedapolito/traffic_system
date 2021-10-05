@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
@@ -18,6 +18,7 @@ public class ParkingSystem : SystemBase
                 if (navigation.needParking)
                 {
                     translation.Value = navigation.parkingNode;
+                    navigation.isParked = true;
 
                     Debug.Log("parked car");
                     EntityManager.RemoveComponent<VehicleSpeed>(e);
@@ -28,4 +29,4 @@ public class ParkingSystem : SystemBase
                 }
             }).Run();
     }
-}
+}*/

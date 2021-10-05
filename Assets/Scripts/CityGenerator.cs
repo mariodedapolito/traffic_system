@@ -66,8 +66,8 @@ public class CityGenerator : MonoBehaviour
     public List<GameObject> buildingPrefabs;
 
 
-    private const int distanceBetweenVerticalStreets = 5;   //2 prefabs for bus stops + 1 prefab (optional) for lane adapter + 2 reserved prefabs
-    private const int distanceBetweenHorizontalStreets = 5;
+    private const int distanceBetweenVerticalStreets = 10;   //2 prefabs for bus stops + 1 prefab (optional) for lane adapter + 2 reserved prefabs
+    private const int distanceBetweenHorizontalStreets = 10;
 
     public MapTile[,] cityMap;
     public int cityWidth;
@@ -145,6 +145,8 @@ public class CityGenerator : MonoBehaviour
     public List<Node> cityParkingNodes = new List<Node>();
     public List<Node> citySpawnNodes = new List<Node>();
     public List<Node> cityNodes = new List<Node>();
+
+    public Dictionary<Vector3, Node> nodesMap;
 
     private BusSpawner busSpawner;
     public List<List<Node>> busLines;
@@ -465,6 +467,8 @@ public class CityGenerator : MonoBehaviour
         //
 
         instantiateTerrain(cityWidth, cityLength);
+
+        nodesMap = new Dictionary<Vector3, Node>();
 
         for (int i = 0; i < cityLength; i++)
         {
@@ -1340,19 +1344,18 @@ public class CityGenerator : MonoBehaviour
             //fill nodes (waypoint) list
             foreach (var node in currentStreet.carWaypoints)
             {
+                cityNodes.Add(node);
+                nodesMap.Add(node.transform.position, node);
                 if (node.isParkingGateway)
                 {
                     cityParkingNodes.Add(node);
                 }
-                else
-                {
-                    cityNodes.Add(node);
-                    if ((cityMap[row, col].prefabType == STRAIGHT_1LANE || cityMap[row, col].prefabType == STRAIGHT_2LANE || cityMap[row, col].prefabType == BUS_STOP_1LANE || cityMap[row, col].prefabType == BUS_STOP_2LANE)
+                else if ((cityMap[row, col].prefabType == STRAIGHT_1LANE || cityMap[row, col].prefabType == STRAIGHT_2LANE /*|| cityMap[row, col].prefabType == BUS_STOP_1LANE || cityMap[row, col].prefabType == BUS_STOP_2LANE*/)
                         && !node.isLaneChange && !node.isBusLane)   //spawn nodes dont include lane-change nodes and bus lanes
-                    {
-                        citySpawnNodes.Add(node);
-                    }
+                {
+                    citySpawnNodes.Add(node);
                 }
+
             }
         }
     }
