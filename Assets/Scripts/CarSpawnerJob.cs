@@ -81,14 +81,6 @@ public class CarSpawner : MonoBehaviour
             sNode.Add(spawnWaypoints[randomSrcNode]);
 
             Parking possiblePaking = parkingWaypoints[randomDstNodeIndex].parkingPrefab.GetComponent<Parking>();
-            /*
-            while (possiblePaking.numberFreeSpots == 0)
-            {
-                randomDstNodeIndex = UnityEngine.Random.Range(0, parkingWaypoints.Count);
-                destinationNode = parkingWaypoints[randomDstNodeIndex];
-                possiblePaking = destinationNode.parkingPrefab.GetComponent<Parking>();
-            }
-            */
 
             int randomParkingSpot = UnityEngine.Random.Range(0, possiblePaking.freeParkingSpots.Count);
 
@@ -110,15 +102,9 @@ public class CarSpawner : MonoBehaviour
         Dictionary<int, NativeList<float3>> sampleJobArray = new Dictionary<int, NativeList<float3>>();
         sampleJobArray = newPathSystemMono.PathSystemJob(numCarsToSpawn, spawnNodeList, destinationNodeList, waypoitnsCity, nodesCity);
 
-
-
-
-
         for (int i = 0; i < numCarsToSpawn; i++)
         {
-            //int randomSrcNode = UnityEngine.Random.Range(0, spawnWaypoints.Count);
             Node spawnNode = sNode[i];
-            //Node startingNode = spawnNode.nextNodes[0];
 
             // si può pure togliere
             int carRotation;
@@ -174,7 +160,6 @@ public class CarSpawner : MonoBehaviour
             }
             // fino a qui
 
-            //int randomDstNodeIndex = UnityEngine.Random.Range(0, parkingWaypoints.Count);
             Node destinationNode = dNode[i];
 
             int carIndex = UnityEngine.Random.Range(0, carPrefab.Count);
@@ -187,42 +172,17 @@ public class CarSpawner : MonoBehaviour
             carData.Speed = 2f;  
             carData.SpeedDamping = carData.Speed / 10f; 
             
-            /*
-            Parking possiblePaking = destinationNode.parkingPrefab.GetComponent<Parking>();
-            
-            while(possiblePaking.numberFreeSpots == 0)
-            {
-                randomDstNodeIndex = UnityEngine.Random.Range(0, parkingWaypoints.Count);
-                destinationNode = parkingWaypoints[randomDstNodeIndex];
-                possiblePaking = destinationNode.parkingPrefab.GetComponent<Parking>();
-            }
-
-            int randomParkingSpot = UnityEngine.Random.Range(0, possiblePaking.freeParkingSpots.Count);
-
-            possiblePaking.numberFreeSpots--;
-            carData.parkingNode = possiblePaking.freeParkingSpots[randomParkingSpot];
-            possiblePaking.freeParkingSpots[randomParkingSpot].isOccupied = true;
-            possiblePaking.freeParkingSpots.RemoveAt(randomParkingSpot);*/
 
             carData.parkingNode = pNode[i];
 
             carData.destinationNode = destinationNode;
 
-            /*if(sampleJobArray.TryGetValue(i, out carData.pathNodeList))
-            {
-                Debug.Log("C'è stato un problema con il path!");
-            }*/
             carData.pathNodeList.Clear();
             for (int j = 0; j < sampleJobArray[i].Length; j++)
             {
                 carData.pathNodeList.Add(sampleJobArray[i][j]);
             }
 
-            //Debug.Log("Car position: " + carToSpawn.transform.position + " rotation: " + carToSpawn.transform.rotation);
-
-
-
-            //Instantiate a new car (which will then be converted to an entity)
             Instantiate(carToSpawn, spawnNode.transform.position, Quaternion.Euler(0, carRotation, 0));
             
             spawnWaypoints.Remove(spawnNode);

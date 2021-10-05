@@ -184,54 +184,6 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
 
 
             /* Path Jobs */
-            /*
-            GameObject[] nodes = GameObject.FindGameObjectsWithTag("CarWaypoint");
-            List<Node> nodesList = new List<Node>();
-
-            nodes[0].GetComponent<Node>();
-
-            NewPathSystem pathSystem = new NewPathSystem();
-
-            NativeMultiHashMap<float3, float3> nodesCity = new NativeMultiHashMap<float3, float3>(nodes.Length, Allocator.Temp);
-            NativeArray<float3> waypoitnsCity = new NativeArray<float3>(nodes.Length, Allocator.Temp);
-
-            for (int i = 0; i < nodes.Length; i++)
-            {
-                if (!nodes[i].GetComponent<Node>().isParkingSpot)
-                {
-                    //NativeList<float3> nextNodes = new NativeList<float3>(city.cityNodes[i].nextNodes.Count, Allocator.Temp);
-                    for (int j = 0; j < nodes[i].GetComponent<Node>().nextNodes.Count; j++)
-                    {
-                        //nextNodes.Add(city.cityNodes[i].nextNodes[j].transform.position);
-                        nodesCity.Add(nodes[i].GetComponent<Node>().transform.position, nodes[i].GetComponent<Node>().nextNodes[j].transform.position);
-                    }
-
-
-                    waypoitnsCity[i] = nodes[i].GetComponent<Node>().transform.position;
-                }
-
-                //nextNodes.Dispose();
-            }
-            
-            //NativeList<float3> pathNative = pathSystem.FindPath(startingNode.transform.position, destinationNode.transform.position, waypoitnsCity, nodesCity);
-            NativeList<float3> pathNative = new NativeList<float3>(Allocator.TempJob);
-
-            NewPathSystem findPath = new NewPathSystem
-            {
-                startPosition = startingNode.transform.position,
-                endPosition = destinationNode.transform.position,
-                waypointsCity = waypoitnsCity,
-                nodesCity = nodesCity,
-                path = pathNative
-            };
-
-            JobHandle jobHandle = findPath.Schedule();
-
-            jobHandle.Complete();
-
-            pathNative = findPath.path;
-            */
-
             List<float3> path = new List<float3>();
 
             for (int i = 0; i < pathNodeList.Count; i++)

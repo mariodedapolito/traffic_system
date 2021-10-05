@@ -59,22 +59,8 @@ public class NewPathSystemMono : MonoBehaviour
         public NativeList<float3> result;
         public void Execute()
         {
-
-            //public NativeList<float3> FindPath(float3 startPosition, float3 endPosition, NativeArray<float3> waypointsCity, NativeMultiHashMap<float3, float3> nodesCity)
-
-            //Grid or Map
             int gridSize = waypointsCity.Length;
 
-            /*
-            int xMax = 0;
-            int zMax = 0;
-
-            for (int i = 0; i < gridSize; i++)
-            {
-                if (waypointsCity[i].x > xMax) xMax = ((int) waypointsCity[i].x);
-                if (waypointsCity[i].z > zMax) zMax = ((int) waypointsCity[i].z);
-            }
-            */
 
             NativeArray<PathNode> pathNodeArray = new NativeArray<PathNode>(gridSize, Allocator.Temp); //first value is number of Waypoint
 
@@ -96,19 +82,6 @@ public class NewPathSystemMono : MonoBehaviour
 
                 pathNodeArray[pathNode.index] = pathNode;
             }
-            /*
-            // ???? -> nextNode
-            NativeArray<int2> neighbourOffsetArray = new NativeArray<int2>(new int2[]
-            {
-                new int2(-1, 0),
-                new int2(-1, 0),
-                new int2(-1, 0),
-                new int2(-1, 0),
-                new int2(-1, 0),
-                new int2(-1, 0),
-                new int2(-1, 0)
-            }, Allocator.Temp);*/
-
             int endNodeIndex = GetIndex(endPosition, pathNodeArray);
 
             PathNode startNode = pathNodeArray[GetIndex(startPosition, pathNodeArray)];

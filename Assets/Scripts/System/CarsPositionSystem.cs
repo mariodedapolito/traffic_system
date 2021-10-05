@@ -11,7 +11,6 @@ using Unity.Burst;
 [UpdateBeforeAttribute(typeof(CarSystem))]
 public class CarsPositionSystem : SystemBase
 {
-
     public static NativeHashMap<int, char> carsPositionMap;
     public static NativeHashMap<int, int> intersectionQueueMap;
     public static NativeHashMap<int, int> intersectionCrossingMap;
