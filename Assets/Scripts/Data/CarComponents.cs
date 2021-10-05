@@ -3,6 +3,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using Unity.Collections;
 using System.Collections.Generic;
+using Unity.Jobs;
 
 public struct Vehicle : IComponentData { }
 
@@ -80,6 +81,7 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
     public Node destinationNode;
     public Node parkingNode;
     public List<Node> busStops;
+    public List<float3> pathNodeList;
 
     private const int LANE_CHANGE = 1;
     private const int BUS_STOP = 2;
@@ -180,6 +182,9 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
                 else nodesTypeList.Add(new NodesTypeList { nodeType = 0 });
             }*/
 
+
+            /* Path Jobs */
+            /*
             GameObject[] nodes = GameObject.FindGameObjectsWithTag("CarWaypoint");
             List<Node> nodesList = new List<Node>();
 
@@ -208,12 +213,29 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
                 //nextNodes.Dispose();
             }
             
-            NativeList<float3> pathNative = pathSystem.FindPath(startingNode.transform.position, destinationNode.transform.position, waypoitnsCity, nodesCity);
+            //NativeList<float3> pathNative = pathSystem.FindPath(startingNode.transform.position, destinationNode.transform.position, waypoitnsCity, nodesCity);
+            NativeList<float3> pathNative = new NativeList<float3>(Allocator.TempJob);
+
+            NewPathSystem findPath = new NewPathSystem
+            {
+                startPosition = startingNode.transform.position,
+                endPosition = destinationNode.transform.position,
+                waypointsCity = waypoitnsCity,
+                nodesCity = nodesCity,
+                path = pathNative
+            };
+
+            JobHandle jobHandle = findPath.Schedule();
+
+            jobHandle.Complete();
+
+            pathNative = findPath.path;
+            */
 
             List<float3> path = new List<float3>();
 
-            for (int i = 0; i < pathNative.Length; i++)
-                path.Add(pathNative[i]);
+            for (int i = 0; i < pathNodeList.Count; i++)
+                path.Add(pathNodeList[i]);
 
             path.Reverse();
 
@@ -232,17 +254,20 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
                 nodesTypeList.Add(new NodesTypeList { nodeType = 0 });
             }
 
-            /*dstManager.AddComponentData(entity, new PathFinding
+            /*
+            dstManager.AddComponentData(entity, new PathFinding
             {
                 startingNodePosition = startingNode.transform.position,
                 destinationNodePosition = destinationNode.transform.position
             });
 
             dstManager.AddComponent<NeedPath>(entity);
-            */
-
+            
+            /*
+            pathNative.Dispose();
             waypoitnsCity.Dispose();
             nodesCity.Dispose();
+            */
         }
         else if (isBus)
         {

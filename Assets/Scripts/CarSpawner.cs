@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
 
-public class CarSpawner : MonoBehaviour
+public class CarSpawner2 : MonoBehaviour
 {
 
     public List<GameObject> carPrefab;
@@ -18,7 +18,7 @@ public class CarSpawner : MonoBehaviour
     private EntityManager entityManager;
     private BlobAssetStore blobAssetStore;
 
-    public CarSpawner(List<GameObject> carPrefab, CityGenerator city, int numCarsToSpawn)
+    public CarSpawner2(List<GameObject> carPrefab, CityGenerator city, int numCarsToSpawn)
     {
         this.carPrefab = carPrefab;
         this.city = city;
@@ -105,13 +105,13 @@ public class CarSpawner : MonoBehaviour
 
             carData.startingNode = spawnNode;
             carData.currentNode = 1;
-           
-            carData.Speed = 2f;  
-            carData.SpeedDamping = carData.Speed / 10f; 
+
+            carData.Speed = 2f;
+            carData.SpeedDamping = carData.Speed / 10f;
 
             Parking possiblePaking = destinationNode.parkingPrefab.GetComponent<Parking>();
 
-            while(possiblePaking.numberFreeSpots == 0)
+            while (possiblePaking.numberFreeSpots == 0)
             {
                 randomDstNodeIndex = UnityEngine.Random.Range(0, parkingWaypoints.Count);
                 destinationNode = parkingWaypoints[randomDstNodeIndex];
@@ -124,14 +124,14 @@ public class CarSpawner : MonoBehaviour
             carData.parkingNode = possiblePaking.freeParkingSpots[randomParkingSpot];
             possiblePaking.freeParkingSpots[randomParkingSpot].isOccupied = true;
             possiblePaking.freeParkingSpots.RemoveAt(randomParkingSpot);
-            
+
             carData.destinationNode = destinationNode;
-             
+
             //Debug.Log("Car position: " + carToSpawn.transform.position + " rotation: " + carToSpawn.transform.rotation);
 
             //Instantiate a new car (which will then be converted to an entity)
             Instantiate(carToSpawn, spawnNode.transform.position, Quaternion.Euler(0, carRotation, 0));
-            
+
             spawnWaypoints.Remove(spawnNode);
         }
 
