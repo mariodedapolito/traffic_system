@@ -41,6 +41,13 @@ public class CarSpawner : MonoBehaviour
     {
 
         GameObject[] nodes = GameObject.FindGameObjectsWithTag("CarWaypoint");
+        /*foreach(GameObject n in nodes)
+        {
+            if (!n.GetComponentInParent<Street>().carWaypoints.Contains(n.GetComponent<Node>()))
+            {
+                throw new System.Exception(n.transform.parent.name);
+            }
+        }*/
         List<Node> nodesList = new List<Node>();
 
         nodes[0].GetComponent<Node>();

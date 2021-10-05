@@ -183,11 +183,15 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
 
             CityGenerator city = GameObject.FindGameObjectWithTag("CityGenerator").GetComponent<CityGenerator>();
             DynamicBuffer<NodesTypeList> nodesTypeList = dstManager.AddBuffer<NodesTypeList>(entity);
+            //Debug.Log(GameObject.FindGameObjectsWithTag("CarWaypoint").Length);
+            //Debug.Log(city.nodesMap.Count);
             for (int i = 0; i < path.Count; i++)
             {
-                if (city.nodesMap[path[i]].isIntersection) nodesTypeList.Add(new NodesTypeList { nodeType = 4 });
-                else if (city.nodesMap[path[i]].isLaneMergeLeft) nodesTypeList.Add(new NodesTypeList { nodeType = 5 });
-                else if (city.nodesMap[path[i]].isLaneMergeRight) nodesTypeList.Add(new NodesTypeList { nodeType = 6 });
+                Node node = city.nodesMap[path[i]];
+                if (node.isLaneChange) nodesTypeList.Add(new NodesTypeList { nodeType = LANE_CHANGE });
+                else if (node.isIntersection) nodesTypeList.Add(new NodesTypeList { nodeType = 4 });
+                else if (node.isLaneMergeLeft) nodesTypeList.Add(new NodesTypeList { nodeType = 5 });
+                else if (node.isLaneMergeRight) nodesTypeList.Add(new NodesTypeList { nodeType = 6 });
                 //else if(carPath[i].isTurnLeft) nodesTypeList.Add(new NodesTypeList { nodeType = TURN_LEFT });   //reserved for potential use
                 //else if (carPath[i].isTurnLeft) nodesTypeList.Add(new NodesTypeList { nodeType = TURN_RIGHT }); //reserved for potential use
                 nodesTypeList.Add(new NodesTypeList { nodeType = 0 });
