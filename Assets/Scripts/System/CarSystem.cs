@@ -175,8 +175,8 @@ class CarSystem : SystemBase
                         int positionKey2 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + leftDiagDirection);
                         int positionKey1 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + leftDirection);
 
-                        //Debug.DrawLine(translation.Value, translation.Value + leftDiagDirection, Color.white, 0.1f, false);
-                        //Debug.DrawLine(translation.Value, translation.Value + leftDirection, Color.white, 0.1f, false);
+                        Debug.DrawLine(translation.Value, translation.Value + leftDiagDirection, Color.white, 0.1f, false);
+                        Debug.DrawLine(translation.Value, translation.Value + leftDirection, Color.white, 0.1f, false);
                         if ((!curr.Equals(leftDiag) && carsPosition.ContainsKey(positionKey2)) && (!curr.Equals(left) && carsPosition.ContainsKey(positionKey1)))
                         {
                             navigation.trafficStop = true;
@@ -201,8 +201,8 @@ class CarSystem : SystemBase
                         int3 right = (int3)(translation.Value + rightDirection);
                         int positionKey2 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + rightDiagDirection);
                         int positionKey1 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + rightDirection);
-                        //Debug.DrawLine(translation.Value, translation.Value + rightDiagDirection, Color.white, 0.1f, false);
-                        //Debug.DrawLine(translation.Value, translation.Value + rightDirection, Color.white, 0.1f, false);
+                        Debug.DrawLine(translation.Value, translation.Value + rightDiagDirection, Color.white, 0.1f, false);
+                        Debug.DrawLine(translation.Value, translation.Value + rightDirection, Color.white, 0.1f, false);
                         if ((!curr.Equals(rightDiag) && carsPosition.ContainsKey(positionKey2)) || (!curr.Equals(right) && carsPosition.ContainsKey(positionKey1)))
                         {
                             navigation.trafficStop = true;
@@ -270,6 +270,6 @@ class CarSystem : SystemBase
                     }
                 }
 
-            }).ScheduleParallel();
+            }).Run();
     }
 }
