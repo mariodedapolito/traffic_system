@@ -100,7 +100,7 @@ public class CarSpawner : MonoBehaviour
             dNode = new List<Node>();
             pNode = new List<Node>();
 
-            //if (spawnWaypoints.Count < numCarsToSpownNow) Debug.Log("Not enough cars node spawn");
+            if (spawnWaypoints.Count < numCarsToSpownNow) Debug.Log("Not enough cars node spawn");
 
             for (int i = 0; i < numCarsToSpownNow; i++)
             {
@@ -109,7 +109,7 @@ public class CarSpawner : MonoBehaviour
                 spawnNodeList.Add(spawnWaypoints[randomSrcNode].transform.position);
                 sNode.Add(spawnWaypoints[randomSrcNode]);
 
-                //spawnWaypoints.RemoveAt(randomSrcNode);
+                spawnWaypoints.RemoveAt(randomSrcNode);
 
                 Parking possiblePaking = parkingWaypoints[randomDstNodeIndex].parkingPrefab.GetComponent<Parking>();
 
