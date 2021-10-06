@@ -25,7 +25,7 @@ public class BusSpawner : MonoBehaviour
         CarComponents busData = busToSpawn.GetComponent<CarComponents>();
 
         busData.currentNode = 1;
-        busData.Speed = 2f;
+        busData.Speed = 3f;
         busData.SpeedDamping = busData.Speed / 10f;
         
         for (int i = 0; i < busLines.Count; i++)

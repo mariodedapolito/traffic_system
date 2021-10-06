@@ -15,6 +15,9 @@ public class Node : MonoBehaviour
     public bool isTurnRight;        //identify waypoints that are used for turning right in intersections (needed for intersection precedence)
     public bool isBusLane;          //identify waypoints that are used for bus-only lanes
     public bool isBusStop;          //identify waypoints that are used as bus stops (fermate)
+    public bool isBusMerge;
+    public bool isLaneMergeLeft;
+    public bool isLaneMergeRight;
     public bool isParkingGateway;
     public bool isParkingSpot;      //identify waypoints that are used as car parking spots
     public int parkingExitRotation;
@@ -45,16 +48,16 @@ public class Node : MonoBehaviour
         }
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(transform.position, 0.25f);
-        if (isTurnLeft)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawCube(transform.position, new Vector3(0.25f, 0.25f, 1f));
-        }
-        if (isTurnRight)
-        {
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawCube(transform.position, new Vector3(0.25f, 0.25f, 1f));
-        }
+        //if (isTurnLeft)
+        //{
+        //    Gizmos.color = Color.yellow;
+        //    Gizmos.DrawCube(transform.position, new Vector3(0.25f, 0.25f, 1f));
+        //}
+        //if (isTurnRight)
+        //{
+        //    Gizmos.color = Color.cyan;
+        //    Gizmos.DrawCube(transform.position, new Vector3(0.25f, 0.25f, 1f));
+        //}
         if (needIncomingConnection)
         {
             Gizmos.color = Color.green;
@@ -83,6 +86,11 @@ public class Node : MonoBehaviour
         if (isLaneChange)
         {
             Gizmos.color = Color.white;
+            Gizmos.DrawCube(transform.position, new Vector3(0.7f, 0.7f, 0.7f));
+        }
+        if (isIntersection)
+        {
+            Gizmos.color = Color.yellow;
             Gizmos.DrawCube(transform.position, new Vector3(0.7f, 0.7f, 0.7f));
         }
         Gizmos.color = Color.white;

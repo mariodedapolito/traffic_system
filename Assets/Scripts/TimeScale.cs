@@ -16,17 +16,17 @@ public class TimeScale : MonoBehaviour
 
     void Update()
     {
-            
-            if (Time.timeScale <= timeScale)
-            {
-                Time.timeScale += 0.25f;
-                Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
-            }
-            if(Time.timeScale > timeScale)
-            {
-                Time.timeScale -= 0.25f;
-                Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
-            }
-            //Debug.Log(Time.timeScale + " " + Time.fixedDeltaTime);
-     }
+
+        if (Time.timeScale <= timeScale)
+        {
+            Time.timeScale += 0.25f;
+            Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
+        }
+        if (Time.timeScale > timeScale)
+        {
+            Time.timeScale -= 0.25f;
+            Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
+        }
+        //Debug.Log(Time.timeScale + " " + Time.fixedDeltaTime);
+    }
 }

@@ -11,7 +11,7 @@ public class ParkingTrigger : MonoBehaviour
 
     private void Start()
     {
-        parking = GetComponentInParent<Parking>();
+        //parking = GetComponentInParent<Parking>();
     }
 
     private void OnTriggerEnter(Collider other)

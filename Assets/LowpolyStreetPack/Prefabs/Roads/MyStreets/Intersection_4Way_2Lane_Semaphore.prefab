@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 7266357857397958351}
+  - {fileID: 925792823477058670}
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
@@ -53,6 +54,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -210,6 +214,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -281,12 +288,15 @@ MonoBehaviour:
   - {fileID: 8273396734762798956}
   needIncomingConnection: 0
   needOutgoingConnection: 0
-  isIntersection: 1
+  isIntersection: 0
   isLaneChange: 0
   isTurnLeft: 1
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -347,10 +357,13 @@ MonoBehaviour:
   needOutgoingConnection: 1
   isIntersection: 0
   isLaneChange: 0
-  isTurnLeft: 0
+  isTurnLeft: 1
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -429,6 +442,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -494,6 +510,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -532,8 +551,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1193283104554405523}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.8549957, y: 0.49999988, z: -1.9500008}
-  m_LocalScale: {x: 1.5, y: 0.15, z: 1}
+  m_LocalPosition: {x: -0.93, y: 0.49999988, z: -2.07}
+  m_LocalScale: {x: 1.875, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
   m_RootOrder: 6
@@ -783,6 +802,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -860,6 +882,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 1
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -938,6 +963,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -1656,12 +1684,15 @@ MonoBehaviour:
   - {fileID: 1604659658389402540}
   needIncomingConnection: 0
   needOutgoingConnection: 0
-  isIntersection: 1
+  isIntersection: 0
   isLaneChange: 0
   isTurnLeft: 1
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -1700,8 +1731,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687306314177727247}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -1.949997, y: 0.50000024, z: 0.85499954}
-  m_LocalScale: {x: 1.5000004, y: 0.15000002, z: 1}
+  m_LocalPosition: {x: -2.07, y: 0.50000024, z: 0.94}
+  m_LocalScale: {x: 1.9125004, y: 0.15000002, z: 1}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
   m_RootOrder: 11
@@ -1950,6 +1981,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -2008,12 +2042,15 @@ MonoBehaviour:
   - {fileID: 778808148250069918}
   needIncomingConnection: 0
   needOutgoingConnection: 0
-  isIntersection: 1
+  isIntersection: 0
   isLaneChange: 0
   isTurnLeft: 1
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -2739,6 +2776,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -2777,8 +2817,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2183838031286683594}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.8549957, y: 0.50000024, z: 1.9500008}
-  m_LocalScale: {x: 1.5, y: 0.15, z: 1}
+  m_LocalPosition: {x: 0.94, y: 0.50000024, z: 2.02}
+  m_LocalScale: {x: 1.9124999, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
   m_RootOrder: 9
@@ -3679,6 +3719,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 2698393892753507078}
+  - {fileID: 778808148250069918}
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
@@ -3687,6 +3728,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -3752,6 +3796,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -3817,6 +3864,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -3881,6 +3931,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 1
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -3959,6 +4012,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -4036,6 +4092,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -4100,6 +4159,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -4177,6 +4239,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -4241,6 +4306,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -4318,6 +4386,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -4376,12 +4447,15 @@ MonoBehaviour:
   - {fileID: 925792823477058670}
   needIncomingConnection: 0
   needOutgoingConnection: 0
-  isIntersection: 1
+  isIntersection: 0
   isLaneChange: 0
   isTurnLeft: 1
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -4440,12 +4514,15 @@ MonoBehaviour:
   - {fileID: 1170026562180445452}
   needIncomingConnection: 0
   needOutgoingConnection: 0
-  isIntersection: 1
+  isIntersection: 0
   isLaneChange: 0
   isTurnLeft: 1
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -4510,6 +4587,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -4641,8 +4721,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4683168294612137949}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 2.51, y: 0.50000024, z: 0.85499954}
-  m_LocalScale: {x: 1.5000004, y: 0.15000002, z: 1}
+  m_LocalPosition: {x: 2.51, y: 0.50000024, z: 1}
+  m_LocalScale: {x: 1.8187504, y: 0.15000002, z: 1}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
   m_RootOrder: 8
@@ -4892,6 +4972,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -5249,6 +5332,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -5305,6 +5391,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 521530161117214230}
+  - {fileID: 1072943582965497132}
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
@@ -5313,6 +5400,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -5351,8 +5441,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5105529465886968445}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.8549957, y: 0.49999988, z: -2.53}
-  m_LocalScale: {x: 1.5, y: 0.15, z: 1}
+  m_LocalPosition: {x: 1, y: 0.49999988, z: -2.53}
+  m_LocalScale: {x: 1.8375001, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
   m_RootOrder: 5
@@ -5601,6 +5691,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -5666,6 +5759,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -5717,8 +5813,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5969527966102898109}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 1.949997, y: 0.5, z: -0.85499954}
-  m_LocalScale: {x: 1.5000004, y: 0.15000002, z: 1}
+  m_LocalPosition: {x: 2.07, y: 0.5, z: -0.98}
+  m_LocalScale: {x: 1.7812505, y: 0.15000002, z: 1}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
   m_RootOrder: 7
@@ -5967,6 +6063,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -6032,6 +6131,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -6769,6 +6871,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -6833,6 +6938,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -6884,8 +6992,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7482436509046477392}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -2.48, y: 0.5, z: -0.85499954}
-  m_LocalScale: {x: 1.5000004, y: 0.15000002, z: 1}
+  m_LocalPosition: {x: -2.48, y: 0.5, z: -0.933}
+  m_LocalScale: {x: 1.8375005, y: 0.15000002, z: 1}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
   m_RootOrder: 12
@@ -7135,6 +7243,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -7199,6 +7310,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 1
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -7250,8 +7364,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7987216814531212044}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.8549957, y: 0.50000024, z: 2.62}
-  m_LocalScale: {x: 1.5, y: 0.15, z: 1}
+  m_LocalPosition: {x: -0.96, y: 0.50000024, z: 2.62}
+  m_LocalScale: {x: 1.8562499, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 1952225155875115036}
   m_RootOrder: 10
@@ -7492,6 +7606,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextNodes:
   - {fileID: 3514237520495157900}
+  - {fileID: 1604659658389402540}
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
@@ -7500,6 +7615,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -7558,12 +7676,15 @@ MonoBehaviour:
   - {fileID: 483957423105769198}
   needIncomingConnection: 0
   needOutgoingConnection: 0
-  isIntersection: 1
+  isIntersection: 0
   isLaneChange: 0
   isTurnLeft: 1
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -7629,6 +7750,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -7700,12 +7824,15 @@ MonoBehaviour:
   - {fileID: 6107079855496581409}
   needIncomingConnection: 0
   needOutgoingConnection: 0
-  isIntersection: 1
+  isIntersection: 0
   isLaneChange: 0
   isTurnLeft: 1
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -7771,6 +7898,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -8063,6 +8193,9 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0
@@ -8134,12 +8267,15 @@ MonoBehaviour:
   - {fileID: 1072943582965497132}
   needIncomingConnection: 0
   needOutgoingConnection: 0
-  isIntersection: 1
+  isIntersection: 0
   isLaneChange: 0
   isTurnLeft: 1
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
   isParkingGateway: 0
   isParkingSpot: 0
   parkingExitRotation: 0

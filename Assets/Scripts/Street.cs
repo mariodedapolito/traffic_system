@@ -1891,7 +1891,7 @@ public class Street : MonoBehaviour
 
     private void Semaphores4Way()
     {
-        float elapsedTime = (Time.time / 15f) % 4f;
+        float elapsedTime = (Time.time / 25f) % 4f;
 
         if (elapsedTime < 0.8f)
         {
@@ -1969,7 +1969,7 @@ public class Street : MonoBehaviour
 
     private void Semaphores3Way()
     {
-        float elapsedTime = (Time.time / 15f) % 3f;
+        float elapsedTime = (Time.time / 25f) % 3f;
 
         if (elapsedTime < 0.8f)
         {

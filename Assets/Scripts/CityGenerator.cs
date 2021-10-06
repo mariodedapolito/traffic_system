@@ -32,6 +32,7 @@ public class CityGenerator : MonoBehaviour
     public bool only1LaneStreets;
     public bool only2LaneStreets;
 
+    public int numberCarsToSpawnOnFrame;
     public GameObject cityPlane;
     public List<GameObject> carPrefab;
     public GameObject busPrefab;
@@ -66,8 +67,8 @@ public class CityGenerator : MonoBehaviour
     public List<GameObject> buildingPrefabs;
 
 
-    private const int distanceBetweenVerticalStreets = 5;   //2 prefabs for bus stops + 1 prefab (optional) for lane adapter + 2 reserved prefabs
-    private const int distanceBetweenHorizontalStreets = 5;
+    private const int distanceBetweenVerticalStreets = 15;   //2 prefabs for bus stops + 1 prefab (optional) for lane adapter + 2 reserved prefabs
+    private const int distanceBetweenHorizontalStreets = 15;
 
     public MapTile[,] cityMap;
     public int cityWidth;
@@ -146,9 +147,13 @@ public class CityGenerator : MonoBehaviour
     public List<Node> citySpawnNodes = new List<Node>();
     public List<Node> cityNodes = new List<Node>();
 
+    public Dictionary<Vector3, Node> nodesMap;
+
     private BusSpawner busSpawner;
     public List<List<Node>> busLines;
 
+    private bool spawn;
+    private int carsNeedToSpawn;
 
     // Start is called before the first frame update
     void Start()
@@ -466,6 +471,8 @@ public class CityGenerator : MonoBehaviour
 
         instantiateTerrain(cityWidth, cityLength);
 
+        nodesMap = new Dictionary<Vector3, Node>();
+
         for (int i = 0; i < cityLength; i++)
         {
             for (int j = 0; j < cityWidth; j++)
@@ -583,13 +590,34 @@ public class CityGenerator : MonoBehaviour
 
         //Spawn cars
         carSpawner = new CarSpawner(carPrefab, this, numberCarsToSpawn);
-        carSpawner.generateTraffic();
+        
 
         //Spawn buses
         busSpawner = new BusSpawner(busPrefab, this);
-        busSpawner.generateBuses();
+
+        carsNeedToSpawn = 0;
+        spawn = true;
     }
 
+    private void Update()
+    {
+        if (!spawn) return;
+
+        if(numberCarsToSpawn - carsNeedToSpawn - numberCarsToSpawnOnFrame <= 0)
+        {
+            numberCarsToSpawnOnFrame = numberCarsToSpawn - carsNeedToSpawn;
+            spawn = false;
+            busSpawner.generateBuses(); 
+        }
+
+        carsNeedToSpawn += numberCarsToSpawnOnFrame;
+
+        
+        carSpawner.generateTraffic(numberCarsToSpawnOnFrame);
+        
+
+        //spawn = false;
+    }
 
     private int[] generateVerticalStreetsNumber()
     {
@@ -1339,20 +1367,19 @@ public class CityGenerator : MonoBehaviour
 
             //fill nodes (waypoint) list
             foreach (var node in currentStreet.carWaypoints)
-            {   
+            {
                 cityNodes.Add(node);
+                nodesMap.Add(node.transform.position, node);
                 if (node.isParkingGateway)
                 {
                     cityParkingNodes.Add(node);
                 }
-                else
-                {
-                    if ((cityMap[row, col].prefabType == STRAIGHT_1LANE || cityMap[row, col].prefabType == STRAIGHT_2LANE || cityMap[row, col].prefabType == BUS_STOP_1LANE || cityMap[row, col].prefabType == BUS_STOP_2LANE)
+                else if ((cityMap[row, col].prefabType == STRAIGHT_1LANE || cityMap[row, col].prefabType == STRAIGHT_2LANE /*|| cityMap[row, col].prefabType == BUS_STOP_1LANE || cityMap[row, col].prefabType == BUS_STOP_2LANE*/)
                         && !node.isLaneChange && !node.isBusLane)   //spawn nodes dont include lane-change nodes and bus lanes
-                    {
-                        citySpawnNodes.Add(node);
-                    }
+                {
+                    citySpawnNodes.Add(node);
                 }
+
             }
         }
     }

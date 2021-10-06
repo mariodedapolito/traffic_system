@@ -9,42 +9,46 @@ using Unity.Collections;
 
 public class PathSystem : SystemBase
 {
-    private GameObject[] waypoints;
-    protected List<Node> nodes;
+    private List<Node> waypoints;
 
     protected override void OnUpdate()
     {
+        GameObject cityGenerator = GameObject.Find("CityGenerator");
+        CityGenerator city = cityGenerator.GetComponent<CityGenerator>();
+        waypoints = city.cityNodes;
 
         Entities
             .WithStructuralChanges()
             .ForEach((Entity e, ref PathFinding pathFinding, in NeedPath needPath) =>
             {
-
                 Vector3 startPosition = new Vector3(pathFinding.startingNodePosition.x, pathFinding.startingNodePosition.y, pathFinding.startingNodePosition.z);
                 Vector3 endPosition = new Vector3(pathFinding.destinationNodePosition.x, pathFinding.destinationNodePosition.y, pathFinding.destinationNodePosition.z);
 
                 Node startingNode = null;
                 Node destinationNode = null;
 
-                nodes = new List<Node>();
-                waypoints = GameObject.FindGameObjectsWithTag("CarWaypoint");
+                bool startFound = false;
+                bool endFound = false;
 
-                foreach (GameObject w in waypoints)
+                foreach (Node w in waypoints)
                 {
-                    if (w.GetComponent<Node>() != null)
+                    if (w.transform.position.Equals(pathFinding.startingNodePosition))
                     {
-                        nodes.Add(w.GetComponent<Node>());
-
-                        if (w.transform.position.Equals(pathFinding.startingNodePosition))
+                        startingNode = w.GetComponent<Node>();
+                        startFound = true;
+                        if (endFound)
                         {
-                           startingNode = w.GetComponent<Node>();
+                            break;
                         }
-
-                        if (w.transform.position.Equals(pathFinding.destinationNodePosition))
+                    }
+                    if (w.transform.position.Equals(pathFinding.destinationNodePosition))
+                    {
+                        destinationNode = w.GetComponent<Node>();
+                        endFound = true;
+                        if (startFound)
                         {
-                            destinationNode = w.GetComponent<Node>();
+                            break;
                         }
-
                     }
 
                 }
@@ -56,6 +60,11 @@ public class PathSystem : SystemBase
                     throw new System.Exception("NO CAR PATH FOUND");
                 }
 
+                /*for (int i = 0; i < carPath.Count - 1; i++)
+                {
+                    Debug.DrawLine(carPath[i].transform.position, carPath[i + 1].transform.position, Color.white, 30f);
+                }*/
+
                 DynamicBuffer<NodesPositionList> nodesPositionList = EntityManager.AddBuffer<NodesPositionList>(e);
                 for (int i = 0; i < carPath.Count; i++)
                 {
@@ -66,6 +75,9 @@ public class PathSystem : SystemBase
                 for (int i = 0; i < carPath.Count; i++)
                 {
                     if (carPath[i].isLaneChange) nodesTypeList.Add(new NodesTypeList { nodeType = 1 });
+                    else if (carPath[i].isIntersection) nodesTypeList.Add(new NodesTypeList { nodeType = 4 });
+                    else if (carPath[i].isLaneMergeLeft) nodesTypeList.Add(new NodesTypeList { nodeType = 5 });
+                    else if (carPath[i].isLaneMergeRight) nodesTypeList.Add(new NodesTypeList { nodeType = 6 });
                     //else if(carPath[i].isTurnLeft) nodesTypeList.Add(new NodesTypeList { nodeType = TURN_LEFT });   //reserved for potential use
                     //else if (carPath[i].isTurnLeft) nodesTypeList.Add(new NodesTypeList { nodeType = TURN_RIGHT }); //reserved for potential use
                     else nodesTypeList.Add(new NodesTypeList { nodeType = 0 });
@@ -77,8 +89,7 @@ public class PathSystem : SystemBase
     }
 
     public List<Node> findShortestPath(Transform start, Transform end)
-    {        
-        List<Node> result = new List<Node>();
+    {
         List<Node> node = AStarSearch(start.GetComponent<Node>(), end.GetComponent<Node>());
 
         return node;

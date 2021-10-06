@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
@@ -43,7 +43,7 @@ public class EndGameSystem : SystemBase
                   if (nCarParked >= nCar && !endGameNow)
                   {
                       endGameNow = true;
-                      Debug.Log("END GAME \n num Cars: " + nCar + "time: " + time*1000f);
+                      Debug.Log("END GAME!");
                   }
               
                   EntityManager.RemoveComponent<Car>(e);
@@ -60,4 +60,4 @@ public class EndGameSystem : SystemBase
                 endGameComponent.numberCarsParked = nCarParked;
             }).Run();
     }
-}
+}*/

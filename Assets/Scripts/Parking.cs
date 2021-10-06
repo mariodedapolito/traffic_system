@@ -15,7 +15,7 @@ public class Parking : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        parkingTrigger = GetComponentInChildren<ParkingTrigger>();
+        //parkingTrigger = GetComponentInChildren<ParkingTrigger>();
     }
 
     public void manageParkingEntrance(CarAI car)
