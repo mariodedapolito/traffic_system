@@ -67,8 +67,8 @@ public class CityGenerator : MonoBehaviour
     public List<GameObject> buildingPrefabs;
 
 
-    private const int distanceBetweenVerticalStreets = 20;   //2 prefabs for bus stops + 1 prefab (optional) for lane adapter + 2 reserved prefabs
-    private const int distanceBetweenHorizontalStreets = 20;
+    private const int distanceBetweenVerticalStreets = 6;   //2 prefabs for bus stops + 1 prefab (optional) for lane adapter + 2 reserved prefabs
+    private const int distanceBetweenHorizontalStreets = 6;
 
     public MapTile[,] cityMap;
     public int cityWidth;

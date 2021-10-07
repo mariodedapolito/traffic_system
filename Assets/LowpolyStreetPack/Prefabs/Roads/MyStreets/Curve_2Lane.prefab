@@ -1,5 +1,167 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &159566048748215823
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8087502443396404494}
+  - component: {fileID: 5124852339633550598}
+  - component: {fileID: 5378171174549090575}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (27)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8087502443396404494
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159566048748215823}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.4, y: 0.100000024, z: -12.31}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 64
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5124852339633550598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159566048748215823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 6528345146585216999}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &5378171174549090575
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159566048748215823}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &252963744202079648
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 386334247987201593}
+  - component: {fileID: 677144272606123281}
+  - component: {fileID: 3970701795984848234}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (22)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &386334247987201593
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 252963744202079648}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.4, y: 0.100000024, z: -3.92}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 59
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &677144272606123281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 252963744202079648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 6528345146585216999}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &3970701795984848234
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 252963744202079648}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &268104828567722078
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,6 +417,168 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &679616282362608393
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5437422804354976269}
+  - component: {fileID: 2441038113122642749}
+  - component: {fileID: 7500329281819268371}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (7)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5437422804354976269
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679616282362608393}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 11.15, y: 0.100000024, z: -1.21}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 43
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2441038113122642749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679616282362608393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 7467999734425181921}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &7500329281819268371
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679616282362608393}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &731869146983661863
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1012370579936769336}
+  - component: {fileID: 8409853409394910230}
+  - component: {fileID: 3692370572256893458}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (8)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1012370579936769336
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731869146983661863}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 9.22, y: 0.100000024, z: -1.21}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 44
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8409853409394910230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731869146983661863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 7467999734425181921}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &3692370572256893458
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731869146983661863}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &896979204801689537
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,6 +735,168 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 901544870501808974}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &904145086855774435
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2168110469816493543}
+  - component: {fileID: 6777651155403767274}
+  - component: {fileID: 5909109126576193611}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (2)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2168110469816493543
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904145086855774435}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 9.22, y: 0.100000024, z: -0.40499878}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 39
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6777651155403767274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904145086855774435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 7507969970265012429}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &5909109126576193611
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904145086855774435}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1172843248991487168
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4760279861691441213}
+  - component: {fileID: 992217921503242701}
+  - component: {fileID: 8287199644668857342}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (42)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4760279861691441213
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172843248991487168}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.41, y: 0.100000024, z: -7.06}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 79
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &992217921503242701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172843248991487168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 814774032219144603}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &8287199644668857342
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172843248991487168}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
@@ -579,6 +1065,87 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1620624276336383811
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6921537401365765602}
+  - component: {fileID: 4724869443066417479}
+  - component: {fileID: 1000183535407846003}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (32)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6921537401365765602
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620624276336383811}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 1.212, y: 0.100000024, z: -5.54}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 69
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4724869443066417479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620624276336383811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 7171163222009894192}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &1000183535407846003
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620624276336383811}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1667955388541416175
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,6 +1220,87 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1667955388541416175}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1806267718534709334
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6286594262980505040}
+  - component: {fileID: 3729087397860737509}
+  - component: {fileID: 3583709088043878183}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (12)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6286594262980505040
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806267718534709334}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 9.21, y: 0.100000024, z: 0.4}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 49
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3729087397860737509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806267718534709334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 6005914917137345722}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &3583709088043878183
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806267718534709334}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
@@ -815,6 +1463,411 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2245223247877771793}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2273961345415161730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1624207035735860946}
+  - component: {fileID: 7242707589362393992}
+  - component: {fileID: 1660510606643800796}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (38)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1624207035735860946
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2273961345415161730}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -1.218, y: 0.100000024, z: -12.27}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 75
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7242707589362393992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2273961345415161730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 1955603546970804802}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &1660510606643800796
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2273961345415161730}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2644690650034496995
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3455528942076745173}
+  - component: {fileID: 376073390304156920}
+  - component: {fileID: 1007447265213442532}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (25)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3455528942076745173
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2644690650034496995}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.4, y: 0.100000024, z: -8.71}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 62
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &376073390304156920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2644690650034496995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 6528345146585216999}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &1007447265213442532
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2644690650034496995}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2775235147088862420
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4092256573685354684}
+  - component: {fileID: 3932040808898777074}
+  - component: {fileID: 327523327485241510}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (24)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4092256573685354684
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2775235147088862420}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.4, y: 0.100000024, z: -7.07}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 61
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3932040808898777074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2775235147088862420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 6528345146585216999}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &327523327485241510
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2775235147088862420}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2778780149030542758
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1646499477990220894}
+  - component: {fileID: 2008808460308968465}
+  - component: {fileID: 1212737337599594430}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (34)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1646499477990220894
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2778780149030542758}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -1.218, y: 0.100000024, z: -5.52}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 71
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2008808460308968465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2778780149030542758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 1955603546970804802}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &1212737337599594430
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2778780149030542758}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2792763450369546754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5065420506732808308}
+  - component: {fileID: 6682656684322142662}
+  - component: {fileID: 4130790257742472940}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (30)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5065420506732808308
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2792763450369546754}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 1.212, y: 0.100000024, z: -8.72}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 67
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6682656684322142662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2792763450369546754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 7171163222009894192}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &4130790257742472940
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2792763450369546754}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
@@ -1144,6 +2197,168 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3571986392980488380
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8030363265226330060}
+  - component: {fileID: 8209662982905847325}
+  - component: {fileID: 2193862553941987699}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (18)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8030363265226330060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3571986392980488380}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 7.36, y: 0.100000024, z: 1.214}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 55
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8209662982905847325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3571986392980488380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 4930938268436380976}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &2193862553941987699
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3571986392980488380}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3664047715140587686
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2968722908409610314}
+  - component: {fileID: 6921999834373948139}
+  - component: {fileID: 9115298575407237064}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (33)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2968722908409610314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3664047715140587686}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 1.212, y: 0.100000024, z: -3.92}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 70
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6921999834373948139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3664047715140587686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 7171163222009894192}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &9115298575407237064
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3664047715140587686}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3763984576574291298
 GameObject:
   m_ObjectHideFlags: 0
@@ -1399,6 +2614,249 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &4034851702857283362
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8987657848809325815}
+  - component: {fileID: 2546173975807621586}
+  - component: {fileID: 923331878929221538}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (37)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8987657848809325815
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4034851702857283362}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -1.218, y: 0.100000024, z: -10.42}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 74
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2546173975807621586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4034851702857283362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 1955603546970804802}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &923331878929221538
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4034851702857283362}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &4056620172491441360
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2735662598351696994}
+  - component: {fileID: 4617057714036860561}
+  - component: {fileID: 5042678327652564417}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (4)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2735662598351696994
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4056620172491441360}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 12.92, y: 0.100000024, z: 0.4}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 47
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4617057714036860561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4056620172491441360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 6005914917137345722}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &5042678327652564417
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4056620172491441360}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &4072911516895118345
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2817107700348391716}
+  - component: {fileID: 775040850169869073}
+  - component: {fileID: 7256134453463518164}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (35)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2817107700348391716
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4072911516895118345}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -1.218, y: 0.100000024, z: -7.08}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 72
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &775040850169869073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4072911516895118345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 1955603546970804802}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &7256134453463518164
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4072911516895118345}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4113030112096192738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1474,6 +2932,87 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4113030112096192738}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &4171426715866209085
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 324689226555172854}
+  - component: {fileID: 4458949515469530119}
+  - component: {fileID: 4343164627017272670}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (41)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &324689226555172854
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4171426715866209085}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.41, y: 0.100000024, z: -8.7}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 78
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4458949515469530119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4171426715866209085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 814774032219144603}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &4343164627017272670
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4171426715866209085}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
@@ -1747,6 +3286,87 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConversionMode: 0
+--- !u!1 &4725462916921503049
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3300523828132384501}
+  - component: {fileID: 3189955701545272939}
+  - component: {fileID: 8421558501082871326}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (14)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3300523828132384501
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4725462916921503049}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 5.65, y: 0.100000024, z: 0.4}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 51
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3189955701545272939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4725462916921503049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 6005914917137345722}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &8421558501082871326
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4725462916921503049}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4757675697926174214
 GameObject:
   m_ObjectHideFlags: 0
@@ -1822,6 +3442,87 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4757675697926174214}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &4760192054461924369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5672900892494670860}
+  - component: {fileID: 1287726691210597692}
+  - component: {fileID: 4812922621408640902}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (39)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5672900892494670860
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4760192054461924369}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.41, y: 0.100000024, z: -12.27}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 76
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1287726691210597692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4760192054461924369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 814774032219144603}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &4812922621408640902
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4760192054461924369}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
@@ -1909,6 +3610,87 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &4866009331951367143
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6874824558340719150}
+  - component: {fileID: 1311176495049496825}
+  - component: {fileID: 6121839997775551241}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (31)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6874824558340719150
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4866009331951367143}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 1.212, y: 0.100000024, z: -7.08}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 68
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1311176495049496825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4866009331951367143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 7171163222009894192}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &6121839997775551241
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4866009331951367143}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5195373873339133799
 GameObject:
   m_ObjectHideFlags: 0
@@ -1985,6 +3767,87 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5195373873339133799}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &5359945135994121470
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5792558992582117041}
+  - component: {fileID: 9056031212143270911}
+  - component: {fileID: 6404869499894907075}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (21)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5792558992582117041
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5359945135994121470}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 12.92, y: 0.100000024, z: 1.214}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 58
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9056031212143270911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5359945135994121470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 4930938268436380976}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &6404869499894907075
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5359945135994121470}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
@@ -2166,6 +4029,87 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &5426097462017370265
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3896821973689697177}
+  - component: {fileID: 8623775180068079321}
+  - component: {fileID: 8259130275566595131}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (3)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3896821973689697177
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5426097462017370265}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 7.36, y: 0.100000024, z: -0.40499878}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 40
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8623775180068079321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5426097462017370265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 7507969970265012429}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &8259130275566595131
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5426097462017370265}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5467042050747154248
 GameObject:
   m_ObjectHideFlags: 0
@@ -2248,6 +4192,411 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &5491185044947399608
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5459128938586908580}
+  - component: {fileID: 7459901462577561760}
+  - component: {fileID: 9115347266910853752}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (9)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5459128938586908580
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5491185044947399608}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 7.37, y: 0.100000024, z: -1.21}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 45
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7459901462577561760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5491185044947399608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 7467999734425181921}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &9115347266910853752
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5491185044947399608}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &5548139589444892407
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2834593020325380072}
+  - component: {fileID: 5805803497607109678}
+  - component: {fileID: 5922215361149513260}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (17)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2834593020325380072
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5548139589444892407}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 5.65, y: 0.100000024, z: 1.214}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 54
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5805803497607109678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5548139589444892407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 4930938268436380976}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &5922215361149513260
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5548139589444892407}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &5746309782032617678
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4663876025494929100}
+  - component: {fileID: 5215513708156988855}
+  - component: {fileID: 3208391325673719339}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (40)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4663876025494929100
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5746309782032617678}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.41, y: 0.100000024, z: -10.44}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 77
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5215513708156988855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5746309782032617678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 814774032219144603}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &3208391325673719339
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5746309782032617678}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &5909000985239192754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6805305228576642922}
+  - component: {fileID: 8419169564138165280}
+  - component: {fileID: 8282529585776209397}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (1)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6805305228576642922
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5909000985239192754}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 11.14, y: 0.100000024, z: -0.40499878}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 38
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8419169564138165280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5909000985239192754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 7507969970265012429}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &8282529585776209397
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5909000985239192754}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &5923594371525754038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1491964472931418504}
+  - component: {fileID: 9149427875870335304}
+  - component: {fileID: 6297354634966266121}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (13)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1491964472931418504
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5923594371525754038}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 7.38, y: 0.100000024, z: 0.4}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 50
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9149427875870335304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5923594371525754038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 6005914917137345722}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &6297354634966266121
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5923594371525754038}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5934249600828549742
 GameObject:
   m_ObjectHideFlags: 0
@@ -2298,6 +4647,87 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConversionMode: 0
+--- !u!1 &6000081856250781073
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7410331576841893531}
+  - component: {fileID: 5666481406470392321}
+  - component: {fileID: 5713427551849392842}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (36)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7410331576841893531
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6000081856250781073}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -1.218, y: 0.100000024, z: -8.67}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 73
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5666481406470392321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6000081856250781073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 1955603546970804802}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &5713427551849392842
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6000081856250781073}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6012983340371916652
 GameObject:
   m_ObjectHideFlags: 0
@@ -2391,6 +4821,168 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConversionMode: 0
+--- !u!1 &6100303046691860772
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1580401771239311752}
+  - component: {fileID: 3471569591616449814}
+  - component: {fileID: 7056600529067901751}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (19)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1580401771239311752
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6100303046691860772}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 9.22, y: 0.100000024, z: 1.214}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 56
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3471569591616449814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6100303046691860772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 4930938268436380976}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &7056600529067901751
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6100303046691860772}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &6111265546933734716
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6582258668324980185}
+  - component: {fileID: 6468817093262628022}
+  - component: {fileID: 2065857249434380728}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (10)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6582258668324980185
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6111265546933734716}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 5.63, y: 0.100000024, z: -1.21}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 46
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6468817093262628022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6111265546933734716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 7467999734425181921}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &2065857249434380728
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6111265546933734716}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6167061588753933450
 GameObject:
   m_ObjectHideFlags: 0
@@ -2472,6 +5064,87 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &6235280900237608056
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2734499349543456338}
+  - component: {fileID: 4024923956385621636}
+  - component: {fileID: 6824712763171910659}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (43)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2734499349543456338
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6235280900237608056}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.41, y: 0.100000024, z: -5.5}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 80
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4024923956385621636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6235280900237608056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 814774032219144603}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &6824712763171910659
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6235280900237608056}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6264858153809610752
 GameObject:
   m_ObjectHideFlags: 0
@@ -2547,6 +5220,168 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6264858153809610752}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &6339822146917951336
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1691322376302466848}
+  - component: {fileID: 812973571864853646}
+  - component: {fileID: 5991161113316489369}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (29)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1691322376302466848
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6339822146917951336}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 1.212, y: 0.100000024, z: -10.41}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 66
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &812973571864853646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6339822146917951336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 7171163222009894192}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &5991161113316489369
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6339822146917951336}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &6450687695008941912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9036044371297354900}
+  - component: {fileID: 9204759871652442109}
+  - component: {fileID: 6261739849776216347}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (16)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9036044371297354900
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6450687695008941912}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 3.89, y: 0.100000024, z: 1.214}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 53
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9204759871652442109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6450687695008941912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 4930938268436380976}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &6261739849776216347
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6450687695008941912}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
@@ -2994,6 +5829,87 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &7327800832402840079
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5615393067140012871}
+  - component: {fileID: 6407101343680618249}
+  - component: {fileID: 7808160821442743882}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (28)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5615393067140012871
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7327800832402840079}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 1.212, y: 0.100000024, z: -12.32}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 65
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6407101343680618249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7327800832402840079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 7171163222009894192}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &7808160821442743882
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7327800832402840079}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7334301929456441414
 GameObject:
   m_ObjectHideFlags: 0
@@ -3249,6 +6165,249 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &7618068718629176276
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4577419617879744355}
+  - component: {fileID: 5205804365404841805}
+  - component: {fileID: 3404414212200522099}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (11)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4577419617879744355
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7618068718629176276}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 11.1, y: 0.100000024, z: 0.4}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 48
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5205804365404841805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7618068718629176276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 6005914917137345722}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &3404414212200522099
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7618068718629176276}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &7829139211885236673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2876822018731242226}
+  - component: {fileID: 1514863573589603676}
+  - component: {fileID: 2441198352025513691}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (23)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2876822018731242226
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7829139211885236673}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.4, y: 0.100000024, z: -5.52}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 60
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1514863573589603676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7829139211885236673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 6528345146585216999}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &2441198352025513691
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7829139211885236673}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &7838939976078041240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3603872106643964766}
+  - component: {fileID: 2056346446670349915}
+  - component: {fileID: 7995402156192438357}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (6)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3603872106643964766
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7838939976078041240}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 12.936, y: 0.100000024, z: -1.21}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 42
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2056346446670349915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7838939976078041240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 7467999734425181921}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &7995402156192438357
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7838939976078041240}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7850717544037298327
 GameObject:
   m_ObjectHideFlags: 0
@@ -3324,6 +6483,330 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7850717544037298327}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &7944181980602309898
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5195795013383352688}
+  - component: {fileID: 6297371941362250177}
+  - component: {fileID: 9079999300767916928}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (26)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5195795013383352688
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7944181980602309898}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.4, y: 0.100000024, z: -10.42}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 63
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6297371941362250177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7944181980602309898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 6528345146585216999}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &9079999300767916928
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7944181980602309898}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &8155692428868403988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8580082509629415346}
+  - component: {fileID: 6165986719464162821}
+  - component: {fileID: 4908263083978530107}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (15)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8580082509629415346
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8155692428868403988}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 3.89, y: 0.100000024, z: 0.4}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 52
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6165986719464162821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8155692428868403988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 6005914917137345722}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &4908263083978530107
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8155692428868403988}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &8319340162482453736
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5680203193734299637}
+  - component: {fileID: 9001177989562132409}
+  - component: {fileID: 2036808987798969169}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (20)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5680203193734299637
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8319340162482453736}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 11.07, y: 0.100000024, z: 1.214}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 57
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9001177989562132409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8319340162482453736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 4930938268436380976}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &2036808987798969169
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8319340162482453736}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &8343600255573479063
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7811473881566863286}
+  - component: {fileID: 1946618586613454539}
+  - component: {fileID: 3134708674443360071}
+  m_Layer: 8
+  m_Name: CarSpawn_Node (5)
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7811473881566863286
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8343600255573479063}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 5.62, y: 0.100000024, z: -0.40499878}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 41
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1946618586613454539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8343600255573479063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 7507969970265012429}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &3134708674443360071
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8343600255573479063}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
@@ -3560,6 +7043,50 @@ Transform:
   - {fileID: 2433425774560311106}
   - {fileID: 2182981236452742161}
   - {fileID: 55982217891101464}
+  - {fileID: 3556595535305925788}
+  - {fileID: 6805305228576642922}
+  - {fileID: 2168110469816493543}
+  - {fileID: 3896821973689697177}
+  - {fileID: 7811473881566863286}
+  - {fileID: 3603872106643964766}
+  - {fileID: 5437422804354976269}
+  - {fileID: 1012370579936769336}
+  - {fileID: 5459128938586908580}
+  - {fileID: 6582258668324980185}
+  - {fileID: 2735662598351696994}
+  - {fileID: 4577419617879744355}
+  - {fileID: 6286594262980505040}
+  - {fileID: 1491964472931418504}
+  - {fileID: 3300523828132384501}
+  - {fileID: 8580082509629415346}
+  - {fileID: 9036044371297354900}
+  - {fileID: 2834593020325380072}
+  - {fileID: 8030363265226330060}
+  - {fileID: 1580401771239311752}
+  - {fileID: 5680203193734299637}
+  - {fileID: 5792558992582117041}
+  - {fileID: 386334247987201593}
+  - {fileID: 2876822018731242226}
+  - {fileID: 4092256573685354684}
+  - {fileID: 3455528942076745173}
+  - {fileID: 5195795013383352688}
+  - {fileID: 8087502443396404494}
+  - {fileID: 5615393067140012871}
+  - {fileID: 1691322376302466848}
+  - {fileID: 5065420506732808308}
+  - {fileID: 6874824558340719150}
+  - {fileID: 6921537401365765602}
+  - {fileID: 2968722908409610314}
+  - {fileID: 1646499477990220894}
+  - {fileID: 2817107700348391716}
+  - {fileID: 7410331576841893531}
+  - {fileID: 8987657848809325815}
+  - {fileID: 1624207035735860946}
+  - {fileID: 5672900892494670860}
+  - {fileID: 4663876025494929100}
+  - {fileID: 324689226555172854}
+  - {fileID: 4760279861691441213}
+  - {fileID: 2734499349543456338}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3655,6 +7182,50 @@ MonoBehaviour:
   - {fileID: 1955603546970804802}
   - {fileID: 7507969970265012429}
   - {fileID: 7467999734425181921}
+  - {fileID: 6919234594987276423}
+  - {fileID: 8419169564138165280}
+  - {fileID: 6777651155403767274}
+  - {fileID: 8623775180068079321}
+  - {fileID: 1946618586613454539}
+  - {fileID: 2056346446670349915}
+  - {fileID: 2441038113122642749}
+  - {fileID: 8409853409394910230}
+  - {fileID: 7459901462577561760}
+  - {fileID: 6468817093262628022}
+  - {fileID: 4617057714036860561}
+  - {fileID: 5205804365404841805}
+  - {fileID: 3729087397860737509}
+  - {fileID: 9149427875870335304}
+  - {fileID: 3189955701545272939}
+  - {fileID: 6165986719464162821}
+  - {fileID: 9204759871652442109}
+  - {fileID: 5805803497607109678}
+  - {fileID: 8209662982905847325}
+  - {fileID: 3471569591616449814}
+  - {fileID: 9001177989562132409}
+  - {fileID: 9056031212143270911}
+  - {fileID: 677144272606123281}
+  - {fileID: 1514863573589603676}
+  - {fileID: 3932040808898777074}
+  - {fileID: 376073390304156920}
+  - {fileID: 6297371941362250177}
+  - {fileID: 5124852339633550598}
+  - {fileID: 6407101343680618249}
+  - {fileID: 812973571864853646}
+  - {fileID: 6682656684322142662}
+  - {fileID: 1311176495049496825}
+  - {fileID: 4724869443066417479}
+  - {fileID: 6921999834373948139}
+  - {fileID: 2008808460308968465}
+  - {fileID: 775040850169869073}
+  - {fileID: 5666481406470392321}
+  - {fileID: 2546173975807621586}
+  - {fileID: 7242707589362393992}
+  - {fileID: 1287726691210597692}
+  - {fileID: 5215513708156988855}
+  - {fileID: 4458949515469530119}
+  - {fileID: 992217921503242701}
+  - {fileID: 4024923956385621636}
   isSimpleIntersection: 0
   isSemaphoreIntersection: 0
   isTBoneIntersection: 0
@@ -3742,6 +7313,87 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9109666943205791709}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &9188925241887765814
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3556595535305925788}
+  - component: {fileID: 6919234594987276423}
+  - component: {fileID: 4251230360819299898}
+  m_Layer: 8
+  m_Name: CarSpawn_Node
+  m_TagString: CarSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3556595535305925788
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9188925241887765814}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 12.92, y: 0.100000024, z: -0.40499878}
+  m_LocalScale: {x: 0.14999999, y: 0.20000003, z: 0.109000005}
+  m_Children: []
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 37
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6919234594987276423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9188925241887765814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747a56b74bfae9d4ba475d37aec0fb3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextNodes:
+  - {fileID: 7507969970265012429}
+  needIncomingConnection: 0
+  needOutgoingConnection: 0
+  isIntersection: 0
+  isLaneChange: 0
+  isTurnLeft: 0
+  isTurnRight: 0
+  isBusLane: 0
+  isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
+  isParkingSpot: 0
+  parkingExitRotation: 0
+  parkingRotation: 0
+  laneNumber: 0
+  trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 1
+  isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
+--- !u!135 &4251230360819299898
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9188925241887765814}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
