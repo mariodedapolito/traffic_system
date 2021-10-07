@@ -201,7 +201,7 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
         }
         else if (isBus)
         {
-            Path path = new Path();
+            Path path = gameObject.AddComponent<Path>(); ;
             List<Node> finalBusPath = new List<Node>();
             List<Node> busPath;
             for (int i = 0; i < busStops.Count-1; i++)

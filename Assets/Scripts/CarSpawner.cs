@@ -51,6 +51,10 @@ public class CarSpawner : MonoBehaviour
     {
 
         GameObject[] nodes = GameObject.FindGameObjectsWithTag("CarWaypoint");
+
+        GameObject[] carSpanGameObj = GameObject.FindGameObjectsWithTag("CarSpawn");
+        
+
         /*foreach(GameObject n in nodes)
         {
             if (!n.GetComponentInParent<Street>().carWaypoints.Contains(n.GetComponent<Node>()))
@@ -64,8 +68,17 @@ public class CarSpawner : MonoBehaviour
 
         //NewPathSystem pathSystem = new NewPathSystem();
 
-        NativeMultiHashMap<float3, float3> nodesCity = new NativeMultiHashMap<float3, float3>(nodes.Length, Allocator.Temp);
-        NativeArray<float3> waypoitnsCity = new NativeArray<float3>(nodes.Length, Allocator.Temp);
+        NativeMultiHashMap<float3, float3> nodesCity = new NativeMultiHashMap<float3, float3>(nodes.Length + carSpanGameObj.Length, Allocator.Temp);
+        NativeArray<float3> waypoitnsCity = new NativeArray<float3>(nodes.Length + carSpanGameObj.Length, Allocator.Temp);
+
+        for (int i = 0; i < carSpanGameObj.Length; i++)
+        {
+
+            nodesCity.Add(carSpanGameObj[i].GetComponent<Node>().transform.position, carSpanGameObj[i].GetComponent<Node>().nextNodes[0].transform.position);
+
+            waypoitnsCity[i] = carSpanGameObj[i].GetComponent<Node>().transform.position;
+            //nodesCity.Add(carSpanGameObj[i].GetComponent<Node>());
+        }
 
         for (int i = 0; i < nodes.Length; i++)
         {
@@ -78,7 +91,7 @@ public class CarSpawner : MonoBehaviour
                 }
 
 
-                waypoitnsCity[i] = nodes[i].GetComponent<Node>().transform.position;
+                waypoitnsCity[i + carSpanGameObj.Length] = nodes[i].GetComponent<Node>().transform.position;
             }
             else
             {
@@ -100,7 +113,11 @@ public class CarSpawner : MonoBehaviour
             dNode = new List<Node>();
             pNode = new List<Node>();
 
-            if (spawnWaypoints.Count < numCarsToSpownNow) Debug.Log("Not enough cars node spawn");
+            if (spawnWaypoints.Count < numCarsToSpownNow)
+            {
+                Debug.LogError("Not enough cars node spawn! Increase the number of rows.");
+                return;
+            }
 
             for (int i = 0; i < numCarsToSpownNow; i++)
             {

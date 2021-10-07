@@ -25,11 +25,13 @@ class CarSystem : SystemBase
         int elapsedTime = (int)UnityEngine.Time.time;
 
         float time = Time.DeltaTime;
+        float timeScale = GameObject.Find("TimeScale").GetComponent<TimeScale>().timeScale;
 
         Entities
             .WithoutBurst()
             .ForEach((DynamicBuffer<NodesPositionList> NodesPositionList, DynamicBuffer<NodesTypeList> NodesTypeList, ref VehicleNavigation navigation, ref Translation translation, ref Rotation rotation, ref VehicleSpeed speed, in Car car, in LocalToWorld ltw) =>
             {
+                /* Parking System */
                 if (navigation.isParked) return;
                 
                 if (navigation.needParking)
@@ -230,6 +232,13 @@ class CarSystem : SystemBase
                         }
                         translation.Value += ltw.Forward * time * speed.currentSpeed;
                         float3 direction = NodesPositionList[navigation.currentNode].nodePosition - translation.Value;
+                        if (direction.Equals(0f))
+                        {
+                            Debug.Log("parked");
+                            navigation.isParked = true;
+                            translation.Value = navigation.parkingNode;
+                            return;
+                        }
                         rotation.Value = Quaternion.LookRotation(direction);
                     }
                     else  //SPEEDING UP IF NO TRAFFIC OR MY TURN IN INTERSECTION
@@ -259,12 +268,20 @@ class CarSystem : SystemBase
                         translation.Value += nextNodeDirection * time * speed.currentSpeed;
 
                         float3 direction = NodesPositionList[navigation.currentNode].nodePosition - translation.Value;
+
+                        if (direction.Equals(0f))
+                        {
+                            Debug.Log("parked");
+                            navigation.isParked = true;
+                            translation.Value = navigation.parkingNode;
+                            return;
+                        }
                         float3 neededRotation = Quaternion.LookRotation(direction).eulerAngles;
 
                         rotation.Value = Quaternion.Euler(neededRotation);
                     }
 
-                    if (math.distance(translation.Value, NodesPositionList[navigation.currentNode].nodePosition) < 0.5f && !navigation.needParking && navigation.currentNode < NodesPositionList.Length - 1)
+                    if (math.distance(translation.Value, NodesPositionList[navigation.currentNode].nodePosition) < 0.5f*timeScale && !navigation.needParking && navigation.currentNode < NodesPositionList.Length - 1)
                     {
                         navigation.currentNode++;
                     }

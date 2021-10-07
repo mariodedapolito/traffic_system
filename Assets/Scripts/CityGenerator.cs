@@ -586,7 +586,10 @@ public class CityGenerator : MonoBehaviour
 
         //Connect all prefabs together
         cityStreetConnector();
-
+        /*
+        GameObject[] carSpanGameObj = GameObject.FindGameObjectsWithTag("CarSpawn");
+        for (int i = 0; i < carSpanGameObj.Length; i++)
+            citySpawnNodes.Add(carSpanGameObj[i].GetComponent<Node>());*/
 
         //Spawn cars
         carSpawner = new CarSpawner(carPrefab, this, numberCarsToSpawn);
@@ -594,6 +597,9 @@ public class CityGenerator : MonoBehaviour
 
         //Spawn buses
         busSpawner = new BusSpawner(busPrefab, this);
+
+
+
 
         carsNeedToSpawn = 0;
         spawn = true;
@@ -1339,7 +1345,7 @@ public class CityGenerator : MonoBehaviour
 
     private void instantiateTerrain(int cityWidth, int cityLength)
     {
-        cityPlane.transform.localScale = new Vector3(cityWidth * 5, 1, cityLength * 5);
+        cityPlane.transform.localScale = new Vector3(cityWidth * 15, 1, cityLength * 15);
         GameObject terrain = Instantiate(cityPlane, new Vector3(cityWidth * 10, 0.05f, cityLength * 10), Quaternion.identity);
     }
 
@@ -1368,7 +1374,6 @@ public class CityGenerator : MonoBehaviour
             //fill nodes (waypoint) list
             foreach (var node in currentStreet.carWaypoints)
             {
-
                     cityNodes.Add(node);
                     nodesMap.Add(node.transform.position, node);
                 
@@ -1377,12 +1382,16 @@ public class CityGenerator : MonoBehaviour
                     cityParkingNodes.Add(node);
                 }
                 else if (((cityMap[row, col].prefabType == STRAIGHT_1LANE || cityMap[row, col].prefabType == STRAIGHT_2LANE || cityMap[row, col].prefabType == BUS_STOP_1LANE || cityMap[row, col].prefabType == BUS_STOP_2LANE)
-                        && !node.isLaneChange && !node.isBusLane) || node.isCarSpawn)   //spawn nodes dont include lane-change nodes and bus lanes
+                        && !node.isLaneChange && !node.isBusLane) && node.isCarSpawn)   //spawn nodes dont include lane-change nodes and bus lanes
                 {
                     citySpawnNodes.Add(node);
                 }
-
             }
+
+            //List<Node> carSpawn = new List<Node>();
+           
+
+
         }
     }
 
