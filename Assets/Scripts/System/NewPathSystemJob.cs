@@ -193,7 +193,7 @@ public struct NewPathSystemJob : IJob
             for (int i = 0; i < path.Length; i++)
                 result.Add(path[i]);
 
-            Debug.Log("Calculated");
+            //Debug.Log("Calculated");
             //path.Dispose();
         }
 

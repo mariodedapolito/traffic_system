@@ -256,7 +256,7 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
             throw new System.Exception("Undefined vehicle type");
         }
 
-        Debug.Log("ENTITY CREATED");
+        //Debug.Log("ENTITY CREATED");
     }
 
 }

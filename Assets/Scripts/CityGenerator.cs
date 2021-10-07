@@ -33,6 +33,8 @@ public class CityGenerator : MonoBehaviour
     public bool only2LaneStreets;
 
     public int numberCarsToSpawnOnFrame;
+    public float profondity;
+
     public GameObject cityPlane;
     public List<GameObject> carPrefab;
     public GameObject busPrefab;
@@ -67,8 +69,8 @@ public class CityGenerator : MonoBehaviour
     public List<GameObject> buildingPrefabs;
 
 
-    private const int distanceBetweenVerticalStreets = 6;   //2 prefabs for bus stops + 1 prefab (optional) for lane adapter + 2 reserved prefabs
-    private const int distanceBetweenHorizontalStreets = 6;
+    private const int distanceBetweenVerticalStreets = 5;   //2 prefabs for bus stops + 1 prefab (optional) for lane adapter + 2 reserved prefabs
+    private const int distanceBetweenHorizontalStreets = 5;
 
     public MapTile[,] cityMap;
     public int cityWidth;
@@ -619,7 +621,7 @@ public class CityGenerator : MonoBehaviour
         carsNeedToSpawn += numberCarsToSpawnOnFrame;
 
         
-        carSpawner.generateTraffic(numberCarsToSpawnOnFrame);
+        carSpawner.generateTraffic(numberCarsToSpawnOnFrame, profondity);
         
 
         //spawn = false;

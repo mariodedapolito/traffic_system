@@ -47,7 +47,7 @@ public class CarSpawner : MonoBehaviour
         init = true;
     }
 
-    public void generateTraffic(int numberCarsToSpawnOnFrame)
+    public void generateTraffic(int numberCarsToSpawnOnFrame, float profondity)
     {
 
         GameObject[] nodes = GameObject.FindGameObjectsWithTag("CarWaypoint");
@@ -123,6 +123,9 @@ public class CarSpawner : MonoBehaviour
             {
                 int randomSrcNode = UnityEngine.Random.Range(0, spawnWaypoints.Count);
                 int randomDstNodeIndex = UnityEngine.Random.Range(0, parkingWaypoints.Count);
+
+                while(math.distance(spawnWaypoints[randomSrcNode].transform.position, parkingWaypoints[randomDstNodeIndex].transform.position) >= profondity) randomDstNodeIndex = UnityEngine.Random.Range(0, parkingWaypoints.Count);
+
                 spawnNodeList.Add(spawnWaypoints[randomSrcNode].transform.position);
                 sNode.Add(spawnWaypoints[randomSrcNode]);
 
@@ -268,7 +271,7 @@ public class CarSpawner : MonoBehaviour
         waypoitnsCity.Dispose();
         nodesCity.Dispose();
 
-        Debug.Log("FINISH CAR SPAWNING!!!");
+        //Debug.Log("FINISH CAR SPAWNING!!!");
 
     }
 

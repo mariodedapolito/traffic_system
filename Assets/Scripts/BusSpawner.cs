@@ -16,7 +16,7 @@ public class BusSpawner : MonoBehaviour
         this.busPrefab = busPrefab;
         this.city = city;
         this.busLines = city.busLines;
-        Debug.Log("Num bus lines: " + busLines.Count);
+        //Debug.Log("Num bus lines: " + busLines.Count);
     }
 
     public void generateBuses()
@@ -31,7 +31,7 @@ public class BusSpawner : MonoBehaviour
         for (int i = 0; i < busLines.Count; i++)
         {
             List<Node> busLine = busLines[i];
-            Debug.Log("Bus line stops: "+busLine.Count);
+            //Debug.Log("Bus line stops: "+busLine.Count);
             for (int j = 0; j < busLine.Count; j++)
             {
                 busData.busStops.Clear();
@@ -45,7 +45,7 @@ public class BusSpawner : MonoBehaviour
 
             
         }
-        Debug.Log("FINISH BUS SPAWNING!!!");
+        //Debug.Log("FINISH BUS SPAWNING!!!");
     }
 
 }
