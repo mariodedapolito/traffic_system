@@ -31,6 +31,8 @@ class CarSystem : SystemBase
             .WithoutBurst()
             .ForEach((DynamicBuffer<NodesPositionList> NodesPositionList, DynamicBuffer<NodesTypeList> NodesTypeList, ref VehicleNavigation navigation, ref Translation translation, ref Rotation rotation, ref VehicleSpeed speed, in Car car, in LocalToWorld ltw) =>
             {
+                if (NodesPositionList.Length <= 1) return;
+
                 /* Parking System */
                 if (navigation.isParked) return;
                 

@@ -168,6 +168,7 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
 
         if (isCar)
         {
+            /*
             List<float3> path = new List<float3>();
 
             for (int i = 0; i < pathNodeList.Count; i++)
@@ -196,7 +197,18 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
                 //else if (carPath[i].isTurnLeft) nodesTypeList.Add(new NodesTypeList { nodeType = TURN_RIGHT }); //reserved for potential use
                 nodesTypeList.Add(new NodesTypeList { nodeType = 0 });
             }
+            */
 
+            dstManager.AddBuffer<NodesPositionList>(entity);
+            dstManager.AddBuffer<NodesTypeList>(entity);
+
+            dstManager.AddComponentData(entity, new PathFinding
+            {
+                startingNodePosition = startingNode.transform.position,
+                destinationNodePosition = destinationNode.transform.position
+            });
+
+            dstManager.AddComponent<NeedPath>(entity);
 
         }
         else if (isBus)

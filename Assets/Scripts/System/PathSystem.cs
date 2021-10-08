@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
@@ -60,10 +60,10 @@ public class PathSystem : SystemBase
                     throw new System.Exception("NO CAR PATH FOUND");
                 }
 
-                /*for (int i = 0; i < carPath.Count - 1; i++)
-                {
-                    Debug.DrawLine(carPath[i].transform.position, carPath[i + 1].transform.position, Color.white, 30f);
-                }*/
+                //for (int i = 0; i < carPath.Count - 1; i++)
+                //{
+                //    Debug.DrawLine(carPath[i].transform.position, carPath[i + 1].transform.position, Color.white, 30f);
+                //}
 
                 DynamicBuffer<NodesPositionList> nodesPositionList = EntityManager.AddBuffer<NodesPositionList>(e);
                 for (int i = 0; i < carPath.Count; i++)
@@ -168,4 +168,4 @@ public class PathSystem : SystemBase
     {
         return System.Math.Abs(endPos.transform.position.x - position.transform.position.x) + System.Math.Abs(endPos.transform.position.z - position.transform.position.z);
     }
-}
+}*/

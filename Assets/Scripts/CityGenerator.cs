@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class MapTile
@@ -16,6 +18,27 @@ public class MapTile
         this.rotation = rotation;
         this.prefabReference = null;
     }
+}
+
+[System.Serializable]
+public class JsonData
+{
+    public int numberHorizontalStreets;
+    public int minNumberVerticalStreets;
+    public int maxNumberVerticalStreets;
+    public int minDistanceBetweenHorizontalStreets;
+    public int maxDistanceBetweenHorizontalStreets;
+    public int numberCarsToSpawn;
+    public bool onlySimpleIntersections;
+    public bool onlySemaphoreIntersections;
+    public bool only1LaneStreets;
+    public bool only2LaneStreets;
+
+    public int numberCarsToSpawnOnFrame;
+    public float profondity;
+
+    public int distanceBetweenVerticalStreets = 5;   //2 prefabs for bus stops + 1 prefab (optional) for lane adapter + 2 reserved prefabs
+    public int distanceBetweenHorizontalStreets = 5;
 }
 
 public class CityGenerator : MonoBehaviour
@@ -34,6 +57,8 @@ public class CityGenerator : MonoBehaviour
 
     public int numberCarsToSpawnOnFrame;
     public float profondity;
+
+    public TextAsset jsonFile;
 
     public GameObject cityPlane;
     public List<GameObject> carPrefab;
@@ -69,8 +94,8 @@ public class CityGenerator : MonoBehaviour
     public List<GameObject> buildingPrefabs;
 
 
-    private const int distanceBetweenVerticalStreets = 5;   //2 prefabs for bus stops + 1 prefab (optional) for lane adapter + 2 reserved prefabs
-    private const int distanceBetweenHorizontalStreets = 5;
+    private const int distanceBetweenVerticalStreets = 7;   //2 prefabs for bus stops + 1 prefab (optional) for lane adapter + 2 reserved prefabs
+    private const int distanceBetweenHorizontalStreets = 7;
 
     public MapTile[,] cityMap;
     public int cityWidth;
@@ -157,9 +182,36 @@ public class CityGenerator : MonoBehaviour
     private bool spawn;
     private int carsNeedToSpawn;
 
+    private NativeMultiHashMap<float3, float3> nodesCity;
+    private NativeArray<float3> waypoitnsCity;
+
+    void GatValueFromJson()
+    {
+        JsonData jsonData = JsonUtility.FromJson<JsonData>(jsonFile.text);
+
+        numberHorizontalStreets = jsonData.numberHorizontalStreets;
+        minNumberVerticalStreets = jsonData.minNumberVerticalStreets;
+        maxNumberVerticalStreets = jsonData.maxNumberVerticalStreets;
+        minDistanceBetweenHorizontalStreets = jsonData.minDistanceBetweenHorizontalStreets;
+        maxDistanceBetweenHorizontalStreets = jsonData.maxDistanceBetweenHorizontalStreets;
+        numberCarsToSpawn = jsonData.numberCarsToSpawn;
+        onlySimpleIntersections = jsonData.onlySimpleIntersections;
+        onlySemaphoreIntersections = jsonData.onlySemaphoreIntersections;
+        only1LaneStreets = jsonData.only1LaneStreets;
+        only2LaneStreets = jsonData.only2LaneStreets;
+        numberCarsToSpawnOnFrame = jsonData.numberCarsToSpawnOnFrame;
+        profondity = jsonData.profondity;
+        //distanceBetweenVerticalStreets = jsonData.distanceBetweenVerticalStreets;
+        //distanceBetweenHorizontalStreets = jsonData.distanceBetweenHorizontalStreets;
+
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+
+        //GatValueFromJson();
+
         //City map dimensions
         cityWidth = distanceBetweenVerticalStreets * (maxNumberVerticalStreets + 2) + 1;        //X axis city dimension
         cityLength = distanceBetweenHorizontalStreets * (numberHorizontalStreets - 1) + 1;      //Y axis city dimension
@@ -588,10 +640,6 @@ public class CityGenerator : MonoBehaviour
 
         //Connect all prefabs together
         cityStreetConnector();
-        /*
-        GameObject[] carSpanGameObj = GameObject.FindGameObjectsWithTag("CarSpawn");
-        for (int i = 0; i < carSpanGameObj.Length; i++)
-            citySpawnNodes.Add(carSpanGameObj[i].GetComponent<Node>());*/
 
         //Spawn cars
         carSpawner = new CarSpawner(carPrefab, this, numberCarsToSpawn);
@@ -600,30 +648,38 @@ public class CityGenerator : MonoBehaviour
         //Spawn buses
         busSpawner = new BusSpawner(busPrefab, this);
 
+        carSpawner.generateTraffic(numberCarsToSpawn, profondity, nodesCity, waypoitnsCity);
 
-
-
+        //Used for the path 
+        //GenerateArrayForCars();
         carsNeedToSpawn = 0;
         spawn = true;
     }
 
     private void Update()
     {
+        /*
         if (!spawn) return;
 
         if(numberCarsToSpawn - carsNeedToSpawn - numberCarsToSpawnOnFrame <= 0)
         {
             numberCarsToSpawnOnFrame = numberCarsToSpawn - carsNeedToSpawn;
             spawn = false;
-            busSpawner.generateBuses(); 
+            busSpawner.generateBuses();
+            
         }
 
         carsNeedToSpawn += numberCarsToSpawnOnFrame;
 
         
-        carSpawner.generateTraffic(numberCarsToSpawnOnFrame, profondity);
-        
+        carSpawner.generateTraffic(numberCarsToSpawnOnFrame, profondity, nodesCity, waypoitnsCity);
 
+        if (!spawn)
+        {
+            nodesCity.Dispose();
+            waypoitnsCity.Dispose();
+        }
+        */
         //spawn = false;
     }
 
@@ -1396,5 +1452,48 @@ public class CityGenerator : MonoBehaviour
 
         }
     }
+    /*
+    private void GenerateArrayForCars()
+    {
+        GameObject[] nodes = GameObject.FindGameObjectsWithTag("CarWaypoint");
+        GameObject[] carSpanGameObj = GameObject.FindGameObjectsWithTag("CarSpawn");
+
+
+        List<Node> nodesList = new List<Node>();
+
+        nodes[0].GetComponent<Node>();
+
+        //NewPathSystem pathSystem = new NewPathSystem();
+
+        nodesCity = new NativeMultiHashMap<float3, float3>(nodes.Length + carSpanGameObj.Length, Allocator.Persistent);
+        waypoitnsCity = new NativeArray<float3>(nodes.Length + carSpanGameObj.Length, Allocator.Persistent);
+
+        for (int i = 0; i < carSpanGameObj.Length; i++)
+        {
+
+            nodesCity.Add(carSpanGameObj[i].GetComponent<Node>().transform.position, carSpanGameObj[i].GetComponent<Node>().nextNodes[0].transform.position);
+
+            waypoitnsCity[i] = carSpanGameObj[i].GetComponent<Node>().transform.position;
+            //nodesCity.Add(carSpanGameObj[i].GetComponent<Node>());
+        }
+
+        for (int i = 0; i < nodes.Length; i++)
+        {
+            if (!nodes[i].GetComponent<Node>().isParkingSpot)
+            {
+
+                for (int j = 0; j < nodes[i].GetComponent<Node>().nextNodes.Count; j++)
+                {
+                    nodesCity.Add(nodes[i].GetComponent<Node>().transform.position, nodes[i].GetComponent<Node>().nextNodes[j].transform.position);
+                }
+
+
+                waypoitnsCity[i + carSpanGameObj.Length] = nodes[i].GetComponent<Node>().transform.position;
+            }
+            
+
+            //nextNodes.Dispose();
+        }
+    }*/
 
 }
