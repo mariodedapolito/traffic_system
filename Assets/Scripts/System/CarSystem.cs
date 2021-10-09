@@ -31,12 +31,11 @@ class CarSystem : SystemBase
             .WithoutBurst()
             .ForEach((DynamicBuffer<NodesPositionList> NodesPositionList, DynamicBuffer<NodesTypeList> NodesTypeList, ref VehicleNavigation navigation, ref Translation translation, ref Rotation rotation, ref VehicleSpeed speed, in Car car, in LocalToWorld ltw) =>
             {
-                if (NodesPositionList.Length <= 1) return;
-
+               
                 /* Parking System */
-                if (navigation.isParked) return;
+                if (navigation.isParked ) return;
                 
-                if (navigation.needParking)
+                if (navigation.needParking || NodesPositionList.Length <= 1)
                 {
                     Debug.Log("Parked");
                     navigation.isParked = true;
