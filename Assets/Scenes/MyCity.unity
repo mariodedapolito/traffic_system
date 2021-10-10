@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -267,8 +267,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1653372353}
   - component: {fileID: 1653372352}
-  - component: {fileID: 1653372355}
-  - component: {fileID: 1653372354}
   m_Layer: 0
   m_Name: CityGenerator
   m_TagString: CityGenerator
@@ -288,16 +286,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe8dd4106f61824a8bcfcb47a8702a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberHorizontalStreets: 4
-  minNumberVerticalStreets: 4
-  maxNumberVerticalStreets: 4
+  numberHorizontalStreets: 3
+  minNumberVerticalStreets: 1
+  maxNumberVerticalStreets: 2
   minDistanceBetweenHorizontalStreets: 2
   maxDistanceBetweenHorizontalStreets: 2
   numberCarsToSpawn: 1000
   onlySimpleIntersections: 0
   onlySemaphoreIntersections: 0
   only1LaneStreets: 0
-  only2LaneStreets: 1
+  only2LaneStreets: 0
   numberCarsToSpawnOnFrame: 1000
   profondity: 150
   jsonFile: {fileID: 4900000, guid: fbd566dea16e64b489a954b0f8c33b19, type: 3}
@@ -374,35 +372,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1653372354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653372351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 542460c82f173b44d8c475a673af18c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  carPrefab: []
-  city: {fileID: 1653372352}
-  numCarsToSpawn: 0
---- !u!114 &1653372355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653372351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a27fb2a29fb9744fa20a6adda91b3ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  busPrefab: {fileID: 0}
-  city: {fileID: 1653372352}
 --- !u!1 &1677110519
 GameObject:
   m_ObjectHideFlags: 0

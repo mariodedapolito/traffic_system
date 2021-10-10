@@ -31,13 +31,14 @@ class CarSystem : SystemBase
             .WithoutBurst()
             .ForEach((DynamicBuffer<NodesPositionList> NodesPositionList, DynamicBuffer<NodesTypeList> NodesTypeList, ref VehicleNavigation navigation, ref Translation translation, ref Rotation rotation, ref VehicleSpeed speed, in Car car, in LocalToWorld ltw) =>
             {
-               
+                if (NodesPositionList.Length == 1 || NodesTypeList.Length == 1 || navigation.currentNode==-1) navigation.currentNode = 0;
+
                 /* Parking System */
-                if (navigation.isParked ) return;
+                if (navigation.isParked || NodesPositionList.Length <= navigation.currentNode || NodesTypeList.Length <= navigation.currentNode) return;
                 
-                if (navigation.needParking || NodesPositionList.Length <= 1)
+                if (navigation.needParking)
                 {
-                    //Debug.Log("Parked");
+                    Debug.Log("Parked");
                     navigation.isParked = true;
                     translation.Value = navigation.parkingNode;
                     return;
@@ -166,60 +167,63 @@ class CarSystem : SystemBase
                         }
                     }
 
-                    if (NodesTypeList[navigation.currentNode].nodeType == MERGE_LEFT &&
-                        !(NodesTypeList[navigation.currentNode].nodeType == LANE_CHANGE || NodesTypeList[navigation.currentNode - 1].nodeType == LANE_CHANGE) &&
-                        !trafficStoped)
-                    {
-                        float3 leftDirection = (-1) * ltw.Right;
-                        float3 leftDiagDirection = leftDirection + ltw.Forward;
-                        int3 curr = (int3)(translation.Value);
-                        int3 leftDiag = (int3)(translation.Value + leftDiagDirection);
-                        int3 left = (int3)(translation.Value + leftDirection);
-                        int positionKey2 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + leftDiagDirection);
-                        int positionKey1 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + leftDirection);
+                    if (navigation.currentNode - 1 >= 0) {
 
-                        //Debug.DrawLine(translation.Value, translation.Value + leftDiagDirection, Color.white, 0.1f, false);
-                        //Debug.DrawLine(translation.Value, translation.Value + leftDirection, Color.white, 0.1f, false);
-                        if ((!curr.Equals(leftDiag) && carsPosition.ContainsKey(positionKey2)) && (!curr.Equals(left) && carsPosition.ContainsKey(positionKey1)))
+                        if (NodesTypeList[navigation.currentNode].nodeType == MERGE_LEFT &&
+                            !(NodesTypeList[navigation.currentNode].nodeType == LANE_CHANGE || NodesTypeList[navigation.currentNode - 1].nodeType == LANE_CHANGE) &&
+                            !trafficStoped)
                         {
-                            navigation.trafficStop = true;
-                            /*if (carsPosition.ContainsKey(positionKey2))
-                            {
-                                //Debug.DrawLine(translation.Value, translation.Value + leftDiagDirection, Color.red, 0.1f, false);
-                            }*/
-                        }
-                        else
-                        {
-                            navigation.trafficStop = false;
-                        }
-                    }
-                    else if (NodesTypeList[navigation.currentNode].nodeType == MERGE_RIGHT &&
-                        !(NodesTypeList[navigation.currentNode].nodeType == LANE_CHANGE || NodesTypeList[navigation.currentNode - 1].nodeType == LANE_CHANGE) &&
-                        !trafficStoped)
-                    {
-                        float3 rightDirection = ltw.Right;
-                        float3 rightDiagDirection = rightDirection + ltw.Forward;
-                        int3 curr = (int3)(translation.Value);
-                        int3 rightDiag = (int3)(translation.Value + rightDiagDirection);
-                        int3 right = (int3)(translation.Value + rightDirection);
-                        int positionKey2 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + rightDiagDirection);
-                        int positionKey1 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + rightDirection);
-                        //Debug.DrawLine(translation.Value, translation.Value + rightDiagDirection, Color.white, 0.1f, false);
-                        //Debug.DrawLine(translation.Value, translation.Value + rightDirection, Color.white, 0.1f, false);
-                        if ((!curr.Equals(rightDiag) && carsPosition.ContainsKey(positionKey2)) || (!curr.Equals(right) && carsPosition.ContainsKey(positionKey1)))
-                        {
-                            navigation.trafficStop = true;
-                            /*if (carsPosition.ContainsKey(positionKey2))
-                            {
-                                //Debug.DrawLine(translation.Value, translation.Value + rightDiagDirection, Color.red, 0.1f, false);
-                            }*/
-                        }
-                        else
-                        {
-                            navigation.trafficStop = false;
-                        }
-                    }
+                            float3 leftDirection = (-1) * ltw.Right;
+                            float3 leftDiagDirection = leftDirection + ltw.Forward;
+                            int3 curr = (int3)(translation.Value);
+                            int3 leftDiag = (int3)(translation.Value + leftDiagDirection);
+                            int3 left = (int3)(translation.Value + leftDirection);
+                            int positionKey2 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + leftDiagDirection);
+                            int positionKey1 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + leftDirection);
 
+                            //Debug.DrawLine(translation.Value, translation.Value + leftDiagDirection, Color.white, 0.1f, false);
+                            //Debug.DrawLine(translation.Value, translation.Value + leftDirection, Color.white, 0.1f, false);
+                            if ((!curr.Equals(leftDiag) && carsPosition.ContainsKey(positionKey2)) && (!curr.Equals(left) && carsPosition.ContainsKey(positionKey1)))
+                            {
+                                navigation.trafficStop = true;
+                                /*if (carsPosition.ContainsKey(positionKey2))
+                                {
+                                    //Debug.DrawLine(translation.Value, translation.Value + leftDiagDirection, Color.red, 0.1f, false);
+                                }*/
+                            }
+                            else
+                            {
+                                navigation.trafficStop = false;
+                            }
+                        }
+                        else if (NodesTypeList[navigation.currentNode].nodeType == MERGE_RIGHT &&
+                            !(NodesTypeList[navigation.currentNode].nodeType == LANE_CHANGE || NodesTypeList[navigation.currentNode - 1].nodeType == LANE_CHANGE) &&
+                            !trafficStoped)
+                        {
+                            float3 rightDirection = ltw.Right;
+                            float3 rightDiagDirection = rightDirection + ltw.Forward;
+                            int3 curr = (int3)(translation.Value);
+                            int3 rightDiag = (int3)(translation.Value + rightDiagDirection);
+                            int3 right = (int3)(translation.Value + rightDirection);
+                            int positionKey2 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + rightDiagDirection);
+                            int positionKey1 = CarsPositionSystem.GetPositionHashMapKey(translation.Value + rightDirection);
+                            //Debug.DrawLine(translation.Value, translation.Value + rightDiagDirection, Color.white, 0.1f, false);
+                            //Debug.DrawLine(translation.Value, translation.Value + rightDirection, Color.white, 0.1f, false);
+                            if ((!curr.Equals(rightDiag) && carsPosition.ContainsKey(positionKey2)) || (!curr.Equals(right) && carsPosition.ContainsKey(positionKey1)))
+                            {
+                                navigation.trafficStop = true;
+                                /*if (carsPosition.ContainsKey(positionKey2))
+                                {
+                                    //Debug.DrawLine(translation.Value, translation.Value + rightDiagDirection, Color.red, 0.1f, false);
+                                }*/
+                            }
+                            else
+                            {
+                                navigation.trafficStop = false;
+                            }
+                        }
+
+                    }
                     if (navigation.trafficStop || navigation.intersectionStop)  //STOPPING IN TRAFFIC OR INTERSECTION
                     {
                         if (speed.currentSpeed > 0.25)
@@ -235,7 +239,7 @@ class CarSystem : SystemBase
                         float3 direction = NodesPositionList[navigation.currentNode].nodePosition - translation.Value;
                         if (direction.Equals(0f))
                         {
-                         //   Debug.Log("parked");
+                            Debug.Log("parked");
                             navigation.isParked = true;
                             translation.Value = navigation.parkingNode;
                             return;

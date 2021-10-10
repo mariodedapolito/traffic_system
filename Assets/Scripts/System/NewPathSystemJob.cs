@@ -93,7 +93,7 @@ public class NewPathSystemMono : SystemBase
             .WithStructuralChanges()
             .ForEach((Entity e, ref PathFinding pathFinding, in NeedPath needPath) =>
             {
-                /*
+                
                 List<float3> pathNodeFinal = new List<float3>();
                 pathNodeFinal.Clear();
 
@@ -105,6 +105,8 @@ public class NewPathSystemMono : SystemBase
                 sampleJobArray[e.Index].Dispose();
 
                 pathNodeFinal.Reverse();
+
+                if (pathNodeFinal.Count <= 0) return;
 
                 var nodesPositionList = GetBufferFromEntity<NodesPositionList>();
 
@@ -129,9 +131,9 @@ public class NewPathSystemMono : SystemBase
                     
 
                 }
-                
+
                 EntityManager.RemoveComponent<NeedPath>(e);
-                */
+                
             }).Run();
 
 

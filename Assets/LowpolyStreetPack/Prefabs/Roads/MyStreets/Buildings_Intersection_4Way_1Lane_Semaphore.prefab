@@ -2140,6 +2140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 3
+  intersectionId: 0
 --- !u!1 &684674763888666263
 GameObject:
   m_ObjectHideFlags: 0
@@ -2194,11 +2195,20 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!135 &9085509793993855877
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4395,6 +4405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 1
+  intersectionId: 0
 --- !u!1 &1353611971099554624
 GameObject:
   m_ObjectHideFlags: 0
@@ -5976,6 +5987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 2
+  intersectionId: 0
 --- !u!1 &1865859009374795165
 GameObject:
   m_ObjectHideFlags: 0
@@ -6311,11 +6323,20 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!135 &8582518980512168873
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -6939,11 +6960,20 @@ MonoBehaviour:
   isTurnRight: 1
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &2222431023225265322
 GameObject:
   m_ObjectHideFlags: 0
@@ -13728,11 +13758,20 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &2681690807348776005
 GameObject:
   m_ObjectHideFlags: 0
@@ -13878,11 +13917,20 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!135 &7738409506636074166
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -13954,6 +14002,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 3
+  intersectionId: 0
 --- !u!1 &2771686258606806109
 GameObject:
   m_ObjectHideFlags: 0
@@ -14289,11 +14338,20 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &2842138896803359489
 GameObject:
   m_ObjectHideFlags: 0
@@ -14476,11 +14534,20 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &2911046398789468980
 GameObject:
   m_ObjectHideFlags: 0
@@ -15079,11 +15146,20 @@ MonoBehaviour:
   isTurnRight: 1
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &3139852997362530785
 GameObject:
   m_ObjectHideFlags: 0
@@ -15142,6 +15218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
+  intersectionId: 0
 --- !u!1 &3173164364276874667
 GameObject:
   m_ObjectHideFlags: 0
@@ -15887,11 +15964,20 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &3616163682405069826
 GameObject:
   m_ObjectHideFlags: 0
@@ -16393,11 +16479,20 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &3902598822340762411
 GameObject:
   m_ObjectHideFlags: 0
@@ -16933,11 +17028,20 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &4305045434283720318
 GameObject:
   m_ObjectHideFlags: 0
@@ -17630,11 +17734,20 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!135 &68262347690378650
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -18505,11 +18618,20 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &5208971147212231330
 GameObject:
   m_ObjectHideFlags: 0
@@ -19446,6 +19568,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 1
+  intersectionId: 0
 --- !u!1 &5468840943069117503
 GameObject:
   m_ObjectHideFlags: 0
@@ -20252,6 +20375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
+  intersectionId: 0
 --- !u!1 &5917382592602417926
 GameObject:
   m_ObjectHideFlags: 0
@@ -20584,11 +20708,20 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &6052086952091554464
 GameObject:
   m_ObjectHideFlags: 0
@@ -21141,11 +21274,20 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!135 &2711954435148006548
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -21428,11 +21570,20 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &6540317243142668126
 GameObject:
   m_ObjectHideFlags: 0
@@ -21566,11 +21717,20 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!135 &195880597000781583
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -21822,11 +21982,20 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &6626863845723936457
 GameObject:
   m_ObjectHideFlags: 0
@@ -24091,11 +24260,20 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!135 &5858989062860923365
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -24932,11 +25110,20 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!135 &1423412187546865481
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -25600,11 +25787,20 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &8131398094596063085
 GameObject:
   m_ObjectHideFlags: 0
@@ -26138,11 +26334,20 @@ MonoBehaviour:
   isTurnRight: 1
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &8406905638392912219
 GameObject:
   m_ObjectHideFlags: 0
@@ -26196,11 +26401,20 @@ MonoBehaviour:
   isTurnRight: 1
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 0
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &8476850671308534989
 GameObject:
   m_ObjectHideFlags: 0
@@ -26256,11 +26470,20 @@ MonoBehaviour:
   isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
+  isBusMerge: 0
+  isLaneMergeLeft: 0
+  isLaneMergeRight: 0
+  isParkingGateway: 0
   isParkingSpot: 0
+  parkingExitRotation: 0
   parkingRotation: 0
   laneNumber: 0
   trafficDirection: 1
+  isBusSpawn: 0
+  isCarSpawn: 0
   isOccupied: 0
+  numberCars: 0
+  parkingPrefab: {fileID: 0}
 --- !u!1 &8520684966165657495
 GameObject:
   m_ObjectHideFlags: 0
@@ -26319,6 +26542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 2
+  intersectionId: 0
 --- !u!1 &8568148030254172375
 GameObject:
   m_ObjectHideFlags: 0
@@ -26784,7 +27008,7 @@ GameObject:
   - component: {fileID: 3156902888104380542}
   - component: {fileID: 3941526585158675839}
   m_Layer: 0
-  m_Name: Intersection_4Way_1Lane_Semaphore
+  m_Name: Buildings_Intersection_4Way_1Lane_Semaphore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
