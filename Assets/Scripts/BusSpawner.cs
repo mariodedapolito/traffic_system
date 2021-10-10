@@ -9,7 +9,6 @@ public class BusSpawner : MonoBehaviour
     public GameObject busPrefab;
     public CityGenerator city;
     private List<List<Node>> busLines; 
-    private int numCarsToSpawn;
 
     public BusSpawner(GameObject busPrefab, CityGenerator city)
     {
@@ -36,10 +35,8 @@ public class BusSpawner : MonoBehaviour
             {
                 busData.busStops.Clear();
                 for(int k = 0; k < busLine.Count; k++)
-                {
                     busData.busStops.Add(busLine[(k+j)%busLine.Count]);
-                }
-
+                
                 Instantiate(busToSpawn, busLine[j].transform.position, Quaternion.Euler(0, busLine[j].GetComponentInParent<Street>().transform.rotation.eulerAngles.y - 90, 0));
             }
 

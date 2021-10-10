@@ -31,9 +31,8 @@ public class SimpleBusSpawner : MonoBehaviour
 
             Node startingNode = w.nextNodes[0];
             if (w.isOccupied)
-            {
                 continue;
-            }
+            
              w.isOccupied = true;
 
             //Bus Rotation
@@ -65,19 +64,11 @@ public class SimpleBusSpawner : MonoBehaviour
             }
 
             Node dstNode = w.nextNodes[0];
-            //if (dstNode.transform != startingNode.transform)
-            //{
             BusAI bus = busPrefab.GetComponent<BusAI>();
             bus.endWaypoint = new Node();
 
-            if ((carRotation == 270 || carRotation == 180))
-            {
-                bus.direction = 1;
-            }
-            else
-            {
-                bus.direction = 0;
-            }
+            bus.direction = (carRotation == 270 || carRotation == 180) ? 1 : 0 ;
+
             foreach (var b in busLines)
             {
                 if (bus.direction == 1)
@@ -98,13 +89,10 @@ public class SimpleBusSpawner : MonoBehaviour
                                 }
 
                                 foreach (var f in b[j].carWaypoints)
-                                {
                                     if (f.isBusStop) bus.endWaypoint = f;
-                                }
+                                
                                 bus.currentStreet = i;
                                 bus.busLines = b;
-
-
                                 exitLoop = true;
                                 break;
                             }
@@ -121,27 +109,16 @@ public class SimpleBusSpawner : MonoBehaviour
                         {
                             if (s.Equals(w))
                             {
-                                if (i==0)
-                                {
-                                    j = b.Count - 1;
-                                }
-                                else
-                                {
-                                    j = i - 1;
-                                }
+                                j = (i == 0) ? (b.Count - 1) : (i - 1);
 
                                 foreach (var f in b[j].carWaypoints)
-                                {
                                     if (f.isBusStop) bus.endWaypoint = f;
-                                }
 
                                 bus.busLines = b;
-
                                 exitLoop = true;
                                 break;
                             }
                         }
-
                         if (exitLoop) break;
                     }
                 }     
@@ -150,10 +127,8 @@ public class SimpleBusSpawner : MonoBehaviour
            
             bus.startWaypoint = startingNode; //starting waypoint
             if (bus.endWaypoint != null)
-            {
                 Instantiate(busPrefab, w.transform.position, Quaternion.Euler(0, carRotation, 0));
-            }
-            //spawnWaypoints.Remove(w);
+
             return true;
         }
         return false;
@@ -161,66 +136,35 @@ public class SimpleBusSpawner : MonoBehaviour
 
     public void SetWaypointsSpawnBus(List<List<Street>> busLines)
     {
-
         this.busLines = new List<List<Street>>();
         MapTile[,] cityMap = city.cityMap;
         int cityWidth = city.cityWidth;
         int cityLength = city.cityLength;
         spawnWaypoints = new List<Node>();
-        int k = 0;
-
+ 
         foreach(var v in busLines)
         {
             List<Street> s = new List<Street>();
             for(int i = v.Count- 1 ; i>=0; i--)
-            {
                 s.Add(v[i]);
-            }
 
             if (s.Count != 0)
-            {
                 this.busLines.Add(s);
-            }
         }
 
-
         for(int i=0; i< cityLength; i++)
-        {
             for(int j=0; j< cityWidth; j++)
-            {
                 if (cityMap[i, j].prefabType == 5 || cityMap[i, j].prefabType == 6)
                 {
                     Street currentStreet = cityMap[i, j].instantiatedStreet.GetComponent<Street>();
                     if (currentStreet.hasBusStop)
-                    {
                         foreach (var w in currentStreet.carWaypoints)
-                        {
                             if (w.isBusSpawn && !spawnWaypoints.Contains(w))
                             {
                                 spawnWaypoints.Add(w);
                                 break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        /*
-        foreach (var b in busLines2)
-        {
-            for (int i = 0; i < b.Count; i++)
-            {
-                foreach(var w in b[i].carWaypoints)
-                {
-                    if (w.isBusSpawn)
-                    {
-                        spawnWaypoints.Add(w);
-                    }
-                }
-            }
-        }*/
-        
+                            }   
+                }    
     }
 
 }

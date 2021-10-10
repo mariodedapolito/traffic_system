@@ -36,11 +36,7 @@ public class CarAI : MonoBehaviour
     public List<Transform> nodes;
     public int currectNode = 0;
     private bool avoiding = false;
-    private bool avoidingR = false;
-    private bool avoidingL = false;
     private bool avoidingI = false;
-    private bool avoidingIR = false;
-    private bool avoidingIF = false;
     private bool Stop = false;
     private float targetSteerAngle = 0;
     private bool collisionHappen;
@@ -72,19 +68,13 @@ public class CarAI : MonoBehaviour
         intersectionData.intersectionDirection = 1;      //init to straight (see IntersectionTrigger.cs for turning direction definitions)
 
         GetComponent<Rigidbody>().centerOfMass = centerOfMass;
-
         nodes = new List<Transform>();
-
         Path path = new Path();
 
         carPath = path.findShortestPath(startWaypoint.transform, endWaypoint.transform);
 
-        
         for (int i = 0; i < carPath.Count; i++)
-        {
             nodes.Add(carPath[i].transform);
-        }
-
     }
 
     private void FixedUpdate()
@@ -106,18 +96,13 @@ public class CarAI : MonoBehaviour
         float avoidMultiplier = 0;
 
         avoiding = false;
-        avoidingR = false;
-        avoidingL = false;
         avoidingI = false;
-        avoidingIR = false;
-        avoidingIF = false;
         precedence = false;
         precedenceLeft = false;
         isCarIR = false;
         isCarIL = false;
         isCarR = false;
         isCarL = false;
-
 
         if (currectNode < nodes.Count) // Disable sensors during the intersections
         {   
@@ -161,7 +146,6 @@ public class CarAI : MonoBehaviour
             {
                 isCarIR = true;
             }
-
             if (hit.rigidbody != null && (hit.rigidbody.CompareTag("Car") || hit.rigidbody.CompareTag("Bus")) && isIntersactionF )
             {
                 precedence = true;
@@ -174,7 +158,6 @@ public class CarAI : MonoBehaviour
                     Debug.DrawLine(sensorStartPos, hit.point);
                     avoiding = true;
                     avoidingI = true;
-                    avoidingIR = true;
                     avoidMultiplier -= 0.5f;
                 }
             }
@@ -200,7 +183,6 @@ public class CarAI : MonoBehaviour
                     precedence = false;
                     Debug.DrawLine(sensorStartPos, hit.point);
                     avoiding = true;
-                    avoidingR = true;
                     avoidMultiplier -= 1f;
                 }                
             }
@@ -222,7 +204,6 @@ public class CarAI : MonoBehaviour
                 Debug.DrawLine(sensorStartPos, hit.point);
                 avoiding = true;
                 avoidingI = true;
-                avoidingIF = true;
                 avoidMultiplier += 0.5f;
             }
             
@@ -246,7 +227,6 @@ public class CarAI : MonoBehaviour
                 precedenceLeft = false;
                 Debug.DrawLine(sensorStartPos, hit.point);
                 avoiding = true;
-                avoidingL = true;
                 avoidMultiplier += 0.5f;
             }
         }
@@ -258,6 +238,7 @@ public class CarAI : MonoBehaviour
 
             avoiding = true;
             avoidingI = true;
+
             if (hit.normal.x < 0)
             {
                 avoidMultiplier += -1f;
@@ -372,8 +353,8 @@ public class CarAI : MonoBehaviour
         targetSteerAngle = newSteer;
 		}
 		catch(System.Exception e){
-			Debug.Log(transform.position);
-			throw new System.Exception("hey");
+			//Debug.Log(transform.position);
+			throw new System.Exception("Apply steer in CarAI Exeption: "+e.Message);
 		}
     }
 
@@ -472,7 +453,9 @@ public class CarAI : MonoBehaviour
         }
         else
         {
-			Debug.Log("SEARCHING NEW PATH");
+#if DEBUG
+            Debug.Log("SEARCHING NEW PATH");
+#endif 
             newPath();
         }
        
@@ -484,12 +467,8 @@ public class CarAI : MonoBehaviour
         this.inPath = true;
         GameObject[] waypointsNew = GameObject.FindGameObjectsWithTag("CarWaypoint");
         List<Node> nodesNew = new List<Node>();
-        float min = 1f;
         Node lastWaypoint = this.endWaypoint;
 
-        //Destroy(this);
-
-        
         foreach (GameObject w in waypointsNew)
         {
             if (w.GetComponent<Node>() != null && !w.GetComponent<Node>().isParkingSpot)
@@ -507,22 +486,18 @@ public class CarAI : MonoBehaviour
         int randomSrcNode = (int)UnityEngine.Random.Range(0, nodesNew.Count - 1);
 
         Street s = nodesNew[randomSrcNode].GetComponentInParent<Street>();
-        
 
         this.endWaypoint = nodesNew[randomSrcNode];
         currectNode = 1;
 
         Path path = new Path(); // problem with MonoBehaviour
         this.nodes.Clear();
-        //this.carPath.Clear();
 
         this.carPath = path.findShortestPath(startWaypoint.transform, endWaypoint.transform);
 
-
         for (int i = 0; i < this.carPath.Count; i++)
-        {
             this.nodes.Add(carPath[i].transform);
-        }
+        
         this.inPath = false;
         
     }

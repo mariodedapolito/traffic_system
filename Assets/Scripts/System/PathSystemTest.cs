@@ -10,8 +10,7 @@ using Unity.Jobs;
 
 public class PathSystemTest : SystemBase
 {
-    int lenght = 10;
-    static int numNode; 
+
     public NativeList<float3> waypoints;
     static public NativeArray<float3> generalNodeMap;
     public Dictionary<int, List<float3>> generalPathMap;

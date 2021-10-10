@@ -37,7 +37,7 @@ class CarSystem : SystemBase
                 
                 if (navigation.needParking || NodesPositionList.Length <= 1)
                 {
-                    Debug.Log("Parked");
+                    //Debug.Log("Parked");
                     navigation.isParked = true;
                     translation.Value = navigation.parkingNode;
                     return;
@@ -235,7 +235,7 @@ class CarSystem : SystemBase
                         float3 direction = NodesPositionList[navigation.currentNode].nodePosition - translation.Value;
                         if (direction.Equals(0f))
                         {
-                            Debug.Log("parked");
+                         //   Debug.Log("parked");
                             navigation.isParked = true;
                             translation.Value = navigation.parkingNode;
                             return;

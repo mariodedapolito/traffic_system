@@ -7,10 +7,7 @@ public class BusAI : MonoBehaviour
 {
     public Node startWaypoint;
     public Node endWaypoint;
-
     public List<Node> carPath;
-
-    //public Transform path;
     public float maxSteerAngle = 45f;
     public float turnSpeed = 5f;
     public WheelCollider wheelFL;
@@ -23,9 +20,6 @@ public class BusAI : MonoBehaviour
     public float maxSpeed = 10f;
     public Vector3 centerOfMass;
     public bool isBraking = false;
-/*    public Texture2D textureNormal;
-    public Texture2D textureBraking;
-    public Renderer carRenderer;*/
 
     [Header("Sensors")]
     public float sensorLength = 1.7f;
@@ -37,8 +31,6 @@ public class BusAI : MonoBehaviour
     private List<Transform> nodes;
     public int currectNode = 0;
     private bool avoiding = false;
-    private bool avoidingR = false;
-    private bool avoidingL = false;
     private bool avoidingI = false;
     private bool avoidingIR = false;
     private bool avoidingIL = false;
@@ -55,7 +47,7 @@ public class BusAI : MonoBehaviour
 
     private bool isIntersactionF = false;
     private bool isLaneOne = false;
-    private bool isCurveOne = false;
+//    private bool isCurveOne = false;
     private bool precedence = false;
     private bool isCar = false;
 
@@ -64,6 +56,7 @@ public class BusAI : MonoBehaviour
 
     private void Start()
     {
+        busLines = (busLines==null)?new List<Street>(): busLines;
         intersectionData = this.GetComponentInParent<IntersectionVehicle>();
         intersectionData.intersectionStop = false;
         intersectionData.isInsideIntersection = false;
@@ -71,18 +64,14 @@ public class BusAI : MonoBehaviour
         intersectionData.intersectionDirection = 1;      //init to straight (see IntersectionTrigger.cs for turning direction definitions
 
         GetComponent<Rigidbody>().centerOfMass = centerOfMass;
-
         nodes = new List<Transform>();
-
         Path path = new Path();
 
         carPath = path.findShortestPath(startWaypoint.transform, endWaypoint.transform);
 
-
         for (int i = 0; i < carPath.Count; i++)
-        {
             nodes.Add(carPath[i].transform);
-        }
+        
 
     }
 
@@ -106,8 +95,6 @@ public class BusAI : MonoBehaviour
         float avoidMultiplier = 0;
 
         avoiding = false;
-        avoidingR = false;
-        avoidingL = false;
         avoidingI = false;
         avoidingIR = false;
         avoidingIL = false;
@@ -334,7 +321,6 @@ public class BusAI : MonoBehaviour
                 precedence = false;
                 Debug.DrawLine(sensorStartPos, hit.point);
                 avoiding = true;
-                avoidingR = true;
                 avoidMultiplier -= 0.5f;
             }
         }
@@ -370,7 +356,6 @@ public class BusAI : MonoBehaviour
             {
                 Debug.DrawLine(sensorStartPos, hit.point);
                 avoiding = true;
-                avoidingL = true;
                 avoidMultiplier += 0.5f;
             }
         }
