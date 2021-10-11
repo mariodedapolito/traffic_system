@@ -16,6 +16,7 @@ public class Node : MonoBehaviour
     public bool isBusLane;          //identify waypoints that are used for bus-only lanes
     public bool isBusStop;          //identify waypoints that are used as bus stops (fermate)
     public bool isBusMerge;
+    public bool isBusBranch;
     public bool isLaneMergeLeft;
     public bool isLaneMergeRight;
     public bool isParkingGateway;

@@ -13,6 +13,7 @@ public class CarsPositionSystem : SystemBase
 {
 
     public static NativeHashMap<int, char> carsPositionMap;
+    public static NativeHashMap<int, char> carsParkingMap;
     public static NativeHashMap<int, int> intersectionQueueMap;
     public static NativeHashMap<int, int> intersectionCrossingMap;
     public static NativeArray<int> numActiveCars;
@@ -40,6 +41,7 @@ public class CarsPositionSystem : SystemBase
     protected override void OnCreate()
     {
         carsPositionMap = new NativeHashMap<int, char>(0, Allocator.Persistent);
+        carsParkingMap = new NativeHashMap<int, char>(0, Allocator.Persistent);
         intersectionQueueMap = new NativeHashMap<int, int>(10000, Allocator.Persistent);
         intersectionCrossingMap = new NativeHashMap<int, int>(1250, Allocator.Persistent);
         numActiveCars = new NativeArray<int>(1, Allocator.Persistent);
@@ -50,6 +52,7 @@ public class CarsPositionSystem : SystemBase
     protected override void OnDestroy()
     {
         carsPositionMap.Dispose();
+        carsParkingMap.Dispose();
         intersectionQueueMap.Dispose();
         intersectionCrossingMap.Dispose();
         numActiveCars.Dispose();
@@ -66,6 +69,7 @@ public class CarsPositionSystem : SystemBase
         if (numVehicles > carsPositionMap.Capacity)
         {
             carsPositionMap.Capacity = numVehicles;
+            carsParkingMap.Capacity = numVehicles;
         }
 
         if (numActiveCars[0] == 0)
@@ -80,10 +84,10 @@ public class CarsPositionSystem : SystemBase
         Entities
                 .WithoutBurst()
                 .WithStoreEntityQueryInField(ref query)
-                .ForEach((ref VehicleNavigation navigation, in Vehicle vehicle, in Translation translation, in Rotation rotation, in LocalToWorld ltw) =>
+                .ForEach((ref VehicleNavigation navigation, ref Translation translation, in Vehicle vehicle, in Rotation rotation, in LocalToWorld ltw) =>
                 {
                     //update car position on the map (collision avoidance)
-                    if (!navigation.isParked)
+                    if (!navigation.isParked && !navigation.needParking)
                     {
                         int hashMapKey = GetPositionHashMapKey(translation.Value);
                         carsPositionMap.TryAdd(hashMapKey, '1');
@@ -92,7 +96,13 @@ public class CarsPositionSystem : SystemBase
                             numActiveCars[0]++;
                         }
                     }
-
+                    /*
+                    if(navigation.isParked)
+                    {
+                        int hashMapKey = GetPositionHashMapKey(translation.Value);
+                        carsParkingMap.TryAdd(hashMapKey, '1');
+                    }
+                    */
 
                     //update intersection queues
                     if (navigation.intersectionStop)

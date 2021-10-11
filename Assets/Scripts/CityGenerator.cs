@@ -50,6 +50,7 @@ public class CityGenerator : MonoBehaviour
     public int minDistanceBetweenHorizontalStreets;
     public int maxDistanceBetweenHorizontalStreets;
     public int numberCarsToSpawn;
+    public int numberBusesToSpawn;
     public bool onlySimpleIntersections;
     public bool onlySemaphoreIntersections;
     public bool only1LaneStreets;
@@ -171,13 +172,16 @@ public class CityGenerator : MonoBehaviour
 
     private CarSpawner carSpawner;
     public List<Node> cityParkingNodes = new List<Node>();
+    public NativeList<float3> cityParkingNodesPositions;
+    public Dictionary<int, NativeList<float3>> cityParkings;
     public List<Node> citySpawnNodes = new List<Node>();
+    public List<Node> cityBusStopsSpawn = new List<Node>();
+    public List<Node> cityBusStopsDst = new List<Node>();
     public List<Node> cityNodes = new List<Node>();
 
     public Dictionary<Vector3, Node> nodesMap;
 
     private BusSpawner busSpawner;
-    public List<List<Node>> busLines;
 
     private bool spawn;
     private int carsNeedToSpawn;
@@ -206,11 +210,20 @@ public class CityGenerator : MonoBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        //cityParkings.Dispose();
+        cityParkingNodesPositions.Dispose();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
 
         //GatValueFromJson();
+
+        cityParkingNodesPositions = new NativeList<float3>(100000, Allocator.Persistent);
+        cityParkings = new Dictionary<int, NativeList<float3>>();
 
         //City map dimensions
         cityWidth = distanceBetweenVerticalStreets * (maxNumberVerticalStreets + 2) + 1;        //X axis city dimension
@@ -539,105 +552,6 @@ public class CityGenerator : MonoBehaviour
             }
         }
 
-        //Generate bus lines
-        busLines = new List<List<Node>>();
-        //Generate bus line for city extremity (ring)
-        List<Node> cityRingOuterBusLine = new List<Node>();
-        List<Node> cityRingInnerBusLine = new List<Node>();
-        //Leftmost extreme bus stops (scan from top to bottom)
-        for (int i = 0; i < cityLength; i++)
-        {
-            if ((cityMap[i, 0].prefabType == BUS_STOP_1LANE || cityMap[i, 0].prefabType == BUS_STOP_2LANE) && cityMap[i, 0].rotation == BUS_STOP_ROTATION_LEFT)
-            {
-                cityRingOuterBusLine.Add(cityMap[i, 0].instantiatedStreet.GetComponent<Street>().busStopNode);
-            }
-        }
-        //Bottom extreme bus stops (scan from left to right)
-        for (int i = 0; i < cityWidth; i++)
-        {
-            if ((cityMap[cityLength - 1, i].prefabType == BUS_STOP_1LANE || cityMap[cityLength - 1, i].prefabType == BUS_STOP_2LANE) && cityMap[cityLength - 1, i].rotation == BUS_STOP_ROTATION_UP)
-            {
-                cityRingOuterBusLine.Add(cityMap[cityLength - 1, i].instantiatedStreet.GetComponent<Street>().busStopNode);
-            }
-        }
-        //Rightmost extreme bus stops (scan from bottom to top)
-        for (int i = cityLength - 1; i >= 0; i--)
-        {
-            if ((cityMap[i, cityWidth - 1].prefabType == BUS_STOP_1LANE || cityMap[i, cityWidth - 1].prefabType == BUS_STOP_2LANE) && cityMap[i, cityWidth - 1].rotation == BUS_STOP_ROTATION_RIGHT)
-            {
-                cityRingOuterBusLine.Add(cityMap[i, cityWidth - 1].instantiatedStreet.GetComponent<Street>().busStopNode);
-            }
-        }
-        //Top extreme bus stops (scan from right to left)
-        for (int i = cityWidth - 1; i >= 0; i--)
-        {
-            if ((cityMap[0, i].prefabType == BUS_STOP_1LANE || cityMap[0, i].prefabType == BUS_STOP_2LANE) && cityMap[0, i].rotation == BUS_STOP_ROTATION_DOWN)
-            {
-                cityRingOuterBusLine.Add(cityMap[0, i].instantiatedStreet.GetComponent<Street>().busStopNode);
-            }
-        }
-        busLines.Add(cityRingOuterBusLine);
-
-        //Inner sections bus lines
-        for (int i = 0; i < numberHorizontalStreets - 1; i++)
-        {
-            double intersectionPositionsQuotient = (double)(cityWidth) / (numberVerticalStreets[i] + 1);
-            for (int j = 0; j < numberVerticalStreets[i] + 1; j++)
-            {
-                List<Node> busLine = new List<Node>();
-                //Left street
-                for (int k = i * distanceBetweenHorizontalStreets; k < (i + 1) * distanceBetweenHorizontalStreets; k++)
-                {
-                    if ((cityMap[k, (int)(j * intersectionPositionsQuotient)].prefabType == BUS_STOP_1LANE || cityMap[k, (int)(j * intersectionPositionsQuotient)].prefabType == BUS_STOP_2LANE) && cityMap[k, (int)(j * intersectionPositionsQuotient)].rotation == BUS_STOP_ROTATION_RIGHT)
-                    {
-                        busLine.Add(cityMap[k, (int)(j * intersectionPositionsQuotient)].instantiatedStreet.GetComponent<Street>().busStopNode);
-                    }
-                }
-                //Top street
-                for (int k = (int)(j * intersectionPositionsQuotient); k < (int)((j + 1) * intersectionPositionsQuotient); k++)
-                {
-                    if ((cityMap[i * distanceBetweenHorizontalStreets, k].prefabType == BUS_STOP_1LANE || cityMap[i * distanceBetweenHorizontalStreets, k].prefabType == BUS_STOP_2LANE) && cityMap[i * distanceBetweenHorizontalStreets, k].rotation == BUS_STOP_ROTATION_UP)
-                    {
-                        busLine.Add(cityMap[i * distanceBetweenHorizontalStreets, k].instantiatedStreet.GetComponent<Street>().busStopNode);
-                    }
-                }
-
-                if ((int)((j + 1) * intersectionPositionsQuotient) < cityWidth)
-                {
-                    //Right street
-                    for (int k = i * distanceBetweenHorizontalStreets; k < (i + 1) * distanceBetweenHorizontalStreets; k++)
-                    {
-                        if ((cityMap[k, (int)((j + 1) * intersectionPositionsQuotient)].prefabType == BUS_STOP_1LANE || cityMap[k, (int)((j + 1) * intersectionPositionsQuotient)].prefabType == BUS_STOP_2LANE) && cityMap[k, (int)((j + 1) * intersectionPositionsQuotient)].rotation == BUS_STOP_ROTATION_LEFT)
-                        {
-                            busLine.Add(cityMap[k, (int)((j + 1) * intersectionPositionsQuotient)].instantiatedStreet.GetComponent<Street>().busStopNode);
-                        }
-                    }
-                }
-                else
-                {
-                    for (int k = i * distanceBetweenHorizontalStreets; k < (i + 1) * distanceBetweenHorizontalStreets; k++)
-                    {
-                        if ((cityMap[k, cityWidth - 1].prefabType == BUS_STOP_1LANE || cityMap[k, cityWidth - 1].prefabType == BUS_STOP_2LANE) && cityMap[k, cityWidth - 1].rotation == BUS_STOP_ROTATION_LEFT)
-                        {
-                            busLine.Add(cityMap[k, cityWidth - 1].instantiatedStreet.GetComponent<Street>().busStopNode);
-                        }
-                    }
-                }
-
-                //Bottom street
-                for (int k = (int)(j * intersectionPositionsQuotient); k < (int)((j + 1) * intersectionPositionsQuotient); k++)
-                {
-                    if ((cityMap[(i + 1) * distanceBetweenHorizontalStreets, k].prefabType == BUS_STOP_1LANE || cityMap[(i + 1) * distanceBetweenHorizontalStreets, k].prefabType == BUS_STOP_2LANE) && cityMap[(i + 1) * distanceBetweenHorizontalStreets, k].rotation == BUS_STOP_ROTATION_DOWN)
-                    {
-                        busLine.Add(cityMap[(i + 1) * distanceBetweenHorizontalStreets, k].instantiatedStreet.GetComponent<Street>().busStopNode);
-                    }
-                }
-                busLines.Add(busLine);
-            }
-        }
-
-
-
         //Connect all prefabs together
         cityStreetConnector();
 
@@ -649,38 +563,12 @@ public class CityGenerator : MonoBehaviour
         busSpawner = new BusSpawner(busPrefab, this);
 
         carSpawner.generateTraffic(numberCarsToSpawn, profondity, nodesCity, waypoitnsCity);
+        busSpawner.generateBuses();
 
         //Used for the path 
         //GenerateArrayForCars();
         carsNeedToSpawn = 0;
         spawn = true;
-    }
-
-    private void Update()
-    {
-        /*
-        if (!spawn) return;
-
-        if(numberCarsToSpawn - carsNeedToSpawn - numberCarsToSpawnOnFrame <= 0)
-        {
-            numberCarsToSpawnOnFrame = numberCarsToSpawn - carsNeedToSpawn;
-            spawn = false;
-            busSpawner.generateBuses();
-            
-        }
-
-        carsNeedToSpawn += numberCarsToSpawnOnFrame;
-
-        
-        carSpawner.generateTraffic(numberCarsToSpawnOnFrame, profondity, nodesCity, waypoitnsCity);
-
-        if (!spawn)
-        {
-            nodesCity.Dispose();
-            waypoitnsCity.Dispose();
-        }
-        */
-        //spawn = false;
     }
 
     private int[] generateVerticalStreetsNumber()
@@ -1433,67 +1321,40 @@ public class CityGenerator : MonoBehaviour
             foreach (var node in currentStreet.carWaypoints)
             {
                     cityNodes.Add(node);
+                if(!nodesMap.TryGetValue(node.transform.position, out _))
                     nodesMap.Add(node.transform.position, node);
                 
                 if (node.isParkingGateway)
                 {
                     cityParkingNodes.Add(node);
+                    //cityParkingNodesPositions.Add((float3)node.transform.position);
+                    
+
+                }
+                else if (node.isBusStop)
+                {
+                    cityBusStopsSpawn.Add(node);
+                    cityBusStopsDst.Add(node);
                 }
                 else if (((cityMap[row, col].prefabType == STRAIGHT_1LANE || cityMap[row, col].prefabType == STRAIGHT_2LANE || cityMap[row, col].prefabType == BUS_STOP_1LANE || cityMap[row, col].prefabType == BUS_STOP_2LANE)
-                        && !node.isLaneChange && !node.isBusLane) && node.isCarSpawn)   //spawn nodes dont include lane-change nodes and bus lanes
+                        && !node.isLaneChange) && node.isCarSpawn)   //spawn nodes dont include lane-change nodes and bus lanes
                 {
                     citySpawnNodes.Add(node);
                 }
             }
 
-            //List<Node> carSpawn = new List<Node>();
            
 
 
         }
     }
-    /*
-    private void GenerateArrayForCars()
+
+    public int GetParkingPositionHashMapKey(float3 position)
     {
-        GameObject[] nodes = GameObject.FindGameObjectsWithTag("CarWaypoint");
-        GameObject[] carSpanGameObj = GameObject.FindGameObjectsWithTag("CarSpawn");
-
-
-        List<Node> nodesList = new List<Node>();
-
-        nodes[0].GetComponent<Node>();
-
-        //NewPathSystem pathSystem = new NewPathSystem();
-
-        nodesCity = new NativeMultiHashMap<float3, float3>(nodes.Length + carSpanGameObj.Length, Allocator.Persistent);
-        waypoitnsCity = new NativeArray<float3>(nodes.Length + carSpanGameObj.Length, Allocator.Persistent);
-
-        for (int i = 0; i < carSpanGameObj.Length; i++)
-        {
-
-            nodesCity.Add(carSpanGameObj[i].GetComponent<Node>().transform.position, carSpanGameObj[i].GetComponent<Node>().nextNodes[0].transform.position);
-
-            waypoitnsCity[i] = carSpanGameObj[i].GetComponent<Node>().transform.position;
-            //nodesCity.Add(carSpanGameObj[i].GetComponent<Node>());
-        }
-
-        for (int i = 0; i < nodes.Length; i++)
-        {
-            if (!nodes[i].GetComponent<Node>().isParkingSpot)
-            {
-
-                for (int j = 0; j < nodes[i].GetComponent<Node>().nextNodes.Count; j++)
-                {
-                    nodesCity.Add(nodes[i].GetComponent<Node>().transform.position, nodes[i].GetComponent<Node>().nextNodes[j].transform.position);
-                }
-
-
-                waypoitnsCity[i + carSpanGameObj.Length] = nodes[i].GetComponent<Node>().transform.position;
-            }
-            
-
-            //nextNodes.Dispose();
-        }
-    }*/
+        int xMultiplier = 100000;
+        int xPosition = (int)position.x;
+        int zPosition = (int)position.z;
+        return xPosition * xMultiplier + zPosition;
+    }
 
 }

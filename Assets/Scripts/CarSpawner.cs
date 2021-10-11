@@ -68,7 +68,7 @@ public class CarSpawner : MonoBehaviour
             while(math.distance(spawnWaypoints[randomSrcNode].transform.position, parkingWaypoints[randomDstNodeIndex].transform.position) >= profondity) randomDstNodeIndex = UnityEngine.Random.Range(0, parkingWaypoints.Count);
 
             
-
+            /*
             Parking possiblePaking = parkingWaypoints[randomDstNodeIndex].parkingPrefab.GetComponent<Parking>();
 
             int randomParkingSpot = UnityEngine.Random.Range(0, possiblePaking.freeParkingSpots.Count);
@@ -79,15 +79,15 @@ public class CarSpawner : MonoBehaviour
             {
                 possiblePaking.freeParkingSpots.RemoveAt(randomParkingSpot);
             }
-            
+            */
             spawnNodeList.Add(spawnWaypoints[randomSrcNode].transform.position);
             sNode.Add(spawnWaypoints[randomSrcNode]);
 
             spawnWaypoints.RemoveAt(randomSrcNode);
-
+            /*
             pNode.Add(possiblePaking.freeParkingSpots[randomParkingSpot]);
             possiblePaking.freeParkingSpots[randomParkingSpot].isOccupied = true;
-
+            */
             destinationNodeList.Add(parkingWaypoints[randomDstNodeIndex].transform.position);
             dNode.Add(parkingWaypoints[randomDstNodeIndex]);
         }
@@ -168,7 +168,7 @@ public class CarSpawner : MonoBehaviour
             carData.SpeedDamping = carData.Speed / 10f;
 
 
-            carData.parkingNode = pNode[i];
+            //carData.parkingNode = pNode[i];
 
             carData.destinationNode = destinationNode;
 

@@ -28,8 +28,13 @@ class BusSystem : SystemBase
 
         Entities
             .WithoutBurst()
-            .ForEach((DynamicBuffer<NodesPositionList> NodesPositionList, DynamicBuffer<NodesTypeList> NodesTypeList, ref VehicleNavigation navigation, ref Translation translation, ref Rotation rotation, ref VehicleSpeed speed, in Bus bus, in LocalToWorld ltw) =>
+            .ForEach((DynamicBuffer<NodesList> NodesList, ref VehicleNavigation navigation, ref Translation translation, ref Rotation rotation, ref VehicleSpeed speed, in LocalToWorld ltw) =>
             {
+                if (navigation.isCar)
+                {
+                    return;
+                }
+
                 //detect bus stop
                 if (navigation.busStop && elapsedTime >= navigation.timeExitBusStop)
                 {
@@ -66,12 +71,12 @@ class BusSystem : SystemBase
                     int positionKey;
                     bool trafficStoped = false;
                     float multiplier = 1f;
-                    if (navigation.currentNode < NodesPositionList.Length - 1 &&
-                        NodesTypeList[navigation.currentNode].nodeType == INTERSECTION &&
-                        math.distance(translation.Value, NodesPositionList[navigation.currentNode].nodePosition) < 1f)
+                    if (navigation.currentNode < NodesList.Length - 1 &&
+                        NodesList[navigation.currentNode].nodeType == INTERSECTION &&
+                        math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) < 1f)
                     {
 
-                        startPosition = NodesPositionList[navigation.currentNode].nodePosition;
+                        startPosition = NodesList[navigation.currentNode].nodePosition;
                         if (!((int3)startPosition).Equals((int3)translation.Value))
                         {
                             //Debug.DrawLine(translation.Value, startPosition, Color.green, 0.1f, false);
@@ -87,7 +92,7 @@ class BusSystem : SystemBase
                             }
                         }
 
-                        float3 direction = math.normalize(NodesPositionList[navigation.currentNode + 1].nodePosition - NodesPositionList[navigation.currentNode].nodePosition);
+                        float3 direction = math.normalize(NodesList[navigation.currentNode + 1].nodePosition - NodesList[navigation.currentNode].nodePosition);
 
 
                         if (((int3)startPosition).Equals((int3)(startPosition + direction)))
@@ -155,8 +160,8 @@ class BusSystem : SystemBase
                         }
                     }
 
-                    if (NodesTypeList[navigation.currentNode].nodeType == MERGE_LEFT &&
-                        !(NodesTypeList[navigation.currentNode].nodeType == LANE_CHANGE || NodesTypeList[navigation.currentNode - 1].nodeType == LANE_CHANGE) &&
+                    if (NodesList[navigation.currentNode].nodeType == MERGE_LEFT &&
+                        !(NodesList[navigation.currentNode].nodeType == LANE_CHANGE || NodesList[navigation.currentNode - 1].nodeType == LANE_CHANGE) &&
                         !trafficStoped)
                     {
                         float3 leftDirection = (-1) * ltw.Right;
@@ -182,8 +187,8 @@ class BusSystem : SystemBase
                             navigation.trafficStop = false;
                         }
                     }
-                    else if (NodesTypeList[navigation.currentNode].nodeType == MERGE_RIGHT &&
-                        !(NodesTypeList[navigation.currentNode].nodeType == LANE_CHANGE || NodesTypeList[navigation.currentNode - 1].nodeType == LANE_CHANGE) &&
+                    else if (NodesList[navigation.currentNode].nodeType == MERGE_RIGHT &&
+                        !(NodesList[navigation.currentNode].nodeType == LANE_CHANGE || NodesList[navigation.currentNode - 1].nodeType == LANE_CHANGE) &&
                         !trafficStoped)
                     {
                         float3 rightDirection = ltw.Right;
@@ -209,7 +214,7 @@ class BusSystem : SystemBase
                         }
                     }
 
-                    if (NodesTypeList[navigation.currentNode - 1].nodeType == BUS_MERGE || NodesTypeList[navigation.currentNode].nodeType == BUS_MERGE)
+                    if (NodesList[navigation.currentNode - 1].nodeType == BUS_MERGE || NodesList[navigation.currentNode].nodeType == BUS_MERGE)
                     {
                         navigation.isChangingLanes = true;
                         float3 leftDirection = (-1) * ltw.Right;
@@ -257,7 +262,7 @@ class BusSystem : SystemBase
                         speed.currentSpeed = 0;
                     }
                     translation.Value += ltw.Forward * time * speed.currentSpeed;
-                    float3 direction = NodesPositionList[navigation.currentNode].nodePosition - translation.Value;
+                    float3 direction = NodesList[navigation.currentNode].nodePosition - translation.Value;
                     rotation.Value = Quaternion.LookRotation(direction);
                 }
                 else  //SPEEDING UP IF NO TRAFFIC OR MY TURN IN INTERSECTION
@@ -272,29 +277,29 @@ class BusSystem : SystemBase
                         speed.currentSpeed = speed.maxSpeed;
                     }
 
-                    if (navigation.currentNode < NodesPositionList.Length - 1 && math.distance(translation.Value, NodesPositionList[navigation.currentNode].nodePosition) < math.distance(translation.Value + ltw.Forward, NodesPositionList[navigation.currentNode].nodePosition))
+                    if (navigation.currentNode < NodesList.Length - 1 && math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) < math.distance(translation.Value + ltw.Forward, NodesList[navigation.currentNode].nodePosition))
                     {
                         navigation.currentNode++;
                     }
 
-                    float3 nextNodeDirection = Unity.Mathematics.math.normalize((NodesPositionList[navigation.currentNode].nodePosition - translation.Value));
+                    float3 nextNodeDirection = Unity.Mathematics.math.normalize((NodesList[navigation.currentNode].nodePosition - translation.Value));
                     translation.Value += nextNodeDirection * time * speed.currentSpeed;
 
-                    float3 direction = NodesPositionList[navigation.currentNode].nodePosition - translation.Value;
+                    float3 direction = NodesList[navigation.currentNode].nodePosition - translation.Value;
                     float3 neededRotation = Quaternion.LookRotation(direction).eulerAngles;
 
                     rotation.Value = Quaternion.Euler(neededRotation);
                 }
 
-                if (math.distance(translation.Value, NodesPositionList[navigation.currentNode].nodePosition) < 0.5f) 
+                if (math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) < 0.5f) 
                 {
                     navigation.currentNode++;
                     //make bus move on an infinite loop
-                    if (navigation.currentNode == NodesPositionList.Length)
+                    if (navigation.currentNode == NodesList.Length)
                     {
                         navigation.currentNode = 1;
                     }
-                    if (NodesTypeList[navigation.currentNode].nodeType == BUS_STOP)
+                    if (NodesList[navigation.currentNode].nodeType == BUS_STOP)
                     {
                         navigation.busStop = true;
                         navigation.timeExitBusStop = elapsedTime + 10;
