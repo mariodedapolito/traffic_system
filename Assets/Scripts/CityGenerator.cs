@@ -29,13 +29,13 @@ public class JsonData
     public int minDistanceBetweenHorizontalStreets;
     public int maxDistanceBetweenHorizontalStreets;
     public int numberCarsToSpawn;
+    public int numberBusesToSpawn;
     public bool onlySimpleIntersections;
     public bool onlySemaphoreIntersections;
     public bool only1LaneStreets;
     public bool only2LaneStreets;
 
-    public int numberCarsToSpawnOnFrame;
-    public float profondity;
+    //public float profondity;
 
     public int distanceBetweenVerticalStreets = 5;   //2 prefabs for bus stops + 1 prefab (optional) for lane adapter + 2 reserved prefabs
     public int distanceBetweenHorizontalStreets = 5;
@@ -56,7 +56,6 @@ public class CityGenerator : MonoBehaviour
     public bool only1LaneStreets;
     public bool only2LaneStreets;
 
-    public int numberCarsToSpawnOnFrame;
     public float profondity;
 
     public TextAsset jsonFile;
@@ -198,13 +197,14 @@ public class CityGenerator : MonoBehaviour
         maxNumberVerticalStreets = jsonData.maxNumberVerticalStreets;
         minDistanceBetweenHorizontalStreets = jsonData.minDistanceBetweenHorizontalStreets;
         maxDistanceBetweenHorizontalStreets = jsonData.maxDistanceBetweenHorizontalStreets;
+        numberBusesToSpawn = jsonData.numberBusesToSpawn;
         numberCarsToSpawn = jsonData.numberCarsToSpawn;
         onlySimpleIntersections = jsonData.onlySimpleIntersections;
         onlySemaphoreIntersections = jsonData.onlySemaphoreIntersections;
         only1LaneStreets = jsonData.only1LaneStreets;
         only2LaneStreets = jsonData.only2LaneStreets;
-        numberCarsToSpawnOnFrame = jsonData.numberCarsToSpawnOnFrame;
-        profondity = jsonData.profondity;
+
+        //profondity = jsonData.profondity;
         //distanceBetweenVerticalStreets = jsonData.distanceBetweenVerticalStreets;
         //distanceBetweenHorizontalStreets = jsonData.distanceBetweenHorizontalStreets;
 

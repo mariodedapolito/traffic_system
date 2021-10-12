@@ -18,10 +18,6 @@ public class CarSpawner : MonoBehaviour
 
     private int carId = 0;
 
-    private List<Entity> carEntities;
-    private EntityManager entityManager;
-    private BlobAssetStore blobAssetStore;
-
     private List<Node> sNode;
     private List<Node> dNode;
     private List<Node> pNode;
@@ -44,10 +40,12 @@ public class CarSpawner : MonoBehaviour
         numCarsToSpownNow = numCarsToSpawn;
     }
 
-    public void generateTraffic(int numberCarsToSpawnOnFrame, float profondity, NativeMultiHashMap<float3, float3> nodesCity, NativeArray<float3> waypoitnsCity)
+    public void generateTraffic(int numberCarsToSpawn, float profondity, NativeMultiHashMap<float3, float3> nodesCity, NativeArray<float3> waypoitnsCity)
     {
         NativeList<float3> spawnNodeList = new NativeList<float3>(numCarsToSpawn, Allocator.Temp);
         NativeList<float3> destinationNodeList = new NativeList<float3>(numCarsToSpawn, Allocator.Temp);
+
+        GameObject city = GameObject.FindGameObjectWithTag("CityGenerator");
 
         //init variable the first cars on frame
         sNode = new List<Node>();
@@ -65,21 +63,10 @@ public class CarSpawner : MonoBehaviour
             int randomSrcNode = UnityEngine.Random.Range(0, spawnWaypoints.Count);
             int randomDstNodeIndex = UnityEngine.Random.Range(0, parkingWaypoints.Count);
 
-            while(math.distance(spawnWaypoints[randomSrcNode].transform.position, parkingWaypoints[randomDstNodeIndex].transform.position) >= profondity) randomDstNodeIndex = UnityEngine.Random.Range(0, parkingWaypoints.Count);
-
+            while(math.distance(spawnWaypoints[randomSrcNode].transform.position, parkingWaypoints[randomDstNodeIndex].transform.position) >= profondity) randomDstNodeIndex = UnityEngine.Random.Range(0, parkingWaypoints.Count);         
             
-            /*
-            Parking possiblePaking = parkingWaypoints[randomDstNodeIndex].parkingPrefab.GetComponent<Parking>();
-
-            int randomParkingSpot = UnityEngine.Random.Range(0, possiblePaking.freeParkingSpots.Count);
-
-            possiblePaking.numberFreeSpots--;
-
-            if (possiblePaking.numberFreeSpots == 0)
-            {
-                possiblePaking.freeParkingSpots.RemoveAt(randomParkingSpot);
-            }
-            */
+            
+            
             spawnNodeList.Add(spawnWaypoints[randomSrcNode].transform.position);
             sNode.Add(spawnWaypoints[randomSrcNode]);
 
@@ -98,7 +85,7 @@ public class CarSpawner : MonoBehaviour
         {
             Node spawnNode = sNode[i];
 
-
+            /*
             int carRotation;
             if (spawnNode.gameObject.GetComponentInParent<Street>().numberLanes == 1)
             {
@@ -151,7 +138,7 @@ public class CarSpawner : MonoBehaviour
                 }
             }
 
-
+            */
             Node destinationNode = dNode[i];
 
             List<Vector3> keyAdd = new List<Vector3>();
@@ -161,16 +148,46 @@ public class CarSpawner : MonoBehaviour
             GameObject carToSpawn = carPrefab[carIndex];
             CarComponents carData = carToSpawn.GetComponent<CarComponents>();
 
-            carData.startingNode = spawnNode;
-            carData.currentNode = 1;
+            if (i < numberCarsToSpawn / 2)
+            {
+                int randomDstNodeIndex = UnityEngine.Random.Range(0, parkingWaypoints.Count);
 
+                Parking possiblePaking = parkingWaypoints[randomDstNodeIndex].parkingPrefab.GetComponent<Parking>();
+
+                int randomParkingSpot = UnityEngine.Random.Range(0, possiblePaking.freeParkingSpots.Count);
+
+                possiblePaking.numberFreeSpots--;
+
+                if (possiblePaking.numberFreeSpots == 0)
+                {
+                    possiblePaking.freeParkingSpots.RemoveAt(randomParkingSpot);
+                }
+
+                possiblePaking.freeParkingSpots[randomParkingSpot].isOccupied = true;
+
+                carData.parkingNode = possiblePaking.freeParkingSpots[randomParkingSpot];
+                carData.destinationNode = parkingWaypoints[randomDstNodeIndex];
+                carData.startingNode = parkingWaypoints[randomDstNodeIndex];
+                carData.isParking = true;
+                carData.currentNode = 0;
+
+                spawnNode = parkingWaypoints[randomDstNodeIndex];
+                spawnNode.transform.rotation = Quaternion.Euler(0,spawnNode.parkingRotation,0);
+            }
+            else
+            {
+                carData.isParking = false;
+                carData.startingNode = spawnNode;
+                carData.currentNode = 1;
+                carData.destinationNode = destinationNode;
+            }
             carData.Speed = 2f;
             carData.SpeedDamping = carData.Speed / 10f;
 
 
             //carData.parkingNode = pNode[i];
 
-            carData.destinationNode = destinationNode;
+            
 
             carData.pathNodeList.Clear();
 
@@ -183,7 +200,7 @@ public class CarSpawner : MonoBehaviour
             keyAdd.Add(dNode[i].transform.position);
             cacheCarsSpawn.Add(keyAdd, carData.pathNodeList);
             */
-            Instantiate(carToSpawn, spawnNode.transform.position, Quaternion.Euler(0, carRotation, 0));
+            Instantiate(carToSpawn, spawnNode.transform.position, spawnNode.transform.rotation);
 
             spawnWaypoints.Remove(spawnNode);
             k++;

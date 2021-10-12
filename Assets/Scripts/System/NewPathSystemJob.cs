@@ -27,6 +27,7 @@ public class NewPathSystemMono : SystemBase
         GameObject[] nodes = GameObject.FindGameObjectsWithTag("CarWaypoint");
         GameObject[] parkingNodes = GameObject.FindGameObjectsWithTag("EzParking");
         GameObject[] carSpanGameObj = GameObject.FindGameObjectsWithTag("CarSpawn");
+        GameObject city = GameObject.FindGameObjectWithTag("CityGenerator");
 
         Dictionary<Vector3, Node> nodesMap = new Dictionary<Vector3, Node>();
         Dictionary<Vector3, Node> nodesMapParking = new Dictionary<Vector3, Node>();
