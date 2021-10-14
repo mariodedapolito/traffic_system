@@ -23,19 +23,20 @@ public class MapTile
 [System.Serializable]
 public class JsonData
 {
+    public bool useAStarInMainThread;
+    public bool useAStarInMultiThread;
+
     public int numberHorizontalStreets;
     public int minNumberVerticalStreets;
     public int maxNumberVerticalStreets;
-    public int minDistanceBetweenHorizontalStreets;
-    public int maxDistanceBetweenHorizontalStreets;
+
     public int numberCarsToSpawn;
     public bool onlySimpleIntersections;
     public bool onlySemaphoreIntersections;
     public bool only1LaneStreets;
     public bool only2LaneStreets;
 
-    public int numberCarsToSpawnOnFrame;
-    public float profondity;
+    //public float profondity;
 
     public int distanceBetweenVerticalStreets = 5;   //2 prefabs for bus stops + 1 prefab (optional) for lane adapter + 2 reserved prefabs
     public int distanceBetweenHorizontalStreets = 5;
@@ -50,8 +51,8 @@ public class CityGenerator : MonoBehaviour
     public int numberHorizontalStreets;
     public int minNumberVerticalStreets;
     public int maxNumberVerticalStreets;
-    public int minDistanceBetweenHorizontalStreets;
-    public int maxDistanceBetweenHorizontalStreets;
+    //public int minDistanceBetweenHorizontalStreets;
+    //public int maxDistanceBetweenHorizontalStreets;
     public int numberCarsToSpawn;
     public int numberBusesToSpawn;
     public bool onlySimpleIntersections;
@@ -59,7 +60,6 @@ public class CityGenerator : MonoBehaviour
     public bool only1LaneStreets;
     public bool only2LaneStreets;
 
-    public int numberCarsToSpawnOnFrame;
     public float profondity;
 
     public bool useDataFromJSON;
@@ -100,8 +100,8 @@ public class CityGenerator : MonoBehaviour
     public List<GameObject> buildingPrefabs;
 
 
-    private const int distanceBetweenVerticalStreets = 7;   //2 prefabs for bus stops + 1 prefab (optional) for lane adapter + 2 reserved prefabs
-    private const int distanceBetweenHorizontalStreets = 7;
+    private const int distanceBetweenVerticalStreets = 6;   //2 prefabs for bus stops + 1 prefab (optional) for lane adapter + 2 reserved prefabs
+    private const int distanceBetweenHorizontalStreets = 6;
 
     public MapTile[,] cityMap;
     public int cityWidth;
@@ -185,9 +185,6 @@ public class CityGenerator : MonoBehaviour
 
     private BusSpawner busSpawner;
 
-    private bool spawn;
-    private int carsNeedToSpawn;
-
     private NativeMultiHashMap<float3, float3> nodesCity;
     private NativeArray<float3> waypoitnsCity;
 
@@ -195,18 +192,21 @@ public class CityGenerator : MonoBehaviour
     {
         JsonData jsonData = JsonUtility.FromJson<JsonData>(jsonFile.text);
 
+        useAStarInMainThread = jsonData.useAStarInMainThread;
+        useAStarInMultiThread = jsonData.useAStarInMultiThread;
         numberHorizontalStreets = jsonData.numberHorizontalStreets;
         minNumberVerticalStreets = jsonData.minNumberVerticalStreets;
         maxNumberVerticalStreets = jsonData.maxNumberVerticalStreets;
-        minDistanceBetweenHorizontalStreets = jsonData.minDistanceBetweenHorizontalStreets;
-        maxDistanceBetweenHorizontalStreets = jsonData.maxDistanceBetweenHorizontalStreets;
+
         numberCarsToSpawn = jsonData.numberCarsToSpawn;
         onlySimpleIntersections = jsonData.onlySimpleIntersections;
         onlySemaphoreIntersections = jsonData.onlySemaphoreIntersections;
         only1LaneStreets = jsonData.only1LaneStreets;
         only2LaneStreets = jsonData.only2LaneStreets;
-        numberCarsToSpawnOnFrame = jsonData.numberCarsToSpawnOnFrame;
-        profondity = jsonData.profondity;
+
+        //minDistanceBetweenHorizontalStreets = jsonData.minDistanceBetweenHorizontalStreets;
+        //maxDistanceBetweenHorizontalStreets = jsonData.maxDistanceBetweenHorizontalStreets;
+        //profondity = jsonData.profondity;
         //distanceBetweenVerticalStreets = jsonData.distanceBetweenVerticalStreets;
         //distanceBetweenHorizontalStreets = jsonData.distanceBetweenHorizontalStreets;
 
@@ -561,8 +561,6 @@ public class CityGenerator : MonoBehaviour
 
         //Used for the path 
         //GenerateArrayForCars();
-        carsNeedToSpawn = 0;
-        spawn = true;
     }
 
     private int[] generateVerticalStreetsNumber()

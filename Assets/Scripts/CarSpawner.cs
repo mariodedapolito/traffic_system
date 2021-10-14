@@ -131,7 +131,7 @@ public class CarSpawner : MonoBehaviour
 
             //carData.parkingNode = pNode[i];
 
-            Debug.Log(spawnNode.transform.rotation);
+            //Debug.Log(spawnNode.transform.rotation);
 
             carData.pathNodeList.Clear();
 

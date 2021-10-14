@@ -76,7 +76,7 @@ class CarSystem : SystemBase
                     }
                     else
                     {
-                        Debug.Log("Parking exit");
+                        //Debug.Log("Parking exit");
                         NeedPath needPath = new NeedPath() { };
                         ecb.AddComponent(entity.Index, entity, needPath);
                         pathFinding.spawnParking = true;
@@ -91,7 +91,7 @@ class CarSystem : SystemBase
 
                 if (navigation.needParking)
                 {
-                    Debug.Log("Parked");
+                    //Debug.Log("Parked");
                     int hashMapKey = CarsPositionSystem.GetPositionHashMapKey(navigation.startingNodePosition);
 
                     navigation.isParked = true;
