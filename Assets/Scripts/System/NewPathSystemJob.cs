@@ -19,60 +19,64 @@ public class NewPathSystemMono : SystemBase
     private const int MERGE_LEFT = 5;
     private const int MERGE_RIGHT = 6;
 
+    public static int GetPositionHashMapKey(float3 position)
+    {
+        int xPosition = (int)position.x;
+        int zPosition = (int)position.z;
+        return xPosition * 100000 + zPosition;
+    }
+
     protected override void OnUpdate()
     {
         NativeList<JobHandle> jobHandles = new NativeList<JobHandle>(Allocator.TempJob);
         float deltaTime = Time.DeltaTime;
 
-        GameObject[] nodes = GameObject.FindGameObjectsWithTag("CarWaypoint");
-        GameObject[] parkingNodes = GameObject.FindGameObjectsWithTag("EzParking");
-        GameObject[] carSpanGameObj = GameObject.FindGameObjectsWithTag("CarSpawn");
+        CityGenerator city = GameObject.FindGameObjectWithTag("CityGenerator").GetComponent<CityGenerator>();
 
-        Dictionary<Vector3, Node> nodesMap = new Dictionary<Vector3, Node>();
-        Dictionary<Vector3, Node> nodesMapParking = new Dictionary<Vector3, Node>();
-        NativeMultiHashMap<float3, float3> nodesCity = new NativeMultiHashMap<float3, float3>(nodes.Length + carSpanGameObj.Length, Allocator.Persistent);
-        NativeArray<float3> waypoitnsCity = new NativeArray<float3>(nodes.Length + carSpanGameObj.Length, Allocator.Persistent);
+        List<Node> nodes = city.cityNodes  /*GameObject.FindGameObjectsWithTag("CarWaypoint")*/;
+        List<Node> parkingNodes = city.cityCarParkingNodes;
+        List<Node> cityParkingNodes = city.cityParkingNodes;
+        List<Node> carSpanGameObj = city.citySpawnNodes;
+
+        Dictionary<int, Node> nodesMap = new Dictionary<int, Node>();
+        Dictionary<int, Node> nodesMapParking = new Dictionary<int, Node>();
+        NativeMultiHashMap<int, float3> nodesCity = new NativeMultiHashMap<int, float3>(nodes.Count + carSpanGameObj.Count, Allocator.Persistent);
+        NativeArray<float3> waypoitnsCity = new NativeArray<float3>(nodes.Count + carSpanGameObj.Count, Allocator.Persistent);
         Dictionary<int, NativeList<float3>> sampleJobArray = new Dictionary<int, NativeList<float3>>();
-        //Dictionary<int, NativeList<float3>> cityParkings = new Dictionary<int, NativeList<float3>>();
-        List<Node> cityParkingNodes = new List<Node>();
 
-        NativeList<float3> cityParkingPosition = new NativeList<float3>(nodes.Length + carSpanGameObj.Length, Allocator.Persistent);
+        NativeList<float3> cityParkingPosition = new NativeList<float3>(nodes.Count + carSpanGameObj.Count, Allocator.Persistent);
 
-        //cityParkings = GameObject.FindGameObjectWithTag("CityGenerator").GetComponent<CityGenerator>().cityParkings;
-        cityParkingNodes = GameObject.FindGameObjectWithTag("CityGenerator").GetComponent<CityGenerator>().cityParkingNodes;
-
-        for (int i = 0; i < carSpanGameObj.Length; i++)
+        for (int i = 0; i < carSpanGameObj.Count; i++)
         {
-
-            nodesCity.Add(carSpanGameObj[i].GetComponent<Node>().transform.position, carSpanGameObj[i].GetComponent<Node>().nextNodes[0].transform.position);
-
-            waypoitnsCity[i] = carSpanGameObj[i].GetComponent<Node>().transform.position;
+            nodesCity.Add(GetPositionHashMapKey(carSpanGameObj[i].transform.position), carSpanGameObj[i].GetComponent<Node>().nextNodes[0].transform.position);
+            waypoitnsCity[i] = carSpanGameObj[i].transform.position;
         }
 
-        for (int i = 0; i < nodes.Length; i++)
+        for (int i = 0; i < nodes.Count; i++)
         {
             if (!nodes[i].GetComponent<Node>().isParkingSpot)
             {
-                if(!nodesMap.TryGetValue(nodes[i].GetComponent<Node>().transform.position, out _))
-                    nodesMap.Add(nodes[i].GetComponent<Node>().transform.position, nodes[i].GetComponent<Node>());
-                for (int j = 0; j < nodes[i].GetComponent<Node>().nextNodes.Count; j++)
+                if(!nodesMap.ContainsKey(GetPositionHashMapKey(nodes[i].transform.position)))
+                    nodesMap.Add(GetPositionHashMapKey(nodes[i].transform.position), nodes[i].GetComponent<Node>());
+                
+                for (int j = 0; j < nodes[i].nextNodes.Count; j++)
                 {
-                    nodesCity.Add(nodes[i].GetComponent<Node>().transform.position, nodes[i].GetComponent<Node>().nextNodes[j].transform.position);
+                    nodesCity.Add(GetPositionHashMapKey(nodes[i].transform.position), nodes[i].GetComponent<Node>().nextNodes[j].transform.position);
                 }
-                waypoitnsCity[i + carSpanGameObj.Length] = nodes[i].GetComponent<Node>().transform.position;
+                waypoitnsCity[i + carSpanGameObj.Count] = nodes[i].GetComponent<Node>().transform.position;
             }
             else
             {
                 //if (!nodesMapParking.TryGetValue(nodes[i].GetComponent<Node>().transform.position, out _))
-                    nodesMapParking.Add(nodes[i].GetComponent<Node>().transform.position, nodes[i].GetComponent<Node>());
+                    nodesMapParking.Add(GetPositionHashMapKey(nodes[i].transform.position), nodes[i].GetComponent<Node>());
             }
 
         }
 
-        for (int i = 0; i < parkingNodes.Length; i++)
+        for (int i = 0; i < parkingNodes.Count; i++)
         {
-            if (!nodesMapParking.TryGetValue(parkingNodes[i].GetComponent<Node>().transform.position, out _))
-                nodesMapParking.Add(parkingNodes[i].GetComponent<Node>().transform.position, parkingNodes[i].GetComponent<Node>());
+            if (!nodesMapParking.ContainsKey(GetPositionHashMapKey(parkingNodes[i].transform.position)))
+                nodesMapParking.Add(GetPositionHashMapKey(parkingNodes[i].transform.position), parkingNodes[i].GetComponent<Node>());
         }
 
 
@@ -130,7 +134,7 @@ public class NewPathSystemMono : SystemBase
 
                 foreach (var n in sampleJobArray[e.Index])
                 {
-                    if (!nodesMap.ContainsKey(n)) continue;
+                    if (!nodesMap.ContainsKey(GetPositionHashMapKey(n))) continue;
                     pathNodeFinal.Add(n);
                 }
                 sampleJobArray[e.Index].Dispose();
@@ -143,7 +147,7 @@ public class NewPathSystemMono : SystemBase
 
                 nodesList[e].Clear();
 
-                Parking possibleParking = nodesMap[pathNodeFinal[pathNodeFinal.Count-1]].GetComponent<Parking>();
+                Parking possibleParking = nodesMap[GetPositionHashMapKey(pathNodeFinal[pathNodeFinal.Count-1])].GetComponent<Parking>();
 
                 if(possibleParking == null || possibleParking.numberFreeSpots.Equals(null))
                 {
@@ -159,7 +163,7 @@ public class NewPathSystemMono : SystemBase
 
                 for (int i = 0; i < pathNodeFinal.Count; i++)
                 {
-                    Node node = nodesMap[pathNodeFinal[i]]; 
+                    Node node = nodesMap[GetPositionHashMapKey(pathNodeFinal[i])]; 
                     if (node.isLaneChange) nodesList[e].Add(new NodesList { nodePosition = pathNodeFinal[i], nodeType = LANE_CHANGE });
                     else if (node.isIntersection) nodesList[e].Add(new NodesList { nodePosition = pathNodeFinal[i], nodeType = INTERSECTION });
                     else if (node.isLaneMergeLeft) nodesList[e].Add(new NodesList { nodePosition = pathNodeFinal[i], nodeType = MERGE_LEFT });
@@ -172,7 +176,7 @@ public class NewPathSystemMono : SystemBase
                 if (!pathFinding.parkingNodePosition.Equals(new float3(-1f, -1f, -1f))) //car exit
                 {
                     float3 parking = pathFinding.parkingNodePosition;
-                    parkingNode = nodesMapParking[parking];
+                    parkingNode = nodesMapParking[GetPositionHashMapKey(parking)];
                     parkingNode.isOccupied = false;
                     Node gateWay = parkingNode.parkingPrefab.GetComponent<Node>();
                     gateWay.GetComponent<Parking>().numberFreeSpots++;
@@ -186,9 +190,10 @@ public class NewPathSystemMono : SystemBase
                 }
 
                 pathFinding.parkingNodePosition = possibleParking.freeParkingSpots[p].transform.position;
-
                 
                 possibleParking.numberFreeSpots--;
+
+                pathFinding.spawnParking = false;
 
                 EntityManager.RemoveComponent<NeedPath>(e);
                 
@@ -219,14 +224,14 @@ public class NewPathSystemMono : SystemBase
             float3 end = endPosition;
 
             NativeList<float3> positionsTocheck = new NativeList<float3>(numberWaypoint, Allocator.Temp);
-            NativeHashMap<float3, float> costDictionary = new NativeHashMap<float3, float>(numberWaypoint, Allocator.Temp);
-            NativeHashMap<float3, float> priorityDictionary = new NativeHashMap<float3, float>(numberWaypoint, Allocator.Temp);
-            NativeHashMap<float3, float3> parentsDictionary = new NativeHashMap<float3, float3>(numberParentNode, Allocator.Temp);
+            NativeHashMap<int, float> costDictionary = new NativeHashMap<int, float>(numberWaypoint, Allocator.Temp);
+            NativeHashMap<int, float> priorityDictionary = new NativeHashMap<int, float>(numberWaypoint, Allocator.Temp);
+            NativeHashMap<int, float3> parentsDictionary = new NativeHashMap<int, float3>(numberParentNode, Allocator.Temp);
 
             positionsTocheck.Add(start);
-            priorityDictionary.Add(start, 0f);
-            costDictionary.Add(start, 0f);
-            parentsDictionary.Add(start, 0f);
+            priorityDictionary.Add(GetPositionHashMapKey(start), 0f);
+            costDictionary.Add(GetPositionHashMapKey(start), 0f);
+            parentsDictionary.Add(GetPositionHashMapKey(start), 0f);
 
             while (positionsTocheck.Length > 0)
             {
@@ -242,16 +247,16 @@ public class NewPathSystemMono : SystemBase
 
                 foreach (float3 neighbour in nextNodes.GetValuesForKey(current))
                 {
-                    float newCost = costDictionary[current] + 1;
-                    if (!costDictionary.ContainsKey(neighbour) || newCost < costDictionary[neighbour])
+                    float newCost = costDictionary[GetPositionHashMapKey(current)] + 1;
+                    if (!costDictionary.ContainsKey(GetPositionHashMapKey(neighbour)) || newCost < costDictionary[GetPositionHashMapKey(neighbour)])
                     {
-                        costDictionary[neighbour] = newCost;
+                        costDictionary[GetPositionHashMapKey(neighbour)] = newCost;
 
                         float priority = newCost + ManhattanDiscance(end, neighbour);
                         positionsTocheck.Add(neighbour);
-                        priorityDictionary[neighbour] = priority;
+                        priorityDictionary[GetPositionHashMapKey(neighbour)] = priority;
 
-                        parentsDictionary[neighbour] = current;
+                        parentsDictionary[GetPositionHashMapKey(neighbour)] = current;
                     }
                 }
             }
@@ -263,24 +268,24 @@ public class NewPathSystemMono : SystemBase
             parentsDictionary.Dispose();
 
         }
-        public static NativeList<float3> GeneratePath(NativeHashMap<float3, float3> parentMap, float3 endState) //need reverse
+        public static NativeList<float3> GeneratePath(NativeHashMap<int, float3> parentMap, float3 endState) //need reverse
         {
             NativeList<float3> path = new NativeList<float3>(parentMap.Capacity, Allocator.Temp);
             float3 parent = endState;
-            while (!parent.Equals(0f) && parentMap.ContainsKey(parent))
+            while (!parent.Equals(0f) && parentMap.ContainsKey(GetPositionHashMapKey(parent)))
             {
                 path.Add(parent);
-                parent = parentMap[parent];
+                parent = parentMap[GetPositionHashMapKey(parent)];
             }
             return path;
         }
 
-        private static float3 GetClosestNode(NativeList<float3> list, NativeHashMap<float3, float> distanceMap)
+        private static float3 GetClosestNode(NativeList<float3> list, NativeHashMap<int, float> distanceMap)
         {
             float3 candidate = list[0];
             foreach (float3 vertex in list)
             {
-                if (distanceMap[vertex] < distanceMap[candidate])
+                if (distanceMap[GetPositionHashMapKey(vertex)] < distanceMap[GetPositionHashMapKey(candidate)])
                 {
                     candidate = vertex;
                 }
@@ -300,7 +305,7 @@ public class NewPathSystemMono : SystemBase
         public float3 startPosition;
         public float3 endPosition;
         public NativeArray<float3> waypointsCity;
-        public NativeMultiHashMap<float3, float3> nodesCity;
+        public NativeMultiHashMap<int, float3> nodesCity;
         public NativeList<float3> result;
         public void Execute()
         {
@@ -366,7 +371,7 @@ public class NewPathSystemMono : SystemBase
                 NativeList<float3> nextNodes = new NativeList<float3>(Allocator.Temp);
                 float3 value;
 
-                if (nodesCity.TryGetFirstValue(currentNode.node, out value, out var iterator))
+                if (nodesCity.TryGetFirstValue(GetPositionHashMapKey(currentNode.node), out value, out var iterator))
                 {
                     do
                     {

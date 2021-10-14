@@ -46,37 +46,19 @@ class CarSystem : SystemBase
 
         float time = Time.DeltaTime;
         float timeScale = GameObject.Find("TimeScale").GetComponent<TimeScale>().timeScale;
-        
-        NativeList<float3> parkingNodes = new NativeList<float3>( GameObject.FindGameObjectWithTag("CityGenerator").GetComponent<CityGenerator>().cityParkingNodesPositions.Length, Allocator.Temp);
-        //NativeMultiHashMap<int, float3> cityParkings = new NativeMultiHashMap<int, float3>( GameObject.FindGameObjectWithTag("CityGenerator").GetComponent<CityGenerator>().cityParkings.Capacity, Allocator.Temp);
 
-        GameObject[] nodes = GameObject.FindGameObjectsWithTag("CarWaypoint");
-
-        for (int i = 0; i < nodes.Length; i++)
-        { 
-            Node node = nodes[i].GetComponent<Node>();
-            if (node.isParkingGateway)
-            {
-                parkingNodes.Add(node.transform.position);
-                
-            }
-        }
-
-        
 
         Entities
             .WithoutBurst()
             .ForEach((Entity entity, DynamicBuffer<NodesList> NodesList, ref PathFinding pathFinding, ref VehicleNavigation navigation, ref Translation translation, ref Rotation rotation, ref VehicleSpeed speed, in LocalToWorld ltw) =>
             {
-                
+
                 if (navigation.isBus)
                 {
                     return;
                 }
 
-                if (NodesList.Length == 1 || navigation.currentNode == -1) navigation.currentNode = 0;
-
-                if (NodesList.Length == 0) return;
+                if (NodesList.Length == 0 || pathFinding.spawnParking) return;
 
                 /* Parking System */
                 if (navigation.isParked && elapsedTime < navigation.timeExitParking)
@@ -94,11 +76,16 @@ class CarSystem : SystemBase
                     }
                     else
                     {
+                        Debug.Log("Parking exit");
+                        NeedPath needPath = new NeedPath() { };
+                        ecb.AddComponent(entity.Index, entity, needPath);
+                        pathFinding.spawnParking = true;
                         translation.Value = pathFinding.startingNodePosition;
                         navigation.needParking = false;
                         navigation.isParked = false;
                         navigation.timeExitParking = int.MaxValue;
                         navigation.currentNode = 1;
+                        return;
                     }
                 }
 
@@ -106,36 +93,17 @@ class CarSystem : SystemBase
                 {
                     Debug.Log("Parked");
                     int hashMapKey = CarsPositionSystem.GetPositionHashMapKey(navigation.startingNodePosition);
-                    bool foundParking = false;
-
-                    /*
-                    foreach (var park in cityParkings.GetValuesForKey(hashMapKey))
-                    {
-                        if (!CarsPositionSystem.carsParkingMap.ContainsKey(CarsPositionSystem.GetPositionHashMapKey(park)))
-                        {
-                            translation.Value = park;
-                            foundParking = true;
-                            break;
-                        }
-                    }
-                    */
-
 
                     navigation.isParked = true;
                     navigation.needParking = false;
 
-
-                    //navigation.startingNodePosition = navigation.destinationNodePosition;
                     translation.Value = pathFinding.parkingNodePosition;
 
-                    var rnd = new Unity.Mathematics.Random((uint)entity.Index);
+                    var rnd = new Unity.Mathematics.Random((uint)entity.Index*100000);
 
                     pathFinding.startingNodePosition = pathFinding.destinationNodePosition;
 
-                    NeedPath needPath = new NeedPath(){};
-                    ecb.AddComponent(entity.Index, entity, needPath);
-
-                    navigation.timeExitParking = elapsedTime + rnd.NextInt(15, 40);
+                    navigation.timeExitParking = elapsedTime + rnd.NextInt(15, 200);
                     return;
                 }
 

@@ -291,10 +291,10 @@ MonoBehaviour:
   maxNumberVerticalStreets: 1
   minDistanceBetweenHorizontalStreets: 2
   maxDistanceBetweenHorizontalStreets: 2
-  numberCarsToSpawn: 10
+  numberCarsToSpawn: 500
   numberBusesToSpawn: 0
-  onlySimpleIntersections: 1
-  onlySemaphoreIntersections: 0
+  onlySimpleIntersections: 0
+  onlySemaphoreIntersections: 1
   only1LaneStreets: 0
   only2LaneStreets: 0
   numberCarsToSpawnOnFrame: 1000
@@ -304,6 +304,9 @@ MonoBehaviour:
     type: 3}
   carPrefab:
   - {fileID: 4962731154326057418, guid: 67cb4237567c02747b713345109f8148, type: 3}
+  - {fileID: 4962731154326057418, guid: 33cc6e1090216044293f6a48ef11d7bc, type: 3}
+  - {fileID: 4962731154326057418, guid: 18c50b6b5a137af45a1dddb6368ff394, type: 3}
+  - {fileID: 4962731154326057418, guid: 2aa59101a95e4564883d334e2c10eb4f, type: 3}
   busPrefab: {fileID: 4962731154326057418, guid: c5a6a0a638d11a84dbbf2ca79ac45a86,
     type: 3}
   straightStreet1Lane: {fileID: 8875702055242613236, guid: 57504f73fb74faa40a50afb1d62704c0,
@@ -357,6 +360,7 @@ MonoBehaviour:
   cityWidth: 0
   cityLength: 0
   cityParkingNodes: []
+  cityCarParkingNodes: []
   citySpawnNodes: []
   cityBusStopsSpawn: []
   cityBusStopsDst: []

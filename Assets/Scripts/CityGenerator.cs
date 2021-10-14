@@ -172,14 +172,11 @@ public class CityGenerator : MonoBehaviour
 
     private CarSpawner carSpawner;
     public List<Node> cityParkingNodes = new List<Node>();
-    public NativeList<float3> cityParkingNodesPositions;
-    public Dictionary<int, NativeList<float3>> cityParkings;
+    public List<Node> cityCarParkingNodes = new List<Node>();
     public List<Node> citySpawnNodes = new List<Node>();
     public List<Node> cityBusStopsSpawn = new List<Node>();
     public List<Node> cityBusStopsDst = new List<Node>();
     public List<Node> cityNodes = new List<Node>();
-
-    public Dictionary<Vector3, Node> nodesMap;
 
     private BusSpawner busSpawner;
 
@@ -210,20 +207,11 @@ public class CityGenerator : MonoBehaviour
 
     }
 
-    private void OnDestroy()
-    {
-        //cityParkings.Dispose();
-        cityParkingNodesPositions.Dispose();
-    }
-
     // Start is called before the first frame update
     void Start()
     {
 
         //GatValueFromJson();
-
-        cityParkingNodesPositions = new NativeList<float3>(100000, Allocator.Persistent);
-        cityParkings = new Dictionary<int, NativeList<float3>>();
 
         //City map dimensions
         cityWidth = distanceBetweenVerticalStreets * (maxNumberVerticalStreets + 2) + 1;        //X axis city dimension
@@ -538,8 +526,6 @@ public class CityGenerator : MonoBehaviour
 
         instantiateTerrain(cityWidth, cityLength);
 
-        nodesMap = new Dictionary<Vector3, Node>();
-
         for (int i = 0; i < cityLength; i++)
         {
             for (int j = 0; j < cityWidth; j++)
@@ -557,7 +543,7 @@ public class CityGenerator : MonoBehaviour
 
         //Spawn cars
         carSpawner = new CarSpawner(carPrefab, this, numberCarsToSpawn);
-        
+
 
         //Spawn buses
         busSpawner = new BusSpawner(busPrefab, this);
@@ -1320,16 +1306,12 @@ public class CityGenerator : MonoBehaviour
             //fill nodes (waypoint) list
             foreach (var node in currentStreet.carWaypoints)
             {
-                    cityNodes.Add(node);
-                if(!nodesMap.TryGetValue(node.transform.position, out _))
-                    nodesMap.Add(node.transform.position, node);
-                
+                cityNodes.Add(node);
+
                 if (node.isParkingGateway)
                 {
                     cityParkingNodes.Add(node);
-                    //cityParkingNodesPositions.Add((float3)node.transform.position);
-                    
-
+                    cityCarParkingNodes.AddRange(node.GetComponent<Parking>().freeParkingSpots);
                 }
                 else if (node.isBusStop)
                 {
@@ -1343,7 +1325,7 @@ public class CityGenerator : MonoBehaviour
                 }
             }
 
-           
+            citySpawnNodes.AddRange(currentStreet.spawnWaypoints);
 
 
         }

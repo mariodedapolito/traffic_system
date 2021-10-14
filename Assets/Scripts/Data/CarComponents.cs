@@ -51,11 +51,12 @@ public struct NodesList : IBufferElementData
     public int nodeType;
 }
 
-public struct PathFinding : IComponentData {
+public struct PathFinding : IComponentData
+{
     public float3 startingNodePosition;
     public float3 destinationNodePosition;
     public float3 parkingNodePosition;
-    public bool pathFound;
+    public bool spawnParking;
 }
 
 public struct NeedPath : IComponentData { }
@@ -92,33 +93,71 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
     private const int TURN_LEFT = 9999;    //reserved for potential use
     private const int TURN_RIGHT = 9999;   //reserved for potential use
 
+    public bool isParking;
+
 #pragma warning restore 649
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
+        
         dstManager.AddComponent<Vehicle>(entity);
 
-        dstManager.AddComponent<VehicleNavigation>(entity);
-
-        if (isCar)
+        if (isParking)
         {
             dstManager.AddComponentData(entity, new VehicleNavigation
             {
-                currentNode = currentNode,
-                needParking = false,
-                intersectionStop = false,
-                intersectionCrossing = false,
-                intersectionCrossed = false,
-                intersectionDirection = -1,
-                intersectionId = -1,
-                trafficStop = false,
-                isChangingLanes = false,
-                
-                timeExitParking = int.MaxValue,
-                isCar = true,
-                startingNodePosition = startingNode.transform.position,
-                destinationNodePosition = destinationNode.transform.position
-            });;
+                needParking = true
+            });
+        }
+        else
+        {
+            dstManager.AddComponentData(entity, new VehicleNavigation
+            {
+                currentNode = 1
+            });
+        }
+        if (isCar)
+        {
+            if (isParking)
+            {
+                dstManager.AddComponentData(entity, new VehicleNavigation
+                {
+                    currentNode = 1,
+                    needParking = true,
+                    intersectionStop = false,
+                    intersectionCrossing = false,
+                    intersectionCrossed = false,
+                    intersectionDirection = -1,
+                    intersectionId = -1,
+                    trafficStop = false,
+                    isChangingLanes = false,
+
+                    timeExitParking = int.MaxValue,
+                    isCar = true,
+                    startingNodePosition = startingNode.transform.position,
+                    destinationNodePosition = destinationNode.transform.position
+                });
+            }
+            else
+            {
+                dstManager.AddComponentData(entity, new VehicleNavigation
+                {
+                    currentNode = 1,
+                    needParking = false,
+                    intersectionStop = false,
+                    intersectionCrossing = false,
+                    intersectionCrossed = false,
+                    intersectionDirection = -1,
+                    intersectionId = -1,
+                    trafficStop = false,
+                    isChangingLanes = false,
+
+                    timeExitParking = int.MaxValue,
+                    isCar = true,
+                    startingNodePosition = startingNode.transform.position,
+                    destinationNodePosition = destinationNode.transform.position
+                });
+            }
         }
         else if (isBus)
         {
@@ -154,21 +193,39 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
 
         if (isCar)
         {
-            dstManager.AddBuffer<NodesList>(entity);
+            DynamicBuffer<NodesList> nodeListParking = dstManager.AddBuffer<NodesList>(entity);
 
-            dstManager.AddComponentData(entity, new PathFinding
+            if (isParking)
             {
-                startingNodePosition = startingNode.transform.position,
-                destinationNodePosition = destinationNode.transform.position,
-                parkingNodePosition = new float3(-1f, -1f, -1f)
-            });
+                nodeListParking.Add(new NodesList { nodePosition = destinationNode.transform.position });
 
-            dstManager.AddComponent<NeedPath>(entity);
+                dstManager.AddComponentData(entity, new PathFinding
+                {
+                    startingNodePosition = startingNode.transform.position,
+                    destinationNodePosition = destinationNode.transform.position,
+                    parkingNodePosition = parkingNode.transform.position
+                });
+
+
+            }
+            else
+            {
+                dstManager.AddComponentData(entity, new PathFinding
+                {
+                    startingNodePosition = startingNode.transform.position,
+                    destinationNodePosition = destinationNode.transform.position,
+                    parkingNodePosition = new float3(-1f, -1f, -1f),
+                    spawnParking = true
+                });
+
+                dstManager.AddComponent<NeedPath>(entity);
+            }
+
 
         }
         else if (isBus)
         {
-            if(busPath.Count == 0)
+            if (busPath.Count == 0)
             {
                 throw new System.Exception("NO BUS PATH FOUND");
             }
