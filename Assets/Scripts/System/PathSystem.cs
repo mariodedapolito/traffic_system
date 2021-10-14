@@ -1,4 +1,4 @@
-﻿/*using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
@@ -11,23 +11,71 @@ public class PathSystem : SystemBase
 {
     private List<Node> waypoints;
 
+    private const int LANE_CHANGE = 1;
+    private const int BUS_STOP = 2;
+    private const int BUS_MERGE = 3;
+    private const int INTERSECTION = 4;
+    private const int MERGE_LEFT = 5;
+    private const int MERGE_RIGHT = 6;
+
+    public static int GetPositionHashMapKey(float3 position)
+    {
+        int xPosition = (int)position.x;
+        int zPosition = (int)position.z;
+        return xPosition * 100000 + zPosition;
+    }
+
     protected override void OnUpdate()
     {
         GameObject cityGenerator = GameObject.Find("CityGenerator");
         CityGenerator city = cityGenerator.GetComponent<CityGenerator>();
+
+        if (!city.useAStarInMainThread) return;
+
         waypoints = city.cityNodes;
+
+        Dictionary<int, Node> nodesMapParking = new Dictionary<int, Node>();
+        List<Node> nodes = city.cityNodes;
+        List<Node> parkingNodes = city.cityCarParkingNodes;
+        List<Node> cityParkingNodes = city.cityParkingNodes;
+
+        for (int i = 0; i < nodes.Count; i++)
+        {
+            if (nodes[i].GetComponent<Node>().isParkingSpot)
+            {
+                //if (!nodesMapParking.TryGetValue(nodes[i].GetComponent<Node>().transform.position, out _))
+                nodesMapParking.Add(GetPositionHashMapKey(nodes[i].transform.position), nodes[i].GetComponent<Node>());
+            }
+
+        }
+
+        for (int i = 0; i < parkingNodes.Count; i++)
+        {
+            if (!nodesMapParking.ContainsKey(GetPositionHashMapKey(parkingNodes[i].transform.position)))
+                nodesMapParking.Add(GetPositionHashMapKey(parkingNodes[i].transform.position), parkingNodes[i].GetComponent<Node>());
+        }
 
         Entities
             .WithStructuralChanges()
             .ForEach((Entity e, ref PathFinding pathFinding, in NeedPath needPath) =>
-            {
+            { 
+                var rnd = new Unity.Mathematics.Random((uint)e.Index * 100000);
+                int p = rnd.NextInt(0, cityParkingNodes.Count - 1);
+                float3 destinationNodePosition = cityParkingNodes[p].transform.position;
+                Node destinationNode = cityParkingNodes[p];
+
+                while (destinationNodePosition.Equals(pathFinding.startingNodePosition))
+                {
+                    p = rnd.NextInt(0, cityParkingNodes.Count - 1);
+                    destinationNodePosition = cityParkingNodes[p].transform.position;
+                    destinationNode = cityParkingNodes[p];
+                }
+
                 Vector3 startPosition = new Vector3(pathFinding.startingNodePosition.x, pathFinding.startingNodePosition.y, pathFinding.startingNodePosition.z);
-                Vector3 endPosition = new Vector3(pathFinding.destinationNodePosition.x, pathFinding.destinationNodePosition.y, pathFinding.destinationNodePosition.z);
+               
 
                 Node startingNode = null;
-                Node destinationNode = null;
-
-                bool startFound = false;
+                
                 bool endFound = false;
 
                 foreach (Node w in waypoints)
@@ -35,22 +83,11 @@ public class PathSystem : SystemBase
                     if (w.transform.position.Equals(pathFinding.startingNodePosition))
                     {
                         startingNode = w.GetComponent<Node>();
-                        startFound = true;
                         if (endFound)
                         {
                             break;
                         }
                     }
-                    if (w.transform.position.Equals(pathFinding.destinationNodePosition))
-                    {
-                        destinationNode = w.GetComponent<Node>();
-                        endFound = true;
-                        if (startFound)
-                        {
-                            break;
-                        }
-                    }
-
                 }
 
                 List<Node> carPath = findShortestPath(startingNode.transform, destinationNode.transform);
@@ -60,28 +97,66 @@ public class PathSystem : SystemBase
                     throw new System.Exception("NO CAR PATH FOUND");
                 }
 
-                //for (int i = 0; i < carPath.Count - 1; i++)
-                //{
-                //    Debug.DrawLine(carPath[i].transform.position, carPath[i + 1].transform.position, Color.white, 30f);
-                //}
 
-                DynamicBuffer<NodesPositionList> nodesPositionList = EntityManager.AddBuffer<NodesPositionList>(e);
-                for (int i = 0; i < carPath.Count; i++)
+                if (carPath.Count <= 0) return;
+
+                var nodesList = GetBufferFromEntity<NodesList>();
+
+                nodesList[e].Clear();
+
+                Parking possibleParking = carPath[carPath.Count - 1].GetComponent<Parking>();
+
+                if (possibleParking == null || possibleParking.numberFreeSpots.Equals(null))
                 {
-                    nodesPositionList.Add(new NodesPositionList { nodePosition = carPath[i].transform.position });
+                    Debug.Log("");
                 }
 
-                DynamicBuffer<NodesTypeList> nodesTypeList = EntityManager.AddBuffer<NodesTypeList>(e);
+                if (possibleParking.numberFreeSpots == 0)
+                {
+                    return;
+                }
+
+
+
                 for (int i = 0; i < carPath.Count; i++)
                 {
-                    if (carPath[i].isLaneChange) nodesTypeList.Add(new NodesTypeList { nodeType = 1 });
-                    else if (carPath[i].isIntersection) nodesTypeList.Add(new NodesTypeList { nodeType = 4 });
-                    else if (carPath[i].isLaneMergeLeft) nodesTypeList.Add(new NodesTypeList { nodeType = 5 });
-                    else if (carPath[i].isLaneMergeRight) nodesTypeList.Add(new NodesTypeList { nodeType = 6 });
-                    //else if(carPath[i].isTurnLeft) nodesTypeList.Add(new NodesTypeList { nodeType = TURN_LEFT });   //reserved for potential use
-                    //else if (carPath[i].isTurnLeft) nodesTypeList.Add(new NodesTypeList { nodeType = TURN_RIGHT }); //reserved for potential use
-                    else nodesTypeList.Add(new NodesTypeList { nodeType = 0 });
+                    Node node = carPath[i];
+                    if (node.isLaneChange) nodesList[e].Add(new NodesList { nodePosition = carPath[i].transform.position, nodeType = LANE_CHANGE });
+                    else if (node.isIntersection) nodesList[e].Add(new NodesList { nodePosition = carPath[i].transform.position, nodeType = INTERSECTION });
+                    else if (node.isLaneMergeLeft) nodesList[e].Add(new NodesList { nodePosition = carPath[i].transform.position, nodeType = MERGE_LEFT });
+                    else if (node.isLaneMergeRight) nodesList[e].Add(new NodesList { nodePosition = carPath[i].transform.position, nodeType = MERGE_RIGHT });
+                    else nodesList[e].Add(new NodesList { nodePosition = carPath[i].transform.position, nodeType = 0 });
+
                 }
+
+                Node parkingNode = null;
+                if (!pathFinding.parkingNodePosition.Equals(new float3(-1f, -1f, -1f))) //car exit
+                {
+                    float3 parking = pathFinding.parkingNodePosition;
+
+                    if (!nodesMapParking.ContainsKey(GetPositionHashMapKey(parking)))
+                    {
+                        Debug.Log("");
+                    }
+                        parkingNode = nodesMapParking[GetPositionHashMapKey(parking)];
+                    
+                    parkingNode.isOccupied = false;
+                    Node gateWay = parkingNode.parkingPrefab.GetComponent<Node>();
+                    gateWay.GetComponent<Parking>().numberFreeSpots++;
+                }
+
+                int k = 0;
+
+                while (possibleParking.freeParkingSpots[k].isOccupied)
+                {
+                    k++;
+                }
+
+                pathFinding.parkingNodePosition = possibleParking.freeParkingSpots[k].transform.position;
+
+                possibleParking.numberFreeSpots--;
+
+                pathFinding.spawnParking = false;
 
                 EntityManager.RemoveComponent<NeedPath>(e);
 
@@ -168,4 +243,4 @@ public class PathSystem : SystemBase
     {
         return System.Math.Abs(endPos.transform.position.x - position.transform.position.x) + System.Math.Abs(endPos.transform.position.z - position.transform.position.z);
     }
-}*/
+}

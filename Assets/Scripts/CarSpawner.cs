@@ -63,10 +63,10 @@ public class CarSpawner : MonoBehaviour
             int randomSrcNode = UnityEngine.Random.Range(0, spawnWaypoints.Count);
             int randomDstNodeIndex = UnityEngine.Random.Range(0, parkingWaypoints.Count);
 
-            while(math.distance(spawnWaypoints[randomSrcNode].transform.position, parkingWaypoints[randomDstNodeIndex].transform.position) >= profondity) randomDstNodeIndex = UnityEngine.Random.Range(0, parkingWaypoints.Count);         
-            
-            
-            
+            while (math.distance(spawnWaypoints[randomSrcNode].transform.position, parkingWaypoints[randomDstNodeIndex].transform.position) >= profondity) randomDstNodeIndex = UnityEngine.Random.Range(0, parkingWaypoints.Count);
+
+
+
             spawnNodeList.Add(spawnWaypoints[randomSrcNode].transform.position);
             sNode.Add(spawnWaypoints[randomSrcNode]);
 
@@ -85,70 +85,13 @@ public class CarSpawner : MonoBehaviour
         {
             Node spawnNode = sNode[i];
 
-            /*
-            int carRotation;
-            if (spawnNode.gameObject.GetComponentInParent<Street>().numberLanes == 1)
-            {
-                if ((int)spawnNode.transform.position.x == (int)spawnNode.nextNodes[0].transform.position.x)
-                {
-                    if ((int)spawnNode.transform.position.z < (int)spawnNode.nextNodes[0].transform.position.z)
-                    {
-                        carRotation = 0;
-                    }
-                    else
-                    {
-                        carRotation = 180;
-                    }
-                }
-                else
-                {
-                    if ((int)spawnNode.transform.position.x < (int)spawnNode.nextNodes[0].transform.position.x)
-                    {
-                        carRotation = 90;
-                    }
-                    else
-                    {
-                        carRotation = 270;
-                    }
-                }
-            }
-            else
-            {
-                if ((int)spawnNode.transform.parent.localRotation.eulerAngles.y == 0)
-                {       //HORIZONTAL STREET
-                    if (spawnNode.trafficDirection == 0)
-                    {
-                        carRotation = 90;
-                    }
-                    else
-                    {
-                        carRotation = 270;
-                    }
-                }
-                else
-                {   //VERTICAL
-                    if (spawnNode.trafficDirection == 0)
-                    {
-                        carRotation = 180;
-                    }
-                    else
-                    {
-                        carRotation = 0;
-                    }
-                }
-            }
-
-            */
             Node destinationNode = dNode[i];
-
-            List<Vector3> keyAdd = new List<Vector3>();
-            
 
             int carIndex = UnityEngine.Random.Range(0, carPrefab.Count);
             GameObject carToSpawn = carPrefab[carIndex];
             CarComponents carData = carToSpawn.GetComponent<CarComponents>();
 
-            if (i < numberCarsToSpawn / 2)
+            if (i < numberCarsToSpawn / 10 * 7)
             {
                 int randomDstNodeIndex = UnityEngine.Random.Range(0, parkingWaypoints.Count);
 
@@ -167,12 +110,13 @@ public class CarSpawner : MonoBehaviour
 
                 carData.parkingNode = possiblePaking.freeParkingSpots[randomParkingSpot];
                 carData.destinationNode = parkingWaypoints[randomDstNodeIndex];
+
                 carData.startingNode = parkingWaypoints[randomDstNodeIndex];
                 carData.isParking = true;
                 carData.currentNode = 0;
 
                 spawnNode = parkingWaypoints[randomDstNodeIndex];
-                spawnNode.transform.rotation = Quaternion.Euler(0,spawnNode.parkingRotation,0);
+                spawnNode.transform.rotation = Quaternion.Euler(0, ReturnRotationCar(parkingWaypoints[randomDstNodeIndex]), 0);
             }
             else
             {
@@ -187,7 +131,7 @@ public class CarSpawner : MonoBehaviour
 
             //carData.parkingNode = pNode[i];
 
-            
+            Debug.Log(spawnNode.transform.rotation);
 
             carData.pathNodeList.Clear();
 
@@ -208,6 +152,63 @@ public class CarSpawner : MonoBehaviour
 
         //Debug.Log("FINISH CAR SPAWNING!!!");
 
+    }
+
+    private int ReturnRotationCar(Node spawnNode)
+    {
+        int carRotation;
+
+        if (spawnNode.gameObject.GetComponentInParent<Street>().numberLanes == 1)
+        {
+            if ((int)spawnNode.transform.position.x == (int)spawnNode.nextNodes[0].transform.position.x)
+            {
+                if ((int)spawnNode.transform.position.z < (int)spawnNode.nextNodes[0].transform.position.z)
+                {
+                    carRotation = 0;
+                }
+                else
+                {
+                    carRotation = 180;
+                }
+            }
+            else
+            {
+                if ((int)spawnNode.transform.position.x < (int)spawnNode.nextNodes[0].transform.position.x)
+                {
+                    carRotation = 90;
+                }
+                else
+                {
+                    carRotation = 270;
+                }
+            }
+        }
+        else
+        {
+            if ((int)spawnNode.transform.parent.localRotation.eulerAngles.y == 0)
+            {       //HORIZONTAL STREET
+                if (spawnNode.trafficDirection == 0)
+                {
+                    carRotation = 90;
+                }
+                else
+                {
+                    carRotation = 270;
+                }
+            }
+            else
+            {   //VERTICAL
+                if (spawnNode.trafficDirection == 0)
+                {
+                    carRotation = 180;
+                }
+                else
+                {
+                    carRotation = 0;
+                }
+            }
+        }
+        return carRotation;
     }
 
 }

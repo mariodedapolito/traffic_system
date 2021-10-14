@@ -29,13 +29,13 @@ public class JsonData
     public int minDistanceBetweenHorizontalStreets;
     public int maxDistanceBetweenHorizontalStreets;
     public int numberCarsToSpawn;
-    public int numberBusesToSpawn;
     public bool onlySimpleIntersections;
     public bool onlySemaphoreIntersections;
     public bool only1LaneStreets;
     public bool only2LaneStreets;
 
-    //public float profondity;
+    public int numberCarsToSpawnOnFrame;
+    public float profondity;
 
     public int distanceBetweenVerticalStreets = 5;   //2 prefabs for bus stops + 1 prefab (optional) for lane adapter + 2 reserved prefabs
     public int distanceBetweenHorizontalStreets = 5;
@@ -43,6 +43,9 @@ public class JsonData
 
 public class CityGenerator : MonoBehaviour
 {
+
+    public bool useAStarInMainThread;
+    public bool useAStarInMultiThread;
 
     public int numberHorizontalStreets;
     public int minNumberVerticalStreets;
@@ -56,7 +59,10 @@ public class CityGenerator : MonoBehaviour
     public bool only1LaneStreets;
     public bool only2LaneStreets;
 
+    public int numberCarsToSpawnOnFrame;
     public float profondity;
+
+    public bool useDataFromJSON;
 
     public TextAsset jsonFile;
 
@@ -171,14 +177,11 @@ public class CityGenerator : MonoBehaviour
 
     private CarSpawner carSpawner;
     public List<Node> cityParkingNodes = new List<Node>();
-    public NativeList<float3> cityParkingNodesPositions;
-    public Dictionary<int, NativeList<float3>> cityParkings;
+    public List<Node> cityCarParkingNodes = new List<Node>();
     public List<Node> citySpawnNodes = new List<Node>();
     public List<Node> cityBusStopsSpawn = new List<Node>();
     public List<Node> cityBusStopsDst = new List<Node>();
     public List<Node> cityNodes = new List<Node>();
-
-    public Dictionary<Vector3, Node> nodesMap;
 
     private BusSpawner busSpawner;
 
@@ -197,33 +200,26 @@ public class CityGenerator : MonoBehaviour
         maxNumberVerticalStreets = jsonData.maxNumberVerticalStreets;
         minDistanceBetweenHorizontalStreets = jsonData.minDistanceBetweenHorizontalStreets;
         maxDistanceBetweenHorizontalStreets = jsonData.maxDistanceBetweenHorizontalStreets;
-        numberBusesToSpawn = jsonData.numberBusesToSpawn;
         numberCarsToSpawn = jsonData.numberCarsToSpawn;
         onlySimpleIntersections = jsonData.onlySimpleIntersections;
         onlySemaphoreIntersections = jsonData.onlySemaphoreIntersections;
         only1LaneStreets = jsonData.only1LaneStreets;
         only2LaneStreets = jsonData.only2LaneStreets;
-
-        //profondity = jsonData.profondity;
+        numberCarsToSpawnOnFrame = jsonData.numberCarsToSpawnOnFrame;
+        profondity = jsonData.profondity;
         //distanceBetweenVerticalStreets = jsonData.distanceBetweenVerticalStreets;
         //distanceBetweenHorizontalStreets = jsonData.distanceBetweenHorizontalStreets;
 
     }
 
-    private void OnDestroy()
-    {
-        //cityParkings.Dispose();
-        cityParkingNodesPositions.Dispose();
-    }
-
     // Start is called before the first frame update
     void Start()
     {
+        if(useDataFromJSON)
+            GatValueFromJson();
 
-        //GatValueFromJson();
-
-        cityParkingNodesPositions = new NativeList<float3>(100000, Allocator.Persistent);
-        cityParkings = new Dictionary<int, NativeList<float3>>();
+        if ((useAStarInMainThread && useAStarInMultiThread) || (!useAStarInMainThread && !useAStarInMultiThread))
+            Debug.LogError("Error PathFinding: You must choose only one.");
 
         //City map dimensions
         cityWidth = distanceBetweenVerticalStreets * (maxNumberVerticalStreets + 2) + 1;        //X axis city dimension
@@ -538,8 +534,6 @@ public class CityGenerator : MonoBehaviour
 
         instantiateTerrain(cityWidth, cityLength);
 
-        nodesMap = new Dictionary<Vector3, Node>();
-
         for (int i = 0; i < cityLength; i++)
         {
             for (int j = 0; j < cityWidth; j++)
@@ -557,7 +551,7 @@ public class CityGenerator : MonoBehaviour
 
         //Spawn cars
         carSpawner = new CarSpawner(carPrefab, this, numberCarsToSpawn);
-        
+
 
         //Spawn buses
         busSpawner = new BusSpawner(busPrefab, this);
@@ -1320,16 +1314,12 @@ public class CityGenerator : MonoBehaviour
             //fill nodes (waypoint) list
             foreach (var node in currentStreet.carWaypoints)
             {
-                    cityNodes.Add(node);
-                if(!nodesMap.TryGetValue(node.transform.position, out _))
-                    nodesMap.Add(node.transform.position, node);
-                
+                cityNodes.Add(node);
+
                 if (node.isParkingGateway)
                 {
                     cityParkingNodes.Add(node);
-                    //cityParkingNodesPositions.Add((float3)node.transform.position);
-                    
-
+                    cityCarParkingNodes.AddRange(node.GetComponent<Parking>().freeParkingSpots);
                 }
                 else if (node.isBusStop)
                 {
@@ -1343,7 +1333,7 @@ public class CityGenerator : MonoBehaviour
                 }
             }
 
-           
+            citySpawnNodes.AddRange(currentStreet.spawnWaypoints);
 
 
         }

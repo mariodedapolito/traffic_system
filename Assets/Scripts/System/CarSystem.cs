@@ -46,21 +46,19 @@ class CarSystem : SystemBase
 
         float time = Time.DeltaTime;
         float timeScale = GameObject.Find("TimeScale").GetComponent<TimeScale>().timeScale;
-              
+
 
         Entities
             .WithoutBurst()
             .ForEach((Entity entity, DynamicBuffer<NodesList> NodesList, ref PathFinding pathFinding, ref VehicleNavigation navigation, ref Translation translation, ref Rotation rotation, ref VehicleSpeed speed, in LocalToWorld ltw) =>
             {
-                
+
                 if (navigation.isBus)
                 {
                     return;
                 }
 
-                if (NodesList.Length == 1 || navigation.currentNode == -1) navigation.currentNode = 0;
-
-                if (NodesList.Length == 0) return;
+                if (NodesList.Length == 0 || pathFinding.spawnParking) return;
 
                 /* Parking System */
                 if (navigation.isParked && elapsedTime < navigation.timeExitParking)
@@ -78,11 +76,16 @@ class CarSystem : SystemBase
                     }
                     else
                     {
+                        Debug.Log("Parking exit");
+                        NeedPath needPath = new NeedPath() { };
+                        ecb.AddComponent(entity.Index, entity, needPath);
+                        pathFinding.spawnParking = true;
                         translation.Value = pathFinding.startingNodePosition;
                         navigation.needParking = false;
                         navigation.isParked = false;
                         navigation.timeExitParking = int.MaxValue;
                         navigation.currentNode = 1;
+                        return;
                     }
                 }
 
@@ -96,12 +99,9 @@ class CarSystem : SystemBase
 
                     translation.Value = pathFinding.parkingNodePosition;
 
-                    var rnd = new Unity.Mathematics.Random((uint)entity.Index);
+                    var rnd = new Unity.Mathematics.Random((uint)entity.Index*100000);
 
                     pathFinding.startingNodePosition = pathFinding.destinationNodePosition;
-
-                    NeedPath needPath = new NeedPath(){};
-                    ecb.AddComponent(entity.Index, entity, needPath);
 
                     navigation.timeExitParking = elapsedTime + rnd.NextInt(15, 200);
                     return;
@@ -350,10 +350,12 @@ class CarSystem : SystemBase
                         rotation.Value = Quaternion.Euler(neededRotation);
                     }
 
+                    
                     if (math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) < 0.5f * timeScale && !navigation.needParking && navigation.currentNode < NodesList.Length - 1)
                     {
                         navigation.currentNode++;
                     }
+                    
                 }
 
             }).ScheduleParallel();

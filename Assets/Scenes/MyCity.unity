@@ -286,18 +286,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe8dd4106f61824a8bcfcb47a8702a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberHorizontalStreets: 5
-  minNumberVerticalStreets: 5
-  maxNumberVerticalStreets: 5
+  useAStarInMainThread: 1
+  useAStarInMultiThread: 0
+  numberHorizontalStreets: 2
+  minNumberVerticalStreets: 1
+  maxNumberVerticalStreets: 1
   minDistanceBetweenHorizontalStreets: 2
   maxDistanceBetweenHorizontalStreets: 2
-  numberCarsToSpawn: 10000
-  numberBusesToSpawn: 100
+  numberCarsToSpawn: 1000
+  numberBusesToSpawn: 0
   onlySimpleIntersections: 0
-  onlySemaphoreIntersections: 0
+  onlySemaphoreIntersections: 1
   only1LaneStreets: 0
   only2LaneStreets: 0
+  numberCarsToSpawnOnFrame: 1000
   profondity: 150
+  useDataFromJSON: 0
   jsonFile: {fileID: 4900000, guid: fbd566dea16e64b489a954b0f8c33b19, type: 3}
   cityPlane: {fileID: 8875702055242613236, guid: 8f2e3cf805e53a14ba65890f698c7ced,
     type: 3}
@@ -359,6 +363,7 @@ MonoBehaviour:
   cityWidth: 0
   cityLength: 0
   cityParkingNodes: []
+  cityCarParkingNodes: []
   citySpawnNodes: []
   cityBusStopsSpawn: []
   cityBusStopsDst: []
