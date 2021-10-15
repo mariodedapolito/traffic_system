@@ -40,7 +40,7 @@ public class CarSpawner : MonoBehaviour
         numCarsToSpownNow = numCarsToSpawn;
     }
 
-    public void generateTraffic(int numberCarsToSpawn, float profondity, NativeMultiHashMap<float3, float3> nodesCity, NativeArray<float3> waypoitnsCity)
+    public void generateTraffic(int numberCarsToSpawn, float profondity)
     {
         NativeList<float3> spawnNodeList = new NativeList<float3>(numCarsToSpawn, Allocator.Temp);
         NativeList<float3> destinationNodeList = new NativeList<float3>(numCarsToSpawn, Allocator.Temp);

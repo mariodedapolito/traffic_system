@@ -34,20 +34,20 @@ public class NewPathSystemMono : SystemBase
         NativeList<JobHandle> jobHandles = new NativeList<JobHandle>(Allocator.TempJob);
         float deltaTime = Time.DeltaTime;
 
-       
-
-        List<Node> nodes = city.cityNodes  /*GameObject.FindGameObjectsWithTag("CarWaypoint")*/;
+        List<Node> nodes = city.cityNodes;
         List<Node> parkingNodes = city.cityCarParkingNodes;
         List<Node> cityParkingNodes = city.cityParkingNodes;
         List<Node> carSpanGameObj = city.citySpawnNodes;
 
-        Dictionary<int, Node> nodesMap = new Dictionary<int, Node>();
-        Dictionary<int, Node> nodesMapParking = new Dictionary<int, Node>();
+        Dictionary<int, Node> nodesMap = city.nodesMap;//new Dictionary<int, Node>();
+        Dictionary<int, Node> nodesMapParking = city.nodesMapParking;// new Dictionary<int, Node>();
+
         NativeMultiHashMap<int, float3> nodesCity = new NativeMultiHashMap<int, float3>(nodes.Count + carSpanGameObj.Count, Allocator.Persistent);
         NativeArray<float3> waypoitnsCity = new NativeArray<float3>(nodes.Count + carSpanGameObj.Count, Allocator.Persistent);
+
         Dictionary<int, NativeList<float3>> sampleJobArray = new Dictionary<int, NativeList<float3>>();
 
-        NativeList<float3> cityParkingPosition = new NativeList<float3>(nodes.Count + carSpanGameObj.Count, Allocator.Persistent);
+        NativeList<float3> cityParkingPosition = new NativeList<float3>(cityParkingNodes.Count, Allocator.Persistent);
 
         for (int i = 0; i < carSpanGameObj.Count; i++)
         {
@@ -59,35 +59,19 @@ public class NewPathSystemMono : SystemBase
         {
             if (!nodes[i].GetComponent<Node>().isParkingSpot)
             {
-                if (!nodesMap.ContainsKey(GetPositionHashMapKey(nodes[i].transform.position)))
-                    nodesMap.Add(GetPositionHashMapKey(nodes[i].transform.position), nodes[i].GetComponent<Node>());
-
                 for (int j = 0; j < nodes[i].nextNodes.Count; j++)
                 {
                     nodesCity.Add(GetPositionHashMapKey(nodes[i].transform.position), nodes[i].GetComponent<Node>().nextNodes[j].transform.position);
                 }
                 waypoitnsCity[i + carSpanGameObj.Count] = nodes[i].GetComponent<Node>().transform.position;
             }
-            else
-            {
-                //if (!nodesMapParking.TryGetValue(nodes[i].GetComponent<Node>().transform.position, out _))
-                nodesMapParking.Add(GetPositionHashMapKey(nodes[i].transform.position), nodes[i].GetComponent<Node>());
-            }
 
         }
-
-        for (int i = 0; i < parkingNodes.Count; i++)
-        {
-            if (!nodesMapParking.ContainsKey(GetPositionHashMapKey(parkingNodes[i].transform.position)))
-                nodesMapParking.Add(GetPositionHashMapKey(parkingNodes[i].transform.position), parkingNodes[i].GetComponent<Node>());
-        }
-
-
         for (int i = 0; i < cityParkingNodes.Count; i++)
         {
             cityParkingPosition.Add(cityParkingNodes[i].transform.position);
         }
-
+        
         Entities
             .WithoutBurst()
             .WithStructuralChanges()
@@ -133,8 +117,6 @@ public class NewPathSystemMono : SystemBase
                 List<float3> pathNodeFinal = new List<float3>();
                 pathNodeFinal.Clear();
 
-
-
                 foreach (var n in sampleJobArray[e.Index])
                 {
                     if (!nodesMap.ContainsKey(GetPositionHashMapKey(n))) continue;
@@ -161,8 +143,6 @@ public class NewPathSystemMono : SystemBase
                 {
                     return;
                 }
-
-
 
                 for (int i = 0; i < pathNodeFinal.Count; i++)
                 {
@@ -384,7 +364,6 @@ public class NewPathSystemMono : SystemBase
 
                 for (int i = 0; i < nextNodes.Length; i++)
                 {
-                    //float2 neighbourOffset = neighbourOffsetArray[i];
                     float3 neigbourPosition = nextNodes[i]; //new float2(currentNode.x + neighbourOffset.x, currentNode.z + neighbourOffset.y);
 
                     if (!isPositionInsideGrid(neigbourPosition, pathNodeArray))

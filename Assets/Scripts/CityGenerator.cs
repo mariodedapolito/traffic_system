@@ -176,6 +176,7 @@ public class CityGenerator : MonoBehaviour
     private int intersectionId = 0;
 
     private CarSpawner carSpawner;
+    public Dictionary<int, Node> nodesMap = new Dictionary<int, Node>();
     public List<Node> cityParkingNodes = new List<Node>();
     public List<Node> cityCarParkingNodes = new List<Node>();
     public List<Node> citySpawnNodes = new List<Node>();
@@ -183,9 +184,11 @@ public class CityGenerator : MonoBehaviour
     public List<Node> cityBusStopsDst = new List<Node>();
     public List<Node> cityNodes = new List<Node>();
 
+    public Dictionary<int, Node> nodesMapParking = new Dictionary<int, Node>();
+
     private BusSpawner busSpawner;
 
-    private NativeMultiHashMap<float3, float3> nodesCity;
+    public NativeMultiHashMap<int, float3> nodesCity; 
     private NativeArray<float3> waypoitnsCity;
 
     void GatValueFromJson()
@@ -556,7 +559,7 @@ public class CityGenerator : MonoBehaviour
         //Spawn buses
         busSpawner = new BusSpawner(busPrefab, this);
 
-        carSpawner.generateTraffic(numberCarsToSpawn, profondity, nodesCity, waypoitnsCity);
+        carSpawner.generateTraffic(numberCarsToSpawn, profondity);
         busSpawner.generateBuses();
 
         //Used for the path 
@@ -1331,10 +1334,46 @@ public class CityGenerator : MonoBehaviour
                 }
             }
 
+            //nodesCity = new NativeMultiHashMap<int, float3>(cityNodes.Count + citySpawnNodes.Count, Allocator.Temp);
+
+            for (int i = 0; i < cityNodes.Count; i++)
+            {
+                if (!cityNodes[i].GetComponent<Node>().isParkingSpot)
+                {
+                    if (!nodesMap.ContainsKey(GetPositionHashMapKey(cityNodes[i].transform.position)))
+                        nodesMap.Add(GetPositionHashMapKey(cityNodes[i].transform.position), cityNodes[i].GetComponent<Node>());
+                    /*
+                    for (int j = 0; j < cityNodes[i].nextNodes.Count; j++)
+                    {
+                        nodesCity.Add(GetPositionHashMapKey(cityNodes[i].transform.position), cityNodes[i].GetComponent<Node>().nextNodes[j].transform.position);
+                    }*/
+                    //waypoitnsCity[i + carSpanGameObj.Count] = cityNodes[i].GetComponent<Node>().transform.position;
+                }
+                else
+                {
+                    //if (!nodesMapParking.TryGetValue(nodes[i].GetComponent<Node>().transform.position, out _))
+                    nodesMapParking.Add(GetPositionHashMapKey(cityNodes[i].transform.position), cityNodes[i].GetComponent<Node>());
+                }
+
+            }
+
+            for (int i = 0; i < cityCarParkingNodes.Count; i++)
+            {
+                if (!nodesMapParking.ContainsKey(GetPositionHashMapKey(cityCarParkingNodes[i].transform.position)))
+                    nodesMapParking.Add(GetPositionHashMapKey(cityCarParkingNodes[i].transform.position), cityCarParkingNodes[i].GetComponent<Node>());
+            }
+
             citySpawnNodes.AddRange(currentStreet.spawnWaypoints);
 
 
         }
+    }
+
+    public static int GetPositionHashMapKey(float3 position)
+    {
+        int xPosition = (int)position.x;
+        int zPosition = (int)position.z;
+        return xPosition * 100000 + zPosition;
     }
 
     public int GetParkingPositionHashMapKey(float3 position)

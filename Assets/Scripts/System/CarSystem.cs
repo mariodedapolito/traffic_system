@@ -340,7 +340,7 @@ class CarSystem : SystemBase
 
                         if (direction.Equals(0f))
                         {
-                            Debug.Log("parked");
+                            //Debug.Log("parked");
                             navigation.isParked = true;
                             translation.Value = navigation.parkingNode;
                             return;

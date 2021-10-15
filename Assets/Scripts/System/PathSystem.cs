@@ -34,11 +34,11 @@ public class PathSystem : SystemBase
 
         waypoints = city.cityNodes;
 
-        Dictionary<int, Node> nodesMapParking = new Dictionary<int, Node>();
-        List<Node> nodes = city.cityNodes;
-        List<Node> parkingNodes = city.cityCarParkingNodes;
+        Dictionary<int, Node> nodesMapParking = city.nodesMapParking;//new Dictionary<int, Node>();
+        //List<Node> nodes = city.cityNodes;
+        //List<Node> parkingNodes = city.cityCarParkingNodes;
         List<Node> cityParkingNodes = city.cityParkingNodes;
-
+        /*
         for (int i = 0; i < nodes.Count; i++)
         {
             if (nodes[i].GetComponent<Node>().isParkingSpot)
@@ -54,7 +54,7 @@ public class PathSystem : SystemBase
             if (!nodesMapParking.ContainsKey(GetPositionHashMapKey(parkingNodes[i].transform.position)))
                 nodesMapParking.Add(GetPositionHashMapKey(parkingNodes[i].transform.position), parkingNodes[i].GetComponent<Node>());
         }
-
+        */
         Entities
             .WithStructuralChanges()
             .ForEach((Entity e, ref PathFinding pathFinding, in NeedPath needPath) =>
