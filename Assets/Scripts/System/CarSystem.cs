@@ -301,9 +301,9 @@ class CarSystem : SystemBase
                         }
                         translation.Value += ltw.Forward * time * speed.currentSpeed;
                         float3 direction = NodesList[navigation.currentNode].nodePosition - translation.Value;
-                        if (direction.Equals(0f))
+                        if (direction.Equals(new float3 (0f, 0f, 0f)))
                         {
-                            Debug.Log("parked");
+                            //Debug.Log("parked");
                             navigation.isParked = true;
                             translation.Value = navigation.parkingNode;
                             return;

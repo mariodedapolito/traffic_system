@@ -43,6 +43,7 @@ public class NewPathSystemMono : SystemBase
         Dictionary<int, Node> nodesMapParking = city.nodesMapParking;// new Dictionary<int, Node>();
 
         NativeMultiHashMap<int, float3> nodesCity = new NativeMultiHashMap<int, float3>(nodes.Count + carSpanGameObj.Count, Allocator.Persistent);
+        NativeMultiHashMap<float3, float3> nodesCityFloat3 = new NativeMultiHashMap<float3, float3>(nodes.Count + carSpanGameObj.Count, Allocator.Persistent);
         NativeArray<float3> waypoitnsCity = new NativeArray<float3>(nodes.Count + carSpanGameObj.Count, Allocator.Persistent);
 
         Dictionary<int, NativeList<float3>> sampleJobArray = new Dictionary<int, NativeList<float3>>();
@@ -52,6 +53,7 @@ public class NewPathSystemMono : SystemBase
         for (int i = 0; i < carSpanGameObj.Count; i++)
         {
             nodesCity.Add(GetPositionHashMapKey(carSpanGameObj[i].transform.position), carSpanGameObj[i].GetComponent<Node>().nextNodes[0].transform.position);
+            nodesCityFloat3.Add(carSpanGameObj[i].transform.position, carSpanGameObj[i].GetComponent<Node>().nextNodes[0].transform.position);
             waypoitnsCity[i] = carSpanGameObj[i].transform.position;
         }
 
@@ -62,6 +64,7 @@ public class NewPathSystemMono : SystemBase
                 for (int j = 0; j < nodes[i].nextNodes.Count; j++)
                 {
                     nodesCity.Add(GetPositionHashMapKey(nodes[i].transform.position), nodes[i].GetComponent<Node>().nextNodes[j].transform.position);
+                    nodesCityFloat3.Add(nodes[i].transform.position, nodes[i].GetComponent<Node>().nextNodes[j].transform.position);
                 }
                 waypoitnsCity[i + carSpanGameObj.Count] = nodes[i].GetComponent<Node>().transform.position;
             }
@@ -71,7 +74,8 @@ public class NewPathSystemMono : SystemBase
         {
             cityParkingPosition.Add(cityParkingNodes[i].transform.position);
         }
-        
+
+
         Entities
             .WithoutBurst()
             .WithStructuralChanges()
@@ -90,7 +94,7 @@ public class NewPathSystemMono : SystemBase
                 }
 
                 pathFinding.destinationNodePosition = destinationNode;
-                
+                /*
                 NewPathSystemJob sampleJob = new NewPathSystemJob
                 {
                     startPosition = pathFinding.startingNodePosition,
@@ -101,7 +105,21 @@ public class NewPathSystemMono : SystemBase
                 };
 
                 sampleJobArray.Add(e.Index, sampleJob.result);
-                jobHandles.Add(sampleJob.Schedule());
+                jobHandles.Add(sampleJob.Schedule());*/
+
+                ComplexPathSystemJob complexJob = new ComplexPathSystemJob
+                {
+                    startPosition = pathFinding.startingNodePosition,
+                    endPosition = pathFinding.destinationNodePosition,
+                    nextNodes = nodesCityFloat3,
+                    numberParentNode = nodes.Count + carSpanGameObj.Count,
+                    numberWaypoint = nodes.Count + carSpanGameObj.Count,
+                    result = result
+                };
+
+                sampleJobArray.Add(e.Index, complexJob.result);
+                jobHandles.Add(complexJob.Schedule());
+
 
             }).Run();
 
@@ -113,6 +131,8 @@ public class NewPathSystemMono : SystemBase
             .WithStructuralChanges()
             .ForEach((Entity e, ref PathFinding pathFinding, in NeedPath needPath) =>
             {
+
+                if (!sampleJobArray.ContainsKey(e.Index)) return;
 
                 List<float3> pathNodeFinal = new List<float3>();
                 pathNodeFinal.Clear();
@@ -182,17 +202,19 @@ public class NewPathSystemMono : SystemBase
 
             }).Run();
 
+        nodesCityFloat3.Dispose();
         cityParkingPosition.Dispose();
         waypoitnsCity.Dispose();
         nodesCity.Dispose();
     }
+
 
     [BurstCompile]
     public struct ComplexPathSystemJob : IJob
     {
         public float3 startPosition;
         public float3 endPosition;
-        public NativeMultiHashMap<int, float3> nextNodes;
+        public NativeMultiHashMap<float3, float3> nextNodes;
         public int numberParentNode;
         public int numberWaypoint;
         public NativeList<float3> result;
@@ -206,23 +228,23 @@ public class NewPathSystemMono : SystemBase
             float3 start = startPosition;
             float3 end = endPosition;
 
-            NativeList<int> positionsTocheck = new NativeList<int>(numberWaypoint, Allocator.Temp);
-            NativeHashMap<int3, float> costDictionary = new NativeHashMap<int3, float>(numberWaypoint, Allocator.Temp);
-            NativeHashMap<int, float> priorityDictionary = new NativeHashMap<int, float>(numberWaypoint*1000000, Allocator.Temp);
-            NativeHashMap<int, float3> parentsDictionary = new NativeHashMap<int, float3>(numberParentNode, Allocator.Temp);
+            NativeList<float3> positionsTocheck = new NativeList<float3>(numberWaypoint, Allocator.Temp);
+            NativeHashMap<float3, float> costDictionary = new NativeHashMap<float3, float>(numberWaypoint, Allocator.Temp);
+            NativeHashMap<float3, float> priorityDictionary = new NativeHashMap<float3, float>(numberWaypoint, Allocator.Temp);
+            NativeHashMap<float3, float3> parentsDictionary = new NativeHashMap<float3, float3>(numberParentNode, Allocator.Temp);
 
-            positionsTocheck.Add(GetPositionHashMapKey(start));
-            priorityDictionary.Add(GetPositionHashMapKey(start), 0f);
-            costDictionary.Add(GetPositionHashMapKey(start), 0f);
-            parentsDictionary.Add(GetPositionHashMapKey(start), 0f);
+            positionsTocheck.Add(start);
+            priorityDictionary.Add(start, 0f);
+            costDictionary.Add(start, 0f);
+            parentsDictionary.Add(start, 0f);
 
             while (positionsTocheck.Length > 0)
             {
-                int current = GetClosestNode(positionsTocheck, priorityDictionary);
+                float3 current = GetClosestNode(positionsTocheck, priorityDictionary);
                 positionsTocheck.RemoveAt(positionsTocheck.IndexOf(current));
-                if (current.Equals(GetPositionHashMapKey(end)))
+                if (current.Equals(end))
                 {
-                    NativeList<float3> path = GeneratePath(parentsDictionary, end);
+                    NativeList<float3> path = GeneratePath(parentsDictionary, current);
                     for (int i = 0; i < path.Length; i++)
                         result.Add(path[i]);
 
@@ -230,43 +252,45 @@ public class NewPathSystemMono : SystemBase
 
                 foreach (float3 neighbour in nextNodes.GetValuesForKey(current))
                 {
-                    float newCost = costDictionary[GetPositionHashMapKey(current)] + 1;
-                    if (!costDictionary.ContainsKey(GetPositionHashMapKey(neighbour)) || newCost < costDictionary[GetPositionHashMapKey(neighbour)])
+                    float newCost = costDictionary[current] + 1;
+                    if (!costDictionary.ContainsKey(neighbour) || newCost < costDictionary[neighbour])
                     {
-                        costDictionary[GetPositionHashMapKey(neighbour)] = newCost;
+                        costDictionary[neighbour] = newCost;
 
                         float priority = newCost + ManhattanDiscance(end, neighbour);
-                        positionsTocheck.Add(GetPositionHashMapKey(neighbour));
-                        priorityDictionary[GetPositionHashMapKey(neighbour)] = priority;
+                        positionsTocheck.Add(neighbour);
+                        priorityDictionary[neighbour] = priority;
 
-                        parentsDictionary[GetPositionHashMapKey(neighbour)] = current;
+                        parentsDictionary[neighbour] = current;
                     }
                 }
             }
+
+            //path.Dispose();
             positionsTocheck.Dispose();
             costDictionary.Dispose();
             priorityDictionary.Dispose();
             parentsDictionary.Dispose();
 
         }
-        public static NativeList<float3> GeneratePath(NativeHashMap<int, float3> parentMap, float3 endState) //need reverse
+        public static NativeList<float3> GeneratePath(NativeHashMap<float3, float3> parentMap, float3 endState) //need reverse
         {
             NativeList<float3> path = new NativeList<float3>(parentMap.Capacity, Allocator.Temp);
             float3 parent = endState;
-            while (!parent.Equals(0f) && parentMap.ContainsKey(GetPositionHashMapKey(parent)))
+            while (!parent.Equals(0f) && parentMap.ContainsKey(parent))
             {
                 path.Add(parent);
-                parent = parentMap[GetPositionHashMapKey(parent)];
+                parent = parentMap[parent];
             }
             return path;
         }
 
-        private static int GetClosestNode(NativeList<int> list, NativeHashMap<int, float> distanceMap)
+        private static float3 GetClosestNode(NativeList<float3> list, NativeHashMap<float3, float> distanceMap)
         {
-            int candidate = list[0];
-            foreach (int vertex in list)
+            float3 candidate = list[0];
+            foreach (float3 vertex in list)
             {
-                if (distanceMap[GetPositionHashMapKey(vertex)] < distanceMap[GetPositionHashMapKey(candidate)])
+                if (distanceMap[vertex] < distanceMap[candidate])
                 {
                     candidate = vertex;
                 }

@@ -1335,7 +1335,7 @@ public class CityGenerator : MonoBehaviour
             }
 
             //nodesCity = new NativeMultiHashMap<int, float3>(cityNodes.Count + citySpawnNodes.Count, Allocator.Temp);
-
+            //Debug.Log("Number node:" + cityNodes.Count);
             for (int i = 0; i < cityNodes.Count; i++)
             {
                 if (!cityNodes[i].GetComponent<Node>().isParkingSpot)

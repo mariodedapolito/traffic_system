@@ -286,6 +286,11 @@ class BusSystem : SystemBase
                     translation.Value += nextNodeDirection * time * speed.currentSpeed;
 
                     float3 direction = NodesList[navigation.currentNode].nodePosition - translation.Value;
+                    if (direction.Equals( new float3(0f, 0f, 0f)))
+                    {
+                        direction = NodesList[navigation.currentNode].nodePosition;
+                    }
+
                     float3 neededRotation = Quaternion.LookRotation(direction).eulerAngles;
 
                     rotation.Value = Quaternion.Euler(neededRotation);
