@@ -58,6 +58,8 @@ public class CarSpawner : MonoBehaviour
             return;
         }
 
+        float timeExitParking = UnityEngine.Random.Range(10f, 250f);
+
         for (int i = 0; i < numCarsToSpownNow; i++)
         {
             int randomSrcNode = UnityEngine.Random.Range(0, spawnWaypoints.Count);
@@ -114,8 +116,9 @@ public class CarSpawner : MonoBehaviour
                 carData.startingNode = parkingWaypoints[randomDstNodeIndex];
                 carData.isParking = true;
                 carData.currentNode = 0;
+                carData.timeExitParking = 15 + i * 2;
 
-                spawnNode = parkingWaypoints[randomDstNodeIndex];
+                spawnNode = possiblePaking.freeParkingSpots[randomParkingSpot];
                 spawnNode.transform.rotation = Quaternion.Euler(0, ReturnRotationCar(parkingWaypoints[randomDstNodeIndex]), 0);
             }
             else

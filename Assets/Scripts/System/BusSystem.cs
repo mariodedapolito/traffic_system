@@ -13,6 +13,9 @@ using Unity.Collections;
 class BusSystem : SystemBase
 {
 
+    [ReadOnly]
+    private static NativeHashMap<int, char> carsPosition;
+
     private const int LANE_CHANGE = 1;
     private const int BUS_STOP = 2;
     private const int BUS_MERGE = 3;
@@ -24,7 +27,11 @@ class BusSystem : SystemBase
     {
         int elapsedTime = (int)UnityEngine.Time.time;
 
+        float timeScale = GameObject.Find("TimeScale").GetComponent<TimeScale>().timeScale;
+
         float time = Time.DeltaTime;
+
+        carsPosition = CarsPositionSystem.carsPositionMap;
 
         Entities
             .WithoutBurst()
@@ -66,7 +73,7 @@ class BusSystem : SystemBase
                 //moving vehicle collision avoidance
                 else if (!navigation.intersectionStop && !navigation.busStop)
                 {
-                    NativeHashMap<int, char> carsPosition = CarsPositionSystem.carsPositionMap;
+                    
                     float3 startPosition;
                     int positionKey;
                     bool trafficStoped = false;
@@ -296,7 +303,7 @@ class BusSystem : SystemBase
                     rotation.Value = Quaternion.Euler(neededRotation);
                 }
 
-                if (math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) < 0.5f) 
+                if (math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) < 0.5f / timeScale) 
                 {
                     navigation.currentNode++;
                     //make bus move on an infinite loop

@@ -12,6 +12,8 @@ using Unity.Collections;
 [UpdateAfter(typeof(CarsPositionSystem))]
 class CarSystem : SystemBase
 {
+    [ReadOnly]
+    private static NativeHashMap<int, char> carsPosition;
 
     private const int LANE_CHANGE = 1;
     private const int BUS_STOP = 2;
@@ -20,14 +22,9 @@ class CarSystem : SystemBase
     private const int MERGE_LEFT = 5;
     private const int MERGE_RIGHT = 6;
 
-    private EndSimulationEntityCommandBufferSystem m_EndSimulationEcbSystem;
-
-
     protected override void OnCreate()
     {
         base.OnCreate();
-        // Find the ECB system once and store it for later usage
-        m_EndSimulationEcbSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
     }
 
     public int GetParkingPositionHashMapKey(float3 position)
@@ -40,76 +37,36 @@ class CarSystem : SystemBase
 
     protected override void OnUpdate()
     {
-        var ecb = m_EndSimulationEcbSystem.CreateCommandBuffer().ToConcurrent();
-
         int elapsedTime = (int)UnityEngine.Time.time;
 
         float time = Time.DeltaTime;
         float timeScale = GameObject.Find("TimeScale").GetComponent<TimeScale>().timeScale;
-
+        
+        carsPosition = CarsPositionSystem.carsPositionMap;
 
         Entities
             .WithoutBurst()
-            .ForEach((Entity entity, DynamicBuffer<NodesList> NodesList, ref PathFinding pathFinding, ref VehicleNavigation navigation, ref Translation translation, ref Rotation rotation, ref VehicleSpeed speed, in LocalToWorld ltw) =>
+            .ForEach((DynamicBuffer<NodesList> NodesList, ref PathFinding pathFinding, ref VehicleNavigation navigation, ref Translation translation, ref Rotation rotation, ref VehicleSpeed speed, in LocalToWorld ltw) =>
             {
-
-                if (navigation.isBus)
+                if (navigation.isBus || NodesList.Length==0 || navigation.needParking == true || (navigation.isParked && elapsedTime < navigation.timeExitParking))
                 {
                     return;
                 }
 
-                if (NodesList.Length == 0 || pathFinding.spawnParking) return;
-
-                /* Parking System */
-                if (navigation.isParked && elapsedTime < navigation.timeExitParking)
+                if (navigation.currentNode == NodesList.Length - 1 && (math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) < 0.3f || math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) > 100f) )
                 {
-                    return;
-                }
-                else if (navigation.isParked && elapsedTime >= navigation.timeExitParking)
-                {
-                    int keyPos1 = CarsPositionSystem.GetPositionHashMapKey(navigation.destinationNodePosition);
-                    int keyPos2 = CarsPositionSystem.GetPositionHashMapKey(navigation.destinationNodePosition + ltw.Forward);
-                    int keyPos3 = CarsPositionSystem.GetPositionHashMapKey(navigation.destinationNodePosition + (-1) * ltw.Forward);
-                    if (CarsPositionSystem.carsPositionMap.ContainsKey(keyPos1) || CarsPositionSystem.carsPositionMap.ContainsKey(keyPos2) || CarsPositionSystem.carsPositionMap.ContainsKey(keyPos3))
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        //Debug.Log("Parking exit");
-                        NeedPath needPath = new NeedPath() { };
-                        ecb.AddComponent(entity.Index, entity, needPath);
-                        pathFinding.spawnParking = true;
-                        translation.Value = pathFinding.startingNodePosition;
-                        navigation.needParking = false;
-                        navigation.isParked = false;
-                        navigation.timeExitParking = int.MaxValue;
-                        navigation.currentNode = 1;
-                        return;
-                    }
-                }
+                    NodesList.Clear();
 
-                if (navigation.needParking)
-                {
-                    //Debug.Log("Parked");
-                    int hashMapKey = CarsPositionSystem.GetPositionHashMapKey(navigation.startingNodePosition);
+                    navigation.needParking = true;
 
-                    navigation.isParked = true;
-                    navigation.needParking = false;
+                    navigation.isParked = false;
 
                     translation.Value = pathFinding.parkingNodePosition;
 
-                    var rnd = new Unity.Mathematics.Random((uint)entity.Index*100000);
-
                     pathFinding.startingNodePosition = pathFinding.destinationNodePosition;
 
-                    navigation.timeExitParking = elapsedTime + rnd.NextInt(15, 200);
-                    return;
-                }
+                    navigation.timeExitParking = elapsedTime + 500;
 
-                if (navigation.currentNode == NodesList.Length - 1 && math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) < 0.3f)
-                {
-                    navigation.needParking = true;
                     return;
                 }
 
@@ -136,7 +93,6 @@ class CarSystem : SystemBase
 
                 if (!navigation.intersectionStop)
                 {
-                    NativeHashMap<int, char> carsPosition = CarsPositionSystem.carsPositionMap;
                     float3 startPosition;
                     int positionKey;
                     bool trafficStoped = false;
@@ -301,7 +257,7 @@ class CarSystem : SystemBase
                         }
                         translation.Value += ltw.Forward * time * speed.currentSpeed;
                         float3 direction = NodesList[navigation.currentNode].nodePosition - translation.Value;
-                        if (direction.Equals(new float3 (0f, 0f, 0f)))
+                        if (direction.Equals(new float3(0f, 0f, 0f)))
                         {
                             //Debug.Log("parked");
                             navigation.isParked = true;
@@ -350,18 +306,17 @@ class CarSystem : SystemBase
                         rotation.Value = Quaternion.Euler(neededRotation);
                     }
 
-                    
-                    if (math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) < 0.5f * timeScale && !navigation.needParking && navigation.currentNode < NodesList.Length - 1)
+
+                    if (math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) < 0.5f / timeScale && !navigation.needParking && navigation.currentNode < NodesList.Length - 1)
                     {
                         navigation.currentNode++;
                     }
-                    
+
                 }
 
             }).ScheduleParallel();
 
         //parkingNodes.Dispose();
         //cityParkings.Dispose();
-        m_EndSimulationEcbSystem.AddJobHandleForProducer(this.Dependency);
     }
 }

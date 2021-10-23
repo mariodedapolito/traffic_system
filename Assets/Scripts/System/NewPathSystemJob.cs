@@ -8,7 +8,7 @@ using Unity.Burst;
 using Unity.Entities;
 
 
-public class NewPathSystemMono : SystemBase
+public class NewPathSystem : SystemBase
 {
     // private NativeList<JobHandle> jobHandles;
 
@@ -27,7 +27,7 @@ public class NewPathSystemMono : SystemBase
     }
 
     protected override void OnUpdate()
-    { 
+    {
         CityGenerator city = GameObject.FindGameObjectWithTag("CityGenerator").GetComponent<CityGenerator>();
 
         if (!city.useAStarInMultiThread) return;
@@ -52,6 +52,10 @@ public class NewPathSystemMono : SystemBase
 
         for (int i = 0; i < carSpanGameObj.Count; i++)
         {
+            if (carSpanGameObj[i].Equals(null))
+            {
+                carSpanGameObj.RemoveAt(i); continue;
+            }
             nodesCity.Add(GetPositionHashMapKey(carSpanGameObj[i].transform.position), carSpanGameObj[i].GetComponent<Node>().nextNodes[0].transform.position);
             nodesCityFloat3.Add(carSpanGameObj[i].transform.position, carSpanGameObj[i].GetComponent<Node>().nextNodes[0].transform.position);
             waypoitnsCity[i] = carSpanGameObj[i].transform.position;
@@ -59,10 +63,12 @@ public class NewPathSystemMono : SystemBase
 
         for (int i = 0; i < nodes.Count; i++)
         {
+            if (nodes[i].Equals(null)) { nodes.RemoveAt(i); continue; }
             if (!nodes[i].GetComponent<Node>().isParkingSpot)
             {
                 for (int j = 0; j < nodes[i].nextNodes.Count; j++)
                 {
+                    if (nodes[i].nextNodes[j].Equals(null)) { nodes[i].nextNodes.RemoveAt(j); continue; }
                     nodesCity.Add(GetPositionHashMapKey(nodes[i].transform.position), nodes[i].GetComponent<Node>().nextNodes[j].transform.position);
                     nodesCityFloat3.Add(nodes[i].transform.position, nodes[i].GetComponent<Node>().nextNodes[j].transform.position);
                 }
@@ -154,10 +160,10 @@ public class NewPathSystemMono : SystemBase
 
                 Parking possibleParking = nodesMap[GetPositionHashMapKey(pathNodeFinal[pathNodeFinal.Count - 1])].GetComponent<Parking>();
 
-                if (possibleParking == null || possibleParking.numberFreeSpots.Equals(null))
+                /*if (possibleParking == null || possibleParking.numberFreeSpots.Equals(null))
                 {
                     Debug.Log("");
-                }
+                }*/
 
                 if (possibleParking.numberFreeSpots == 0)
                 {
@@ -199,8 +205,20 @@ public class NewPathSystemMono : SystemBase
                 pathFinding.spawnParking = false;
 
                 EntityManager.RemoveComponent<NeedPath>(e);
+                EntityManager.AddComponentData(e, new VehicleSpeed
+                {
+                    maxSpeed = 2f,
+                    currentSpeed = 0f,
+                    speedDamping = 2f/10
+                });
 
             }).Run();
+
+        GameObject[] numSpawnWaypoints = GameObject.FindGameObjectsWithTag("CarSpawn");
+        if (numSpawnWaypoints.Length != 0)
+        {
+            foreach (var s in numSpawnWaypoints) UnityEngine.Object.Destroy(s);
+        }
 
         nodesCityFloat3.Dispose();
         cityParkingPosition.Dispose();
@@ -437,7 +455,7 @@ public class NewPathSystemMono : SystemBase
             if (endNode.cameFromNodeIndex == -1)
             {
                 //Didn't find a path!
-                Debug.Log("Didnt find a path");
+                throw new System.Exception("Didnt find a path");
             }
             else
             {

@@ -10,7 +10,7 @@ using UnityEngine;
 public class IntersectionPrecedenceSystem : SystemBase
 {
 
-    public NativeHashMap<int, bool> processedIntersections;
+    public static NativeHashMap<int, bool> processedIntersections;
 
     protected override void OnCreate()
     {
@@ -28,6 +28,8 @@ public class IntersectionPrecedenceSystem : SystemBase
     {
 
         processedIntersections.Clear();
+        NativeHashMap<int, int> intersectionCrossingMap = CarsPositionSystem.intersectionCrossingMap;
+        NativeHashMap<int, int> intersectionQueueMap = CarsPositionSystem.intersectionQueueMap;
 
         Entities
             .WithoutBurst()
@@ -36,9 +38,6 @@ public class IntersectionPrecedenceSystem : SystemBase
                 //iterate only cars that are waiting in intersection
                 if (navigation.intersectionStop && navigation.isSimpleIntersection && !processedIntersections.ContainsKey(navigation.intersectionId))
                 {
-                    NativeHashMap<int, int> intersectionCrossingMap = CarsPositionSystem.intersectionCrossingMap;
-                    NativeHashMap<int, int> intersectionQueueMap = CarsPositionSystem.intersectionQueueMap;
-
                     //3way simple intersections
                     if (navigation.intersectionNumRoads == 3)
                     {
@@ -139,6 +138,6 @@ public class IntersectionPrecedenceSystem : SystemBase
                         }
                     }
                 }
-            }).Run();
+            }).Schedule();
     }
 }

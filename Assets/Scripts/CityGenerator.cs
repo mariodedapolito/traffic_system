@@ -562,6 +562,13 @@ public class CityGenerator : MonoBehaviour
         carSpawner.generateTraffic(numberCarsToSpawn, profondity);
         busSpawner.generateBuses();
 
+        /*foreach(Node n in cityNodes)
+        {
+            NodeComponents ndCmp = n.gameObject.AddComponent<NodeComponents>();
+            ndCmp.node = n;
+            n.gameObject.AddComponent<Unity.Entities.ConvertToEntity>();
+        }*/
+
         //Used for the path 
         //GenerateArrayForCars();
     }
