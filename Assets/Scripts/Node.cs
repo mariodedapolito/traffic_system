@@ -34,7 +34,7 @@ public class Node : MonoBehaviour
     public GameObject parkingPrefab;
 
 
-    /*private void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
         for (int i = 0; i < nextNodes.Count; i++)
@@ -42,6 +42,7 @@ public class Node : MonoBehaviour
             if (nextNodes[i] == null)
             {
                 Debug.Log(transform.position);
+                Debug.Log(gameObject.name);
             }
             Gizmos.DrawLine(transform.position, nextNodes[i].transform.position);
             float distance = Vector3.Distance(transform.position, nextNodes[i].transform.position);
@@ -95,6 +96,6 @@ public class Node : MonoBehaviour
             Gizmos.DrawCube(transform.position, new Vector3(0.7f, 0.7f, 0.7f));
         }
         Gizmos.color = Color.white;
-    }*/
+    }
 
 }

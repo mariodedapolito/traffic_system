@@ -52,18 +52,25 @@ public class NewPathSystem : SystemBase
 
         for (int i = 0; i < carSpanGameObj.Count; i++)
         {
-            if (carSpanGameObj[i].Equals(null))
+            /*if (carSpanGameObj[i].Equals(null))
             {
                 carSpanGameObj.RemoveAt(i); continue;
+            }*/
+            try
+            {
+                nodesCity.Add(GetPositionHashMapKey(carSpanGameObj[i].transform.position), carSpanGameObj[i].GetComponent<Node>().nextNodes[0].transform.position);
+                nodesCityFloat3.Add(carSpanGameObj[i].transform.position, carSpanGameObj[i].GetComponent<Node>().nextNodes[0].transform.position);
+                waypoitnsCity[i] = carSpanGameObj[i].transform.position;
             }
-            nodesCity.Add(GetPositionHashMapKey(carSpanGameObj[i].transform.position), carSpanGameObj[i].GetComponent<Node>().nextNodes[0].transform.position);
-            nodesCityFloat3.Add(carSpanGameObj[i].transform.position, carSpanGameObj[i].GetComponent<Node>().nextNodes[0].transform.position);
-            waypoitnsCity[i] = carSpanGameObj[i].transform.position;
+            catch(System.Exception e)
+            {
+                Debug.Log(carSpanGameObj[i].transform.position);
+            }
         }
 
         for (int i = 0; i < nodes.Count; i++)
         {
-            if (nodes[i].Equals(null)) { nodes.RemoveAt(i); continue; }
+            //if (nodes[i].Equals(null)) { nodes.RemoveAt(i); continue; }
             if (!nodes[i].GetComponent<Node>().isParkingSpot)
             {
                 for (int j = 0; j < nodes[i].nextNodes.Count; j++)
@@ -152,6 +159,11 @@ public class NewPathSystem : SystemBase
 
                 pathNodeFinal.Reverse();
 
+                /*if (pathNodeFinal.Count <= 0)
+                {
+                    throw new System.Exception("NO PATH FOUND");
+                }*/
+
                 if (pathNodeFinal.Count <= 0) return;
 
                 var nodesList = GetBufferFromEntity<NodesList>();
@@ -165,8 +177,11 @@ public class NewPathSystem : SystemBase
                     Debug.Log("");
                 }*/
 
+                
+
                 if (possibleParking.numberFreeSpots == 0)
                 {
+                    Debug.Log("No free spots");
                     return;
                 }
 
@@ -214,11 +229,11 @@ public class NewPathSystem : SystemBase
 
             }).Run();
 
-        GameObject[] numSpawnWaypoints = GameObject.FindGameObjectsWithTag("CarSpawn");
+        /*GameObject[] numSpawnWaypoints = GameObject.FindGameObjectsWithTag("CarSpawn");
         if (numSpawnWaypoints.Length != 0)
         {
             foreach (var s in numSpawnWaypoints) UnityEngine.Object.Destroy(s);
-        }
+        }*/
 
         nodesCityFloat3.Dispose();
         cityParkingPosition.Dispose();

@@ -42,6 +42,7 @@ public class CarSpawner : MonoBehaviour
 
     public void generateTraffic(int numberCarsToSpawn, float profondity)
     {
+        Debug.Log(numCarsToSpawn);
         NativeList<float3> spawnNodeList = new NativeList<float3>(numCarsToSpawn, Allocator.Temp);
         NativeList<float3> destinationNodeList = new NativeList<float3>(numCarsToSpawn, Allocator.Temp);
 
@@ -93,7 +94,7 @@ public class CarSpawner : MonoBehaviour
             GameObject carToSpawn = carPrefab[carIndex];
             CarComponents carData = carToSpawn.GetComponent<CarComponents>();
 
-            if (i < numberCarsToSpawn / 10 * 7)
+            /*if (i < numberCarsToSpawn / 10 * 7)
             {
                 int randomDstNodeIndex = UnityEngine.Random.Range(0, parkingWaypoints.Count);
 
@@ -122,12 +123,12 @@ public class CarSpawner : MonoBehaviour
                 spawnNode.transform.rotation = Quaternion.Euler(0, ReturnRotationCar(parkingWaypoints[randomDstNodeIndex]), 0);
             }
             else
-            {
+            {*/
                 carData.isParking = false;
                 carData.startingNode = spawnNode;
                 carData.currentNode = 1;
                 carData.destinationNode = destinationNode;
-            }
+            //}
             carData.Speed = 2f;
             carData.SpeedDamping = carData.Speed / 10f;
 

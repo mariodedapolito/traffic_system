@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Mathematics;
@@ -188,7 +187,7 @@ public class CityGenerator : MonoBehaviour
 
     private BusSpawner busSpawner;
 
-    public NativeMultiHashMap<int, float3> nodesCity; 
+    public NativeMultiHashMap<int, float3> nodesCity;
     private NativeArray<float3> waypoitnsCity;
 
     void GatValueFromJson()
@@ -218,7 +217,7 @@ public class CityGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(useDataFromJSON)
+        if (useDataFromJSON)
             GatValueFromJson();
 
         if ((useAStarInMainThread && useAStarInMultiThread) || (!useAStarInMainThread && !useAStarInMultiThread))
@@ -1116,6 +1115,7 @@ public class CityGenerator : MonoBehaviour
 
     private void cityStreetConnector()
     {
+        List<Node> needConnectionWaypoints = new List<Node>();
         for (int i = 0; i < cityLength; i++)
         {
             for (int j = 0; j < cityWidth; j++)
@@ -1124,50 +1124,100 @@ public class CityGenerator : MonoBehaviour
                 {
                     //CONNECT NEIGHBORING STREET PREFABS (IN ORDER TO GENERATE A GRAPH FOR THE WHOLE CITY)
                     List<Node> carWaypoints = cityMap[i, j].instantiatedStreet.GetComponent<Street>().carWaypoints;
+                    List<Node> spawnWaypoints = cityMap[i, j].instantiatedStreet.GetComponent<Street>().spawnWaypoints;
+                    needConnectionWaypoints.Clear();
                     foreach (var node in carWaypoints)
                     {
-                        if (node.needOutgoingConnection)
+                        if (node && !node.needOutgoingConnection && !node.needIncomingConnection)
                         {
-                            Collider[] nearbyWaypoints = Physics.OverlapSphere(node.transform.position, 8f, 1 << 8);
-                            //Debug.Log("# of nearby waypoints:" + nearbyWaypoints.Length);
-                            Node targetWaypoint = null;
-                            float shortestDistance = 999999999;
-                            foreach (var nearbyWaypoint in nearbyWaypoints)
+                            cityNodes.Add(node);
+                            nodesMap.Add(GetPositionHashMapKey(node.transform.position), node);
+                            if (node.isParkingGateway)
                             {
-                                if (nearbyWaypoint.transform.parent.position != this.transform.position &&
-                                    node.laneNumber == nearbyWaypoint.GetComponent<Node>().laneNumber &&
-                                    nearbyWaypoint.GetComponent<Node>().needIncomingConnection &&
-                                    !carWaypoints.Contains(nearbyWaypoint.GetComponent<Node>()))
+                                cityParkingNodes.Add(node);
+                                cityCarParkingNodes.AddRange(node.GetComponent<Parking>().freeParkingSpots);
+                                foreach(var n in node.GetComponent<Parking>().freeParkingSpots)
                                 {
-                                    float distance = Vector3.Distance(node.transform.position, nearbyWaypoint.transform.position);
-                                    if (distance < shortestDistance)
-                                    {
-                                        targetWaypoint = nearbyWaypoint.GetComponent<Node>();
-                                    }
+                                    nodesMapParking.Add(GetPositionHashMapKey(n.transform.position), n);
                                 }
                             }
-                            if (targetWaypoint != null)
+                            else if (node.isBusStop)
                             {
-                                node.nextNodes.Add(targetWaypoint);
-                                //Debug.Log("Added connection");
+                                cityBusStopsSpawn.Add(node);
+                                cityBusStopsDst.Add(node);
+                            }
+                            /*else if (((cityMap[i, j].prefabType == STRAIGHT_1LANE || cityMap[i, j].prefabType == STRAIGHT_2LANE || cityMap[i, j].prefabType == BUS_STOP_1LANE || cityMap[i, j].prefabType == BUS_STOP_2LANE)
+                                    && !node.isLaneChange) && node.isCarSpawn)   //spawn nodes dont include lane-change nodes and bus lanes
+                            {
+                                citySpawnNodes.Add(node);
+                            }*/
+
+                            //Debug.Log(node.transform.position);
+                            //Detect street connector nodes
+                            if (node.nextNodes[0].needOutgoingConnection)
+                            {
+                                needConnectionWaypoints.Add(node);
                             }
                         }
+                    }
+
+                    citySpawnNodes.AddRange(spawnWaypoints);
+
+                    //needConnectionWaypoints = 
+                    foreach (var node in needConnectionWaypoints)
+                    {
+                        Collider[] nearbyWaypoints = Physics.OverlapSphere(node.nextNodes[0].transform.position, 10f, 1 << 8);
+                        //Debug.Log("# of nearby waypoints:" + nearbyWaypoints.Length);
+                        Node targetWaypoint = null;
+                        float shortestDistance = float.MaxValue;
+                        foreach (var nearbyWaypoint in nearbyWaypoints)
+                        {
+                            if (nearbyWaypoint.transform.parent.position != this.transform.position &&
+                                node.laneNumber == nearbyWaypoint.GetComponent<Node>().laneNumber &&
+                                nearbyWaypoint.GetComponent<Node>().needIncomingConnection &&
+                                !carWaypoints.Contains(nearbyWaypoint.GetComponent<Node>()))
+                            {
+                                float distance = Vector3.Distance(node.transform.position, nearbyWaypoint.transform.position);
+                                if (distance < shortestDistance)
+                                {
+                                    targetWaypoint = nearbyWaypoint.GetComponent<Node>();
+                                }
+                            }
+                        }
+                        if (targetWaypoint != null)
+                        {
+                            foreach (Node n in spawnWaypoints)
+                            {
+                                if (n.nextNodes[0].Equals(node.nextNodes[0]))
+                                {
+                                    n.nextNodes[0] = targetWaypoint.nextNodes[0];
+                                }
+                            }
+                            //Delete street connector nodes
+                            Node newNextNode = targetWaypoint.nextNodes[0];     //next node of green node
+                            Node prevNextNode = node.nextNodes[0];  //old blue node
+                            Destroy(targetWaypoint.gameObject);     //green node
+                            Destroy(prevNextNode.gameObject);       //blue node
+                            node.nextNodes.RemoveAt(0);             
+                            node.nextNodes.Insert(0, newNextNode);
+                        }
+
                     }
                 }
             }
         }
-        for (int i = 0; i < cityLength; i++)
+
+        for (int i = 0; i < cityNodes.Count; i++)
         {
-            for (int j = 0; j < cityWidth; j++)
+            if (!cityNodes[i].GetComponent<Node>().isParkingSpot)
             {
-                if (cityMap[i, j].prefabType > 0)
-                {
-                    foreach (var node in cityMap[i, j].instantiatedStreet.GetComponent<Street>().carWaypoints)
-                    {
-                        Destroy(node.GetComponent<SphereCollider>());
-                    }
-                }
+                
             }
+            else
+            {
+                
+            }
+
         }
     }
 
@@ -1318,61 +1368,6 @@ public class CityGenerator : MonoBehaviour
                     node.trafficDirection = (node.trafficDirection + 1) % 2;
                 }
             }
-
-            //fill nodes (waypoint) list
-            foreach (var node in currentStreet.carWaypoints)
-            {
-                cityNodes.Add(node);
-
-                if (node.isParkingGateway)
-                {
-                    cityParkingNodes.Add(node);
-                    cityCarParkingNodes.AddRange(node.GetComponent<Parking>().freeParkingSpots);
-                }
-                else if (node.isBusStop)
-                {
-                    cityBusStopsSpawn.Add(node);
-                    cityBusStopsDst.Add(node);
-                }
-                else if (((cityMap[row, col].prefabType == STRAIGHT_1LANE || cityMap[row, col].prefabType == STRAIGHT_2LANE || cityMap[row, col].prefabType == BUS_STOP_1LANE || cityMap[row, col].prefabType == BUS_STOP_2LANE)
-                        && !node.isLaneChange) && node.isCarSpawn)   //spawn nodes dont include lane-change nodes and bus lanes
-                {
-                    citySpawnNodes.Add(node);
-                }
-            }
-
-            //nodesCity = new NativeMultiHashMap<int, float3>(cityNodes.Count + citySpawnNodes.Count, Allocator.Temp);
-            //Debug.Log("Number node:" + cityNodes.Count);
-            for (int i = 0; i < cityNodes.Count; i++)
-            {
-                if (!cityNodes[i].GetComponent<Node>().isParkingSpot)
-                {
-                    if (!nodesMap.ContainsKey(GetPositionHashMapKey(cityNodes[i].transform.position)))
-                        nodesMap.Add(GetPositionHashMapKey(cityNodes[i].transform.position), cityNodes[i].GetComponent<Node>());
-                    /*
-                    for (int j = 0; j < cityNodes[i].nextNodes.Count; j++)
-                    {
-                        nodesCity.Add(GetPositionHashMapKey(cityNodes[i].transform.position), cityNodes[i].GetComponent<Node>().nextNodes[j].transform.position);
-                    }*/
-                    //waypoitnsCity[i + carSpanGameObj.Count] = cityNodes[i].GetComponent<Node>().transform.position;
-                }
-                else
-                {
-                    //if (!nodesMapParking.TryGetValue(nodes[i].GetComponent<Node>().transform.position, out _))
-                    nodesMapParking.Add(GetPositionHashMapKey(cityNodes[i].transform.position), cityNodes[i].GetComponent<Node>());
-                }
-
-            }
-
-            for (int i = 0; i < cityCarParkingNodes.Count; i++)
-            {
-                if (!nodesMapParking.ContainsKey(GetPositionHashMapKey(cityCarParkingNodes[i].transform.position)))
-                    nodesMapParking.Add(GetPositionHashMapKey(cityCarParkingNodes[i].transform.position), cityCarParkingNodes[i].GetComponent<Node>());
-            }
-
-            citySpawnNodes.AddRange(currentStreet.spawnWaypoints);
-
-
         }
     }
 

@@ -53,7 +53,7 @@ class CarSystem : SystemBase
                     return;
                 }
 
-                if (navigation.currentNode == NodesList.Length - 1 && (math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) < 0.3f || math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) > 100f) )
+                if (navigation.currentNode == NodesList.Length - 1 && (math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) < 0.3f || math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) > 200f) )
                 {
                     NodesList.Clear();
 
