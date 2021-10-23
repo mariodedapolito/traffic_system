@@ -1131,7 +1131,8 @@ public class CityGenerator : MonoBehaviour
                         if (node && !node.needOutgoingConnection && !node.needIncomingConnection)
                         {
                             cityNodes.Add(node);
-                            nodesMap.Add(GetPositionHashMapKey(node.transform.position), node);
+                            if(!nodesMap.ContainsKey(GetPositionHashMapKey(node.transform.position)))    
+                                nodesMap.Add(GetPositionHashMapKey(node.transform.position), node);
                             if (node.isParkingGateway)
                             {
                                 cityParkingNodes.Add(node);
@@ -1190,7 +1191,8 @@ public class CityGenerator : MonoBehaviour
                             {
                                 if (n.nextNodes[0].Equals(node.nextNodes[0]))
                                 {
-                                    n.nextNodes[0] = targetWaypoint.nextNodes[0];
+                                    n.nextNodes.RemoveAt(0);
+                                    n.nextNodes.Insert(0, targetWaypoint.nextNodes[0]);
                                 }
                             }
                             //Delete street connector nodes

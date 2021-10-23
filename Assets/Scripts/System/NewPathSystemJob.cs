@@ -50,19 +50,21 @@ public class NewPathSystem : SystemBase
 
         NativeList<float3> cityParkingPosition = new NativeList<float3>(cityParkingNodes.Count, Allocator.Persistent);
 
+
+
         for (int i = 0; i < carSpanGameObj.Count; i++)
         {
-            /*if (carSpanGameObj[i].Equals(null))
+            if (carSpanGameObj[i].Equals(null))
             {
                 carSpanGameObj.RemoveAt(i); continue;
-            }*/
+            }
             try
             {
                 nodesCity.Add(GetPositionHashMapKey(carSpanGameObj[i].transform.position), carSpanGameObj[i].GetComponent<Node>().nextNodes[0].transform.position);
                 nodesCityFloat3.Add(carSpanGameObj[i].transform.position, carSpanGameObj[i].GetComponent<Node>().nextNodes[0].transform.position);
                 waypoitnsCity[i] = carSpanGameObj[i].transform.position;
             }
-            catch(System.Exception e)
+            catch (System.Exception e)
             {
                 Debug.Log(carSpanGameObj[i].transform.position);
             }
@@ -70,7 +72,7 @@ public class NewPathSystem : SystemBase
 
         for (int i = 0; i < nodes.Count; i++)
         {
-            //if (nodes[i].Equals(null)) { nodes.RemoveAt(i); continue; }
+            if (nodes[i].Equals(null)) { nodes.RemoveAt(i); continue; }
             if (!nodes[i].GetComponent<Node>().isParkingSpot)
             {
                 for (int j = 0; j < nodes[i].nextNodes.Count; j++)
@@ -94,6 +96,14 @@ public class NewPathSystem : SystemBase
             .WithStructuralChanges()
             .ForEach((Entity e, ref PathFinding pathFinding, in NeedPath needPath) =>
             {
+
+                /*nodesMap.TryGetValue(GetPositionHashMapKey(pathFinding.startingNodePosition), out Node node);
+                if (node)
+                    Debug.Log("NEXT NODES OF SPAWN NODE: " + node.nextNodes.Count);
+                else
+                    Debug.Log("COULD NOT FIND NODE: " + pathFinding.startingNodePosition);
+                */
+
                 NativeList<float3> result = new NativeList<float3>(Allocator.Persistent);
 
                 var rnd = new Unity.Mathematics.Random((uint)e.Index * 100000);
@@ -177,7 +187,7 @@ public class NewPathSystem : SystemBase
                     Debug.Log("");
                 }*/
 
-                
+
 
                 if (possibleParking.numberFreeSpots == 0)
                 {
@@ -224,16 +234,16 @@ public class NewPathSystem : SystemBase
                 {
                     maxSpeed = 2f,
                     currentSpeed = 0f,
-                    speedDamping = 2f/10
+                    speedDamping = 2f / 10
                 });
 
             }).Run();
 
-        /*GameObject[] numSpawnWaypoints = GameObject.FindGameObjectsWithTag("CarSpawn");
+        GameObject[] numSpawnWaypoints = GameObject.FindGameObjectsWithTag("CarSpawn");
         if (numSpawnWaypoints.Length != 0)
         {
             foreach (var s in numSpawnWaypoints) UnityEngine.Object.Destroy(s);
-        }*/
+        }
 
         nodesCityFloat3.Dispose();
         cityParkingPosition.Dispose();
