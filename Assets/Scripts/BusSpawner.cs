@@ -23,6 +23,8 @@ public class BusSpawner : MonoBehaviour
         {
             numBusesToSpawn = busStopsSpawn.Count;
         }
+        ManageUI manageUI = GameObject.Find("ManageUI").GetComponent<ManageUI>();
+        manageUI.numberOfBuses = numBusesToSpawn;
     }
 
     public void generateBuses()

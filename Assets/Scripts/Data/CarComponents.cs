@@ -120,10 +120,15 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
 
         if (isCar)
         {
+            GameObject cameraManager = GameObject.Find("CameraManager");
+            CameraFollow followCar = cameraManager.GetComponent<CameraFollow>();
+
+            followCar.cars.Add(entity);
 
             //Cars that spawn parked
             if (isParking)
             {
+                dstManager.AddComponent<IsParkedComponent>(entity);
                 dstManager.AddComponentData(entity, new VehicleNavigation
                 {
                     needParking = false,

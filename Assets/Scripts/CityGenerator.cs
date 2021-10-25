@@ -45,8 +45,8 @@ public class JsonData
 public class CityGenerator : MonoBehaviour
 {
 
-    public bool useAStarInMainThread;
-    public bool useAStarInMultiThread;
+    //private bool useAStarInMainThread;
+    //private bool useAStarInMultiThread = true;
 
     public int numberHorizontalStreets;
     public int minNumberVerticalStreets;
@@ -60,7 +60,7 @@ public class CityGenerator : MonoBehaviour
     public bool only1LaneStreets;
     public bool only2LaneStreets;
 
-    public float profondity;
+    //public float profondity;
 
     public bool useDataFromJSON;
 
@@ -195,8 +195,8 @@ public class CityGenerator : MonoBehaviour
     {
         JsonData jsonData = JsonUtility.FromJson<JsonData>(jsonFile.text);
 
-        useAStarInMainThread = jsonData.useAStarInMainThread;
-        useAStarInMultiThread = jsonData.useAStarInMultiThread;
+        //useAStarInMainThread = jsonData.useAStarInMainThread;
+        //useAStarInMultiThread = jsonData.useAStarInMultiThread;
         numberHorizontalStreets = jsonData.numberHorizontalStreets;
         minNumberVerticalStreets = jsonData.minNumberVerticalStreets;
         maxNumberVerticalStreets = jsonData.maxNumberVerticalStreets;
@@ -220,10 +220,10 @@ public class CityGenerator : MonoBehaviour
     {
         if (useDataFromJSON)
             GatValueFromJson();
-
+        /*
         if ((useAStarInMainThread && useAStarInMultiThread) || (!useAStarInMainThread && !useAStarInMultiThread))
             Debug.LogError("Error PathFinding: You must choose only one.");
-
+        */
         //City map dimensions
         cityWidth = distanceBetweenVerticalStreets * (maxNumberVerticalStreets + 2) + 1;        //X axis city dimension
         cityLength = distanceBetweenHorizontalStreets * (numberHorizontalStreets - 1) + 1;      //Y axis city dimension
@@ -552,6 +552,11 @@ public class CityGenerator : MonoBehaviour
         //Connect all prefabs together
         cityStreetConnector();
 
+
+        /* ----- UI ----- */
+        ManageUI manageUI = GameObject.Find("ManageUI").GetComponent<ManageUI>();
+        manageUI.numberOfCars = numberCarsToSpawn;
+
         //Spawn cars
         carSpawner = new CarSpawner(carPrefab, this, numberCarsToSpawn);
 
@@ -559,7 +564,7 @@ public class CityGenerator : MonoBehaviour
         //Spawn buses
         busSpawner = new BusSpawner(busPrefab, this);
 
-        carSpawner.generateTraffic(numberCarsToSpawn, profondity);
+        carSpawner.generateTraffic(numberCarsToSpawn);
         // busSpawner.generateBuses();
 
         foreach (Node n in cityParkingNodes)

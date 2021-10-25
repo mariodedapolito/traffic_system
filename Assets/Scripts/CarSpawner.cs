@@ -45,7 +45,7 @@ public class CarSpawner : MonoBehaviour
         numCarsToSpownNow = numCarsToSpawn;
     }
 
-    public void generateTraffic(int numberCarsToSpawn, float profondity)
+    public void generateTraffic(int numberCarsToSpawn)
     {
         if (numCarsToSpownNow == 0) return;
 
@@ -91,25 +91,6 @@ public class CarSpawner : MonoBehaviour
             paths[i].AddRange(pathA);
             paths[i].AddRange(pathB);
 
-            //dotsPaths.Insert(i, pathA.ConvertAll(el =>
-            //{
-            //    if (el.isParkingGateway) return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = PARKING_GATEWAY };
-            //    else if (el.isLaneChange) return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = LANE_CHANGE };
-            //    else if (el.isIntersection) return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = INTERSECTION };
-            //    else if (el.isLaneMergeLeft) return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = MERGE_LEFT };
-            //    else if (el.isLaneMergeRight) return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = MERGE_RIGHT };
-            //    return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = 0 };
-            //}));
-            //dotsPaths[i].AddRange(pathB.ConvertAll(el =>
-            //{
-            //    if (el.isParkingGateway) return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = PARKING_GATEWAY };
-            //    else if (el.isLaneChange) return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = LANE_CHANGE };
-            //    else if (el.isIntersection) return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = INTERSECTION };
-            //    else if (el.isLaneMergeLeft) return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = MERGE_LEFT };
-            //    else if (el.isLaneMergeRight) return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = MERGE_RIGHT };
-            //    return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = 0 };
-            //}));            
-
             //Debug.Log(dotsPaths[i].Count);
             
         }
@@ -148,7 +129,7 @@ public class CarSpawner : MonoBehaviour
                 numCarsSpawnStreet.Insert(i, 500 - parkingMaxPositions * numParkings[i]);
             }
         }
-
+        
         //Now spawn cars
         for (int i = 0; i < numPathsToCreate; i++)
         {
@@ -194,7 +175,7 @@ public class CarSpawner : MonoBehaviour
                     (!paths[i][(j + 1) % paths[i].Count].isIntersection && !paths[i][(j + 1) % paths[i].Count].isSemaphoreIntersection && !paths[i][(j + 1) % paths[i].Count].isCurve && !paths[i][(j + 1) % paths[i].Count].isLaneChange))
                 {
                     int sectionLength = (int)math.distance(paths[i][j].transform.position, paths[i][(j + 1) % paths[i].Count].transform.position);
-                    int maxSpawnableCars = sectionLength / 3;
+                    int maxSpawnableCars = sectionLength / 2;
                     int targetCarsToSpawnInSection = numCarsSpawnStreet[i] / numSpawnSections[i];
                     int actualCarsSpawnedInSection = 0;
                     Vector3 spawnSection = paths[i][(j + 1) % paths[i].Count].transform.position - paths[i][j].transform.position;

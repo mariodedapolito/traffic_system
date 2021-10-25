@@ -27,7 +27,7 @@ class ParkingComponents : MonoBehaviour, IConvertGameObjectToEntity
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
-        Debug.Log("Converting");
+        //Debug.Log("Converting");
 
         dstManager.AddComponent<ParkingComponent>(entity);
 

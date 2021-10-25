@@ -278,6 +278,12 @@ class CarSystem : SystemBase
                         //    translation.Value = navigation.parkingNode;
                         //    return;
                         //}
+                        if(direction.Equals(new float3(0f,0f,0f)))
+                        {
+                            navigation.currentNode = (navigation.currentNode + 1) % NodesList.Length;
+                            return;
+                        }
+
                         float3 neededRotation = Quaternion.LookRotation(direction).eulerAngles;
 
                         rotation.Value = Quaternion.Euler(neededRotation);

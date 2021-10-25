@@ -8,6 +8,8 @@ public class TimeScale : MonoBehaviour
     private float fixedDeltaTime;
 
     public float timeScale;
+    public float maxTimeScale = 2.5f;
+
 
     void Awake()
     {
@@ -16,6 +18,13 @@ public class TimeScale : MonoBehaviour
 
     void Update()
     {
+
+        if (maxTimeScale < timeScale)
+        {
+            timeScale = maxTimeScale;
+        }
+
+        if (timeScale <= 0) timeScale = 1f;
 
         if (Time.timeScale <= timeScale)
         {

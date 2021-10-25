@@ -11,7 +11,7 @@ using Unity.Burst;
 [UpdateBeforeAttribute(typeof(CarSystem))]
 public class CarsPositionSystem : SystemBase
 {
-    EndSimulationEntityCommandBufferSystem m_EndSimulationEcbSystem;
+    //EndSimulationEntityCommandBufferSystem m_EndSimulationEcbSystem;
 
     public static NativeHashMap<int, char> carsPositionMap;
     public static NativeHashMap<int, char> carsParkingMap;
@@ -29,6 +29,8 @@ public class CarsPositionSystem : SystemBase
     public static NativeHashMap<int, int> intersectionIdMap;
     [ReadOnly]
     public static NativeHashMap<int, int4> triggerMap;
+
+    public static NativeArray<int> numCarsArray;
 
     public const int xMultiplier = 1000000;
 
@@ -63,11 +65,13 @@ public class CarsPositionSystem : SystemBase
 
     protected override void OnCreate()
     {
-        m_EndSimulationEcbSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+        base.OnCreate();
+        //m_EndSimulationEcbSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
         carsPositionMap = new NativeHashMap<int, char>(0, Allocator.Persistent);
         carsParkingMap = new NativeHashMap<int, char>(0, Allocator.Persistent);
-        intersectionQueueMap = new NativeHashMap<int, int>(10000, Allocator.Persistent);
-        intersectionCrossingMap = new NativeHashMap<int, int>(1250, Allocator.Persistent);
+        intersectionQueueMap = new NativeHashMap<int, int>(100000, Allocator.Persistent);
+        intersectionCrossingMap = new NativeHashMap<int, int>(10000, Allocator.Persistent);
+        numCarsArray = new NativeArray<int>(2, Allocator.Persistent);
     }
 
     protected override void OnDestroy()
@@ -76,6 +80,7 @@ public class CarsPositionSystem : SystemBase
         carsParkingMap.Dispose();
         intersectionQueueMap.Dispose();
         intersectionCrossingMap.Dispose();
+        numCarsArray.Dispose();
         base.OnDestroy();
     }
 
@@ -101,7 +106,10 @@ public class CarsPositionSystem : SystemBase
         intersectionIdMap = IntersectionTriggerSystem.intersectionIdMap;
         triggerMap = IntersectionTriggerSystem.triggerMap;
 
-        var ecb = m_EndSimulationEcbSystem.CreateCommandBuffer().ToConcurrent();
+        //var ecb = m_EndSimulationEcbSystem.CreateCommandBuffer().ToConcurrent();
+
+        numCarsArray[0] = 0;
+        numCarsArray[1] = 0;
 
         Entities
                     .WithoutBurst()
@@ -123,12 +131,15 @@ public class CarsPositionSystem : SystemBase
                                         int spotKey = GetPositionHashMapKey(spotPosition);
                                         if (!carsParkingMap.ContainsKey(spotKey))
                                         {
+                                            //Debug.Log("Parked");
                                             translation.Value = spotPosition;
                                             carsParkingMap.Add(spotKey, '1');
                                             navigation.needParking = false;
                                             navigation.isParked = true;
                                             parkingFreeSpotsMap[gatewayPos]--;
-                                            ecb.AddComponent<IsParkedComponent>(entityInQueryIndex, entity);
+                                            numCarsArray[0]--;
+                                            numCarsArray[1]++;
+                                            //ecb.AddComponent<IsParkedComponent>(entityInQueryIndex, entity);
                                             return;
                                         }
 
@@ -159,11 +170,14 @@ public class CarsPositionSystem : SystemBase
                                     navigation.isParked = false;
                                     navigation.timeExitParking = int.MaxValue;
                                     parkingFreeSpotsMap[GetPositionHashMapKey(navigation.parkingGateWay)]++;
-                                    ecb.RemoveComponent<IsParkedComponent>(entityInQueryIndex, entity);
+                                    numCarsArray[1]--;
+                                    numCarsArray[0]++;
+                                    //ecb.RemoveComponent<IsParkedComponent>(entityInQueryIndex, entity);
                                 }
                             }
                             else
                             {
+                                numCarsArray[1]++;
                                 carsParkingMap.TryAdd(GetPositionHashMapKey(translation.Value), '1');
                             }
                             return;
@@ -172,6 +186,7 @@ public class CarsPositionSystem : SystemBase
                         //update car position on the map (collision avoidance)
                         int hashMapKey = GetPositionHashMapKey(translation.Value);
                         carsPositionMap.TryAdd(hashMapKey, '1');
+                        numCarsArray[0]++;
 
                         //check car intersection situation
                         if (intersectionIdMap.TryGetValue(hashMapKey, out int intersectionId) && triggerMap.TryGetValue(hashMapKey, out int4 triggerData))
@@ -223,6 +238,7 @@ public class CarsPositionSystem : SystemBase
 
                     }).Schedule();
 
+        //m_EndSimulationEcbSystem.AddJobHandleForProducer(this.Dependency);
     }
 
 }
