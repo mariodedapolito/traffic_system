@@ -62,7 +62,7 @@ public struct PathFinding : IComponentData
     public bool spawnParking;
 }
 
-public struct NeedPath : IComponentData { }
+public struct IsParkedComponent : IComponentData { }
 
 class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
 {

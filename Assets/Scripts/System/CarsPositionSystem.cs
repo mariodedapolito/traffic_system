@@ -11,6 +11,8 @@ using Unity.Burst;
 [UpdateBeforeAttribute(typeof(CarSystem))]
 public class CarsPositionSystem : SystemBase
 {
+    EndSimulationEntityCommandBufferSystem m_EndSimulationEcbSystem;
+
     public static NativeHashMap<int, char> carsPositionMap;
     public static NativeHashMap<int, char> carsParkingMap;
     public static NativeHashMap<int, int> intersectionQueueMap;
@@ -61,7 +63,7 @@ public class CarsPositionSystem : SystemBase
 
     protected override void OnCreate()
     {
-        //m_EndSimulationEcbSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+        m_EndSimulationEcbSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
         carsPositionMap = new NativeHashMap<int, char>(0, Allocator.Persistent);
         carsParkingMap = new NativeHashMap<int, char>(0, Allocator.Persistent);
         intersectionQueueMap = new NativeHashMap<int, int>(10000, Allocator.Persistent);
@@ -99,10 +101,12 @@ public class CarsPositionSystem : SystemBase
         intersectionIdMap = IntersectionTriggerSystem.intersectionIdMap;
         triggerMap = IntersectionTriggerSystem.triggerMap;
 
+        var ecb = m_EndSimulationEcbSystem.CreateCommandBuffer().ToConcurrent();
+
         Entities
                     .WithoutBurst()
                     .WithStoreEntityQueryInField(ref query)
-                    .ForEach((ref VehicleNavigation navigation, ref Translation translation, in Vehicle vehicle, in Rotation rotation, in LocalToWorld ltw) =>
+                    .ForEach((Entity entity, int entityInQueryIndex, ref VehicleNavigation navigation, ref Translation translation, in Vehicle vehicle, in Rotation rotation, in LocalToWorld ltw) =>
                     {
                         //just entered parking
                         if (navigation.needParking)
@@ -124,6 +128,7 @@ public class CarsPositionSystem : SystemBase
                                             navigation.needParking = false;
                                             navigation.isParked = true;
                                             parkingFreeSpotsMap[gatewayPos]--;
+                                            ecb.AddComponent<IsParkedComponent>(entityInQueryIndex, entity);
                                             return;
                                         }
 
@@ -154,6 +159,7 @@ public class CarsPositionSystem : SystemBase
                                     navigation.isParked = false;
                                     navigation.timeExitParking = int.MaxValue;
                                     parkingFreeSpotsMap[GetPositionHashMapKey(navigation.parkingGateWay)]++;
+                                    ecb.RemoveComponent<IsParkedComponent>(entityInQueryIndex, entity);
                                 }
                             }
                             else
