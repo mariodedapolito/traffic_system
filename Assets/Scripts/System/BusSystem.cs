@@ -16,6 +16,8 @@ class BusSystem : SystemBase
     [ReadOnly]
     private static NativeHashMap<int, char> carsPosition;
 
+    private static TimeScale timescale;
+
     private const int LANE_CHANGE = 1;
     private const int BUS_STOP = 2;
     private const int BUS_MERGE = 3;
@@ -23,11 +25,17 @@ class BusSystem : SystemBase
     private const int MERGE_LEFT = 5;
     private const int MERGE_RIGHT = 6;
 
+    protected override void OnCreate()
+    {
+        timescale = GameObject.Find("TimeScale").GetComponent<TimeScale>();
+        base.OnCreate();
+    }
+
     protected override void OnUpdate()
     {
         int elapsedTime = (int)UnityEngine.Time.time;
 
-        float timeScale = GameObject.Find("TimeScale").GetComponent<TimeScale>().timeScale;
+        float timeScale = timescale.timeScale;
 
         float time = Time.DeltaTime;
 
@@ -35,7 +43,7 @@ class BusSystem : SystemBase
 
         Entities
             .WithoutBurst()
-            .ForEach((DynamicBuffer<NodesList> NodesList, ref VehicleNavigation navigation, ref Translation translation, ref Rotation rotation, ref VehicleSpeed speed, in LocalToWorld ltw) =>
+            .ForEach((DynamicBuffer<NodesList> NodesList, ref VehicleNavigation navigation, ref Translation translation, ref Rotation rotation, ref VehicleSpeed speed, in Bus bus, in LocalToWorld ltw) =>
             {
                 if (navigation.isCar)
                 {

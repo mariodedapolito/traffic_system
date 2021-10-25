@@ -6,12 +6,17 @@ using System.Collections.Generic;
 
 public struct Vehicle : IComponentData { }
 
+public struct Car : IComponentData { }
+
+public struct Bus : IComponentData { }
+ 
 public struct VehicleNavigation : IComponentData
 {
     public int carId;
     public int currentNode;
     public bool needParking;
     public bool isParked;
+    public float3 parkingGateWay;
     public bool intersectionStop;
     public bool intersectionCrossing;
     public bool intersectionCrossed;
@@ -27,9 +32,6 @@ public struct VehicleNavigation : IComponentData
     public bool isChangingLanes;
     public bool isCar;
     public bool isBus;
-    public float3 startingNodePosition;
-    public float3 destinationNodePosition;
-    public float3 parkingNode;
 }
 
 public struct VehicleSpeed : IComponentData
@@ -71,16 +73,15 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
     public bool isBus;
 
     [Header("Handling")]
-    public float Speed = 1f;
+    public float Speed = 2f;
     public float SteeringAngle = 30.0f;
     [Range(0f, 1f)] public float SteeringDamping = 0.1f;
-    [Range(0f, 1f)] public float SpeedDamping = 0.1f;
+    [Range(0f, 1f)] public float SpeedDamping = 0.2f;
 
     [Header("Navigation")]
     public int currentNode;
-    public Node startingNode;
-    public Node destinationNode;
-    public Node parkingNode;
+    public float3 parkingGateWay;
+    public List<Node> carPath;
     public List<Node> busPath;
     public int timeExitParking;
 
@@ -92,6 +93,7 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
     private const int INTERSECTION = 4;
     private const int MERGE_LEFT = 5;
     private const int MERGE_RIGHT = 6;
+    private const int PARKING_GATEWAY = 7;
     private const int TURN_LEFT = 9999;    //reserved for potential use
     private const int TURN_RIGHT = 9999;   //reserved for potential use
 
@@ -100,8 +102,7 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
 #pragma warning restore 649
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
-    {
-        
+    {        
         dstManager.AddComponent<Vehicle>(entity);
 
         dstManager.AddComponentData(entity, new VehicleSpeed
@@ -119,24 +120,16 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
 
         if (isCar)
         {
-            dstManager.AddBuffer<NodesList>(entity);
-            
-            dstManager.AddComponentData(entity, new PathFinding
-            {
-                startingNodePosition = startingNode.transform.position,
-                destinationNodePosition = destinationNode.transform.position,
-                parkingNodePosition = new float3(-1f, -1f, -1f),
-                spawnParking = true
-            });
 
             //Cars that spawn parked
             if (isParking)
             {
                 dstManager.AddComponentData(entity, new VehicleNavigation
                 {
-                    needParking = true,
-                    isParked = false,
-                    currentNode = 1,
+                    needParking = false,
+                    isParked = true,
+                    parkingGateWay = parkingGateWay,
+                    currentNode = currentNode,
                     intersectionStop = false,
                     intersectionCrossing = false,
                     intersectionCrossed = false,
@@ -146,19 +139,18 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
                     isChangingLanes = false,
                     timeExitParking = timeExitParking,
                     isCar = true,
-                    startingNodePosition = startingNode.transform.position,
-                    destinationNodePosition = startingNode.transform.position,
-                    parkingNode = parkingNode.transform.position
+                    //startingNodePosition = startingNode.transform.position,
+                    //destinationNodePosition = startingNode.transform.position,
+                    //parkingNode = parkingNode.transform.position
                 });
                 
             }
             //Cars that spawn on the street
             else
             {
-                dstManager.AddComponent<NeedPath>(entity);
                 dstManager.AddComponentData(entity, new VehicleNavigation
                 {
-                    currentNode = 1,
+                    currentNode = currentNode,
                     needParking = false,
                     intersectionStop = false,
                     intersectionCrossing = false,
@@ -170,10 +162,23 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
 
                     timeExitParking = int.MaxValue,
                     isCar = true,
-                    startingNodePosition = startingNode.transform.position,
-                    destinationNodePosition = destinationNode.transform.position
+                    //startingNodePosition = startingNode.transform.position,
+                    //destinationNodePosition = destinationNode.transform.position
                 });
             }
+
+            DynamicBuffer<NodesList> nodesList = dstManager.AddBuffer<NodesList>(entity);
+            for (int i = 0; i < carPath.Count; i++)
+            {
+                if (carPath[i].isParkingGateway) nodesList.Add(new NodesList { nodePosition = carPath[i].transform.position, nodeType = PARKING_GATEWAY });
+                else if (carPath[i].isLaneChange) nodesList.Add(new NodesList { nodePosition = carPath[i].transform.position, nodeType = LANE_CHANGE });
+                else if (carPath[i].isIntersection) nodesList.Add(new NodesList { nodePosition = carPath[i].transform.position, nodeType = INTERSECTION });
+                else if (carPath[i].isLaneMergeLeft) nodesList.Add(new NodesList { nodePosition = carPath[i].transform.position, nodeType = MERGE_LEFT });
+                else if (carPath[i].isLaneMergeRight) nodesList.Add(new NodesList { nodePosition = carPath[i].transform.position, nodeType = MERGE_RIGHT });
+                else nodesList.Add(new NodesList { nodePosition = carPath[i].transform.position, nodeType = 0 });
+            }
+
+            dstManager.AddComponent<Car>(entity);
         }
         else if (isBus)
         {
@@ -209,6 +214,8 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
                 else if (busPath[i].isLaneMergeRight) nodesList.Add(new NodesList { nodePosition = busPath[i].transform.position, nodeType = MERGE_RIGHT });
                 else nodesList.Add(new NodesList { nodePosition = busPath[i].transform.position, nodeType = 0 });
             }
+
+            dstManager.AddComponent<Bus>(entity);
         }
 
 

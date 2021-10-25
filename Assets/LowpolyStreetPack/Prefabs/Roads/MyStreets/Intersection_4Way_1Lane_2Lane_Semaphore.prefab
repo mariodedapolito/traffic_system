@@ -1,5 +1,48 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &86489580531475550
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7484089947271428250}
+  - component: {fileID: 948485231565458597}
+  m_Layer: 0
+  m_Name: Node_trigger_1 (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7484089947271428250
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86489580531475550}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: -0.71, y: 0.4, z: -0.5000001}
+  m_LocalScale: {x: 3.3333328, y: 1, z: 0.53333324}
+  m_Children: []
+  m_Father: {fileID: 5195169227618596742}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &948485231565458597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86489580531475550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &110151006226951145
 GameObject:
   m_ObjectHideFlags: 0
@@ -49,9 +92,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 1
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -117,9 +160,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 1
   isIntersection: 0
+  isSemaphoreIntersection: 0
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -150,6 +193,49 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &343191026112466233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8277738850130464913}
+  - component: {fileID: 7472832769679031493}
+  m_Layer: 0
+  m_Name: Node_trigger_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8277738850130464913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343191026112466233}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.30248782, y: -1.5, z: -0.5}
+  m_LocalScale: {x: 0.5387201, y: 1, z: 3.3333323}
+  m_Children: []
+  m_Father: {fileID: 7355415221203863598}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7472832769679031493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343191026112466233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &388342258568618387
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,6 +617,49 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &668977049619281631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4950520181654260454}
+  - component: {fileID: 2061443463672741482}
+  m_Layer: 0
+  m_Name: Node_trigger_2 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4950520181654260454
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668977049619281631}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.19227265, y: 3.5766659, z: -0.5000001}
+  m_LocalScale: {x: 0.5174859, y: 1, z: 3.3333323}
+  m_Children: []
+  m_Father: {fileID: 5936487313304649957}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2061443463672741482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668977049619281631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &923379265189232464
 GameObject:
   m_ObjectHideFlags: 0
@@ -1239,9 +1368,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 0
+  isCurve: 0
   isLaneChange: 1
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -1259,6 +1388,49 @@ MonoBehaviour:
   isOccupied: 0
   numberCars: 0
   parkingPrefab: {fileID: 0}
+--- !u!1 &1484279723399484834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6539582624378167259}
+  - component: {fileID: 8385903841283869623}
+  m_Layer: 0
+  m_Name: Node_trigger_0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6539582624378167259
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1484279723399484834}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.38, y: 1.7958584, z: -0.5}
+  m_LocalScale: {x: 0.5442177, y: 1, z: 3.3333323}
+  m_Children: []
+  m_Father: {fileID: 6067396895559612090}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8385903841283869623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1484279723399484834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1511993550270348813
 GameObject:
   m_ObjectHideFlags: 0
@@ -1401,9 +1573,9 @@ MonoBehaviour:
   needIncomingConnection: 1
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 0
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -1668,9 +1840,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 1
   isIntersection: 0
+  isSemaphoreIntersection: 0
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -1750,9 +1922,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 1
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 1
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -1819,9 +1991,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 1
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -1839,6 +2011,115 @@ MonoBehaviour:
   isOccupied: 0
   numberCars: 0
   parkingPrefab: {fileID: 0}
+--- !u!1 &2682492967413799172
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4358526238001499717}
+  - component: {fileID: 1480470871048502533}
+  m_Layer: 0
+  m_Name: Node_trigger_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4358526238001499717
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2682492967413799172}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.31682742, y: 3.5066788, z: -0.5000001}
+  m_LocalScale: {x: 0.5174859, y: 1, z: 3.3333323}
+  m_Children: []
+  m_Father: {fileID: 5936487313304649957}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1480470871048502533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2682492967413799172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &2701982285298296311
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5936487313304649957}
+  - component: {fileID: 7815790297470809721}
+  - component: {fileID: 6344141403677125938}
+  m_Layer: 10
+  m_Name: IntersectionEnterTrigger 2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5936487313304649957
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2701982285298296311}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.55000305, y: 0.5000005, z: 2.8100014}
+  m_LocalScale: {x: 0.96620995, y: 0.14999999, z: 1}
+  m_Children:
+  - {fileID: 4358526238001499717}
+  - {fileID: 4950520181654260454}
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7815790297470809721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2701982285298296311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5299c06d81b35644488582c197dd1c32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  directionId: 2
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 1
+  isIntersectionExit: 0
+  isSimpleIntersection: 0
+  isSemaphoreIntersection: 1
+  intersectionNumRoads: 4
+--- !u!114 &6344141403677125938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2701982285298296311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConversionMode: 0
 --- !u!1 &2798282572769041777
 GameObject:
   m_ObjectHideFlags: 0
@@ -2499,7 +2780,7 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!1 &2836559628306504668
+--- !u!1 &2900354717582369806
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2507,222 +2788,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1695485181367887238}
-  - component: {fileID: 5737891120919135820}
-  - component: {fileID: 4601430898659064830}
-  - component: {fileID: 7401465199558424487}
-  m_Layer: 10
-  m_Name: IntersectionTrigger (1)
+  - component: {fileID: 225621423497958062}
+  - component: {fileID: 7507723104597676862}
+  m_Layer: 0
+  m_Name: Node_trigger_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1695485181367887238
+--- !u!4 &225621423497958062
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2836559628306504668}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.62, y: 0.50000024, z: 2.66}
-  m_LocalScale: {x: 1.003125, y: 0.15, z: 1}
+  m_GameObject: {fileID: 2900354717582369806}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0.37, y: 1.31, z: -0.49999982}
+  m_LocalScale: {x: 3.3333328, y: 1, z: 0.4892965}
   m_Children: []
-  m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 6
+  m_Father: {fileID: 3263867447683562093}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5737891120919135820
+--- !u!114 &7507723104597676862
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2836559628306504668}
+  m_GameObject: {fileID: 2900354717582369806}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b275e5f92732148048d7b77e264ac30e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShapeType: 0
-  m_PrimitiveCenter:
-    x: 0
-    y: 0
-    z: 0
-  m_PrimitiveSize:
-    x: 1
-    y: 1
-    z: 1
-  m_PrimitiveOrientation:
-    Value:
-      x: 0
-      y: 0
-      z: 0
-    RotationOrder: 4
-  m_Capsule:
-    Height: 1
-    Radius: 0.5
-    Axis: 2
-  m_Cylinder:
-    Height: 1
-    Radius: 0.5
-    Axis: 2
-  m_CylinderSideCount: 20
-  m_SphereRadius: 0.5
-  m_MinimumSkinnedVertexWeight: 0.1
-  m_ConvexHullGenerationParameters:
-    m_SimplificationTolerance: 0.015
-    m_BevelRadius: 0.05
-    m_MinimumAngle: 2.5000002
-  m_CustomMesh: {fileID: 0}
-  m_ForceUnique: 0
-  m_Material:
-    m_SupportsTemplate: 1
-    m_Template: {fileID: 0}
-    m_CollisionResponse:
-      m_Override: 0
-      m_Value: 3
-    m_Friction:
-      m_Override: 0
-      m_Value:
-        Value: 0.5
-        CombineMode: 0
-    m_Restitution:
-      m_Override: 0
-      m_Value:
-        Value: 0
-        CombineMode: 2
-    m_BelongsToCategories:
-      m_Override: 0
-      m_Value:
-        Category00: 1
-        Category01: 0
-        Category02: 0
-        Category03: 0
-        Category04: 0
-        Category05: 0
-        Category06: 0
-        Category07: 0
-        Category08: 0
-        Category09: 0
-        Category10: 0
-        Category11: 0
-        Category12: 0
-        Category13: 0
-        Category14: 0
-        Category15: 0
-        Category16: 0
-        Category17: 0
-        Category18: 0
-        Category19: 0
-        Category20: 0
-        Category21: 0
-        Category22: 0
-        Category23: 0
-        Category24: 0
-        Category25: 0
-        Category26: 0
-        Category27: 0
-        Category28: 0
-        Category29: 0
-        Category30: 0
-        Category31: 0
-    m_CollidesWithCategories:
-      m_Override: 0
-      m_Value:
-        Category00: 0
-        Category01: 1
-        Category02: 0
-        Category03: 0
-        Category04: 0
-        Category05: 0
-        Category06: 0
-        Category07: 0
-        Category08: 0
-        Category09: 0
-        Category10: 0
-        Category11: 0
-        Category12: 0
-        Category13: 0
-        Category14: 0
-        Category15: 0
-        Category16: 0
-        Category17: 0
-        Category18: 0
-        Category19: 0
-        Category20: 0
-        Category21: 0
-        Category22: 0
-        Category23: 0
-        Category24: 0
-        Category25: 0
-        Category26: 0
-        Category27: 0
-        Category28: 0
-        Category29: 0
-        Category30: 0
-        Category31: 0
-    m_CustomMaterialTags:
-      m_Override: 0
-      m_Value:
-        Tag00: 0
-        Tag01: 0
-        Tag02: 0
-        Tag03: 0
-        Tag04: 0
-        Tag05: 0
-        Tag06: 0
-        Tag07: 0
-    m_SerializedVersion: 1
-    m_BelongsTo_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_CollidesWith_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_CustomTags_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_IsTrigger_Deprecated:
-      m_Override: 0
-      m_Value: 0
-    m_RaisesCollisionEvents_Deprecated:
-      m_Override: 0
-      m_Value: 0
-  m_SerializedVersion: 1
-  m_ConvexRadius_Deprecated: -1
---- !u!114 &4601430898659064830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2836559628306504668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5299c06d81b35644488582c197dd1c32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  directionId: 2
-  dynamicIntersectionId: 0
-  isIntersectionEnter: 1
-  isIntersectionExit: 0
-  isSimpleIntersection: 0
-  isSemaphoreIntersection: 1
-  intersectionNumRoads: 4
---- !u!114 &7401465199558424487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2836559628306504668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConversionMode: 0
 --- !u!1 &2946952072278712530
 GameObject:
   m_ObjectHideFlags: 0
@@ -2816,6 +2916,135 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConversionMode: 0
+--- !u!1 &2971266206379235690
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4079891509348990516}
+  - component: {fileID: 7017530715997061710}
+  m_Layer: 0
+  m_Name: Node_trigger_3 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4079891509348990516
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2971266206379235690}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0.18, y: -0.45, z: -0.49999976}
+  m_LocalScale: {x: 3.3333328, y: 1, z: 0.49382704}
+  m_Children: []
+  m_Father: {fileID: 8587293075083223532}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7017530715997061710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2971266206379235690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &3147273181765179453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4482831454733268918}
+  - component: {fileID: 4493672174545905422}
+  m_Layer: 0
+  m_Name: Node_trigger_1 (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4482831454733268918
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3147273181765179453}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0.65, y: -1.900024, z: -0.5}
+  m_LocalScale: {x: 3.3333328, y: 1, z: 0.5079365}
+  m_Children: []
+  m_Father: {fileID: 2792300933393094992}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4493672174545905422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3147273181765179453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &3149408362591590091
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2813145650337470764}
+  - component: {fileID: 8747609643009527222}
+  m_Layer: 0
+  m_Name: Node_trigger_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2813145650337470764
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3149408362591590091}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0.39, y: 0.4, z: -0.5000001}
+  m_LocalScale: {x: 3.3333328, y: 1, z: 0.53333324}
+  m_Children: []
+  m_Father: {fileID: 5195169227618596742}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8747609643009527222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3149408362591590091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3163251986983330759
 GameObject:
   m_ObjectHideFlags: 0
@@ -2864,9 +3093,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 1
   isIntersection: 0
+  isSemaphoreIntersection: 0
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -2897,6 +3126,92 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3225548451105259326
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8131583702826192724}
+  - component: {fileID: 4873589981415679553}
+  m_Layer: 0
+  m_Name: Node_trigger_0 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8131583702826192724
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3225548451105259326}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.13, y: 1.7958584, z: -0.5}
+  m_LocalScale: {x: 0.5442177, y: 1, z: 3.3333323}
+  m_Children: []
+  m_Father: {fileID: 6067396895559612090}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4873589981415679553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3225548451105259326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &3440492577346394762
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 944006910934871878}
+  - component: {fileID: 8651228276192927238}
+  m_Layer: 0
+  m_Name: Node_trigger_3 (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &944006910934871878
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3440492577346394762}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 1.18, y: -0.3, z: -0.49999976}
+  m_LocalScale: {x: 3.3333328, y: 1, z: 0.49382704}
+  m_Children: []
+  m_Father: {fileID: 8587293075083223532}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8651228276192927238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3440492577346394762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3460843781314678050
 GameObject:
   m_ObjectHideFlags: 0
@@ -3038,9 +3353,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 1
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 1
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -3161,7 +3476,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3236042831042940537}
   - component: {fileID: 956141242283261841}
-  - component: {fileID: 3763620818268549513}
   m_Layer: 8
   m_Name: Node_lane_1
   m_TagString: CarWaypoint
@@ -3200,9 +3514,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 0
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -3220,19 +3534,72 @@ MonoBehaviour:
   isOccupied: 0
   numberCars: 0
   parkingPrefab: {fileID: 0}
---- !u!135 &3763620818268549513
-SphereCollider:
+--- !u!1 &3664693072388452524
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3652472683069529014}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6067396895559612090}
+  - component: {fileID: 1279478978658014430}
+  - component: {fileID: 7912103386076368313}
+  m_Layer: 10
+  m_Name: IntersectionExitTrigger 0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6067396895559612090
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3664693072388452524}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.6100006, y: 0.49999988, z: -2}
+  m_LocalScale: {x: 0.91875, y: 0.14999999, z: 1}
+  m_Children:
+  - {fileID: 6539582624378167259}
+  - {fileID: 8131583702826192724}
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1279478978658014430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3664693072388452524}
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5299c06d81b35644488582c197dd1c32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  directionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 0
+  isIntersectionExit: 1
+  isSimpleIntersection: 0
+  isSemaphoreIntersection: 1
+  intersectionNumRoads: 4
+--- !u!114 &7912103386076368313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3664693072388452524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConversionMode: 0
 --- !u!1 &3996223073000954207
 GameObject:
   m_ObjectHideFlags: 0
@@ -3326,6 +3693,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConversionMode: 0
+--- !u!1 &4236532698643265592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7950382525543331582}
+  - component: {fileID: 6076344849695053176}
+  m_Layer: 0
+  m_Name: Node_trigger_3 (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7950382525543331582
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4236532698643265592}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0.61, y: -0.4, z: -0.49999976}
+  m_LocalScale: {x: 3.3333328, y: 1, z: 0.49382704}
+  m_Children: []
+  m_Father: {fileID: 8587293075083223532}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6076344849695053176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4236532698643265592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4354076960680194438
 GameObject:
   m_ObjectHideFlags: 0
@@ -3374,9 +3784,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 0
+  isCurve: 0
   isLaneChange: 1
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -3394,6 +3804,117 @@ MonoBehaviour:
   isOccupied: 0
   numberCars: 0
   parkingPrefab: {fileID: 0}
+--- !u!1 &4410453065045161527
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3263867447683562093}
+  - component: {fileID: 3503411159048304841}
+  - component: {fileID: 6070255191686764759}
+  m_Layer: 10
+  m_Name: IntersectionExitTrigger 3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3263867447683562093
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4410453065045161527}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: -1.5299988, y: 0.5000001, z: 0.6100006}
+  m_LocalScale: {x: 1.021875, y: 0.14999999, z: 1}
+  m_Children:
+  - {fileID: 225621423497958062}
+  - {fileID: 8297632036805042534}
+  - {fileID: 7986516647736275812}
+  - {fileID: 8771415158911982746}
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &3503411159048304841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4410453065045161527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5299c06d81b35644488582c197dd1c32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  directionId: 3
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 0
+  isIntersectionExit: 1
+  isSimpleIntersection: 0
+  isSemaphoreIntersection: 1
+  intersectionNumRoads: 4
+--- !u!114 &6070255191686764759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4410453065045161527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConversionMode: 0
+--- !u!1 &4604855362993677381
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8771415158911982746}
+  - component: {fileID: 3915081984832374929}
+  m_Layer: 0
+  m_Name: Node_trigger_3 (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8771415158911982746
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4604855362993677381}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: -1.14, y: 1.24, z: -0.49999982}
+  m_LocalScale: {x: 3.3333328, y: 1, z: 0.4892965}
+  m_Children: []
+  m_Father: {fileID: 3263867447683562093}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3915081984832374929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4604855362993677381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4722785524798619805
 GameObject:
   m_ObjectHideFlags: 0
@@ -3404,7 +3925,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6725113316302731510}
   - component: {fileID: 55432895673493761}
-  - component: {fileID: 4134308952139834692}
   m_Layer: 8
   m_Name: Node_lane_1
   m_TagString: CarWaypoint
@@ -3443,9 +3963,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 0
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -3463,243 +3983,6 @@ MonoBehaviour:
   isOccupied: 0
   numberCars: 0
   parkingPrefab: {fileID: 0}
---- !u!135 &4134308952139834692
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4722785524798619805}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &4735110139596450624
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2135832366058718130}
-  - component: {fileID: 4609102556270445783}
-  - component: {fileID: 6254918403395468690}
-  - component: {fileID: 2861973798113129466}
-  m_Layer: 10
-  m_Name: IntersectionTrigger (4)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2135832366058718130
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4735110139596450624}
-  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 1.5, y: 0.5, z: -0.99}
-  m_LocalScale: {x: 1.8187504, y: 0.15000002, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!114 &4609102556270445783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4735110139596450624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b275e5f92732148048d7b77e264ac30e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShapeType: 0
-  m_PrimitiveCenter:
-    x: 0
-    y: 0
-    z: 0
-  m_PrimitiveSize:
-    x: 1
-    y: 1
-    z: 1
-  m_PrimitiveOrientation:
-    Value:
-      x: 0
-      y: 0
-      z: 0
-    RotationOrder: 4
-  m_Capsule:
-    Height: 1
-    Radius: 0.5
-    Axis: 2
-  m_Cylinder:
-    Height: 1
-    Radius: 0.5
-    Axis: 2
-  m_CylinderSideCount: 20
-  m_SphereRadius: 0.5
-  m_MinimumSkinnedVertexWeight: 0.1
-  m_ConvexHullGenerationParameters:
-    m_SimplificationTolerance: 0.015
-    m_BevelRadius: 0.05
-    m_MinimumAngle: 2.5000002
-  m_CustomMesh: {fileID: 0}
-  m_ForceUnique: 0
-  m_Material:
-    m_SupportsTemplate: 1
-    m_Template: {fileID: 0}
-    m_CollisionResponse:
-      m_Override: 0
-      m_Value: 3
-    m_Friction:
-      m_Override: 0
-      m_Value:
-        Value: 0.5
-        CombineMode: 0
-    m_Restitution:
-      m_Override: 0
-      m_Value:
-        Value: 0
-        CombineMode: 2
-    m_BelongsToCategories:
-      m_Override: 0
-      m_Value:
-        Category00: 1
-        Category01: 0
-        Category02: 0
-        Category03: 0
-        Category04: 0
-        Category05: 0
-        Category06: 0
-        Category07: 0
-        Category08: 0
-        Category09: 0
-        Category10: 0
-        Category11: 0
-        Category12: 0
-        Category13: 0
-        Category14: 0
-        Category15: 0
-        Category16: 0
-        Category17: 0
-        Category18: 0
-        Category19: 0
-        Category20: 0
-        Category21: 0
-        Category22: 0
-        Category23: 0
-        Category24: 0
-        Category25: 0
-        Category26: 0
-        Category27: 0
-        Category28: 0
-        Category29: 0
-        Category30: 0
-        Category31: 0
-    m_CollidesWithCategories:
-      m_Override: 0
-      m_Value:
-        Category00: 0
-        Category01: 1
-        Category02: 0
-        Category03: 0
-        Category04: 0
-        Category05: 0
-        Category06: 0
-        Category07: 0
-        Category08: 0
-        Category09: 0
-        Category10: 0
-        Category11: 0
-        Category12: 0
-        Category13: 0
-        Category14: 0
-        Category15: 0
-        Category16: 0
-        Category17: 0
-        Category18: 0
-        Category19: 0
-        Category20: 0
-        Category21: 0
-        Category22: 0
-        Category23: 0
-        Category24: 0
-        Category25: 0
-        Category26: 0
-        Category27: 0
-        Category28: 0
-        Category29: 0
-        Category30: 0
-        Category31: 0
-    m_CustomMaterialTags:
-      m_Override: 0
-      m_Value:
-        Tag00: 0
-        Tag01: 0
-        Tag02: 0
-        Tag03: 0
-        Tag04: 0
-        Tag05: 0
-        Tag06: 0
-        Tag07: 0
-    m_SerializedVersion: 1
-    m_BelongsTo_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_CollidesWith_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_CustomTags_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_IsTrigger_Deprecated:
-      m_Override: 0
-      m_Value: 0
-    m_RaisesCollisionEvents_Deprecated:
-      m_Override: 0
-      m_Value: 0
-  m_SerializedVersion: 1
-  m_ConvexRadius_Deprecated: -1
---- !u!114 &6254918403395468690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4735110139596450624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5299c06d81b35644488582c197dd1c32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  directionId: 1
-  dynamicIntersectionId: 0
-  isIntersectionEnter: 0
-  isIntersectionExit: 1
-  isSimpleIntersection: 0
-  isSemaphoreIntersection: 1
-  intersectionNumRoads: 4
---- !u!114 &2861973798113129466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4735110139596450624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConversionMode: 0
 --- !u!1 &4833777171387340705
 GameObject:
   m_ObjectHideFlags: 0
@@ -3748,9 +4031,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 1
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 1
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -3817,9 +4100,9 @@ MonoBehaviour:
   needIncomingConnection: 1
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 0
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -3898,9 +4181,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 1
   isIntersection: 0
+  isSemaphoreIntersection: 0
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -3931,230 +4214,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &4911146279929783613
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5179535090166231305}
-  - component: {fileID: 8087124674008278853}
-  - component: {fileID: 8759555818013953757}
-  - component: {fileID: 3826747795627678016}
-  m_Layer: 10
-  m_Name: IntersectionTrigger (7)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5179535090166231305
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4911146279929783613}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.68, y: 0.50000024, z: 2.0999985}
-  m_LocalScale: {x: 0.9375, y: 0.15, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8087124674008278853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4911146279929783613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b275e5f92732148048d7b77e264ac30e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShapeType: 0
-  m_PrimitiveCenter:
-    x: 0
-    y: 0
-    z: 0
-  m_PrimitiveSize:
-    x: 1
-    y: 1
-    z: 1
-  m_PrimitiveOrientation:
-    Value:
-      x: 0
-      y: 0
-      z: 0
-    RotationOrder: 4
-  m_Capsule:
-    Height: 1
-    Radius: 0.5
-    Axis: 2
-  m_Cylinder:
-    Height: 1
-    Radius: 0.5
-    Axis: 2
-  m_CylinderSideCount: 20
-  m_SphereRadius: 0.5
-  m_MinimumSkinnedVertexWeight: 0.1
-  m_ConvexHullGenerationParameters:
-    m_SimplificationTolerance: 0.015
-    m_BevelRadius: 0.05
-    m_MinimumAngle: 2.5000002
-  m_CustomMesh: {fileID: 0}
-  m_ForceUnique: 0
-  m_Material:
-    m_SupportsTemplate: 1
-    m_Template: {fileID: 0}
-    m_CollisionResponse:
-      m_Override: 0
-      m_Value: 3
-    m_Friction:
-      m_Override: 0
-      m_Value:
-        Value: 0.5
-        CombineMode: 0
-    m_Restitution:
-      m_Override: 0
-      m_Value:
-        Value: 0
-        CombineMode: 2
-    m_BelongsToCategories:
-      m_Override: 0
-      m_Value:
-        Category00: 1
-        Category01: 0
-        Category02: 0
-        Category03: 0
-        Category04: 0
-        Category05: 0
-        Category06: 0
-        Category07: 0
-        Category08: 0
-        Category09: 0
-        Category10: 0
-        Category11: 0
-        Category12: 0
-        Category13: 0
-        Category14: 0
-        Category15: 0
-        Category16: 0
-        Category17: 0
-        Category18: 0
-        Category19: 0
-        Category20: 0
-        Category21: 0
-        Category22: 0
-        Category23: 0
-        Category24: 0
-        Category25: 0
-        Category26: 0
-        Category27: 0
-        Category28: 0
-        Category29: 0
-        Category30: 0
-        Category31: 0
-    m_CollidesWithCategories:
-      m_Override: 0
-      m_Value:
-        Category00: 0
-        Category01: 1
-        Category02: 0
-        Category03: 0
-        Category04: 0
-        Category05: 0
-        Category06: 0
-        Category07: 0
-        Category08: 0
-        Category09: 0
-        Category10: 0
-        Category11: 0
-        Category12: 0
-        Category13: 0
-        Category14: 0
-        Category15: 0
-        Category16: 0
-        Category17: 0
-        Category18: 0
-        Category19: 0
-        Category20: 0
-        Category21: 0
-        Category22: 0
-        Category23: 0
-        Category24: 0
-        Category25: 0
-        Category26: 0
-        Category27: 0
-        Category28: 0
-        Category29: 0
-        Category30: 0
-        Category31: 0
-    m_CustomMaterialTags:
-      m_Override: 0
-      m_Value:
-        Tag00: 0
-        Tag01: 0
-        Tag02: 0
-        Tag03: 0
-        Tag04: 0
-        Tag05: 0
-        Tag06: 0
-        Tag07: 0
-    m_SerializedVersion: 1
-    m_BelongsTo_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_CollidesWith_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_CustomTags_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_IsTrigger_Deprecated:
-      m_Override: 0
-      m_Value: 0
-    m_RaisesCollisionEvents_Deprecated:
-      m_Override: 0
-      m_Value: 0
-  m_SerializedVersion: 1
-  m_ConvexRadius_Deprecated: -1
---- !u!114 &8759555818013953757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4911146279929783613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5299c06d81b35644488582c197dd1c32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  directionId: 2
-  dynamicIntersectionId: 0
-  isIntersectionEnter: 0
-  isIntersectionExit: 1
-  isSimpleIntersection: 0
-  isSemaphoreIntersection: 1
-  intersectionNumRoads: 4
---- !u!114 &3826747795627678016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4911146279929783613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConversionMode: 0
 --- !u!1 &4951658635479855752
 GameObject:
   m_ObjectHideFlags: 0
@@ -4203,9 +4262,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 1
   isIntersection: 0
+  isSemaphoreIntersection: 0
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -4286,9 +4345,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 1
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -4354,9 +4413,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 1
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 1
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -4374,7 +4433,7 @@ MonoBehaviour:
   isOccupied: 0
   numberCars: 0
   parkingPrefab: {fileID: 0}
---- !u!1 &5054716804747551452
+--- !u!1 &5163955003655680453
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4382,216 +4441,58 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8338523046856367446}
-  - component: {fileID: 2882956960509543743}
-  - component: {fileID: 3477953334235667350}
-  - component: {fileID: 3009977637377469847}
+  - component: {fileID: 7355415221203863598}
+  - component: {fileID: 6668691163468124234}
+  - component: {fileID: 1178932376438413341}
   m_Layer: 10
-  m_Name: IntersectionTrigger (6)
+  m_Name: IntersectionExitTrigger 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8338523046856367446
+--- !u!4 &7355415221203863598
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5054716804747551452}
+  m_GameObject: {fileID: 5163955003655680453}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.67, y: 0.49999988, z: -2.0999985}
-  m_LocalScale: {x: 0.94687504, y: 0.15, z: 1}
-  m_Children: []
+  m_LocalPosition: {x: 0.6100006, y: 0.5000005, z: 2.0600014}
+  m_LocalScale: {x: 0.92812496, y: 0.14999999, z: 1}
+  m_Children:
+  - {fileID: 8277738850130464913}
+  - {fileID: 3998597890087286374}
   m_Father: {fileID: 1952225155875115036}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2882956960509543743
+--- !u!114 &6668691163468124234
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5054716804747551452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b275e5f92732148048d7b77e264ac30e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShapeType: 0
-  m_PrimitiveCenter:
-    x: 0
-    y: 0
-    z: 0
-  m_PrimitiveSize:
-    x: 1
-    y: 1
-    z: 1
-  m_PrimitiveOrientation:
-    Value:
-      x: 0
-      y: 0
-      z: 0
-    RotationOrder: 4
-  m_Capsule:
-    Height: 1
-    Radius: 0.5
-    Axis: 2
-  m_Cylinder:
-    Height: 1
-    Radius: 0.5
-    Axis: 2
-  m_CylinderSideCount: 20
-  m_SphereRadius: 0.5
-  m_MinimumSkinnedVertexWeight: 0.1
-  m_ConvexHullGenerationParameters:
-    m_SimplificationTolerance: 0.015
-    m_BevelRadius: 0.05
-    m_MinimumAngle: 2.5000002
-  m_CustomMesh: {fileID: 0}
-  m_ForceUnique: 0
-  m_Material:
-    m_SupportsTemplate: 1
-    m_Template: {fileID: 0}
-    m_CollisionResponse:
-      m_Override: 0
-      m_Value: 3
-    m_Friction:
-      m_Override: 0
-      m_Value:
-        Value: 0.5
-        CombineMode: 0
-    m_Restitution:
-      m_Override: 0
-      m_Value:
-        Value: 0
-        CombineMode: 2
-    m_BelongsToCategories:
-      m_Override: 0
-      m_Value:
-        Category00: 1
-        Category01: 0
-        Category02: 0
-        Category03: 0
-        Category04: 0
-        Category05: 0
-        Category06: 0
-        Category07: 0
-        Category08: 0
-        Category09: 0
-        Category10: 0
-        Category11: 0
-        Category12: 0
-        Category13: 0
-        Category14: 0
-        Category15: 0
-        Category16: 0
-        Category17: 0
-        Category18: 0
-        Category19: 0
-        Category20: 0
-        Category21: 0
-        Category22: 0
-        Category23: 0
-        Category24: 0
-        Category25: 0
-        Category26: 0
-        Category27: 0
-        Category28: 0
-        Category29: 0
-        Category30: 0
-        Category31: 0
-    m_CollidesWithCategories:
-      m_Override: 0
-      m_Value:
-        Category00: 0
-        Category01: 1
-        Category02: 0
-        Category03: 0
-        Category04: 0
-        Category05: 0
-        Category06: 0
-        Category07: 0
-        Category08: 0
-        Category09: 0
-        Category10: 0
-        Category11: 0
-        Category12: 0
-        Category13: 0
-        Category14: 0
-        Category15: 0
-        Category16: 0
-        Category17: 0
-        Category18: 0
-        Category19: 0
-        Category20: 0
-        Category21: 0
-        Category22: 0
-        Category23: 0
-        Category24: 0
-        Category25: 0
-        Category26: 0
-        Category27: 0
-        Category28: 0
-        Category29: 0
-        Category30: 0
-        Category31: 0
-    m_CustomMaterialTags:
-      m_Override: 0
-      m_Value:
-        Tag00: 0
-        Tag01: 0
-        Tag02: 0
-        Tag03: 0
-        Tag04: 0
-        Tag05: 0
-        Tag06: 0
-        Tag07: 0
-    m_SerializedVersion: 1
-    m_BelongsTo_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_CollidesWith_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_CustomTags_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_IsTrigger_Deprecated:
-      m_Override: 0
-      m_Value: 0
-    m_RaisesCollisionEvents_Deprecated:
-      m_Override: 0
-      m_Value: 0
-  m_SerializedVersion: 1
-  m_ConvexRadius_Deprecated: -1
---- !u!114 &3477953334235667350
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5054716804747551452}
+  m_GameObject: {fileID: 5163955003655680453}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5299c06d81b35644488582c197dd1c32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  directionId: 0
+  directionId: 2
   dynamicIntersectionId: 0
   isIntersectionEnter: 0
   isIntersectionExit: 1
   isSimpleIntersection: 0
   isSemaphoreIntersection: 1
   intersectionNumRoads: 4
---- !u!114 &3009977637377469847
+--- !u!114 &1178932376438413341
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5054716804747551452}
+  m_GameObject: {fileID: 5163955003655680453}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
@@ -4646,9 +4547,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 1
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -4666,6 +4567,158 @@ MonoBehaviour:
   isOccupied: 0
   numberCars: 0
   parkingPrefab: {fileID: 0}
+--- !u!1 &5346556211755364658
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4017723502481739916}
+  - component: {fileID: 5117019148436650942}
+  - component: {fileID: 5951872868938882040}
+  m_Layer: 10
+  m_Name: IntersectionEnterTrigger 0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4017723502481739916
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5346556211755364658}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.5700073, y: 0.49999988, z: -2.2599983}
+  m_LocalScale: {x: 0.90937495, y: 0.14999999, z: 1}
+  m_Children:
+  - {fileID: 3094874211606479311}
+  - {fileID: 8358863057580017421}
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5117019148436650942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5346556211755364658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5299c06d81b35644488582c197dd1c32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  directionId: 0
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 1
+  isIntersectionExit: 0
+  isSimpleIntersection: 0
+  isSemaphoreIntersection: 1
+  intersectionNumRoads: 4
+--- !u!114 &5951872868938882040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5346556211755364658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConversionMode: 0
+--- !u!1 &5467270399468766460
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8685050475244634797}
+  - component: {fileID: 7424652270376398366}
+  m_Layer: 0
+  m_Name: Node_trigger_1 (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8685050475244634797
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5467270399468766460}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 1.22, y: -2.00002, z: -0.50000006}
+  m_LocalScale: {x: 3.3333328, y: 1, z: 0.5079365}
+  m_Children: []
+  m_Father: {fileID: 2792300933393094992}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7424652270376398366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5467270399468766460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &5483727357776465190
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2602970134812094295}
+  - component: {fileID: 8830928490266514022}
+  m_Layer: 0
+  m_Name: Node_trigger_1 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2602970134812094295
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5483727357776465190}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0.22, y: -2.00002, z: -0.50000006}
+  m_LocalScale: {x: 3.3333328, y: 1, z: 0.5079365}
+  m_Children: []
+  m_Father: {fileID: 2792300933393094992}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8830928490266514022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5483727357776465190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5493588904134985584
 GameObject:
   m_ObjectHideFlags: 0
@@ -5096,9 +5149,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 1
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -5164,9 +5217,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 1
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 1
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -5232,9 +5285,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 1
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -5301,9 +5354,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 1
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 1
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -5321,7 +5374,7 @@ MonoBehaviour:
   isOccupied: 0
   numberCars: 0
   parkingPrefab: {fileID: 0}
---- !u!1 &5903162936316279879
+--- !u!1 &5887335491638460014
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5329,222 +5382,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8679340640310474249}
-  - component: {fileID: 3196491930576822369}
-  - component: {fileID: 3671698938001972986}
-  - component: {fileID: 9083577951762241906}
-  m_Layer: 10
-  m_Name: IntersectionTrigger (5)
+  - component: {fileID: 7986516647736275812}
+  - component: {fileID: 6086206797180720059}
+  m_Layer: 0
+  m_Name: Node_trigger_3 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8679340640310474249
+--- !u!4 &7986516647736275812
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5903162936316279879}
-  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -1.5, y: 0.50000024, z: 1.03}
-  m_LocalScale: {x: 1.8375005, y: 0.15000002, z: 1}
+  m_GameObject: {fileID: 5887335491638460014}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: -0.58, y: 1.31, z: -0.49999982}
+  m_LocalScale: {x: 3.3333328, y: 1, z: 0.4892965}
   m_Children: []
-  m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!114 &3196491930576822369
+  m_Father: {fileID: 3263867447683562093}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6086206797180720059
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5903162936316279879}
+  m_GameObject: {fileID: 5887335491638460014}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b275e5f92732148048d7b77e264ac30e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShapeType: 0
-  m_PrimitiveCenter:
-    x: 0
-    y: 0
-    z: 0
-  m_PrimitiveSize:
-    x: 1
-    y: 1
-    z: 1
-  m_PrimitiveOrientation:
-    Value:
-      x: 0
-      y: 0
-      z: 0
-    RotationOrder: 4
-  m_Capsule:
-    Height: 1
-    Radius: 0.5
-    Axis: 2
-  m_Cylinder:
-    Height: 1
-    Radius: 0.5
-    Axis: 2
-  m_CylinderSideCount: 20
-  m_SphereRadius: 0.5
-  m_MinimumSkinnedVertexWeight: 0.1
-  m_ConvexHullGenerationParameters:
-    m_SimplificationTolerance: 0.015
-    m_BevelRadius: 0.05
-    m_MinimumAngle: 2.5000002
-  m_CustomMesh: {fileID: 0}
-  m_ForceUnique: 0
-  m_Material:
-    m_SupportsTemplate: 1
-    m_Template: {fileID: 0}
-    m_CollisionResponse:
-      m_Override: 0
-      m_Value: 3
-    m_Friction:
-      m_Override: 0
-      m_Value:
-        Value: 0.5
-        CombineMode: 0
-    m_Restitution:
-      m_Override: 0
-      m_Value:
-        Value: 0
-        CombineMode: 2
-    m_BelongsToCategories:
-      m_Override: 0
-      m_Value:
-        Category00: 1
-        Category01: 0
-        Category02: 0
-        Category03: 0
-        Category04: 0
-        Category05: 0
-        Category06: 0
-        Category07: 0
-        Category08: 0
-        Category09: 0
-        Category10: 0
-        Category11: 0
-        Category12: 0
-        Category13: 0
-        Category14: 0
-        Category15: 0
-        Category16: 0
-        Category17: 0
-        Category18: 0
-        Category19: 0
-        Category20: 0
-        Category21: 0
-        Category22: 0
-        Category23: 0
-        Category24: 0
-        Category25: 0
-        Category26: 0
-        Category27: 0
-        Category28: 0
-        Category29: 0
-        Category30: 0
-        Category31: 0
-    m_CollidesWithCategories:
-      m_Override: 0
-      m_Value:
-        Category00: 0
-        Category01: 1
-        Category02: 0
-        Category03: 0
-        Category04: 0
-        Category05: 0
-        Category06: 0
-        Category07: 0
-        Category08: 0
-        Category09: 0
-        Category10: 0
-        Category11: 0
-        Category12: 0
-        Category13: 0
-        Category14: 0
-        Category15: 0
-        Category16: 0
-        Category17: 0
-        Category18: 0
-        Category19: 0
-        Category20: 0
-        Category21: 0
-        Category22: 0
-        Category23: 0
-        Category24: 0
-        Category25: 0
-        Category26: 0
-        Category27: 0
-        Category28: 0
-        Category29: 0
-        Category30: 0
-        Category31: 0
-    m_CustomMaterialTags:
-      m_Override: 0
-      m_Value:
-        Tag00: 0
-        Tag01: 0
-        Tag02: 0
-        Tag03: 0
-        Tag04: 0
-        Tag05: 0
-        Tag06: 0
-        Tag07: 0
-    m_SerializedVersion: 1
-    m_BelongsTo_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_CollidesWith_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_CustomTags_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_IsTrigger_Deprecated:
-      m_Override: 0
-      m_Value: 0
-    m_RaisesCollisionEvents_Deprecated:
-      m_Override: 0
-      m_Value: 0
-  m_SerializedVersion: 1
-  m_ConvexRadius_Deprecated: -1
---- !u!114 &3671698938001972986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5903162936316279879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5299c06d81b35644488582c197dd1c32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  directionId: 3
-  dynamicIntersectionId: 0
-  isIntersectionEnter: 0
-  isIntersectionExit: 1
-  isSimpleIntersection: 0
-  isSemaphoreIntersection: 1
-  intersectionNumRoads: 4
---- !u!114 &9083577951762241906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5903162936316279879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConversionMode: 0
 --- !u!1 &6022004771924308316
 GameObject:
   m_ObjectHideFlags: 0
@@ -5594,9 +5466,9 @@ MonoBehaviour:
   needIncomingConnection: 1
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 0
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -5677,9 +5549,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 1
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -5697,6 +5569,203 @@ MonoBehaviour:
   isOccupied: 0
   numberCars: 0
   parkingPrefab: {fileID: 0}
+--- !u!1 &6193207742376431336
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8358863057580017421}
+  - component: {fileID: 2958464982181540733}
+  m_Layer: 0
+  m_Name: Node_trigger_0 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8358863057580017421
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6193207742376431336}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.20946564, y: 0.19585806, z: -0.49999994}
+  m_LocalScale: {x: 0.54982823, y: 1, z: 3.3333323}
+  m_Children: []
+  m_Father: {fileID: 4017723502481739916}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2958464982181540733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6193207742376431336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &6267229953412669568
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8594744926498209986}
+  - component: {fileID: 6630713284531019833}
+  m_Layer: 0
+  m_Name: Node_trigger_3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8594744926498209986
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6267229953412669568}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: -0.39, y: -0.6, z: -0.49999976}
+  m_LocalScale: {x: 3.3333328, y: 1, z: 0.49382704}
+  m_Children: []
+  m_Father: {fileID: 8587293075083223532}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6630713284531019833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6267229953412669568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &6364522766172176067
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3094874211606479311}
+  - component: {fileID: 8457243513995616356}
+  m_Layer: 0
+  m_Name: Node_trigger_0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3094874211606479311
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6364522766172176067}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.3079112, y: 0.19585806, z: -0.49999994}
+  m_LocalScale: {x: 0.54982823, y: 1, z: 3.3333323}
+  m_Children: []
+  m_Father: {fileID: 4017723502481739916}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8457243513995616356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6364522766172176067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &6491346594226107467
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8587293075083223532}
+  - component: {fileID: 2291081672190941882}
+  - component: {fileID: 8137916177394740949}
+  m_Layer: 10
+  m_Name: IntersectionEnterTrigger 3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8587293075083223532
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6491346594226107467}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: -1.800003, y: 0.50000006, z: -0.59000015}
+  m_LocalScale: {x: 1.0124999, y: 0.14999999, z: 1}
+  m_Children:
+  - {fileID: 8594744926498209986}
+  - {fileID: 4079891509348990516}
+  - {fileID: 7950382525543331582}
+  - {fileID: 944006910934871878}
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &2291081672190941882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6491346594226107467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5299c06d81b35644488582c197dd1c32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  directionId: 3
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 1
+  isIntersectionExit: 0
+  isSimpleIntersection: 0
+  isSemaphoreIntersection: 1
+  intersectionNumRoads: 4
+--- !u!114 &8137916177394740949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6491346594226107467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConversionMode: 0
 --- !u!1 &6743379661461973424
 GameObject:
   m_ObjectHideFlags: 0
@@ -5746,9 +5815,9 @@ MonoBehaviour:
   needIncomingConnection: 1
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 0
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -5779,6 +5848,49 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &6821926541495809618
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8297632036805042534}
+  - component: {fileID: 5974590853987575443}
+  m_Layer: 0
+  m_Name: Node_trigger_3 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8297632036805042534
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6821926541495809618}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: -0.19, y: 1.24, z: -0.49999982}
+  m_LocalScale: {x: 3.3333328, y: 1, z: 0.4892965}
+  m_Children: []
+  m_Father: {fileID: 3263867447683562093}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5974590853987575443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6821926541495809618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6837080050538161420
 GameObject:
   m_ObjectHideFlags: 0
@@ -5828,9 +5940,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 1
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -5848,7 +5960,7 @@ MonoBehaviour:
   isOccupied: 0
   numberCars: 0
   parkingPrefab: {fileID: 0}
---- !u!1 &7203700828540042547
+--- !u!1 &6913337525950379566
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5856,222 +5968,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1156160587625409106}
-  - component: {fileID: 8372747837173347232}
-  - component: {fileID: 6590617508787767471}
-  - component: {fileID: 3794399634037380640}
-  m_Layer: 10
-  m_Name: IntersectionTrigger (3)
+  - component: {fileID: 3998597890087286374}
+  - component: {fileID: 2431808165397758395}
+  m_Layer: 0
+  m_Name: Node_trigger_2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1156160587625409106
+--- !u!4 &3998597890087286374
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7203700828540042547}
-  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 2.02, y: 0.50000024, z: 1.05}
-  m_LocalScale: {x: 1.8375005, y: 0.15000002, z: 1}
+  m_GameObject: {fileID: 6913337525950379566}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.22844003, y: -1.6, z: -0.5}
+  m_LocalScale: {x: 0.5387201, y: 1, z: 3.3333323}
   m_Children: []
-  m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!114 &8372747837173347232
+  m_Father: {fileID: 7355415221203863598}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2431808165397758395
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7203700828540042547}
+  m_GameObject: {fileID: 6913337525950379566}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b275e5f92732148048d7b77e264ac30e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShapeType: 0
-  m_PrimitiveCenter:
-    x: 0
-    y: 0
-    z: 0
-  m_PrimitiveSize:
-    x: 1
-    y: 1
-    z: 1
-  m_PrimitiveOrientation:
-    Value:
-      x: 0
-      y: 0
-      z: 0
-    RotationOrder: 4
-  m_Capsule:
-    Height: 1
-    Radius: 0.5
-    Axis: 2
-  m_Cylinder:
-    Height: 1
-    Radius: 0.5
-    Axis: 2
-  m_CylinderSideCount: 20
-  m_SphereRadius: 0.5
-  m_MinimumSkinnedVertexWeight: 0.1
-  m_ConvexHullGenerationParameters:
-    m_SimplificationTolerance: 0.015
-    m_BevelRadius: 0.05
-    m_MinimumAngle: 2.5000002
-  m_CustomMesh: {fileID: 0}
-  m_ForceUnique: 0
-  m_Material:
-    m_SupportsTemplate: 1
-    m_Template: {fileID: 0}
-    m_CollisionResponse:
-      m_Override: 0
-      m_Value: 3
-    m_Friction:
-      m_Override: 0
-      m_Value:
-        Value: 0.5
-        CombineMode: 0
-    m_Restitution:
-      m_Override: 0
-      m_Value:
-        Value: 0
-        CombineMode: 2
-    m_BelongsToCategories:
-      m_Override: 0
-      m_Value:
-        Category00: 1
-        Category01: 0
-        Category02: 0
-        Category03: 0
-        Category04: 0
-        Category05: 0
-        Category06: 0
-        Category07: 0
-        Category08: 0
-        Category09: 0
-        Category10: 0
-        Category11: 0
-        Category12: 0
-        Category13: 0
-        Category14: 0
-        Category15: 0
-        Category16: 0
-        Category17: 0
-        Category18: 0
-        Category19: 0
-        Category20: 0
-        Category21: 0
-        Category22: 0
-        Category23: 0
-        Category24: 0
-        Category25: 0
-        Category26: 0
-        Category27: 0
-        Category28: 0
-        Category29: 0
-        Category30: 0
-        Category31: 0
-    m_CollidesWithCategories:
-      m_Override: 0
-      m_Value:
-        Category00: 0
-        Category01: 1
-        Category02: 0
-        Category03: 0
-        Category04: 0
-        Category05: 0
-        Category06: 0
-        Category07: 0
-        Category08: 0
-        Category09: 0
-        Category10: 0
-        Category11: 0
-        Category12: 0
-        Category13: 0
-        Category14: 0
-        Category15: 0
-        Category16: 0
-        Category17: 0
-        Category18: 0
-        Category19: 0
-        Category20: 0
-        Category21: 0
-        Category22: 0
-        Category23: 0
-        Category24: 0
-        Category25: 0
-        Category26: 0
-        Category27: 0
-        Category28: 0
-        Category29: 0
-        Category30: 0
-        Category31: 0
-    m_CustomMaterialTags:
-      m_Override: 0
-      m_Value:
-        Tag00: 0
-        Tag01: 0
-        Tag02: 0
-        Tag03: 0
-        Tag04: 0
-        Tag05: 0
-        Tag06: 0
-        Tag07: 0
-    m_SerializedVersion: 1
-    m_BelongsTo_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_CollidesWith_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_CustomTags_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_IsTrigger_Deprecated:
-      m_Override: 0
-      m_Value: 0
-    m_RaisesCollisionEvents_Deprecated:
-      m_Override: 0
-      m_Value: 0
-  m_SerializedVersion: 1
-  m_ConvexRadius_Deprecated: -1
---- !u!114 &6590617508787767471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7203700828540042547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5299c06d81b35644488582c197dd1c32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  directionId: 1
-  dynamicIntersectionId: 0
-  isIntersectionEnter: 1
-  isIntersectionExit: 0
-  isSimpleIntersection: 0
-  isSemaphoreIntersection: 1
-  intersectionNumRoads: 4
---- !u!114 &3794399634037380640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7203700828540042547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConversionMode: 0
 --- !u!1 &7252248192388927341
 GameObject:
   m_ObjectHideFlags: 0
@@ -6121,9 +6052,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 1
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -6141,6 +6072,49 @@ MonoBehaviour:
   isOccupied: 0
   numberCars: 0
   parkingPrefab: {fileID: 0}
+--- !u!1 &7515084739374239836
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3236424091488345670}
+  - component: {fileID: 7266241352249217652}
+  m_Layer: 0
+  m_Name: Node_trigger_1 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3236424091488345670
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7515084739374239836}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: -0.21, y: 0.5, z: -0.5000001}
+  m_LocalScale: {x: 3.3333328, y: 1, z: 0.53333324}
+  m_Children: []
+  m_Father: {fileID: 5195169227618596742}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7266241352249217652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7515084739374239836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7625049927901516093
 GameObject:
   m_ObjectHideFlags: 0
@@ -6189,9 +6163,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 1
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 1
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -6257,9 +6231,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 1
   isIntersection: 0
+  isSemaphoreIntersection: 0
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -6432,9 +6406,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 1
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -6452,230 +6426,6 @@ MonoBehaviour:
   isOccupied: 0
   numberCars: 0
   parkingPrefab: {fileID: 0}
---- !u!1 &7968033728633686100
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4953022525436176978}
-  - component: {fileID: 564504060283807668}
-  - component: {fileID: 2488853407033880064}
-  - component: {fileID: 1852531473690182263}
-  m_Layer: 10
-  m_Name: IntersectionTrigger (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4953022525436176978
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7968033728633686100}
-  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -2.04, y: 0.5, z: -1.01}
-  m_LocalScale: {x: 1.7554691, y: 0.15000002, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!114 &564504060283807668
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7968033728633686100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b275e5f92732148048d7b77e264ac30e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShapeType: 0
-  m_PrimitiveCenter:
-    x: 0
-    y: 0
-    z: 0
-  m_PrimitiveSize:
-    x: 1
-    y: 1
-    z: 1
-  m_PrimitiveOrientation:
-    Value:
-      x: 0
-      y: 0
-      z: 0
-    RotationOrder: 4
-  m_Capsule:
-    Height: 1
-    Radius: 0.5
-    Axis: 2
-  m_Cylinder:
-    Height: 1
-    Radius: 0.5
-    Axis: 2
-  m_CylinderSideCount: 20
-  m_SphereRadius: 0.5
-  m_MinimumSkinnedVertexWeight: 0.1
-  m_ConvexHullGenerationParameters:
-    m_SimplificationTolerance: 0.015
-    m_BevelRadius: 0.05
-    m_MinimumAngle: 2.5000002
-  m_CustomMesh: {fileID: 0}
-  m_ForceUnique: 0
-  m_Material:
-    m_SupportsTemplate: 1
-    m_Template: {fileID: 0}
-    m_CollisionResponse:
-      m_Override: 0
-      m_Value: 3
-    m_Friction:
-      m_Override: 0
-      m_Value:
-        Value: 0.5
-        CombineMode: 0
-    m_Restitution:
-      m_Override: 0
-      m_Value:
-        Value: 0
-        CombineMode: 2
-    m_BelongsToCategories:
-      m_Override: 0
-      m_Value:
-        Category00: 1
-        Category01: 0
-        Category02: 0
-        Category03: 0
-        Category04: 0
-        Category05: 0
-        Category06: 0
-        Category07: 0
-        Category08: 0
-        Category09: 0
-        Category10: 0
-        Category11: 0
-        Category12: 0
-        Category13: 0
-        Category14: 0
-        Category15: 0
-        Category16: 0
-        Category17: 0
-        Category18: 0
-        Category19: 0
-        Category20: 0
-        Category21: 0
-        Category22: 0
-        Category23: 0
-        Category24: 0
-        Category25: 0
-        Category26: 0
-        Category27: 0
-        Category28: 0
-        Category29: 0
-        Category30: 0
-        Category31: 0
-    m_CollidesWithCategories:
-      m_Override: 0
-      m_Value:
-        Category00: 0
-        Category01: 1
-        Category02: 0
-        Category03: 0
-        Category04: 0
-        Category05: 0
-        Category06: 0
-        Category07: 0
-        Category08: 0
-        Category09: 0
-        Category10: 0
-        Category11: 0
-        Category12: 0
-        Category13: 0
-        Category14: 0
-        Category15: 0
-        Category16: 0
-        Category17: 0
-        Category18: 0
-        Category19: 0
-        Category20: 0
-        Category21: 0
-        Category22: 0
-        Category23: 0
-        Category24: 0
-        Category25: 0
-        Category26: 0
-        Category27: 0
-        Category28: 0
-        Category29: 0
-        Category30: 0
-        Category31: 0
-    m_CustomMaterialTags:
-      m_Override: 0
-      m_Value:
-        Tag00: 0
-        Tag01: 0
-        Tag02: 0
-        Tag03: 0
-        Tag04: 0
-        Tag05: 0
-        Tag06: 0
-        Tag07: 0
-    m_SerializedVersion: 1
-    m_BelongsTo_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_CollidesWith_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_CustomTags_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_IsTrigger_Deprecated:
-      m_Override: 0
-      m_Value: 0
-    m_RaisesCollisionEvents_Deprecated:
-      m_Override: 0
-      m_Value: 0
-  m_SerializedVersion: 1
-  m_ConvexRadius_Deprecated: -1
---- !u!114 &2488853407033880064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7968033728633686100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5299c06d81b35644488582c197dd1c32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  directionId: 3
-  dynamicIntersectionId: 0
-  isIntersectionEnter: 1
-  isIntersectionExit: 0
-  isSimpleIntersection: 0
-  isSemaphoreIntersection: 1
-  intersectionNumRoads: 4
---- !u!114 &1852531473690182263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7968033728633686100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConversionMode: 0
 --- !u!1 &8040931098610705880
 GameObject:
   m_ObjectHideFlags: 0
@@ -6725,9 +6475,9 @@ MonoBehaviour:
   needIncomingConnection: 1
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 0
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -6758,7 +6508,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &8338266501494460199
+--- !u!1 &8476704198432727821
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6766,222 +6516,152 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 19350492443799243}
-  - component: {fileID: 3975213768247136453}
-  - component: {fileID: 3556109840831478319}
-  - component: {fileID: 2097614897100230336}
-  m_Layer: 10
-  m_Name: IntersectionTrigger
+  - component: {fileID: 6044552921643231247}
+  - component: {fileID: 3979160822667092238}
+  m_Layer: 0
+  m_Name: Node_trigger_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &19350492443799243
+--- !u!4 &6044552921643231247
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8338266501494460199}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.62, y: 0.49999988, z: -2.66}
-  m_LocalScale: {x: 0.97499996, y: 0.15, z: 1}
+  m_GameObject: {fileID: 8476704198432727821}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: -0.35, y: -1.900024, z: -0.5}
+  m_LocalScale: {x: 3.3333328, y: 1, z: 0.5079365}
   m_Children: []
-  m_Father: {fileID: 1952225155875115036}
-  m_RootOrder: 5
+  m_Father: {fileID: 2792300933393094992}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3975213768247136453
+--- !u!114 &3979160822667092238
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8338266501494460199}
+  m_GameObject: {fileID: 8476704198432727821}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b275e5f92732148048d7b77e264ac30e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShapeType: 0
-  m_PrimitiveCenter:
-    x: 0
-    y: 0
-    z: 0
-  m_PrimitiveSize:
-    x: 1
-    y: 1
-    z: 1
-  m_PrimitiveOrientation:
-    Value:
-      x: 0
-      y: 0
-      z: 0
-    RotationOrder: 4
-  m_Capsule:
-    Height: 1
-    Radius: 0.5
-    Axis: 2
-  m_Cylinder:
-    Height: 1
-    Radius: 0.5
-    Axis: 2
-  m_CylinderSideCount: 20
-  m_SphereRadius: 0.5
-  m_MinimumSkinnedVertexWeight: 0.1
-  m_ConvexHullGenerationParameters:
-    m_SimplificationTolerance: 0.015
-    m_BevelRadius: 0.05
-    m_MinimumAngle: 2.5000002
-  m_CustomMesh: {fileID: 0}
-  m_ForceUnique: 0
-  m_Material:
-    m_SupportsTemplate: 1
-    m_Template: {fileID: 0}
-    m_CollisionResponse:
-      m_Override: 0
-      m_Value: 3
-    m_Friction:
-      m_Override: 0
-      m_Value:
-        Value: 0.5
-        CombineMode: 0
-    m_Restitution:
-      m_Override: 0
-      m_Value:
-        Value: 0
-        CombineMode: 2
-    m_BelongsToCategories:
-      m_Override: 0
-      m_Value:
-        Category00: 1
-        Category01: 0
-        Category02: 0
-        Category03: 0
-        Category04: 0
-        Category05: 0
-        Category06: 0
-        Category07: 0
-        Category08: 0
-        Category09: 0
-        Category10: 0
-        Category11: 0
-        Category12: 0
-        Category13: 0
-        Category14: 0
-        Category15: 0
-        Category16: 0
-        Category17: 0
-        Category18: 0
-        Category19: 0
-        Category20: 0
-        Category21: 0
-        Category22: 0
-        Category23: 0
-        Category24: 0
-        Category25: 0
-        Category26: 0
-        Category27: 0
-        Category28: 0
-        Category29: 0
-        Category30: 0
-        Category31: 0
-    m_CollidesWithCategories:
-      m_Override: 0
-      m_Value:
-        Category00: 0
-        Category01: 1
-        Category02: 0
-        Category03: 0
-        Category04: 0
-        Category05: 0
-        Category06: 0
-        Category07: 0
-        Category08: 0
-        Category09: 0
-        Category10: 0
-        Category11: 0
-        Category12: 0
-        Category13: 0
-        Category14: 0
-        Category15: 0
-        Category16: 0
-        Category17: 0
-        Category18: 0
-        Category19: 0
-        Category20: 0
-        Category21: 0
-        Category22: 0
-        Category23: 0
-        Category24: 0
-        Category25: 0
-        Category26: 0
-        Category27: 0
-        Category28: 0
-        Category29: 0
-        Category30: 0
-        Category31: 0
-    m_CustomMaterialTags:
-      m_Override: 0
-      m_Value:
-        Tag00: 0
-        Tag01: 0
-        Tag02: 0
-        Tag03: 0
-        Tag04: 0
-        Tag05: 0
-        Tag06: 0
-        Tag07: 0
-    m_SerializedVersion: 1
-    m_BelongsTo_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_CollidesWith_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_CustomTags_Deprecated:
-      m_Override: 0
-      m_Value: 
-    m_IsTrigger_Deprecated:
-      m_Override: 0
-      m_Value: 0
-    m_RaisesCollisionEvents_Deprecated:
-      m_Override: 0
-      m_Value: 0
-  m_SerializedVersion: 1
-  m_ConvexRadius_Deprecated: -1
---- !u!114 &3556109840831478319
+--- !u!1 &8502853073870920496
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5195169227618596742}
+  - component: {fileID: 6905724602524118177}
+  - component: {fileID: 1558327851847175385}
+  m_Layer: 10
+  m_Name: IntersectionEnterTrigger 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5195169227618596742
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8502853073870920496}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: 1.75, y: 0.5000001, z: 0.5699997}
+  m_LocalScale: {x: 0.9375, y: 0.14999999, z: 1}
+  m_Children:
+  - {fileID: 2813145650337470764}
+  - {fileID: 3236424091488345670}
+  - {fileID: 7484089947271428250}
+  - {fileID: 6496517853701535637}
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &6905724602524118177
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8338266501494460199}
+  m_GameObject: {fileID: 8502853073870920496}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5299c06d81b35644488582c197dd1c32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  directionId: 0
+  directionId: 1
   dynamicIntersectionId: 0
   isIntersectionEnter: 1
   isIntersectionExit: 0
   isSimpleIntersection: 0
   isSemaphoreIntersection: 1
   intersectionNumRoads: 4
---- !u!114 &2097614897100230336
+--- !u!114 &1558327851847175385
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8338266501494460199}
+  m_GameObject: {fileID: 8502853073870920496}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ConversionMode: 0
+--- !u!1 &8598853465693953651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6496517853701535637}
+  - component: {fileID: 4596390157013977458}
+  m_Layer: 0
+  m_Name: Node_trigger_1 (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6496517853701535637
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8598853465693953651}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: -1.31, y: 0.5, z: -0.5000001}
+  m_LocalScale: {x: 3.3333328, y: 1, z: 0.53333324}
+  m_Children: []
+  m_Father: {fileID: 5195169227618596742}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4596390157013977458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8598853465693953651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7c10f3fafb9434e8053394bebc4894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8627932866908412050
 GameObject:
   m_ObjectHideFlags: 0
@@ -7030,9 +6710,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 1
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -7098,9 +6778,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 1
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -7166,9 +6846,9 @@ MonoBehaviour:
   needIncomingConnection: 0
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 1
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 1
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -7314,14 +6994,14 @@ Transform:
   - {fileID: 8125290871315815152}
   - {fileID: 1926622171761827217}
   - {fileID: 8873247738800317578}
-  - {fileID: 19350492443799243}
-  - {fileID: 1695485181367887238}
-  - {fileID: 4953022525436176978}
-  - {fileID: 1156160587625409106}
-  - {fileID: 2135832366058718130}
-  - {fileID: 8679340640310474249}
-  - {fileID: 8338523046856367446}
-  - {fileID: 5179535090166231305}
+  - {fileID: 4017723502481739916}
+  - {fileID: 5195169227618596742}
+  - {fileID: 5936487313304649957}
+  - {fileID: 8587293075083223532}
+  - {fileID: 6067396895559612090}
+  - {fileID: 2792300933393094992}
+  - {fileID: 7355415221203863598}
+  - {fileID: 3263867447683562093}
   - {fileID: 5493588904134695764}
   - {fileID: 2798282572769460561}
   - {fileID: 388342258568986043}
@@ -7531,9 +7211,9 @@ MonoBehaviour:
   needIncomingConnection: 1
   needOutgoingConnection: 0
   isIntersection: 0
+  isSemaphoreIntersection: 0
+  isCurve: 0
   isLaneChange: 0
-  isTurnLeft: 0
-  isTurnRight: 0
   isBusLane: 0
   isBusStop: 0
   isBusMerge: 0
@@ -7564,3 +7244,71 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &9100962889630484533
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2792300933393094992}
+  - component: {fileID: 1032607369450950321}
+  - component: {fileID: 6846368920164277099}
+  m_Layer: 10
+  m_Name: IntersectionExitTrigger 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2792300933393094992
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9100962889630484533}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: 1.3699951, y: 0.50000006, z: -0.59000015}
+  m_LocalScale: {x: 0.984375, y: 0.14999999, z: 1}
+  m_Children:
+  - {fileID: 6044552921643231247}
+  - {fileID: 2602970134812094295}
+  - {fileID: 4482831454733268918}
+  - {fileID: 8685050475244634797}
+  m_Father: {fileID: 1952225155875115036}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1032607369450950321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9100962889630484533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5299c06d81b35644488582c197dd1c32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  directionId: 1
+  dynamicIntersectionId: 0
+  isIntersectionEnter: 0
+  isIntersectionExit: 1
+  isSimpleIntersection: 0
+  isSemaphoreIntersection: 1
+  intersectionNumRoads: 4
+--- !u!114 &6846368920164277099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9100962889630484533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConversionMode: 0

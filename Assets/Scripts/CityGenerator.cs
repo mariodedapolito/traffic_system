@@ -19,6 +19,7 @@ public class MapTile
     }
 }
 
+
 [System.Serializable]
 public class JsonData
 {
@@ -559,14 +560,15 @@ public class CityGenerator : MonoBehaviour
         busSpawner = new BusSpawner(busPrefab, this);
 
         carSpawner.generateTraffic(numberCarsToSpawn, profondity);
-        busSpawner.generateBuses();
+        // busSpawner.generateBuses();
 
-        /*foreach(Node n in cityNodes)
+        foreach (Node n in cityParkingNodes)
         {
-            NodeComponents ndCmp = n.gameObject.AddComponent<NodeComponents>();
-            ndCmp.node = n;
-            n.gameObject.AddComponent<Unity.Entities.ConvertToEntity>();
-        }*/
+            ParkingComponents parkingComponents = n.parkingPrefab.gameObject.AddComponent<ParkingComponents>();
+            parkingComponents.parkingGateWay = n.transform.position;
+            parkingComponents.parking = n.parkingPrefab.GetComponent<Parking>();
+            n.parkingPrefab.gameObject.AddComponent<Unity.Entities.ConvertToEntity>();
+        }
 
         //Used for the path 
         //GenerateArrayForCars();
@@ -1131,13 +1133,13 @@ public class CityGenerator : MonoBehaviour
                         if (node && !node.needOutgoingConnection && !node.needIncomingConnection)
                         {
                             cityNodes.Add(node);
-                            if(!nodesMap.ContainsKey(GetPositionHashMapKey(node.transform.position)))    
+                            if (!nodesMap.ContainsKey(GetPositionHashMapKey(node.transform.position)))
                                 nodesMap.Add(GetPositionHashMapKey(node.transform.position), node);
                             if (node.isParkingGateway)
                             {
                                 cityParkingNodes.Add(node);
                                 cityCarParkingNodes.AddRange(node.GetComponent<Parking>().freeParkingSpots);
-                                foreach(var n in node.GetComponent<Parking>().freeParkingSpots)
+                                foreach (var n in node.GetComponent<Parking>().freeParkingSpots)
                                 {
                                     nodesMapParking.Add(GetPositionHashMapKey(n.transform.position), n);
                                 }
@@ -1147,11 +1149,11 @@ public class CityGenerator : MonoBehaviour
                                 cityBusStopsSpawn.Add(node);
                                 cityBusStopsDst.Add(node);
                             }
-                            /*else if (((cityMap[i, j].prefabType == STRAIGHT_1LANE || cityMap[i, j].prefabType == STRAIGHT_2LANE || cityMap[i, j].prefabType == BUS_STOP_1LANE || cityMap[i, j].prefabType == BUS_STOP_2LANE)
-                                    && !node.isLaneChange) && node.isCarSpawn)   //spawn nodes dont include lane-change nodes and bus lanes
+                            else if (((cityMap[i, j].prefabType == STRAIGHT_1LANE || cityMap[i, j].prefabType == STRAIGHT_2LANE || cityMap[i, j].prefabType == BUS_STOP_1LANE || cityMap[i, j].prefabType == BUS_STOP_2LANE)
+                                    && !node.isLaneChange) /*&& node.isCarSpawn*/)   //spawn nodes dont include lane-change nodes and bus lanes
                             {
                                 citySpawnNodes.Add(node);
-                            }*/
+                            }
 
                             //Debug.Log(node.transform.position);
                             //Detect street connector nodes
@@ -1162,7 +1164,11 @@ public class CityGenerator : MonoBehaviour
                         }
                     }
 
-                    citySpawnNodes.AddRange(spawnWaypoints);
+                    //citySpawnNodes.AddRange(spawnWaypoints);
+                    foreach(Node n in spawnWaypoints)
+                    {
+                        Destroy(n.gameObject);
+                    }
 
                     //needConnectionWaypoints = 
                     foreach (var node in needConnectionWaypoints)
@@ -1187,20 +1193,20 @@ public class CityGenerator : MonoBehaviour
                         }
                         if (targetWaypoint != null)
                         {
-                            foreach (Node n in spawnWaypoints)
+                            /*foreach (Node n in spawnWaypoints)
                             {
                                 if (n.nextNodes[0].Equals(node.nextNodes[0]))
                                 {
                                     n.nextNodes.RemoveAt(0);
                                     n.nextNodes.Insert(0, targetWaypoint.nextNodes[0]);
                                 }
-                            }
+                            }*/
                             //Delete street connector nodes
                             Node newNextNode = targetWaypoint.nextNodes[0];     //next node of green node
                             Node prevNextNode = node.nextNodes[0];  //old blue node
                             Destroy(targetWaypoint.gameObject);     //green node
                             Destroy(prevNextNode.gameObject);       //blue node
-                            node.nextNodes.RemoveAt(0);             
+                            node.nextNodes.RemoveAt(0);
                             node.nextNodes.Insert(0, newNextNode);
                         }
 
@@ -1213,11 +1219,11 @@ public class CityGenerator : MonoBehaviour
         {
             if (!cityNodes[i].GetComponent<Node>().isParkingSpot)
             {
-                
+
             }
             else
             {
-                
+
             }
 
         }

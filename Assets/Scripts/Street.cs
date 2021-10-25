@@ -31,6 +31,15 @@ public class Street : MonoBehaviour
     private float semaphoreTime;
     private int semaphoreTurn;
 
+    //private void OnDrawGizmos()
+    //{
+    //    foreach (Node n in carWaypoints)
+    //    {
+    //        Gizmos.color = Color.black;
+    //        Gizmos.DrawSphere(n.transform.position, 0.5f);
+    //    }
+    //}
+
     void Start()
     {
         if (isSemaphoreIntersection)

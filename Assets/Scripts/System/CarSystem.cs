@@ -8,12 +8,12 @@ using Unity.Physics;
 using Unity.Collections;
 
 
-[UpdateAfter(typeof(IntersectionPrecedenceSystem))]
-[UpdateAfter(typeof(CarsPositionSystem))]
 class CarSystem : SystemBase
 {
     [ReadOnly]
     private static NativeHashMap<int, char> carsPosition;
+
+    private static TimeScale timescale;
 
     private const int LANE_CHANGE = 1;
     private const int BUS_STOP = 2;
@@ -21,18 +21,12 @@ class CarSystem : SystemBase
     private const int INTERSECTION = 4;
     private const int MERGE_LEFT = 5;
     private const int MERGE_RIGHT = 6;
+    private const int PARKING_GATEWAY = 7;
 
     protected override void OnCreate()
     {
+        timescale = GameObject.Find("TimeScale").GetComponent<TimeScale>();
         base.OnCreate();
-    }
-
-    public int GetParkingPositionHashMapKey(float3 position)
-    {
-        int xMultiplier = 100000;
-        int xPosition = (int)position.x;
-        int zPosition = (int)position.z;
-        return xPosition * xMultiplier + zPosition;
     }
 
     protected override void OnUpdate()
@@ -40,33 +34,16 @@ class CarSystem : SystemBase
         int elapsedTime = (int)UnityEngine.Time.time;
 
         float time = Time.DeltaTime;
-        float timeScale = GameObject.Find("TimeScale").GetComponent<TimeScale>().timeScale;
-        
+        float timeScale = timescale.timeScale;
+
         carsPosition = CarsPositionSystem.carsPositionMap;
 
         Entities
             .WithoutBurst()
-            .ForEach((DynamicBuffer<NodesList> NodesList, ref PathFinding pathFinding, ref VehicleNavigation navigation, ref Translation translation, ref Rotation rotation, ref VehicleSpeed speed, in LocalToWorld ltw) =>
+            .ForEach((int entityInQueryIndex, DynamicBuffer<NodesList> NodesList, ref VehicleNavigation navigation, ref Translation translation, ref Rotation rotation, ref VehicleSpeed speed, in Car car, in LocalToWorld ltw) =>
             {
-                if (navigation.isBus || NodesList.Length==0 || navigation.needParking == true || (navigation.isParked && elapsedTime < navigation.timeExitParking))
+                if (NodesList.Length == 0 || navigation.needParking || navigation.isParked)
                 {
-                    return;
-                }
-
-                if (navigation.currentNode == NodesList.Length - 1 && (math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) < 0.3f || math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) > 200f) )
-                {
-                    NodesList.Clear();
-
-                    navigation.needParking = true;
-
-                    navigation.isParked = false;
-
-                    translation.Value = pathFinding.parkingNodePosition;
-
-                    pathFinding.startingNodePosition = pathFinding.destinationNodePosition;
-
-                    navigation.timeExitParking = elapsedTime + 500;
-
                     return;
                 }
 
@@ -257,13 +234,13 @@ class CarSystem : SystemBase
                         }
                         translation.Value += ltw.Forward * time * speed.currentSpeed;
                         float3 direction = NodesList[navigation.currentNode].nodePosition - translation.Value;
-                        if (direction.Equals(new float3(0f, 0f, 0f)))
-                        {
-                            //Debug.Log("parked");
-                            navigation.isParked = true;
-                            translation.Value = navigation.parkingNode;
-                            return;
-                        }
+                        //if (direction.Equals(new float3(0f, 0f, 0f)))
+                        //{
+                        //    //Debug.Log("parked");
+                        //    navigation.isParked = true;
+                        //    translation.Value = navigation.parkingNode;
+                        //    return;
+                        //}
                         rotation.Value = Quaternion.LookRotation(direction);
                     }
                     else  //SPEEDING UP IF NO TRAFFIC OR MY TURN IN INTERSECTION
@@ -283,40 +260,43 @@ class CarSystem : SystemBase
                             navigation.currentNode++;
                         }*/
 
-                        if (navigation.currentNode < NodesList.Length - 1 && math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) < math.distance(translation.Value + ltw.Forward, NodesList[navigation.currentNode].nodePosition))
-                        {
-                            //Debug.Log(math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) + " vs " + math.distance(translation.Value + ltw.Forward, NodesList[navigation.currentNode].nodePosition));
-                            navigation.currentNode++;
-                        }
+                        //if (math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) < math.distance(translation.Value + ltw.Forward, NodesList[navigation.currentNode].nodePosition))
+                        //{
+                        //    //Debug.Log(math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) + " vs " + math.distance(translation.Value + ltw.Forward, NodesList[navigation.currentNode].nodePosition));
+                        //    navigation.currentNode = (navigation.currentNode + 1) % NodesList.Length;
+                        //}
 
                         float3 nextNodeDirection = Unity.Mathematics.math.normalize((NodesList[navigation.currentNode].nodePosition - translation.Value));
                         translation.Value += nextNodeDirection * time * speed.currentSpeed;
 
                         float3 direction = NodesList[navigation.currentNode].nodePosition - translation.Value;
 
-                        if (direction.Equals(0f))
-                        {
-                            //Debug.Log("parked");
-                            navigation.isParked = true;
-                            translation.Value = navigation.parkingNode;
-                            return;
-                        }
+                        //if (direction.Equals(0f))
+                        //{
+                        //    //Debug.Log("parked");
+                        //    navigation.isParked = true;
+                        //    translation.Value = navigation.parkingNode;
+                        //    return;
+                        //}
                         float3 neededRotation = Quaternion.LookRotation(direction).eulerAngles;
 
                         rotation.Value = Quaternion.Euler(neededRotation);
                     }
 
 
-                    if (math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) < 0.5f / timeScale && !navigation.needParking && navigation.currentNode < NodesList.Length - 1)
+                    if (math.distance(translation.Value, NodesList[navigation.currentNode].nodePosition) < 0.5f / timeScale)
                     {
-                        navigation.currentNode++;
+                        if (NodesList[navigation.currentNode].nodeType == PARKING_GATEWAY && (entityInQueryIndex + elapsedTime) % 5 == 0)
+                        {
+                            navigation.needParking = true;
+                            navigation.parkingGateWay = NodesList[navigation.currentNode].nodePosition;
+                            navigation.timeExitParking = elapsedTime + ((entityInQueryIndex + elapsedTime) % 500) + 15;
+                        }
+                        navigation.currentNode = (navigation.currentNode + 1) % NodesList.Length;
                     }
 
                 }
 
             }).ScheduleParallel();
-
-        //parkingNodes.Dispose();
-        //cityParkings.Dispose();
     }
 }

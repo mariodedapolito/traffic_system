@@ -6,6 +6,7 @@ using Unity.Collections;
 using Unity.Mathematics;
 using Unity.Jobs;
 
+
 public class CarSpawner : MonoBehaviour
 {
 
@@ -16,11 +17,15 @@ public class CarSpawner : MonoBehaviour
     private int numCarsToSpawn;
     private int numCarsToSpownNow;
 
-    private int carId = 0;
-
-    private List<Node> sNode;
-    private List<Node> dNode;
-    private List<Node> pNode;
+    private const int LANE_CHANGE = 1;
+    private const int BUS_STOP = 2;
+    private const int BUS_MERGE = 3;
+    private const int INTERSECTION = 4;
+    private const int MERGE_LEFT = 5;
+    private const int MERGE_RIGHT = 6;
+    private const int PARKING_GATEWAY = 7;
+    private const int SEM_INTERSECTION = 8;
+    private const int CURVE = 9;
 
 
     public CarSpawner(List<GameObject> carPrefab, CityGenerator city, int numCarsToSpawn)
@@ -29,132 +34,212 @@ public class CarSpawner : MonoBehaviour
         this.city = city;
         this.spawnWaypoints = city.citySpawnNodes;
         this.parkingWaypoints = city.cityParkingNodes;
-        if (numCarsToSpawn >= spawnWaypoints.Count)
-        {
-            this.numCarsToSpawn = spawnWaypoints.Count - 1;
-        }
-        else
-        {
-            this.numCarsToSpawn = numCarsToSpawn;
-        }
+        //if (numCarsToSpawn >= spawnWaypoints.Count)
+        //{
+        //    this.numCarsToSpawn = spawnWaypoints.Count - 1;
+        //}
+        //else
+        //{
+        this.numCarsToSpawn = numCarsToSpawn;
+        //}
         numCarsToSpownNow = numCarsToSpawn;
     }
 
     public void generateTraffic(int numberCarsToSpawn, float profondity)
     {
-        Debug.Log(numCarsToSpawn);
-        NativeList<float3> spawnNodeList = new NativeList<float3>(numCarsToSpawn, Allocator.Temp);
-        NativeList<float3> destinationNodeList = new NativeList<float3>(numCarsToSpawn, Allocator.Temp);
+        if (numCarsToSpownNow == 0) return;
 
-        GameObject city = GameObject.FindGameObjectWithTag("CityGenerator");
+        int numPathsToCreate = numberCarsToSpawn / 500 + 1;
 
-        //init variable the first cars on frame
-        sNode = new List<Node>();
-        dNode = new List<Node>();
-        pNode = new List<Node>();
+        List<List<Node>> paths = new List<List<Node>>();
+        //List<List<CarPathNodeContainer>> dotsPaths = new List<List<CarPathNodeContainer>>();
+        List<int> numParkings = new List<int>();
+        List<int> numCarsSpawnParked = new List<int>();
+        List<int> numCarsSpawnStreet = new List<int>();
+        List<int> numSpawnSections = new List<int>();
+        List<Node> tmpDstNodes = new List<Node>();  //list used to restore used destination waypoints to be used for creating DOTS parking system
 
-        if (spawnWaypoints.Count < numCarsToSpownNow)
+        Dictionary<int, bool> spawnedCarsPosition = new Dictionary<int, bool>();
+        Path path = new Path();
+
+        //Creating all looped paths
+        for (int i = 0; i < numPathsToCreate; i++)
         {
-            Debug.LogError("Not enough cars node spawn! Increase the number of rows.");
-            return;
-        }
+            int randomSpawnIndex = (int)UnityEngine.Random.Range(0f, spawnWaypoints.Count);
+            Node randomSpawnNode = spawnWaypoints[randomSpawnIndex];
+            spawnWaypoints.RemoveAt(randomSpawnIndex);
+            int randomDstIndex = (int)UnityEngine.Random.Range(0f, parkingWaypoints.Count);
+            Node randomDstNode = parkingWaypoints[randomDstIndex];
+            tmpDstNodes.Add(randomDstNode);     //list used to restore used destination waypoints to be used for creating DOTS parking system
+            parkingWaypoints.RemoveAt(randomDstIndex);
 
-        float timeExitParking = UnityEngine.Random.Range(10f, 250f);
-
-        for (int i = 0; i < numCarsToSpownNow; i++)
-        {
-            int randomSrcNode = UnityEngine.Random.Range(0, spawnWaypoints.Count);
-            int randomDstNodeIndex = UnityEngine.Random.Range(0, parkingWaypoints.Count);
-
-            while (math.distance(spawnWaypoints[randomSrcNode].transform.position, parkingWaypoints[randomDstNodeIndex].transform.position) >= profondity) randomDstNodeIndex = UnityEngine.Random.Range(0, parkingWaypoints.Count);
-
-
-
-            spawnNodeList.Add(spawnWaypoints[randomSrcNode].transform.position);
-            sNode.Add(spawnWaypoints[randomSrcNode]);
-
-            spawnWaypoints.RemoveAt(randomSrcNode);
-            /*
-            pNode.Add(possiblePaking.freeParkingSpots[randomParkingSpot]);
-            possiblePaking.freeParkingSpots[randomParkingSpot].isOccupied = true;
-            */
-            destinationNodeList.Add(parkingWaypoints[randomDstNodeIndex].transform.position);
-            dNode.Add(parkingWaypoints[randomDstNodeIndex]);
-        }
-
-        int k = 0;
-
-        for (int i = 0; i < numCarsToSpawn; i++)
-        {
-            Node spawnNode = sNode[i];
-
-            Node destinationNode = dNode[i];
-
-            int carIndex = UnityEngine.Random.Range(0, carPrefab.Count);
-            GameObject carToSpawn = carPrefab[carIndex];
-            CarComponents carData = carToSpawn.GetComponent<CarComponents>();
-
-            if (i < numberCarsToSpawn / 10 * 7)
+            List<Node> pathA = path.findShortestPath(randomSpawnNode, randomDstNode);
+            if (pathA.Count == 0)
             {
-                int randomDstNodeIndex = UnityEngine.Random.Range(0, parkingWaypoints.Count);
+                throw new System.Exception("NO PATH FOUND for A");
+            }
+            pathA.RemoveAt(pathA.Count - 1);
 
-                Parking possiblePaking = parkingWaypoints[randomDstNodeIndex].parkingPrefab.GetComponent<Parking>();
+            List<Node> pathB = path.findShortestPath(randomDstNode, randomSpawnNode);
+            if (pathB.Count == 0)
+            {
+                throw new System.Exception("NO PATH FOUND for B");
+            }
+            pathB.RemoveAt(pathB.Count - 1);
 
-                int randomParkingSpot = UnityEngine.Random.Range(0, possiblePaking.freeParkingSpots.Count);
+            paths.Insert(i, new List<Node>());
+            paths[i].AddRange(pathA);
+            paths[i].AddRange(pathB);
 
-                possiblePaking.numberFreeSpots--;
+            //dotsPaths.Insert(i, pathA.ConvertAll(el =>
+            //{
+            //    if (el.isParkingGateway) return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = PARKING_GATEWAY };
+            //    else if (el.isLaneChange) return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = LANE_CHANGE };
+            //    else if (el.isIntersection) return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = INTERSECTION };
+            //    else if (el.isLaneMergeLeft) return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = MERGE_LEFT };
+            //    else if (el.isLaneMergeRight) return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = MERGE_RIGHT };
+            //    return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = 0 };
+            //}));
+            //dotsPaths[i].AddRange(pathB.ConvertAll(el =>
+            //{
+            //    if (el.isParkingGateway) return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = PARKING_GATEWAY };
+            //    else if (el.isLaneChange) return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = LANE_CHANGE };
+            //    else if (el.isIntersection) return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = INTERSECTION };
+            //    else if (el.isLaneMergeLeft) return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = MERGE_LEFT };
+            //    else if (el.isLaneMergeRight) return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = MERGE_RIGHT };
+            //    return new CarPathNodeContainer { nodePosition = el.transform.position, nodeType = 0 };
+            //}));            
 
-                if (possiblePaking.numberFreeSpots == 0)
+            //Debug.Log(dotsPaths[i].Count);
+            
+        }
+
+        //Analyzing paths
+        for (int i = 0; i < numPathsToCreate; i++)
+        {
+            numParkings.Insert(i, 0);
+            numSpawnSections.Insert(i, 0);
+            for (int j = 0; j < paths[i].Count; j++)
+            {
+                if (paths[i][j].isParkingGateway)
                 {
-                    possiblePaking.freeParkingSpots.RemoveAt(randomParkingSpot);
+                    numParkings[i]++;
                 }
+                if ((!paths[i][j].isIntersection && !paths[i][j].isSemaphoreIntersection && !paths[i][j].isCurve && !paths[i][j].isLaneChange) &&
+                    (!paths[i][(j + 1) % paths[i].Count].isIntersection && !paths[i][(j + 1) % paths[i].Count].isSemaphoreIntersection && !paths[i][(j + 1) % paths[i].Count].isCurve && !paths[i][(j + 1) % paths[i].Count].isLaneChange))
+                {
+                    numSpawnSections[i]++;
+                }
+            }
+        }
 
-                possiblePaking.freeParkingSpots[randomParkingSpot].isOccupied = true;
-
-                carData.parkingNode = possiblePaking.freeParkingSpots[randomParkingSpot];
-                carData.destinationNode = parkingWaypoints[randomDstNodeIndex];
-
-                carData.startingNode = parkingWaypoints[randomDstNodeIndex];
-                carData.isParking = true;
-                carData.currentNode = 0;
-                carData.timeExitParking = 15 + i * 2;
-
-                spawnNode = possiblePaking.freeParkingSpots[randomParkingSpot];
-                spawnNode.transform.rotation = Quaternion.Euler(0, ReturnRotationCar(parkingWaypoints[randomDstNodeIndex]), 0);
+        //Decide how many cars to spawn on street and on parkings
+        int parkingMaxPositions = 50;
+        for (int i = 0; i < numPathsToCreate; i++)
+        {
+            if (parkingMaxPositions * numParkings[i] > 350)
+            {
+                numCarsSpawnParked.Insert(i, 350);
+                numCarsSpawnStreet.Insert(i, 150);
             }
             else
             {
-                carData.isParking = false;
-                carData.startingNode = spawnNode;
-                carData.currentNode = 1;
-                carData.destinationNode = destinationNode;
+                numCarsSpawnParked.Insert(i, parkingMaxPositions * numParkings[i]);
+                numCarsSpawnStreet.Insert(i, 500 - parkingMaxPositions * numParkings[i]);
             }
-            carData.Speed = 2f;
-            carData.SpeedDamping = carData.Speed / 10f;
-
-
-            //carData.parkingNode = pNode[i];
-
-            //Debug.Log(spawnNode.transform.rotation);
-
-            carData.pathNodeList.Clear();
-
-            /*
-            for (int j = 0; j < sampleJobArray[k].Length; j++)
-            {
-                carData.pathNodeList.Add(sampleJobArray[k][j]);
-            }
-            keyAdd.Add(sampleJobArray[k][0]);
-            keyAdd.Add(dNode[i].transform.position);
-            cacheCarsSpawn.Add(keyAdd, carData.pathNodeList);
-            */
-            Instantiate(carToSpawn, spawnNode.transform.position, spawnNode.transform.rotation);
-
-            spawnWaypoints.Remove(spawnNode);
-            k++;
         }
 
-        //Debug.Log("FINISH CAR SPAWNING!!!");
+        //Now spawn cars
+        for (int i = 0; i < numPathsToCreate; i++)
+        {
+            for (int j = 0; j < paths[i].Count; j++)
+            {
+                if (paths[i][j].isParkingGateway)
+                {
+                    Parking parking = paths[i][j].parkingPrefab.GetComponent<Parking>();
+                    int maxSpawnableCars = parking.numberFreeSpots;
+                    int targetCarsToSpawnParked = numCarsSpawnParked[i] / numParkings[i] + 1;
+                    int startingSpawnPosition = parking.numberParkingSpots - parking.numberFreeSpots;
+                    int actualCarsSpawnedInParking = 0;
+                    for (int k = startingSpawnPosition; k < startingSpawnPosition + maxSpawnableCars; k++)
+                    {
+                        GameObject carToSpawn = carPrefab[k % carPrefab.Count];
+                        CarComponents carData = carToSpawn.GetComponent<CarComponents>();
+
+                        carData.Speed = 2f;
+                        carData.SpeedDamping = 0.2f;
+                        carData.carPath = paths[i];
+                        carData.currentNode = (j + 1) % paths[i].Count;
+                        carData.isCar = true;
+                        carData.isParking = true;
+                        carData.parkingGateWay = paths[i][j].transform.position;
+                        carData.timeExitParking = (int)UnityEngine.Random.Range(15f, 500f);
+
+                        Vector3 spawnPosition = parking.freeParkingSpots[k].transform.position;
+                        Quaternion spawnRotation = Quaternion.Euler(0, ReturnRotationCar(paths[i][j]), 0);
+
+                        Instantiate(carToSpawn, spawnPosition, spawnRotation);
+
+                        parking.numberFreeSpots--;
+                        numCarsSpawnParked[i]--;
+                        actualCarsSpawnedInParking++;
+                        if (actualCarsSpawnedInParking >= targetCarsToSpawnParked)
+                        {
+                            break;
+                        }
+                    }
+                    numParkings[i]--;
+                }
+                if ((!paths[i][j].isIntersection && !paths[i][j].isSemaphoreIntersection && !paths[i][j].isCurve && !paths[i][j].isLaneChange) &&
+                    (!paths[i][(j + 1) % paths[i].Count].isIntersection && !paths[i][(j + 1) % paths[i].Count].isSemaphoreIntersection && !paths[i][(j + 1) % paths[i].Count].isCurve && !paths[i][(j + 1) % paths[i].Count].isLaneChange))
+                {
+                    int sectionLength = (int)math.distance(paths[i][j].transform.position, paths[i][(j + 1) % paths[i].Count].transform.position);
+                    int maxSpawnableCars = sectionLength / 3;
+                    int targetCarsToSpawnInSection = numCarsSpawnStreet[i] / numSpawnSections[i];
+                    int actualCarsSpawnedInSection = 0;
+                    Vector3 spawnSection = paths[i][(j + 1) % paths[i].Count].transform.position - paths[i][j].transform.position;
+                    for (int k = 0; k < maxSpawnableCars; k++)
+                    {
+                        Vector3 spawnPosition = paths[i][j].transform.position + spawnSection * (k / maxSpawnableCars);
+                        if (spawnedCarsPosition.ContainsKey(GetPositionHashMapKey(spawnPosition)))
+                        {
+                            continue;
+                        }
+
+                        GameObject carToSpawn = carPrefab[k % carPrefab.Count];
+                        CarComponents carData = carToSpawn.GetComponent<CarComponents>();
+
+                        carData.Speed = 2f;
+                        carData.SpeedDamping = 0.2f;
+                        carData.carPath = paths[i];
+                        carData.currentNode = (j + 1) % paths[i].Count;
+                        carData.isCar = true;
+                        carData.isParking = false;
+
+
+                        Quaternion spawnRotation = Quaternion.Euler(0, ReturnRotationCar(paths[i][j]), 0);
+
+                        Instantiate(carToSpawn, spawnPosition, spawnRotation);
+
+                        numCarsSpawnStreet[i]--;
+                        spawnedCarsPosition.Add(GetPositionHashMapKey(spawnPosition), true);
+                        if (++actualCarsSpawnedInSection >= targetCarsToSpawnInSection)
+                        {
+                            break;
+                        }
+                    }
+                    numSpawnSections[i]--;
+                }
+            }
+            if (i < numPathsToCreate - 1)
+            {
+                numCarsSpawnParked[i + 1] += numCarsSpawnParked[i];
+                numCarsSpawnStreet[i + 1] += numCarsSpawnStreet[i];
+            }
+        }
+
+
+        city.cityParkingNodes.AddRange(tmpDstNodes);
 
     }
 
@@ -215,4 +300,10 @@ public class CarSpawner : MonoBehaviour
         return carRotation;
     }
 
+    public static int GetPositionHashMapKey(Vector3 position)
+    {
+        int xPosition = (int)position.x;
+        int zPosition = (int)position.z;
+        return xPosition * 1000000 + zPosition;
+    }
 }

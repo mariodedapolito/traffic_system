@@ -4,8 +4,9 @@ using UnityEngine;
 using Unity.Collections;
 using System.Collections.Generic;
 
+public struct IntersectionTrigger : IComponentData { };
 
-public struct IntersectionTriggerData : IComponentData
+    public struct IntersectionTriggerData : IComponentData
 {
     public int directionId;
     public int intersectionId;
@@ -14,6 +15,11 @@ public struct IntersectionTriggerData : IComponentData
     public bool isSimpleIntersection;
     public bool isSemaphoreIntersection;
     public int intersectionNumRoads;
+}
+
+public struct IntersectionTriggerNodes : IBufferElementData
+{
+    public float3 triggerPosition;
 }
 
 class IntersectionTriggerComponent : MonoBehaviour, IConvertGameObjectToEntity
@@ -32,6 +38,8 @@ class IntersectionTriggerComponent : MonoBehaviour, IConvertGameObjectToEntity
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
+        dstManager.AddComponent<IntersectionTrigger>(entity);
+
         dstManager.AddComponentData(entity, new IntersectionTriggerData
         {
             directionId = directionId,
@@ -42,6 +50,12 @@ class IntersectionTriggerComponent : MonoBehaviour, IConvertGameObjectToEntity
             isSemaphoreIntersection = isSemaphoreIntersection,
             intersectionNumRoads = intersectionNumRoads
         });
+
+        DynamicBuffer<IntersectionTriggerNodes> triggerList = dstManager.AddBuffer<IntersectionTriggerNodes>(entity);
+        foreach (TriggerNode trigNode in gameObject.GetComponentsInChildren<TriggerNode>())
+        {
+            triggerList.Add(new IntersectionTriggerNodes { triggerPosition = trigNode.transform.position });
+        }
     }
 }
 

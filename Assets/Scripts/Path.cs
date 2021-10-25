@@ -45,21 +45,22 @@ public class Path : MonoBehaviour
         }
     }*/
 
-    public List<Node> findShortestPath(Transform start, Transform end)
+    public List<Node> findShortestPath(Node start, Node end)
     {
+        CityGenerator city = GameObject.FindGameObjectWithTag("CityGenerator").GetComponent<CityGenerator>();
 
-        waypoints = GameObject.FindGameObjectsWithTag("CarWaypoint");
+        //waypoints = city.cityNodes;
 
-        nodes = new List<Node>();
+        nodes = city.cityNodes;
 
-        foreach (GameObject w in waypoints)
+        /*foreach (GameObject w in waypoints)
         {
             if(w.GetComponent<Node>()!= null)
                 nodes.Add(w.GetComponent<Node>());
-        }
+        }*/
 
         List<Node> result = new List<Node>();
-        List<Node> node = AStarSearch(start.GetComponent<Node>(), end.GetComponent<Node>());
+        List<Node> node = AStarSearch(start, end);
 
         return node;
     }

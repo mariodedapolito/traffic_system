@@ -47,8 +47,8 @@ public class BusSpawner : MonoBehaviour
                 busStop_2 = busStopsDst[Random.Range(0, numBusStopsDst)];
             }
 
-            List<Node> path_1 = path.findShortestPath(busStop_1.transform, busStop_2.transform);
-            List<Node> path_2 = path.findShortestPath(busStop_2.transform, busStop_1.transform);
+            List<Node> path_1 = path.findShortestPath(busStop_1, busStop_2);
+            List<Node> path_2 = path.findShortestPath(busStop_2, busStop_1);
 
             path_1.RemoveAt(path_1.Count - 1);
             path_2.RemoveAt(0);
