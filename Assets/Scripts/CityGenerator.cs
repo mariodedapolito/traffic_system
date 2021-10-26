@@ -565,7 +565,7 @@ public class CityGenerator : MonoBehaviour
         busSpawner = new BusSpawner(busPrefab, this);
 
         carSpawner.generateTraffic(numberCarsToSpawn);
-        // busSpawner.generateBuses();
+        busSpawner.generateBuses();
 
         foreach (Node n in cityParkingNodes)
         {
@@ -573,6 +573,11 @@ public class CityGenerator : MonoBehaviour
             parkingComponents.parkingGateWay = n.transform.position;
             parkingComponents.parking = n.parkingPrefab.GetComponent<Parking>();
             n.parkingPrefab.gameObject.AddComponent<Unity.Entities.ConvertToEntity>();
+        }
+        
+        foreach (Node n in cityNodes)
+        {
+            GameObject.Destroy(n.gameObject);
         }
 
         //Used for the path 
