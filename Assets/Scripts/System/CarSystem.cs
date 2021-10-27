@@ -293,7 +293,7 @@ class CarSystem : SystemBase
                         {
                             navigation.needParking = true;
                             navigation.parkingGateWay = path[navigation.currentNode].xyz;
-                            navigation.timeExitParking = elapsedTime + ((entityInQueryIndex + elapsedTime) % 500) + 15;
+                            navigation.timeExitParking = elapsedTime + ((entityInQueryIndex + elapsedTime) % 1000) + 100;
                         }
                         navigation.currentNode = (navigation.currentNode + 1) % path.Length;
                     }

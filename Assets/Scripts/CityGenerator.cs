@@ -564,7 +564,7 @@ public class CityGenerator : MonoBehaviour
         //Spawn buses
         busSpawner = new BusSpawner(busPrefab, this);
 
-        carSpawner.generateTraffic(numberCarsToSpawn);
+        carSpawner.generateTraffic();
         busSpawner.generateBuses();
 
         foreach (Node n in cityParkingNodes)
@@ -577,7 +577,7 @@ public class CityGenerator : MonoBehaviour
         
         foreach (Node n in cityNodes)
         {
-            GameObject.Destroy(n.gameObject);
+            Destroy(n.gameObject);
         }
 
         //Used for the path 

@@ -14,6 +14,7 @@ public class ManageUI : MonoBehaviour
     public Text numberOfCarsParkedText;
     public Text numberOfCarsOnStreetText;
     public Text averageFPSText;
+    public Text instantaneousFPSText;
 
     private int _numberOfCars;
     private int _numberOfBuses;
@@ -22,6 +23,7 @@ public class ManageUI : MonoBehaviour
     private int _numberOfCarsParked;
     private int _numberOfCarsOnStreet;
     private float _averageFPS;
+    private float _instantaneousFPS;
 
     private float deltaTime;
 
@@ -36,6 +38,7 @@ public class ManageUI : MonoBehaviour
     public int numberOfCarsParked { get { return _numberOfCarsParked; } set { _numberOfCarsParked = value; numberOfCarsParkedText.text = numberOfCarsParked.ToString(); } }
     public int numberOfCarsOnStreet { get { return _numberOfCarsOnStreet; } set { _numberOfCarsOnStreet = value; numberOfCarsOnStreetText.text = numberOfCarsOnStreet.ToString(); } }
     public float averageFPS { get { return _averageFPS; } set { _averageFPS = value; averageFPSText.text = string.Format("{0}", Mathf.Ceil(averageFPS).ToString()); } }
+    public float instantaneousFPS { get { return _instantaneousFPS; } set { _instantaneousFPS = value; instantaneousFPSText.text = string.Format("{0}", Mathf.Ceil(instantaneousFPS).ToString()); } }
 
     private void Start()
     {
@@ -52,9 +55,11 @@ public class ManageUI : MonoBehaviour
         time = Time.realtimeSinceStartup;
         timeScale = Time.timeScale;
 
-        deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
+        //deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
         averageFPS = Time.frameCount / Time.time;//1.0f / deltaTime;
-       
+        if (Time.frameCount % 5 == 0)
+            instantaneousFPS = 1f / Time.deltaTime;
+
         numberOfCarsParked = CarsPositionSystem.numCarsArray[1];
 
         numberOfCarsOnStreet = CarsPositionSystem.numCarsArray[0];
@@ -70,6 +75,6 @@ public class ManageUI : MonoBehaviour
         this.numberOfCarsParked = manageUI.numberOfCarsParked;
         this.numberOfCarsOnStreet = manageUI.numberOfCarsOnStreet;
         this.averageFPS = manageUI.averageFPS;
-
+        this.instantaneousFPS = manageUI.instantaneousFPS;
     }
 }

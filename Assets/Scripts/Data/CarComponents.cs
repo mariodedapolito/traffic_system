@@ -48,18 +48,10 @@ public struct VehicleSteering : IComponentData
     public float SteeringDamping;
 }
 
-public struct NodesList : IBufferElementData
-{
-    public float3 nodePosition;
-    public int nodeType;
-}
-
 public struct VehiclePath : IComponentData
 {
     public BlobAssetReference<NativeList<float4>> nodesList;
 }
-
-public struct IsParkedComponent : IComponentData { }
 
 class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
 {
@@ -78,9 +70,8 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
     [Header("Navigation")]
     public int currentNode;
     public float3 parkingGateWay;
-    //public List<Node> carPath;
     public BlobAssetReference<NativeList<float4>> carPath;
-    public List<Node> busPath;
+    public BlobAssetReference<NativeList<float4>> busPath;
     public int timeExitParking;
     public CameraFollow followCar;
 
@@ -124,7 +115,6 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
             //Cars that spawn parked
             if (isParking)
             {
-                dstManager.AddComponent<IsParkedComponent>(entity);
                 dstManager.AddComponentData(entity, new VehicleNavigation
                 {
                     needParking = false,
@@ -163,23 +153,10 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
                 });
             }
 
-            //Debug.Log(carPath + "," + carPath.Length);
-
             dstManager.AddComponentData(entity, new VehiclePath
             {
                 nodesList = carPath
             });
-
-            //DynamicBuffer<NodesList> nodesList = dstManager.AddBuffer<NodesList>(entity);
-            //for (int i = 0; i < carPath.Count; i++)
-            //{
-            //    if (carPath[i].isParkingGateway) nodesList.Add(new NodesList { nodePosition = carPath[i].transform.position, nodeType = PARKING_GATEWAY });
-            //    else if (carPath[i].isLaneChange) nodesList.Add(new NodesList { nodePosition = carPath[i].transform.position, nodeType = LANE_CHANGE });
-            //    else if (carPath[i].isIntersection) nodesList.Add(new NodesList { nodePosition = carPath[i].transform.position, nodeType = INTERSECTION });
-            //    else if (carPath[i].isLaneMergeLeft) nodesList.Add(new NodesList { nodePosition = carPath[i].transform.position, nodeType = MERGE_LEFT });
-            //    else if (carPath[i].isLaneMergeRight) nodesList.Add(new NodesList { nodePosition = carPath[i].transform.position, nodeType = MERGE_RIGHT });
-            //    else nodesList.Add(new NodesList { nodePosition = carPath[i].transform.position, nodeType = 0 });
-            //}
 
             dstManager.AddComponent<Car>(entity);
         }
@@ -201,22 +178,10 @@ class CarComponents : MonoBehaviour, IConvertGameObjectToEntity
                 isBus = true
             });
 
-            if (busPath.Count == 0)
+            dstManager.AddComponentData(entity, new VehiclePath
             {
-                throw new System.Exception("NO BUS PATH FOUND");
-            }
-
-            DynamicBuffer<NodesList> nodesList = dstManager.AddBuffer<NodesList>(entity);
-            for (int i = 0; i < busPath.Count; i++)
-            {
-                if (busPath[i].isLaneChange) nodesList.Add(new NodesList { nodePosition = busPath[i].transform.position, nodeType = LANE_CHANGE });
-                else if (busPath[i].isBusStop) nodesList.Add(new NodesList { nodePosition = busPath[i].transform.position, nodeType = BUS_STOP });
-                else if (busPath[i].isBusMerge) nodesList.Add(new NodesList { nodePosition = busPath[i].transform.position, nodeType = BUS_MERGE });
-                else if (busPath[i].isIntersection) nodesList.Add(new NodesList { nodePosition = busPath[i].transform.position, nodeType = INTERSECTION });
-                else if (busPath[i].isLaneMergeLeft) nodesList.Add(new NodesList { nodePosition = busPath[i].transform.position, nodeType = MERGE_LEFT });
-                else if (busPath[i].isLaneMergeRight) nodesList.Add(new NodesList { nodePosition = busPath[i].transform.position, nodeType = MERGE_RIGHT });
-                else nodesList.Add(new NodesList { nodePosition = busPath[i].transform.position, nodeType = 0 });
-            }
+                nodesList = busPath
+            });
 
             dstManager.AddComponent<Bus>(entity);
         }

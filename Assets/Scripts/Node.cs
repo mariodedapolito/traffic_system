@@ -34,85 +34,85 @@ public class Node : MonoBehaviour
     public GameObject parkingPrefab;
 
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.white;
-        //if (!this.needOutgoingConnection && !isParkingSpot && this.nextNodes.Count==0)
-        //{
-        //    Gizmos.color = Color.black;
-        //    Gizmos.DrawSphere(transform.position, 1f);
-        //    throw new System.Exception("BAD NODE");
-        //}
-        //if(needOutgoingConnection || needIncomingConnection)
-        //{
-        //    Debug.Log("EERROR");
-        //    Debug.Log(transform.position);
-        //}
-        for (int i = 0; i < nextNodes.Count; i++)
-        {
-            if (nextNodes[i] == null)
-            {
-                Debug.Log(transform.position);
-                Debug.Log(gameObject.name);
-            }
-            Gizmos.DrawLine(transform.position, nextNodes[i].transform.position);
-            float distance = Vector3.Distance(transform.position, nextNodes[i].transform.position);
-            Gizmos.DrawSphere(Vector3.MoveTowards(transform.position, nextNodes[i].transform.position, distance - 0.4f), 0.15f);
-        }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.white;
+    //    //if (!this.needOutgoingConnection && !isParkingSpot && this.nextNodes.Count==0)
+    //    //{
+    //    //    Gizmos.color = Color.black;
+    //    //    Gizmos.DrawSphere(transform.position, 1f);
+    //    //    throw new System.Exception("BAD NODE");
+    //    //}
+    //    //if(needOutgoingConnection || needIncomingConnection)
+    //    //{
+    //    //    Debug.Log("EERROR");
+    //    //    Debug.Log(transform.position);
+    //    //}
+    //    for (int i = 0; i < nextNodes.Count; i++)
+    //    {
+    //        if (nextNodes[i] == null)
+    //        {
+    //            Debug.Log(transform.position);
+    //            Debug.Log(gameObject.name);
+    //        }
+    //        Gizmos.DrawLine(transform.position, nextNodes[i].transform.position);
+    //        float distance = Vector3.Distance(transform.position, nextNodes[i].transform.position);
+    //        Gizmos.DrawSphere(Vector3.MoveTowards(transform.position, nextNodes[i].transform.position, distance - 0.4f), 0.15f);
+    //    }
 
-        //Gizmos.color = Color.green;
-        //Gizmos.DrawSphere(transform.position, 0.25f);
-        //if (isTurnLeft)
-        //{
-        //    Gizmos.color = Color.yellow;
-        //    Gizmos.DrawCube(transform.position, new Vector3(0.25f, 0.25f, 1f));
-        //}
-        //if (isTurnRight)
-        //{
-        //    Gizmos.color = Color.cyan;
-        //    Gizmos.DrawCube(transform.position, new Vector3(0.25f, 0.25f, 1f));
-        //}
-        if (needIncomingConnection)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawSphere(transform.position, 0.3f);
-        }
-        else if (needOutgoingConnection)
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(transform.position, 0.3f);
-        }
-        else if (trafficDirection == 0)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawCube(transform.position, new Vector3(0.5f, 0.5f, 0.5f));
-        }
-        else if (trafficDirection == 1)
-        {
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawCube(transform.position, new Vector3(0.5f, 0.5f, 0.5f));
-        }
-        if (isParkingSpot)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(transform.position, 0.1f);
-        }
-        if (isLaneChange)
-        {
-            Gizmos.color = Color.white;
-            Gizmos.DrawCube(transform.position, new Vector3(0.7f, 0.7f, 0.7f));
-        }
-        if (isIntersection)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawCube(transform.position, new Vector3(0.7f, 0.7f, 0.7f));
-        }
-        if (isSemaphoreIntersection)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawCube(transform.position, new Vector3(0.7f, 0.7f, 0.7f));
-        }
-        Gizmos.color = Color.white;
-    }
+    //    //Gizmos.color = Color.green;
+    //    //Gizmos.DrawSphere(transform.position, 0.25f);
+    //    //if (isTurnLeft)
+    //    //{
+    //    //    Gizmos.color = Color.yellow;
+    //    //    Gizmos.DrawCube(transform.position, new Vector3(0.25f, 0.25f, 1f));
+    //    //}
+    //    //if (isTurnRight)
+    //    //{
+    //    //    Gizmos.color = Color.cyan;
+    //    //    Gizmos.DrawCube(transform.position, new Vector3(0.25f, 0.25f, 1f));
+    //    //}
+    //    if (needIncomingConnection)
+    //    {
+    //        Gizmos.color = Color.green;
+    //        Gizmos.DrawSphere(transform.position, 0.3f);
+    //    }
+    //    else if (needOutgoingConnection)
+    //    {
+    //        Gizmos.color = Color.blue;
+    //        Gizmos.DrawSphere(transform.position, 0.3f);
+    //    }
+    //    else if (trafficDirection == 0)
+    //    {
+    //        Gizmos.color = Color.red;
+    //        Gizmos.DrawCube(transform.position, new Vector3(0.5f, 0.5f, 0.5f));
+    //    }
+    //    else if (trafficDirection == 1)
+    //    {
+    //        Gizmos.color = Color.magenta;
+    //        Gizmos.DrawCube(transform.position, new Vector3(0.5f, 0.5f, 0.5f));
+    //    }
+    //    if (isParkingSpot)
+    //    {
+    //        Gizmos.color = Color.yellow;
+    //        Gizmos.DrawSphere(transform.position, 0.1f);
+    //    }
+    //    if (isLaneChange)
+    //    {
+    //        Gizmos.color = Color.white;
+    //        Gizmos.DrawCube(transform.position, new Vector3(0.7f, 0.7f, 0.7f));
+    //    }
+    //    if (isIntersection)
+    //    {
+    //        Gizmos.color = Color.yellow;
+    //        Gizmos.DrawCube(transform.position, new Vector3(0.7f, 0.7f, 0.7f));
+    //    }
+    //    if (isSemaphoreIntersection)
+    //    {
+    //        Gizmos.color = Color.yellow;
+    //        Gizmos.DrawCube(transform.position, new Vector3(0.7f, 0.7f, 0.7f));
+    //    }
+    //    Gizmos.color = Color.white;
+    //}
 
 }

@@ -186,7 +186,8 @@ public class CarsPositionSystem : SystemBase
                         //update car position on the map (collision avoidance)
                         int hashMapKey = GetPositionHashMapKey(translation.Value);
                         carsPositionMap.TryAdd(hashMapKey, '1');
-                        numCarsArray[0]++;
+                        if(navigation.isCar) 
+                            numCarsArray[0]++;
 
                         //check car intersection situation
                         if (intersectionIdMap.TryGetValue(hashMapKey, out int intersectionId) && triggerMap.TryGetValue(hashMapKey, out int4 triggerData))

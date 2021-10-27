@@ -1,10 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Entities;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class ButtonUIHandler : MonoBehaviour
 {
+
+    public Text enableGraphicsErrorText;
+    public Text graphicsStatusText;
+
+    private EntityManager manager;
+
+    private void Awake()
+    {
+        manager = World.DefaultGameObjectInjectionWorld.EntityManager;
+    }
 
     public void IncreaseTimeScale()
     {
@@ -20,6 +31,14 @@ public class ButtonUIHandler : MonoBehaviour
 
     public void ChangeCamera()
     {
+        if (!World.DefaultGameObjectInjectionWorld.GetExistingSystem<Unity.Rendering.RenderMeshSystemV2>().Enabled)
+        {
+            StopCoroutine(hideEnableGraphicsErrorText(5));
+            enableGraphicsErrorText.gameObject.SetActive(true);
+            StartCoroutine(hideEnableGraphicsErrorText(5));
+            return;
+        }
+
         GameObject cameraManager = GameObject.Find("CameraManager");
         CameraFollow followCar = cameraManager.GetComponent<CameraFollow>();
 
@@ -35,7 +54,27 @@ public class ButtonUIHandler : MonoBehaviour
         {
             followCar.SwitchCamera(followCar.currentCameraIndex + 1);
         }
-        
+
+    }
+
+    public void MaxPerformance()
+    {
+        World.DefaultGameObjectInjectionWorld.GetExistingSystem<Unity.Rendering.RenderMeshSystemV2>().Enabled = !World.DefaultGameObjectInjectionWorld.GetExistingSystem<Unity.Rendering.RenderMeshSystemV2>().Enabled;
+        if (!World.DefaultGameObjectInjectionWorld.GetExistingSystem<Unity.Rendering.RenderMeshSystemV2>().Enabled)
+        {
+            graphicsStatusText.gameObject.SetActive(true);
+        }
+        else
+        {
+            enableGraphicsErrorText.gameObject.SetActive(false);
+            graphicsStatusText.gameObject.SetActive(false);
+        }
+    }
+
+    IEnumerator hideEnableGraphicsErrorText(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        enableGraphicsErrorText.gameObject.SetActive(false);
     }
 
 }

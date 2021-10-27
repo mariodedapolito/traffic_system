@@ -27,7 +27,6 @@ public class CarSpawner : MonoBehaviour
 
     private List<Node> spawnWaypoints;
     private List<Node> parkingWaypoints;
-    private int numCarsToSpawn;
     private int numCarsToSpownNow;
 
     private const int LANE_CHANGE = 1;
@@ -49,11 +48,11 @@ public class CarSpawner : MonoBehaviour
     private void OnDestroy()
     {
         Debug.Log("DESTROYING");
-        foreach(var el in dotsPaths)
+        foreach (var el in dotsPaths)
         {
             el.Dispose();
         }
-        
+
 
     }
 
@@ -69,23 +68,22 @@ public class CarSpawner : MonoBehaviour
         //}
         //else
         //{
-        this.numCarsToSpawn = numCarsToSpawn;
-        //}
-        numCarsToSpownNow = numCarsToSpawn;
-
+        this.numCarsToSpownNow = numCarsToSpawn;
         dotsPaths = new List<NativeList<float4>>();
         blobReferences = new List<BlobAssetReference<NativeList<float4>>>();
 
         followCar = GameObject.Find("CameraManager").GetComponent<CameraFollow>();
     }
 
-    public void generateTraffic(int numberCarsToSpawn)
+    public void generateTraffic()
     {
         if (numCarsToSpownNow == 0) return;
 
         int numCarPrefabs = carPrefab.Count;
 
-        int numPathsToCreate = numberCarsToSpawn / 500 + 1;
+        int numPathsToCreate = numCarsToSpownNow / 500 + 1;
+
+        int numCarsToCreate = numCarsToSpownNow;
 
         //dotsPaths = new NativeList<NativeList<NodeData>>(numPathsToCreate, Allocator.Persistent);
 
@@ -144,7 +142,7 @@ public class CarSpawner : MonoBehaviour
             //Debug.Log(dotsPath.Length);
 
             dotsPaths.Add(dotsPath);
-            
+
             //Debug.Log(dotsPaths[i].Count);
 
         }
@@ -172,21 +170,36 @@ public class CarSpawner : MonoBehaviour
         int parkingMaxPositions = 50;
         for (int i = 0; i < numPathsToCreate; i++)
         {
-            if (parkingMaxPositions * numParkings[i] > 350)
+            if (numCarsToSpownNow < 0)
             {
-                numCarsSpawnParked.Insert(i, 350);
-                numCarsSpawnStreet.Insert(i, 150);
+                numCarsSpawnParked.Insert(i, 0);
+            }
+            else if (numCarsToSpownNow - 500 < 0)
+            {
+                numCarsSpawnParked.Insert(i, (int)((float)numCarsToSpownNow * 0.7f));
+                numCarsSpawnStreet.Insert(i, (int)((float)numCarsToSpownNow * 0.3f));
+                numCarsToSpownNow -= 500;
             }
             else
             {
-                numCarsSpawnParked.Insert(i, parkingMaxPositions * numParkings[i]);
-                numCarsSpawnStreet.Insert(i, 500 - (parkingMaxPositions * numParkings[i]));
+                numCarsToSpownNow -= 500;
+                if (parkingMaxPositions * numParkings[i] > 350)
+                {
+                    numCarsSpawnParked.Insert(i, 350);
+                    numCarsSpawnStreet.Insert(i, 150);
+                }
+                else
+                {
+                    numCarsSpawnParked.Insert(i, parkingMaxPositions * numParkings[i]);
+                    numCarsSpawnStreet.Insert(i, 500 - (parkingMaxPositions * numParkings[i]));
+                }
             }
         }
 
         //Now spawn cars
         for (int i = 0; i < numPathsToCreate; i++)
         {
+
             BlobBuilder builder = new BlobBuilder(Allocator.Persistent);
             ref NativeList<float4> blobData = ref builder.ConstructRoot<NativeList<float4>>();
             blobData = this.dotsPaths[i];
@@ -195,7 +208,7 @@ public class CarSpawner : MonoBehaviour
 
             for (int j = 0; j < paths[i].Count; j++)
             {
-                if (paths[i][j].isParkingGateway)
+                if (numCarsSpawnParked[i] > 0 && paths[i][j].isParkingGateway)
                 {
                     Parking parking = paths[i][j].parkingPrefab.GetComponent<Parking>();
                     int maxSpawnableCars = parking.numberFreeSpots;
@@ -222,7 +235,7 @@ public class CarSpawner : MonoBehaviour
                         carData.isCar = true;
                         carData.isParking = true;
                         carData.parkingGateWay = paths[i][j].transform.position;
-                        carData.timeExitParking = (int)UnityEngine.Random.Range(15f, 500f);
+                        carData.timeExitParking = (int)UnityEngine.Random.Range(15f, numCarsToCreate / 10 < 15 ? 150f : numCarsToCreate / 10);
 
                         carData.followCar = followCar;
 
@@ -238,7 +251,8 @@ public class CarSpawner : MonoBehaviour
                     }
                     numParkings[i]--;
                 }
-                if ((!paths[i][j].isIntersection && !paths[i][j].isSemaphoreIntersection && !paths[i][j].isCurve && !paths[i][j].isLaneChange) &&
+                if (numCarsSpawnStreet[i] > 0 &&
+                    (!paths[i][j].isIntersection && !paths[i][j].isSemaphoreIntersection && !paths[i][j].isCurve && !paths[i][j].isLaneChange) &&
                     (!paths[i][(j + 1) % paths[i].Count].isIntersection && !paths[i][(j + 1) % paths[i].Count].isSemaphoreIntersection && !paths[i][(j + 1) % paths[i].Count].isCurve && !paths[i][(j + 1) % paths[i].Count].isLaneChange))
                 {
                     int sectionLength = (int)math.distance(paths[i][j].transform.position, paths[i][(j + 1) % paths[i].Count].transform.position);

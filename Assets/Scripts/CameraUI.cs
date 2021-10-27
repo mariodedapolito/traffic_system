@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Entities;
 using UnityEngine;
 
 public class CameraUI : MonoBehaviour
 {
-    
+
     // This is expressed in "units per second".
     public float speed = 1f;
     public float sensitivityFov = 0.5f;
@@ -19,10 +20,9 @@ public class CameraUI : MonoBehaviour
         followCar = cameraManager.GetComponent<CameraFollow>();
     }
 
-
     void Update()
     {
-
+        
         if (followCar.currentCameraIndex != 0) return;
 
         var fov = Camera.main.fieldOfView;
