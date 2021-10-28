@@ -74,6 +74,14 @@ public class ButtonUIHandler : MonoBehaviour
 
     public void UseEithan()
     {
+        if (!World.DefaultGameObjectInjectionWorld.GetExistingSystem<Unity.Rendering.RenderMeshSystemV2>().Enabled)
+        {
+            StopCoroutine(hideEnableGraphicsErrorText(5));
+            enableGraphicsErrorText.gameObject.SetActive(true);
+            StartCoroutine(hideEnableGraphicsErrorText(5));
+            return;
+        }
+
         GameObject cameraManager = GameObject.Find("CameraManager");
         CameraFollow followCar = cameraManager.GetComponent<CameraFollow>();
 
