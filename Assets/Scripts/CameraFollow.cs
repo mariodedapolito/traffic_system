@@ -48,12 +48,12 @@ public class CameraFollow : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (cars.Count == 0 || currentCameraIndex == 0) { return; }
+        if (cars.Count == 0 || currentCameraIndex == 0 || currentCameraIndex > 1) { return; }
 
         Translation carPos = manager.GetComponentData<Translation>(car);
         LocalToWorld carPosLocalToWorld = manager.GetComponentData<LocalToWorld>(car);
         Rotation carRot = manager.GetComponentData<Rotation>(car);
-        cameras[currentCameraIndex].transform.position = carPos.Value + offset*carPosLocalToWorld.Forward + new float3(0, offset.y, 0);
+        cameras[currentCameraIndex].transform.position = carPos.Value + offset * carPosLocalToWorld.Forward + new float3(0, offset.y, 0);
         //cameras[currentCameraIndex].transform.forward = carPosLocalToWorld.Forward;
 
         cameras[currentCameraIndex].transform.rotation = carRot.Value;
@@ -70,10 +70,12 @@ public class CameraFollow : MonoBehaviour
         currentCameraIndex = index;
 
         cameras[currentCameraIndex].gameObject.SetActive(true);
-        do
+        if (currentCameraIndex == 1)
         {
-            car = cars[UnityEngine.Random.Range(0, cars.Count - 1)];
-        } while (manager.GetComponentData<VehicleNavigation>(car).isParked);
-
+            do
+            {
+                car = cars[UnityEngine.Random.Range(0, cars.Count - 1)];
+            } while (manager.GetComponentData<VehicleNavigation>(car).isParked);
+        }
     }
 }
