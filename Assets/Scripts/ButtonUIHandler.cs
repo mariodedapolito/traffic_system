@@ -44,17 +44,18 @@ public class ButtonUIHandler : MonoBehaviour
 
         GameObject manageUIGO = GameObject.Find("ManageUI");
         ManageUI manageUI = cameraManager.GetComponent<ManageUI>();
+        
 
-        if (followCar.currentCameraIndex + 1 >= followCar.cameras.Length)
+        if (followCar.currentCameraIndex != 0)
         {
             followCar.SwitchCamera(0);
 
         }
         else
-        {
+        {            
             followCar.SwitchCamera(followCar.currentCameraIndex + 1);
         }
-
+        
     }
 
     public void MaxPerformance()
@@ -68,6 +69,21 @@ public class ButtonUIHandler : MonoBehaviour
         {
             enableGraphicsErrorText.gameObject.SetActive(false);
             graphicsStatusText.gameObject.SetActive(false);
+        }
+    }
+
+    public void UseEithan()
+    {
+        GameObject cameraManager = GameObject.Find("CameraManager");
+        CameraFollow followCar = cameraManager.GetComponent<CameraFollow>();
+
+        if (followCar.eitan.gameObject.activeInHierarchy) {
+            followCar.eitan.SetActive(false);
+            followCar.SwitchCamera(0);
+        } else
+        {
+            followCar.eitan.SetActive(true);
+            followCar.SwitchCamera(2);
         }
     }
 

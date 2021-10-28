@@ -19,6 +19,8 @@ public class CameraFollow : MonoBehaviour
     public GameObject manageUIGameObject;
     private ManageUI manageUI;
 
+    public GameObject eitan;
+
     private void Start()
     {
         cars = new List<Entity>();
@@ -38,6 +40,8 @@ public class CameraFollow : MonoBehaviour
 
         manageUI = manageUIGameObject.GetComponent<ManageUI>();
 
+        eitan = GameObject.Find("ThirdPersonController");
+        eitan.SetActive(false);
     }
 
     private void Awake()
@@ -70,7 +74,7 @@ public class CameraFollow : MonoBehaviour
         currentCameraIndex = index;
 
         cameras[currentCameraIndex].gameObject.SetActive(true);
-        if (currentCameraIndex == 1)
+        if (currentCameraIndex == 1 && cars.Count!=0)
         {
             do
             {
