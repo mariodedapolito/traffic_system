@@ -7,7 +7,7 @@ using Unity.Mathematics;
 using Unity.Jobs;
 
 
-public class CarSpawner : MonoBehaviour
+public class CarSpawner
 {
 
     public List<GameObject> carPrefab;
@@ -52,8 +52,6 @@ public class CarSpawner : MonoBehaviour
         {
             el.Dispose();
         }
-
-
     }
 
     public CarSpawner(List<GameObject> carPrefab, CityGenerator city, int numCarsToSpawn)
@@ -78,6 +76,8 @@ public class CarSpawner : MonoBehaviour
     public void generateTraffic()
     {
         if (numCarsToSpownNow == 0) return;
+
+        int numberCarsToSpawnValue = numCarsToSpownNow;
 
         int numCarPrefabs = carPrefab.Count;
 
@@ -196,6 +196,8 @@ public class CarSpawner : MonoBehaviour
             }
         }
 
+        int numCarsSpawned = 0;
+
         //Now spawn cars
         for (int i = 0; i < numPathsToCreate; i++)
         {
@@ -224,7 +226,7 @@ public class CarSpawner : MonoBehaviour
                         Vector3 spawnPosition = parking.freeParkingSpots[k].transform.position;
                         Quaternion spawnRotation = Quaternion.Euler(0, ReturnRotationCar(paths[i][j]), 0);
 
-                        GameObject spawnedCar = Instantiate(carToSpawn, spawnPosition, spawnRotation);
+                        GameObject spawnedCar = GameObject.Instantiate(carToSpawn, spawnPosition, spawnRotation) as GameObject;
 
                         CarComponents carData = spawnedCar.GetComponent<CarComponents>();
 
@@ -244,6 +246,7 @@ public class CarSpawner : MonoBehaviour
                         parking.numberFreeSpots--;
                         numCarsSpawnParked[i]--;
                         actualCarsSpawnedInParking++;
+                        numCarsSpawned++;
                         if (actualCarsSpawnedInParking >= targetCarsToSpawnParked)
                         {
                             break;
@@ -268,7 +271,7 @@ public class CarSpawner : MonoBehaviour
                             Quaternion spawnRotation = Quaternion.Euler(0, ReturnRotationCar(paths[i][j]), 0);
                             GameObject carToSpawn = carPrefab[UnityEngine.Random.Range(0, numCarPrefabs)];
 
-                            GameObject spawnedCar = Instantiate(carToSpawn, spawnPosition, spawnRotation);
+                            GameObject spawnedCar = GameObject.Instantiate(carToSpawn, spawnPosition, spawnRotation) as GameObject;
 
                             CarComponents carData = spawnedCar.GetComponent<CarComponents>();
 
@@ -286,6 +289,7 @@ public class CarSpawner : MonoBehaviour
                             numCarsSpawnStreet[i]--;
                             spawnedCarsPosition.Add(GetPositionHashMapKey(spawnPosition), true);
                             actualCarsSpawnedInSection++;
+                            numCarsSpawned++;
                             if (actualCarsSpawnedInSection >= targetCarsToSpawnInSection)
                             {
                                 break;
@@ -302,8 +306,17 @@ public class CarSpawner : MonoBehaviour
             }
         }
 
-
         city.cityParkingNodes.AddRange(tmpDstNodes);
+
+        if(numCarsSpawned< numberCarsToSpawnValue - 50)
+        {
+            city.numberCarsToSpawn = numCarsSpawned;
+            city.numberCarsToSpawnLimited = true;
+        }
+        else
+        {
+            city.numberCarsToSpawnLimited = false;
+        }
 
     }
 

@@ -40,7 +40,7 @@ public class CameraFollow : MonoBehaviour
 
         manageUI = manageUIGameObject.GetComponent<ManageUI>();
 
-        eitan = GameObject.Find("ThirdPersonController");
+        eitan = GameObject.Find("Eitan");
         eitan.SetActive(false);
     }
 

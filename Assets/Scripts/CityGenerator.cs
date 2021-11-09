@@ -188,6 +188,9 @@ public class CityGenerator : MonoBehaviour
 
     private BusSpawner busSpawner;
 
+    public bool numberCarsToSpawnLimited;
+    public bool numberBusesToSpawnLimited;
+
     public NativeMultiHashMap<int, float3> nodesCity;
     private NativeArray<float3> waypoitnsCity;
 
@@ -553,10 +556,6 @@ public class CityGenerator : MonoBehaviour
         cityStreetConnector();
 
 
-        /* ----- UI ----- */
-        ManageUI manageUI = GameObject.Find("ManageUI").GetComponent<ManageUI>();
-        manageUI.numberOfCars = numberCarsToSpawn;
-
         //Spawn cars
         carSpawner = new CarSpawner(carPrefab, this, numberCarsToSpawn);
 
@@ -566,6 +565,13 @@ public class CityGenerator : MonoBehaviour
 
         carSpawner.generateTraffic();
         busSpawner.generateBuses();
+
+        /* ----- UI ----- */
+        ManageUI manageUI = GameObject.Find("ManageUI").GetComponent<ManageUI>();
+        manageUI.numberOfCars = numberCarsToSpawn;
+        manageUI.numberOfCarsLimited = numberCarsToSpawnLimited;
+        manageUI.numberOfBuses = numberBusesToSpawn;
+        manageUI.numberOfBusesLimited = numberBusesToSpawnLimited;
 
         foreach (Node n in cityParkingNodes)
         {
@@ -580,8 +586,7 @@ public class CityGenerator : MonoBehaviour
             Destroy(n.gameObject);
         }
 
-        //Used for the path 
-        //GenerateArrayForCars();
+        Debug.Log("<b><color=green>SIMULATION STARTED</color></b>");
     }
 
     private int[] generateVerticalStreetsNumber()

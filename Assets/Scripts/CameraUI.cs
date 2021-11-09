@@ -15,7 +15,6 @@ public class CameraUI : MonoBehaviour
     CameraFollow followCar;
     private void Start()
     {
-        followCar = new CameraFollow();
         GameObject cameraManager = GameObject.Find("CameraManager");
         followCar = cameraManager.GetComponent<CameraFollow>();
     }

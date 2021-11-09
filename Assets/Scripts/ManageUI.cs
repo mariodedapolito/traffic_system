@@ -16,6 +16,9 @@ public class ManageUI : MonoBehaviour
     public Text averageFPSText;
     public Text instantaneousFPSText;
 
+    public Text busSpawnInfoText;
+    public Text carSpawnInfoText;
+
     private int _numberOfCars;
     private int _numberOfBuses;
     private double _time;
@@ -40,9 +43,24 @@ public class ManageUI : MonoBehaviour
     public float averageFPS { get { return _averageFPS; } set { _averageFPS = value; averageFPSText.text = string.Format("{0}", Mathf.Ceil(averageFPS).ToString()); } }
     public float instantaneousFPS { get { return _instantaneousFPS; } set { _instantaneousFPS = value; instantaneousFPSText.text = string.Format("{0}", Mathf.Ceil(instantaneousFPS).ToString()); } }
 
+    public bool numberOfCarsLimited;
+    public bool numberOfBusesLimited;
+
     private void Start()
     {
         manageUI = GameObject.Find("ManageUI").GetComponent<ManageUI>();
+        if (numberOfCarsLimited)
+        {
+            carSpawnInfoText.text = "• 	Number of spawned cars was limited to " + numberOfCars + " cars by the size of the city.";
+            carSpawnInfoText.gameObject.SetActive(true);
+            StartCoroutine(hideCarSpawnInfoText(20));
+        }
+        if (numberOfBusesLimited)
+        {
+            busSpawnInfoText.text = "• 	Number of spawned buses was limited to " + numberOfBuses + " buses by the total number of bus stops in the city.";
+            busSpawnInfoText.gameObject.SetActive(true);
+            StartCoroutine(hideBusSpawnInfoText(20));
+        }
     }
 
     private void Awake()
@@ -76,5 +94,17 @@ public class ManageUI : MonoBehaviour
         this.numberOfCarsOnStreet = manageUI.numberOfCarsOnStreet;
         this.averageFPS = manageUI.averageFPS;
         this.instantaneousFPS = manageUI.instantaneousFPS;
+    }
+
+    IEnumerator hideCarSpawnInfoText(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        carSpawnInfoText.gameObject.SetActive(false);
+    }
+
+    IEnumerator hideBusSpawnInfoText(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        busSpawnInfoText.gameObject.SetActive(false);
     }
 }
